@@ -12,7 +12,7 @@
 	<artifactId>thuanthanhland</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>thuanthanhland</name>
-	<description>ThuanThanhLand-Project</description>
+	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
