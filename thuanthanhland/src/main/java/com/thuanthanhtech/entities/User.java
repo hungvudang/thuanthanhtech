@@ -2,6 +2,7 @@ package com.thuanthanhtech.entities;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,23 +16,38 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Column(name = "name", columnDefinition = "VARCHAR(255) NOT NULL")
 	private String name;
+
+	@Column(name = "email", columnDefinition = "VARCHAR(255) NOT NULL")
 	private String email;
+
+	@Column(name = "role", columnDefinition = "TINYINT(1) DEFAULT 0")
 	private Integer role;
+
+	@Column(name = "address")
 	private String address;
+
+	@Column(name = "password", columnDefinition = "VARCHAR(255) NOT NULL")
 	private String password;
+
+	@Column(name = "phone", columnDefinition = "VARCHAR(20) NOT NULL")
 	private String phone;
+
+	@Column(name = "avatar")
 	private String avatar;
+
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
-	
+
 	public User() {
 		super();
 	}
 
-	public User(String name, String email, Integer role, String address, String password, String phone, String avatar,
-			LocalDateTime created_at, LocalDateTime updated_at) {
+	public User(Integer id, String name, String email, Integer role, String address, String password, String phone,
+			String avatar, LocalDateTime created_at, LocalDateTime updated_at) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.role = role;
@@ -122,17 +138,15 @@ public class User {
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
-	
+
 	@PrePersist
 	public void prePersist() {
 		this.created_at = LocalDateTime.now();
 	}
-	
+
 	@PreUpdate
 	public void preUpdate() {
 		this.updated_at = LocalDateTime.now();
 	}
-	
-	
-	
+
 }
