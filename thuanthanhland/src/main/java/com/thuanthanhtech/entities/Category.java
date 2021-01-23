@@ -147,6 +147,13 @@ public class Category {
 	public void preUpdate() {
 		this.updated_at = LocalDateTime.now();
 	}
+
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", name=" + name + ", title=" + title + ", slug=" + slug + ", parent_id="
+				+ parent_id + ", hot=" + hot + ", _public=" + _public + ", created_at=" + created_at + ", updated_at="
+				+ updated_at + ", news=" + news + "]";
+	}
 	
 	
 	
