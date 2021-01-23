@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 3 | Tin tức</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+    <!-- Ekko Lightbox -->
+    <link rel="stylesheet" href="../plugins/ekko-lightbox/ekko-lightbox.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+
+    <!-- summernote -->
+    <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light" th:fragment="navbar">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="index3.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>
+
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">News</a>
+                </li>
+
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Projects</a>
+                </li>
+            </ul>
+
+            <!-- SEARCH FORM -->
+            <form class="form-inline ml-auto">
+                <div class="input-group input-group-sm">
+                    <input class="form-control form-control-navbar" type="search" placeholder="Search"
+                        aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-navbar" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4" th:fragment="sidebar">
+            <!-- Brand Logo -->
+            <a href="../index.html" class="brand-link">
+                <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                    style="opacity: .8">
+                <span class="brand-text font-weight-light">AdminLTE 3</span>
+            </a>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">Alexander Pierce</a>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                   with font-awesome or any other icon font library -->
+
+                        <!-- Dashboard -->
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="../index.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Dashboard v1</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- /.Dashboard -->
+
+                        <!-- Dự án -->
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-building"></i>
+                                <p>
+                                    Dự án
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tất cả dự án</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- /.Dự án -->
+
+                        <!-- Tin tức -->
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-newspaper"></i>
+                                <p>
+                                    Tin tức
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Loại tin tức</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tất cả tin tức</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- /.Tin tức -->
+
+                        <!-- Người dùng -->
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Tài khoản
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tất cả tài khoản</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- /.Người dùng -->
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Tin tức</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Tin tức</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <div class="container-fluid">
+                <div class="row m-sm-3">
+                    <div class="col-md-7 col-sm-12">
+                        <form>
+                            <!-- Name Input -->
+
+                            <div class="form-group">
+                                <label for="exampleFormControlInput2">Name</label>
+                                <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="">
+                            </div>
+
+                            <!-- Title Input -->
+
+                            <div class="form-group">
+                                <label for="exampleFormControlInput3">Title</label>
+                                <input type="text" class="form-control" id="exampleFormControlInput3" placeholder="">
+                            </div>
+
+                            <!-- Slug Input -->
+
+                            <div class="form-group">
+                                <label for="exampleFormControlInput4">Slug</label>
+                                <input type="text" class="form-control" id="exampleFormControlInput4" placeholder="">
+                            </div>
+
+                            <!-- Select Category -->
+
+                            <div class="form-group">
+                                <label for="inputCategory">Category</label>
+                                <select class="form-control custom-select">
+                                    <option>Căn hộ</option>
+                                    <option>Chung cư</option>
+                                    <option selected>Village</option>
+                                </select>
+                            </div>
+
+                            <!-- Public Input -->
+
+                            <fieldset class="form-group">
+                                <div class="row">
+                                    <label class="col-form-label col-sm-2 pt-0">Type</label>
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                                id="gridRadios1" value="0" checked>
+                                            <label class="form-check-label lead text-sm" for="gridRadios1">
+                                                Public
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios"
+                                                id="gridRadios2" value="1">
+                                            <label class="form-check-label lead text-sm" for="gridRadios2">
+                                                Private
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <!-- Hot Input -->
+
+                            <fieldset class="form-group">
+                                <div class="row">
+                                    <label class="col-form-label col-sm-2 pt-0">Hot</label>
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadiosHot"
+                                                id="gridRadiosHot1" value="0" checked>
+                                            <label class="form-check-label lead text-sm" for="gridRadiosHot1">
+                                                No
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadiosHot"
+                                                id="gridRadiosHot2" value="1">
+                                            <label class="form-check-label lead text-sm" for="gridRadiosHot2">
+                                                Yes
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <!-- Content Input -->
+                            <div class="form-group">
+                                <label for="inputContent">Content</label> <br>
+                                <textarea rows="2" style="width: 100%;" placeholder=""></textarea>
+                            </div>
+
+                            <!-- Description Input -->
+                            <div class="form-group">
+                                <label for="inputDescription">Description</label>
+                                <textarea class="textarea" placeholder=""></textarea>
+                            </div>
+                            <!-- Buuton Summit -->
+                            <a class="btn btn-primary float-right" href="./news.html">Hủy bỏ</a>
+                            <button type="submit" class="float-right btn btn-success mr-2">Tạo</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-block">
+                <b>Version</b> 3.0.5
+            </div>
+            <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
+            reserved.
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Ekko Lightbox -->
+    <script src="../plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../dist/js/demo.js"></script>
+    <!-- Filterizr-->
+    <script src="../plugins/filterizr/jquery.filterizr.min.js"></script>
+    <!-- Page specific script -->
+    <script>
+        $(function () {
+            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox({
+                    alwaysShowClose: true
+                });
+            });
+
+            $('.filter-container').filterizr({ gutterPixels: 3 });
+            $('.btn[data-filter]').on('click', function () {
+                $('.btn[data-filter]').removeClass('active');
+                $(this).addClass('active');
+            });
+        })
+    </script>
+
+    <!-- Summernote -->
+    <script src="../plugins/summernote/summernote-bs4.min.js"></script>
+    <script>
+        $(function () {
+            // Summernote
+            $('.textarea').summernote()
+        })
+    </script>
+</body>
+
+</html>
