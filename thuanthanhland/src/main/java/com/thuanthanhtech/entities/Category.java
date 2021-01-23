@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,37 +15,40 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "categories")
 public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "name")
 	private String name;
-	
-	@Column(columnDefinition = "varchar(255) not null" ,name = "title")
+
+	@Column(columnDefinition = "varchar(255) not null", name = "title")
 	private String title;
-	
+
 	@Column(name = "slug")
 	private String slug;
-	
+
 	@Column(name = "parent_id")
 	private Integer parent_id;
-	
+
 	@Column(name = "hot", columnDefinition = "TINYINT(1) DEFAULT 0")
 	private Integer hot;
-	
+
 	@Column(name = "public", columnDefinition = "TINYINT(1) DEFAULT 1")
 	private Integer _public;
-	
+
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
-	
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-	private Collection<News> news;
-	
+
+	@OneToMany(targetEntity = News.class, mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Collection<News> newses;
+
 	public Category() {
 		super();
 	}
@@ -134,29 +138,23 @@ public class Category {
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
-	
-	
-	
-	
+
 	@PrePersist
 	public void prePersist() {
 		this.created_at = LocalDateTime.now();
 	}
-	
+
 	@PreUpdate
 	public void preUpdate() {
 		this.updated_at = LocalDateTime.now();
 	}
 
-	@Override
-	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", title=" + title + ", slug=" + slug + ", parent_id="
-				+ parent_id + ", hot=" + hot + ", _public=" + _public + ", created_at=" + created_at + ", updated_at="
-				+ updated_at + ", news=" + news + "]";
+	public Collection<News> getNewses() {
+		return newses;
 	}
-	
-	
-	
-	
-	
+
+	public void setNewses(Collection<News> newses) {
+		this.newses = newses;
+	}
+
 }

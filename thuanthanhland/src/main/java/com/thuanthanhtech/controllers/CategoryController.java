@@ -91,8 +91,6 @@ public class CategoryController {
 	
 	@GetMapping("/delete/{id}")
 	public String deleteCategory(@PathVariable("id") Integer id) {
-		
-		System.out.println(id);
 		Optional<Category> opCategory = cRepository.findById(id);
 		if(opCategory.isPresent()) {
 			cRepository.deleteById(id);

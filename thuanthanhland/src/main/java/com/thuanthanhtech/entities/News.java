@@ -13,6 +13,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 @Entity
 @Table(name = "news")
 
@@ -37,7 +40,9 @@ public class News {
 	private String content;
 
 	@ManyToOne
-	@JoinColumn(name = "category_id")
+	@JoinColumn(name = "category_id", referencedColumnName = "id", insertable = false, updatable = false)
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
 	private Category category;
 
 	@Column(name = "hot", columnDefinition = "TINYINT(4) DEFAULT 0")
@@ -156,7 +161,7 @@ public class News {
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
-
+	
 	@PrePersist
 	public void prePersist() {
 		this.created_at = LocalDateTime.now();
