@@ -1,7 +1,7 @@
 package com.thuanthanhtech.entities;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "categories")
@@ -36,35 +34,21 @@ public class Category {
 	@Column(name = "parent_id")
 	private Integer parent_id;
 
-	@Column(name = "hot", columnDefinition = "TINYINT(1) DEFAULT 0")
+	@Column(name = "hot", columnDefinition = "TINYINT(4) DEFAULT 0")
 	private Integer hot;
 
-	@Column(name = "public", columnDefinition = "TINYINT(1) DEFAULT 1")
-	private Integer _public;
+	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")
+	private Integer pub;
 
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
+	
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "category", targetEntity = News.class)
+	List<News> newses;
 
-	@OneToMany(targetEntity = News.class, mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnore
-	private Collection<News> newses;
 
 	public Category() {
-		super();
-	}
-
-	public Category(Integer id, String name, String title, String slug, Integer parent_id, Integer hot, Integer _public,
-			LocalDateTime created_at, LocalDateTime updated_at) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.title = title;
-		this.slug = slug;
-		this.parent_id = parent_id;
-		this.hot = hot;
-		this._public = _public;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
 	}
 
 	public Integer getId() {
@@ -115,12 +99,12 @@ public class Category {
 		this.hot = hot;
 	}
 
-	public Integer getPublic() {
-		return _public;
+	public Integer getPub() {
+		return pub;
 	}
 
-	public void setPublic(Integer _public) {
-		this._public = _public;
+	public void setPub(Integer pub) {
+		this.pub = pub;
 	}
 
 	public LocalDateTime getCreated_at() {
@@ -138,7 +122,19 @@ public class Category {
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
+	
+	public List<News> getNewses() {
+		return newses;
+	}
 
+	public void setNewses(List<News> newses) {
+		this.newses = newses;
+		
+		for (News n : newses) {
+			n.setCategory(this);
+		}
+	}
+	
 	@PrePersist
 	public void prePersist() {
 		this.created_at = LocalDateTime.now();
@@ -149,12 +145,14 @@ public class Category {
 		this.updated_at = LocalDateTime.now();
 	}
 
-	public Collection<News> getNewses() {
-		return newses;
-	}
 
-	public void setNewses(Collection<News> newses) {
-		this.newses = newses;
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", name=" + name + ", title=" + title + ", slug=" + slug + ", parent_id="
+				+ parent_id + ", hot=" + hot + ", public=" + pub + ", created_at=" + created_at + ", updated_at="
+				+ updated_at + "]";
 	}
+	
+	
 
 }

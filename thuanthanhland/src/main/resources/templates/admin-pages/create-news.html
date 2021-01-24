@@ -91,9 +91,11 @@
 
 							<div class="form-group">
 								<label for="inputCategory">Category</label> 
-								<select name="typeCategory" class="form-control custom-select">
-									<option th:each="c : ${categories}" th:value="${c.id}"
-										th:utext="${c.title}"></option>
+								<select name="typeCategory" class="form-control custom-select" th:field="*{category}">
+								<th:block th:each="c : ${categories}"> 
+									<option th:value="${c.id}" th:utext="${c.title}"></option>
+								</th:block>
+									
 								</select>
 							</div>
 
@@ -104,13 +106,13 @@
 									<label class="col-form-label col-sm-2 pt-0">Type</label>
 									<div class="col-sm-10">
 										<div class="form-check">
-											<input class="form-check-input" type="radio"
-												name="gridRadiosPublic" id="gridRadios1" value="0" checked>
+											<input th:field="*{pub}" class="form-check-input" type="radio"
+												name="gridRadiosPublic" id="gridRadios1" value="0">
 											<label class="form-check-label lead text-sm"
 												for="gridRadios1"> Public </label>
 										</div>
 										<div class="form-check">
-											<input class="form-check-input" type="radio"
+											<input th:field="*{pub}" class="form-check-input" type="radio"
 												name="gridRadiosPublic" id="gridRadios2" value="1">
 											<label class="form-check-label lead text-sm"
 												for="gridRadios2"> Private </label>
@@ -125,14 +127,14 @@
 								<div class="row">
 									<label class="col-form-label col-sm-2 pt-0">Hot</label>
 									<div class="col-sm-10">
-										<div class="form-check">
-											<input class="form-check-input" type="radio"
-												name="gridRadiosHot" id="gridRadiosHot1" value="0" checked>
+										<div class="form-check" >
+											<input th:field="*{hot}" class="form-check-input" type="radio"
+												name="gridRadiosHot" id="gridRadiosHot1" value="0">
 											<label class="form-check-label lead text-sm"
 												for="gridRadiosHot1"> No </label>
 										</div>
 										<div class="form-check">
-											<input class="form-check-input" type="radio"
+											<input th:field="*{hot}" class="form-check-input" type="radio"
 												name="gridRadiosHot" id="gridRadiosHot2" value="1">
 											<label class="form-check-label lead text-sm"
 												for="gridRadiosHot2"> Yes </label>

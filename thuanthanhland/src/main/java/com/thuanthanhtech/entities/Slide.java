@@ -30,7 +30,7 @@ public class Slide {
 	@Column(name = "sort", columnDefinition = "INT NOT NULL UNIQUE")
 	private Integer sort;
 	
-	@Column(name = "public", columnDefinition = "TINYINT DEFAULT 1")
+	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")
 	private Integer _public;
 	
 	private LocalDateTime created_at;

@@ -2,6 +2,7 @@ package com.thuanthanhtech.entities;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,9 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 @Entity
 @Table(name = "news")
@@ -39,38 +37,20 @@ public class News {
 	@Column(name = "content", columnDefinition = "TEXT NOT NULL")
 	private String content;
 
-	@ManyToOne
-	@JoinColumn(name = "category_id", referencedColumnName = "id", insertable = false, updatable = false)
-	@EqualsAndHashCode.Exclude
-	@ToString.Exclude
+	@ManyToOne(targetEntity = Category.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private Category category;
 
 	@Column(name = "hot", columnDefinition = "TINYINT(4) DEFAULT 0")
 	private Integer hot;
 
 	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")
-	private Integer _public;
+	private Integer pub;
 
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
 
 	public News() {
-		super();
-	}
-
-	public News(Integer id, String name, String title, String slug, String description, String content, Integer hot,
-			Integer _public, LocalDateTime created_at, LocalDateTime updated_at) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.title = title;
-		this.slug = slug;
-		this.description = description;
-		this.content = content;
-		this.hot = hot;
-		this._public = _public;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
 	}
 
 	public Integer getId() {
@@ -120,8 +100,7 @@ public class News {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	
+
 	public Category getCategory() {
 		return category;
 	}
@@ -138,12 +117,12 @@ public class News {
 		this.hot = hot;
 	}
 
-	public Integer get_public() {
-		return _public;
+	public Integer getPub() {
+		return pub;
 	}
 
-	public void set_public(Integer _public) {
-		this._public = _public;
+	public void setPub(Integer pub) {
+		this.pub = pub;
 	}
 
 	public LocalDateTime getCreated_at() {
@@ -161,6 +140,7 @@ public class News {
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
+	
 	
 	@PrePersist
 	public void prePersist() {

@@ -22,7 +22,7 @@ public class User {
 	@Column(name = "email", columnDefinition = "VARCHAR(255) NOT NULL")
 	private String email;
 
-	@Column(name = "role", columnDefinition = "TINYINT(1) DEFAULT 0")
+	@Column(name = "role", columnDefinition = "TINYINT(4) DEFAULT 0")
 	private Integer role;
 
 	@Column(name = "address")

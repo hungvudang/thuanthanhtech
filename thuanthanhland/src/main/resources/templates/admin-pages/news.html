@@ -80,10 +80,10 @@
 									<td th:utext="${n.name}"></td>
 									<td>
 									
-									<i th:if="${n._public}" class="fas fa-circle"
+									<i th:if="${n.pub == 0}" class="fas fa-circle"
 										style="color: green;"></i>
 										
-									<i th:unless="${n._public}" class="fas fa-circle"
+									<i th:if="${n.pub == 1}" class="fas fa-circle"
 										style="color: yellow;"></i>
 									</td>
 									<td>
