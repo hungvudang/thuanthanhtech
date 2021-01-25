@@ -40,7 +40,7 @@ public class News {
 	@Column(name = "image", columnDefinition = "TEXT")
 	private String image;
 	
-	@ManyToOne(targetEntity = Category.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = Category.class, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private Category category;
 

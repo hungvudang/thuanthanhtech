@@ -59,21 +59,21 @@
 			<div class="container-fluid">
 				<div class="row m-sm-3">
 					<div class="col-md-7 col-sm-12">
-						<form th:action="@{/news/update}" th:method="post"
+						<form th:action="@{'/news/update' + ${news.id}}" th:method="post"
 							th:object="${news}">
 							
 							<!-- ID Input -->
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label for="exampleFormControlInput1">ID</label> <input
 									th:field="*{id}" type="text" class="form-control"
 									id="exampleFormControlInput1" placeholder="" readonly>
-							</div>
+							</div> -->
 							
 
 							<!-- Name Input -->
 
 							<div class="form-group">
-								<label for="exampleFormControlInput2">Name</label> <input
+								<label for="exampleFormControlInput2">Tên bài viết</label> <input
 									th:field="*{name}" type="text" class="form-control"
 									id="exampleFormControlInput2" placeholder="">
 							</div>
@@ -81,7 +81,7 @@
 							<!-- Title Input -->
 
 							<div class="form-group">
-								<label for="exampleFormControlInput3">Title</label> <input
+								<label for="exampleFormControlInput3">Tiêu đề</label> <input
 									th:field="*{title}" type="text" class="form-control"
 									id="exampleFormControlInput3" placeholder="">
 							</div>
@@ -91,13 +91,13 @@
 							<div class="form-group">
 								<label for="exampleFormControlInput4">Slug</label> <input
 									th:field="*{slug}" type="text" class="form-control"
-									id="exampleFormControlInput4" placeholder="">
+									id="exampleFormControlInput4" placeholder="" readonly>
 							</div>
 
 							<!-- Select Category -->
 
 							<div class="form-group">
-								<label for="inputCategory">Category</label> <select
+								<label for="inputCategory">Danh mục</label> <select
 									class="form-control custom-select" th:field="*{category}">
 									<th:block th:each="c : ${categories}">
 										<option th:value="${c.id}"th:utext="${c.title}"></option>
@@ -110,19 +110,19 @@
 
 							<fieldset class="form-group">
 								<div class="row">
-									<label class="col-form-label col-sm-2 pt-0">Type</label>
+									<label class="col-form-label col-sm-2 pt-0">Trạng thái</label>
 									<div class="col-sm-10">
 										<div class="form-check">
 											<input th:field="*{pub}" class="form-check-input" type="radio"
 												name="gridRadiosPublic" id="gridRadiosPublic1" value="0"> <label
 												class="form-check-label lead text-sm" for="gridRadiosPublic1">
-												Public </label>
+												Hiện thị </label>
 										</div>
 										<div class="form-check">
 											<input th:field="*{pub}" class="form-check-input" type="radio"
 												name="gridRadiosPublic" id="gridRadiosPublic2" value="1"> <label
 												class="form-check-label lead text-sm" for="gridRadiosPublic2">
-												Private </label>
+												Ẩn </label>
 										</div>
 									</div>
 								</div>
@@ -132,33 +132,33 @@
 
 							<fieldset class="form-group">
 								<div class="row">
-									<label class="col-form-label col-sm-2 pt-0">Hot</label>
+									<label class="col-form-label col-sm-2 pt-0">Tin nổi bật</label>
 									<div class="col-sm-10">
 										<div class="form-check">
 											<input th:field="*{hot}" class="form-check-input" type="radio"
 												name="gridRadiosHot" id="gridRadiosHot1" value="0">
 											<label class="form-check-label lead text-sm"
-												for="gridRadiosHot1"> No </label>
+												for="gridRadiosHot1"> Không </label>
 										</div>
 										<div class="form-check">
 											<input th:field="*{hot}" class="form-check-input" type="radio"
 												name="gridRadiosHot" id="gridRadiosHot2" value="1">
 											<label class="form-check-label lead text-sm"
-												for="gridRadiosHot2"> Yes </label>
+												for="gridRadiosHot2"> Có </label>
 										</div>
 									</div>
 								</div>
 							</fieldset>
 							<!-- Content Input -->
 							<div class="form-group">
-								<label for="inputContent">Content</label> <br>
+								<label for="inputContent">Nội dung</label> <br>
 								<textarea th:field="*{content}" rows="2" style="width: 100%;"
 									placeholder=""></textarea>
 							</div>
 
 							<!-- Description Input -->
 							<div class="form-group">
-								<label for="inputDescription">Description</label>
+								<label for="inputDescription">Mô tả</label>
 								<textarea th:field="*{description}" class="textarea"
 									placeholder=""></textarea>
 							</div>
