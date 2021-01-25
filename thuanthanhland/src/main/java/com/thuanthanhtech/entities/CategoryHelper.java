@@ -23,7 +23,7 @@ public class CategoryHelper {
 				String name = rank + categories.get(i).getName();
 				root.add(new RootCategory(id, name, parent_id));
 				visited.set(i, true);
-				recusive_categories(categories, visited, categories.get(i).getId(), rank + "---",root);
+				recusive_categories(categories, visited, categories.get(i).getId(), rank + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",root);
 			}
 		}
 	}
