@@ -19,7 +19,7 @@ import com.thuanthanhtech.repositories.NewsRepository;
 
 @Controller
 @RequestMapping("/news")
-public class NewsController {
+public class NewsAdminController {
 
 	@Autowired
 	private NewsRepository nRepository;
@@ -50,7 +50,7 @@ public class NewsController {
 		if (news.getName().isEmpty() || news.getTitle().isEmpty() || news.getContent().isEmpty()
 				|| news.getDescription().isEmpty() || news.getCategory() == null) {
 
-			return "redirect:/news";
+			return "redirect:/news/create";
 		}
 		
 		Optional<Category> opCategory = cRepository.findById(news.getCategory().getId());

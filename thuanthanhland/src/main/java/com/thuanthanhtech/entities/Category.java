@@ -39,7 +39,10 @@ public class Category {
 
 	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")
 	private Integer pub;
-
+	
+	@Column(name = "sort")
+	private Integer sort;
+	
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
 	
@@ -105,6 +108,15 @@ public class Category {
 
 	public void setPub(Integer pub) {
 		this.pub = pub;
+	}
+
+	
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
 	}
 
 	public LocalDateTime getCreated_at() {

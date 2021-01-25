@@ -17,7 +17,7 @@ import com.thuanthanhtech.repositories.CategoryRepository;
 
 @Controller
 @RequestMapping("/category")
-public class CategoryController {
+public class CategoryAdminController {
 
 	@Autowired
 	private CategoryRepository cRepository;
@@ -41,9 +41,10 @@ public class CategoryController {
 	@PostMapping("/save")
 	public String saveCategory(@ModelAttribute("category") Category category) {
 
-		if (!category.getTitle().isBlank() || !category.getTitle().isEmpty()) {
-			cRepository.save(category);
+		if (category.getTitle().isBlank() || category.getTitle().isEmpty()) {
+			return "redirect:/category/create";
 		}
+		cRepository.save(category);
 		return "redirect:/category";
 	}
 
@@ -64,9 +65,9 @@ public class CategoryController {
 		if (category.getName().isBlank() || category.getName().isEmpty()) {
 			return "redirect:/category/detail/" + category.getId();
 		}
-		
+
 		Category nCategory = cRepository.findById(category.getId()).get();
-		
+
 		nCategory.setId(category.getId());
 		nCategory.setName(category.getName());
 		nCategory.setTitle(category.getTitle());
@@ -74,8 +75,7 @@ public class CategoryController {
 		nCategory.setSlug(category.getSlug());
 		nCategory.setHot(category.getHot());
 		nCategory.setPub(category.getPub());
-	
-		
+
 		cRepository.save(nCategory);
 		return "redirect:/category";
 	}
@@ -87,5 +87,17 @@ public class CategoryController {
 			cRepository.deleteById(id);
 		}
 		return "redirect:/category";
+	}
+
+	public static void recusive_categories(List<Category> categories, List<Boolean> visited, Integer parent_id,
+			String level, List<String> root) {
+		for (int i = 0; i < categories.size(); i++) {
+			if ((visited.get(i) == false) && (categories.get(i).getParent_id() == parent_id)) {
+//				System.out.println(level + categories.get(i).getName());
+				root.add(level + categories.get(i).getName());
+				visited.set(i, true);
+				recusive_categories(categories, visited, categories.get(i).getId(), level + "---", root);
+			}
+		}
 	}
 }
