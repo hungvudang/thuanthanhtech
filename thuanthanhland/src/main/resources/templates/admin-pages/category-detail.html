@@ -83,7 +83,7 @@
 									name="typeCategory" class="form-control custom-select"
 									th:field="*{parent_id}">
 									<th:block th:each="rc : ${root_categories}">
-										<th:block th:if="*{id} != ${rc.id} and *{id} != ${rc.parent_id}" >
+										<th:block th:if="*{id} != ${rc.id}" >
 											<option th:value="${rc.id}" th:utext="${rc.name}"></option>
 										</th:block>
 									</th:block>

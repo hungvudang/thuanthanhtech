@@ -1,19 +1,25 @@
 package com.thuanthanhtech.entities;
 
-public class RootCategory {
+import java.io.Serializable;
+
+public class RootCategory implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Integer id;
 	private String name;
-	private Integer parent_id;
 
 	public RootCategory() {
 		super();
 	}
 
-	public RootCategory(Integer id, String name, Integer parent_id) {
+	public RootCategory(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.parent_id = parent_id;
 	}
 
 	public Integer getId() {
@@ -32,14 +38,16 @@ public class RootCategory {
 		this.name = name;
 	}
 
-	public Integer getParent_id() {
-		return parent_id;
-	}
+	@Override
+	public boolean equals(Object o) {
 
-	public void setParent_id(Integer parent_id) {
-		this.parent_id = parent_id;
+		if (o instanceof RootCategory) {
+			RootCategory rc = (RootCategory) o;
+			if (this.id == rc.id)
+				return true;
+		}
+		
+		return false;
+		
 	}
-	
-	
-
 }

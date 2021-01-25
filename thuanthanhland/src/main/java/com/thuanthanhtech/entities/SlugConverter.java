@@ -1,4 +1,4 @@
-package com.thuanthanhtech.controllers;
+package com.thuanthanhtech.entities;
 
 import java.text.Normalizer;
 import java.util.regex.Pattern;

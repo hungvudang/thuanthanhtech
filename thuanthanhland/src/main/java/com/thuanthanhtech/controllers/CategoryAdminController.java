@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.thuanthanhtech.entities.Category;
 import com.thuanthanhtech.entities.CategoryHelper;
 import com.thuanthanhtech.entities.RootCategory;
+import com.thuanthanhtech.entities.SlugConverter;
 import com.thuanthanhtech.repositories.CategoryRepository;
 
 @Controller
@@ -46,14 +47,14 @@ public class CategoryAdminController {
 		List<Boolean> visited = null;
 
 		List<RootCategory> root = new ArrayList<RootCategory>();
-		root.add(new RootCategory(0, "--- Danh mục gốc ---", 0));
+		root.add(new RootCategory(0, "--- Danh mục gốc ---"));
 
 		if (!categories.isEmpty()) {
 			visited = new ArrayList<Boolean>();
 			for (int i = 0; i < categories.size(); i++) {
 				visited.add(false);
 			}
-			CategoryHelper.getInstant().recusive_categories(categories, visited, 0, "", root);
+			CategoryHelper.recursive_categories(categories, visited, 0, "", root);
 		}
 		// ===================================================================================
 
@@ -90,17 +91,28 @@ public class CategoryAdminController {
 			List<Boolean> visited = null;
 
 			List<RootCategory> root = new ArrayList<RootCategory>();
-			root.add(new RootCategory(0, "--- Danh mục gốc ---", 0));
+			root.add(new RootCategory(0, "--- Danh mục gốc ---"));
 
 			if (!categories.isEmpty()) {
 				visited = new ArrayList<Boolean>();
 				for (int i = 0; i < categories.size(); i++) {
 					visited.add(false);
 				}
-				CategoryHelper.getInstant().recusive_categories(categories, visited, 0, "", root);
+				CategoryHelper.recursive_categories(categories, visited, 0, "", root);
 			}
 			// ===================================================================================
-
+			
+			// Loại bỏ các danh mục là danh mục con của danh mục đang sửa
+			// ====================================================================
+			List<RootCategory> childsTargetCategory = new ArrayList<RootCategory>();
+			visited = new ArrayList<Boolean>();
+			for (int i = 0; i < categories.size(); i++) {
+				visited.add(false);
+			}
+			CategoryHelper.recursive_categories(categories, visited, id, "", childsTargetCategory);
+			root.removeAll(childsTargetCategory);
+			// =====================================================================================
+			
 			m.addAttribute("root_categories", root);
 			m.addAttribute("category", category);
 			return "admin-pages/category-detail";
