@@ -22,10 +22,10 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "name")
+	@Column(name = "name", nullable = false, unique = true)
 	private String name;
 
-	@Column(columnDefinition = "varchar(255) not null", name = "title")
+	@Column(columnDefinition = "varchar(255)", name = "title")
 	private String title;
 
 	@Column(name = "slug")

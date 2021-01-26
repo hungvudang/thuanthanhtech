@@ -22,7 +22,7 @@ public class News {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "name", columnDefinition = "VARCHAR(255) NOT NULL")
+	@Column(name = "name", columnDefinition = "VARCHAR(255) NOT NULL", unique = true)
 	private String name;
 
 	@Column(name = "title", columnDefinition = "VARCHAR(255) NOT NULL")

@@ -30,6 +30,7 @@ public class CategoryAdminController {
 	public String category(Model m) {
 		List<Category> categories = cRepository.findAll();
 		m.addAttribute("categories", categories);
+		m.addAttribute("active_category", true);
 		return "admin-pages/category";
 	}
 
@@ -37,7 +38,7 @@ public class CategoryAdminController {
 	public String createCategory(Model m) {
 
 		Category c = new Category();
-		c.setPub(0);
+		c.setPub(1);
 		c.setHot(0);
 		c.setParent_id(0);
 
@@ -60,13 +61,14 @@ public class CategoryAdminController {
 
 		m.addAttribute("root_categories", root);
 		m.addAttribute("category", c);
+		m.addAttribute("active_category", true);
 		return "admin-pages/create-category";
 	}
 
 	@PostMapping("/save")
 	public String saveCategory(@ModelAttribute("category") Category category) {
 
-		if (category.getTitle().isBlank() || category.getTitle().isEmpty() || category.getName().isEmpty()) {
+		if (category.getName().isBlank() || category.getName().isEmpty()) {
 			return "redirect:/category/create";
 		}
 
@@ -81,6 +83,8 @@ public class CategoryAdminController {
 
 	@GetMapping("/detail/{id}")
 	public String detailCategory(@PathVariable("id") Integer id, Model m) {
+		m.addAttribute("active_category", true);
+		
 		Optional<Category> opCategory = cRepository.findById(id);
 		if (opCategory.isPresent()) {
 			Category category = opCategory.get();
@@ -122,7 +126,7 @@ public class CategoryAdminController {
 
 	@PostMapping("/update/{id}")
 	public String updateCategory(@PathVariable("id") Integer id, @ModelAttribute("category") Category category) {
-
+		
 		if (category.getName().isBlank() || category.getName().isEmpty()) {
 			return "redirect:/category/detail/" + id;
 		}

@@ -4,7 +4,7 @@
     <a href="../index.html" class="brand-link">
         <img src="/admin-static/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">ThuanThanhLand</span>
     </a>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -26,27 +26,19 @@
 
                 <!-- Dashboard -->
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <a th:href="@{/home}" th:class="${active_home}? 'nav-link active':'nav-link'">
+                        <i class="nav-icon fas fa-home"></i>
                         <p>
-                            Dashboard
-                            <i class="right fas fa-angle-left"></i>
+                            Trang chủ
+                            <!-- <i class="right fas fa-angle-left"></i> -->
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a th:href="@{/home}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Trang chủ</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <!-- End Dashboard -->
 
                 <!-- Du An -->
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                    <a href="#" th:class="${active_project}? 'nav-link active':'nav-link'">
                         <i class="nav-icon far fa-building"></i>
                         <p>
                             Dự án
@@ -60,14 +52,21 @@
                                 <p>Tất cả dự án</p>
                             </a>
                         </li>
+                        
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm dự án</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <!-- /. Du An -->
 
                 <!-- Danh muc -->
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-list-alt"></i>
+                    <a href="#" th:class="${active_category}? 'nav-link active':'nav-link'">
+                        <i class="nav-icon fas fa-th-list"></i>
                         <p>
                             Danh mục
                             <i class="right fas fa-angle-left"></i>
@@ -92,7 +91,7 @@
 
                 <!-- Tin tuc -->
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                    <a href="#" th:class="${active_news}? 'nav-link active':'nav-link'">
                         <i class="nav-icon fas fa-newspaper"></i>
                         <p>
                             Tin tức
@@ -118,7 +117,7 @@
 
                 <!-- Người dùng -->
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                    <a href="#" th:class="${active_user}? 'nav-link active':'nav-link'">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             Tài khoản
@@ -130,6 +129,13 @@
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tất cả tài khoản</p>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm tài khoản</p>
                             </a>
                         </li>
                     </ul>
