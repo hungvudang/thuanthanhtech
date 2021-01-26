@@ -36,10 +36,10 @@ public class News {
 
 	@Column(name = "content", columnDefinition = "TEXT NOT NULL")
 	private String content;
-	
+
 	@Column(name = "image", columnDefinition = "TEXT")
 	private String image;
-	
+
 	@ManyToOne(targetEntity = Category.class, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private Category category;
@@ -49,7 +49,7 @@ public class News {
 
 	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")
 	private Integer pub;
-	
+
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
 
@@ -128,8 +128,6 @@ public class News {
 		this.pub = pub;
 	}
 
-	
-	
 	public String getImage() {
 		return image;
 	}
@@ -153,8 +151,7 @@ public class News {
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
-	
-	
+
 	@PrePersist
 	public void prePersist() {
 		this.created_at = LocalDateTime.now();
@@ -164,5 +161,4 @@ public class News {
 	public void preUpdate() {
 		this.updated_at = LocalDateTime.now();
 	}
-
 }

@@ -173,12 +173,12 @@
 												<label for="uploadThumbnail">Thumbnail</label>
 
 												<div>
-													<img src="/admin-static/images/no-thumbnail-medium.png"
+													<img th:src="@{*{image}}"
 														alt="thumbnail-media" class="img-thumbnail mb-3"
 														id="thumbnail-image" style="max-height: 80%;">
 												</div>
 
-												<input type="file" class="form-control" id="uploadThumbnail" />
+												<input name="news_thumbnail" type="file" class="form-control" id="uploadThumbnail" accept="image/png, image/jpeg" />
 											</div>
 										</div>
 										<!-- /.thumbnail image upload -->
