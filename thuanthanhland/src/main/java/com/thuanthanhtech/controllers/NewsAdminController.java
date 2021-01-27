@@ -141,7 +141,8 @@ public class NewsAdminController {
 			@RequestParam("news_thumbnail") MultipartFile fNewsThumbnail) throws IOException {
 
 		if (news.getTitle().isEmpty() || news.getContent().isEmpty() || news.getCategory() == null) {
-			return "rediect:/news/detail/" + id;
+			return "redirect:/news/detail/" + id;
+
 		}
 
 		Optional<Category> opCategory = cRepository.findById(news.getCategory().getId());
@@ -163,10 +164,13 @@ public class NewsAdminController {
 
 			// Đổi tên thư mục lưu ảnh thumbnail của tin tức khi cập nhập slug
 			// =========================================================================================================
-			Path oldThumbnailPathDir = Path.of(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + news.getSlug());
-			Path newThumbnailPathDir = Path
-					.of(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug());
-			Files.move(oldThumbnailPathDir, newThumbnailPathDir, StandardCopyOption.REPLACE_EXISTING);
+			if (news.getImage() != null || !news.getImage().isEmpty()) {
+				Path oldThumbnailPathDir = Path
+						.of(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + news.getSlug());
+				Path newThumbnailPathDir = Path
+						.of(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug());
+				Files.move(oldThumbnailPathDir, newThumbnailPathDir, StandardCopyOption.REPLACE_EXISTING);
+			}
 			// ==========================================================================================================
 
 			// Cập nhật ảnh thumbnail của tin tức lên server
