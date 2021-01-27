@@ -164,7 +164,7 @@ public class NewsAdminController {
 
 			// Đổi tên thư mục lưu ảnh thumbnail của tin tức khi cập nhập slug
 			// =========================================================================================================
-			if (news.getImage() != null || !news.getImage().isEmpty()) {
+			if (nNews.getImage() != null) {
 				Path oldThumbnailPathDir = Path
 						.of(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + news.getSlug());
 				Path newThumbnailPathDir = Path
@@ -177,7 +177,7 @@ public class NewsAdminController {
 			// =======================================================
 			if (fNewsThumbnail != null ||!fNewsThumbnail.isEmpty()) {
 				String fThumbnailImageName = StringUtils.cleanPath(fNewsThumbnail.getOriginalFilename());
-				String uploadDir = NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug();
+				String uploadDir = NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug() ;
 
 				NewsHelper.saveThumbnailImage(fNewsThumbnail, uploadDir, fThumbnailImageName);
 				nNews.setImage(uploadDir + File.separator + fThumbnailImageName);
