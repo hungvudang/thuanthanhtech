@@ -175,7 +175,7 @@ public class NewsAdminController {
 
 			// Cập nhật ảnh thumbnail của tin tức lên server
 			// =======================================================
-			if (fNewsThumbnail != null && !fNewsThumbnail.isEmpty()) {
+			if (fNewsThumbnail != null ||!fNewsThumbnail.isEmpty()) {
 				String fThumbnailImageName = StringUtils.cleanPath(fNewsThumbnail.getOriginalFilename());
 				String uploadDir = NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug();
 
