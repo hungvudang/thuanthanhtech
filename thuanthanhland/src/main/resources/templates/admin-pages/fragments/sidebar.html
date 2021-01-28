@@ -141,6 +141,33 @@
                     </ul>
                 </li>
                 <!-- /.người dùng -->
+                
+                <!-- liên hệ -->
+                <li class="nav-item has-treeview">
+                    <a href="#" th:class="${active_contact}? 'nav-link active':'nav-link'">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Liên hệ
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/contact}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất cả liên hệ</p>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a th:href="@{/contact/create}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm liên hệ</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /.liên hệ -->
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
