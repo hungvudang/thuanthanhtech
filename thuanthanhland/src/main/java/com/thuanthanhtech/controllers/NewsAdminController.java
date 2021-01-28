@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -94,7 +95,7 @@ public class NewsAdminController {
 			news.setSlug(slug);
 
 			// Upload ảnh thumbnail của tin tức lên server
-			// ===========================================================================================
+			// =============================================================================================
 			if (fNewsThumbnail != null && !fNewsThumbnail.isEmpty()) {
 				String fThumbnailImageName = StringUtils.cleanPath(fNewsThumbnail.getOriginalFilename());
 				String uploadDir = NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + news.getSlug();
@@ -164,7 +165,7 @@ public class NewsAdminController {
 
 			// Đổi tên thư mục lưu ảnh thumbnail của tin tức khi cập nhập slug
 			// =========================================================================================================
-			if (news.getImage() != null || !news.getImage().isEmpty()) {
+			if (news.getImage() != null) {
 				Path oldThumbnailPathDir = Path
 						.of(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + news.getSlug());
 				Path newThumbnailPathDir = Path
@@ -175,7 +176,7 @@ public class NewsAdminController {
 
 			// Cập nhật ảnh thumbnail của tin tức lên server
 			// =======================================================
-			if (fNewsThumbnail != null ||!fNewsThumbnail.isEmpty()) {
+			if (fNewsThumbnail != null && !fNewsThumbnail.isEmpty()) {
 				String fThumbnailImageName = StringUtils.cleanPath(fNewsThumbnail.getOriginalFilename());
 				String uploadDir = NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug();
 
@@ -193,10 +194,31 @@ public class NewsAdminController {
 	@GetMapping("/delete/{id}")
 	public String deleteNews(@PathVariable("id") Integer id) {
 		Optional<News> opNews = nRepository.findById(id);
+
 		if (opNews.isPresent()) {
 			nRepository.deleteById(id);
-		}
 
+		}
+		if(opNews.get().getImage()==null) {
+			return "redirect:/news";
+		}
+//		opNews.get().getImage();
+		Path path = Paths.get(opNews.get().getImage());
+//		path.toAbsolutePath().toFile().delete();
+
+		path.toAbsolutePath().toFile().getParentFile();
+		// xóa thư mục
+		
+		if (path.toAbsolutePath().toFile().getParentFile().isDirectory()) {
+			String[] files = path.toAbsolutePath().toFile().getParentFile().list();
+			for (String childs : files) {
+				File childDirt = new File(path.toAbsolutePath().toFile().getParentFile(), childs);
+				childDirt.delete();
+			}
+		}
+		// check lai va xoa thu muc cha
+		path.toAbsolutePath().toFile().getParentFile().delete();
+		
 		return "redirect:/news";
 	}
 
