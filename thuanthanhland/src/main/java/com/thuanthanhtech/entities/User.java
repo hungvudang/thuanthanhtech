@@ -9,8 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,7 @@ public class User {
 	@Column(name = "email", columnDefinition = "VARCHAR(255) NOT NULL")
 	private String email;
 
-	@Column(name = "role", columnDefinition = "TINYINT(4) DEFAULT 0")
+	@Column(name = "role", columnDefinition = "TINYINT(4) DEFAULT 0") // 0: normal; 1: administrator
 	private Integer role;
 
 	@Column(name = "address")

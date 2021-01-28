@@ -13,19 +13,19 @@ public class NewsHelper {
 
 	public final static String NO_THUMBNAIL_MEDIUM_IMAGE = "/admin-static/images/no-thumbnail-medium.png";
 
-	public final static String ROOT_PATH_THUMBNAIL_MEDIUM = "/public/news";
+	public final static String ROOT_PATH_THUMBNAIL_MEDIUM = "/public/upload/news";
 
-	public static void saveThumbnailImage(MultipartFile multipartFile, String uploadDir, String fName)
+	public static void saveThumbnailImage(MultipartFile multipartFile, String uploadDir, String fThumbnailImageName)
 			throws IOException {
-		Path uploadPath = Paths.get(uploadDir);
+		Path pUploadDirThumbnailImage = Paths.get(uploadDir);
 
-		if (!Files.exists(uploadPath)) {
-			Files.createDirectories(uploadPath);
+		if (!Files.exists(pUploadDirThumbnailImage)) {
+			Files.createDirectories(pUploadDirThumbnailImage);
 		}
 
 		InputStream is = multipartFile.getInputStream();
-		Path fPath = uploadPath.resolve(fName);
-		Files.copy(is, fPath, StandardCopyOption.REPLACE_EXISTING);
+		Path pSaveThumbnailImage = pUploadDirThumbnailImage.resolve(fThumbnailImageName);
+		Files.copy(is, pSaveThumbnailImage, StandardCopyOption.REPLACE_EXISTING);
 		is.close();
 	}
 }

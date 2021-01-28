@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thuanthanhtech.entities.Category;
 import com.thuanthanhtech.entities.CategoryHelper;
@@ -71,9 +72,12 @@ public class CategoryAdminController {
 	}
 
 	@PostMapping("/save")
-	public String saveCategory(@ModelAttribute("category") Category category) {
+	public String saveCategory(@ModelAttribute("category") Category category, RedirectAttributes ra) {
 
 		if (category.getName().isBlank() || category.getName().isEmpty()) {
+			ra.addFlashAttribute("error", "Tạo danh mục mới thất bại.");
+			ra.addFlashAttribute("category", category);
+			
 			return "redirect:/category/create";
 		}
 
@@ -83,6 +87,8 @@ public class CategoryAdminController {
 		// ==============================
 
 		cRepository.save(category);
+		
+		ra.addFlashAttribute("success", "Danh mục mới đã được tạo thành công.");
 		return "redirect:/category";
 	}
 
@@ -130,30 +136,42 @@ public class CategoryAdminController {
 	}
 
 	@PostMapping("/update/{id}")
-	public String updateCategory(@PathVariable("id") Integer id, @ModelAttribute("category") Category category) {
+	public String updateCategory(@PathVariable("id") Integer id, @ModelAttribute("category") Category category, RedirectAttributes ra) {
 
 		if (category.getName().isBlank() || category.getName().isEmpty()) {
+			
+			ra.addFlashAttribute("error", "Cập nhật danh mục thất bại.");
 			return "redirect:/category/detail/" + id;
 		}
 
-		Category nCategory = cRepository.findById(id).get();
+		Optional<Category> opCategory = cRepository.findById(id);
+		if (opCategory.isPresent()) {
+			Category nCategory = opCategory.get();
+			
+			nCategory.setId(category.getId());
+			nCategory.setName(category.getName());
+			nCategory.setTitle(category.getTitle());
+			nCategory.setParent_id(category.getId());
+			nCategory.setHot(category.getHot());
+			nCategory.setPub(category.getPub());
+			
+			nCategory.setParent_id(category.getParent_id());
+			
+			// Tạo slug dựa theo tên danh mục
+			// ====================================================
+			String slug = SlugConverter.convert(category.getName());
+			category.setSlug(slug);
+			// =====================================================
+			
+			cRepository.save(nCategory);
+			ra.addFlashAttribute("success", "Danh mục đã được cập nhật thành công.");
+			return "redirect:/category/detail/" + nCategory.getId();
+		} else {
+			
+			ra.addFlashAttribute("error", "Danh mục này không tồn tại hoặc đã bị xóa.");
+			return "redirect:/category";
+		}
 
-		nCategory.setId(category.getId());
-		nCategory.setName(category.getName());
-		nCategory.setTitle(category.getTitle());
-		nCategory.setParent_id(category.getId());
-		nCategory.setHot(category.getHot());
-		nCategory.setPub(category.getPub());
-
-		nCategory.setParent_id(category.getParent_id());
-
-		// Tạo slug dựa theo tên danh mục
-		String slug = SlugConverter.convert(category.getName());
-		category.setSlug(slug);
-		// ==============================
-
-		cRepository.save(nCategory);
-		return "redirect:/category";
 	}
 
 	/**
@@ -164,7 +182,7 @@ public class CategoryAdminController {
 	 *         theo.
 	 */
 	@GetMapping("/delete/{id}")
-	public String deleteCategory(@PathVariable("id") Integer id) {
+	public String deleteCategory(@PathVariable("id") Integer id, RedirectAttributes ra) {
 		Optional<Category> opCategory = cRepository.findById(id);
 		if (opCategory.isPresent()) {
 
@@ -181,6 +199,9 @@ public class CategoryAdminController {
 				cRepository.deleteById(child.getId());
 			});
 			cRepository.deleteById(id);
+			ra.addFlashAttribute("success", "Danh mục đã được xóa thành công.");
+		} else {
+			ra.addFlashAttribute("error", "Xóa danh mục thất bại.");
 		}
 		return "redirect:/category";
 	}

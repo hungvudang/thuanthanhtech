@@ -31,10 +31,10 @@ public class News {
 	@Column(name = "slug", columnDefinition = "VARCHAR(255) NOT NULL")
 	private String slug;
 
-	@Column(name = "description", columnDefinition = "LONGTEXT NOT NULL")
+	@Column(name = "description", columnDefinition = "TEXT NOT NULL")
 	private String description;
 
-	@Column(name = "content", columnDefinition = "TEXT NOT NULL")
+	@Column(name = "content", columnDefinition = "LONGTEXT NOT NULL")
 	private String content;
 
 	@Column(name = "image", columnDefinition = "TEXT")
