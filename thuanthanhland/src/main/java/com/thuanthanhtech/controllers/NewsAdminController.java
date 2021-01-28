@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -82,14 +83,13 @@ public class NewsAdminController {
 
 		if (news.getName().isEmpty() || news.getTitle().isEmpty() || news.getContent().isEmpty()
 				|| news.getDescription().isEmpty() || news.getCategory() == null) {
-			
-			
+
 			ra.addFlashAttribute("error", "Tạo bài viết mới thất bại.");
 			ra.addFlashAttribute("news", news);
-			
+
 			return "redirect:/news/create";
 		}
-		
+
 		Optional<Category> opCategory = cRepository.findById(news.getCategory().getId());
 		if (opCategory.isPresent()) {
 
@@ -112,7 +112,7 @@ public class NewsAdminController {
 			ra.addFlashAttribute("success", "Bài viết mới đã được tạo thành công.");
 			nRepository.save(news);
 		}
-		
+
 		return "redirect:/news";
 	}
 
@@ -182,20 +182,20 @@ public class NewsAdminController {
 
 			// Cập nhật ảnh thumbnail của tin tức lên server
 			// =======================================================
-						if (multipartFile != null && !multipartFile.isEmpty()) {
-							String fThumbnailImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-							String uploadDir = NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug() ;
+			if (multipartFile != null && !multipartFile.isEmpty()) {
+				String fThumbnailImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+				String uploadDir = NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug();
 
 				NewsHelper.saveThumbnailImage(multipartFile, uploadDir, fThumbnailImageName);
 				nNews.setImage(uploadDir + File.separator + fThumbnailImageName);
 			}
 			// ============================================================================================
-			
+
 			ra.addFlashAttribute("success", "Bài viết đã được cập nhật thành công.");
 			nRepository.save(nNews);
 			return "redirect:/news/detail/" + nNews.getId();
 		} else {
-			
+
 			ra.addFlashAttribute("error", "Bài viết không tồn tại hoặc đã bị xóa.");
 			return "redirect:/news";
 		}
@@ -207,34 +207,15 @@ public class NewsAdminController {
 		Optional<News> opNews = nRepository.findById(id);
 		if (opNews.isPresent()) {
 			nRepository.deleteById(id);
-
+			
+			if (opNews.get().getImage() != null) {
+				deleteThumbnailImageDir(opNews.get().getImage());
+			}
 			ra.addFlashAttribute("success", "Xóa bài viết thành công.");
+			
 		} else {
 			ra.addFlashAttribute("error", "Xóa bài viết thất bại.");
 		}
-		
-		
-		
-		if(opNews.get().getImage()==null) {
-			return "redirect:/news";
-		}
-//		opNews.get().getImage();
-		Path path = Paths.get(opNews.get().getImage());
-//		path.toAbsolutePath().toFile().delete();
-
-		path.toAbsolutePath().toFile().getParentFile();
-		// xóa thư mục
-		
-		if (path.toAbsolutePath().toFile().getParentFile().isDirectory()) {
-			String[] files = path.toAbsolutePath().toFile().getParentFile().list();
-			for (String childs : files) {
-				File childDirt = new File(path.toAbsolutePath().toFile().getParentFile(), childs);
-				childDirt.delete();
-			}
-		}
-		// check lai va xoa thu muc cha
-		path.toAbsolutePath().toFile().getParentFile().delete();
-		
 		return "redirect:/news";
 	}
 
@@ -242,5 +223,26 @@ public class NewsAdminController {
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String handlerException() {
 		return "admin-pages/500";
+	}
+
+	
+	
+	/**
+	 * @param fThumbnailImagePath
+	 * Xóa folder lưu ảnh thumbnail của bài viết bị xóa.
+	 */
+	private void deleteThumbnailImageDir(String fThumbnailImagePath) {
+		
+		Path path = Paths.get(fThumbnailImagePath);
+		File fParentDirThumbnailImage = path.toAbsolutePath().toFile().getParentFile();
+		// xóa thư mục
+		if (fParentDirThumbnailImage.isDirectory()) {
+			String[] files = fParentDirThumbnailImage.list();
+			for (String childs : files) {
+				File childDirt = new File(fParentDirThumbnailImage, childs);
+				childDirt.delete();
+			}
+		}
+		fParentDirThumbnailImage.delete();
 	}
 }
