@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>AdminLTE 3 | Tin tức</title>
+<title>AdminLTE 3 | Tài khoản</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Font Awesome -->
@@ -18,9 +18,7 @@
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
-<!-- summernote -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/summernote/summernote-bs4.min.css">
+
 <!-- Google Font: Source Sans Pro -->
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
@@ -42,12 +40,12 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>Tin tức</h1>
+							<h1>Tài khoản</h1>
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item">Trang chủ</li>
-								<li class="breadcrumb-item active">Tin tức</li>
+								<li class="breadcrumb-item active">Tài khoản</li>
 							</ol>
 						</div>
 					</div>
@@ -58,145 +56,92 @@
 			<!-- Main content -->
 			<div class="container-fluid">
 				<div class="row m-1">
-					<div class="card card-info">
+					<div class="card card-info" style="width: 100%">
 						<div class="card-header">
-							<h2 class="card-title font-weight-bold">Cập nhật bài viết</h2>
+							<h2 class="card-title font-weight-bold">Cập nhật tài khoản</h2>
 						</div>
 						<div class="card-body">
 							<div class="col">
-								<form th:object="${news}" th:action="@{'/news/update/' + *{id}}"
+								<form th:object="${user}" th:action="@{'/user/update/' + *{id}}"
 									th:method="post" enctype="multipart/form-data">
 									<div class="row">
 										<div class="col-7">
 											<div>
 												<!-- Name Input -->
+												<div class="form-group">
+													<label for="exampleFormControlInput1">Tên tài khoản</label>
+													<input th:field="*{name}" type="text" class="form-control"
+														id="exampleFormControlInput1" placeholder="">
+												</div>
+												<!-- Email Input -->
 
 												<div class="form-group">
-													<label for="exampleFormControlInput2">Tên bài viết</label>
-													<input th:field="*{name}" type="text" class="form-control"
+													<label for="exampleFormControlInput2">Email</label> <input
+														th:field="*{email}" type="email" class="form-control"
 														id="exampleFormControlInput2" placeholder="">
 												</div>
 
-												<!-- Title Input -->
-
+												<!-- Phone Input -->
 												<div class="form-group">
-													<label for="exampleFormControlInput3">Tiêu đề</label> <input
-														th:field="*{title}" type="text" class="form-control"
+													<label for="exampleFormControlInput3">Số điện thoại</label>
+													<input th:field="*{phone}" type="tel" class="form-control"
 														id="exampleFormControlInput3" placeholder="">
 												</div>
 
-												<!-- Slug Input -->
-
+												<!-- Địa chỉ Input -->
 												<div class="form-group">
-													<label for="exampleFormControlInput4">Slug</label> <input
-														th:field="*{slug}" type="text" class="form-control"
-														id="exampleFormControlInput4" placeholder="" readonly>
+													<label for="exampleFormControlInput4">Địa chỉ</label> <input
+														th:field="*{address}" type="text" class="form-control"
+														id="exampleFormControlInput4" placeholder="">
 												</div>
-
-												<!-- Select Category -->
-
-												<div class="form-group">
-													<label for="inputCategory">Danh mục</label> <select
-														class="form-control custom-select"
-														th:field="*{category.id}">
-														<th:block th:each="rc : ${root_categories}">
-															<option th:value="${rc.id}" th:utext="${rc.name}"></option>
-														</th:block>
-
-													</select>
-												</div>
-
-												<!-- Public Input -->
+												<!-- Admin Input -->
 
 												<fieldset class="form-group">
 													<div class="row">
-														<label class="col-form-label col-sm-2 pt-0">Hiển
-															thị</label>
+														<label class="col-form-label col-sm-2 pt-0">Vai trò</label>
 														<div class="col-sm-10">
 															<div class="form-check">
-																<input th:field="*{pub}" class="form-check-input"
-																	type="radio" name="gridRadiosPublic"
-																	id="gridRadiosPublic1" value="1"> <label
+																<input th:field="*{role}" class="form-check-input"
+																	type="radio" name="gridRadiosAdmin"
+																	id="gridRadiosAdmin1" value="1"> <label
 																	class="form-check-label lead text-sm"
-																	for="gridRadiosPublic1"> Hiện thị </label>
+																	for="gridRadiosAdmin1"> Quản trị </label>
 															</div>
 															<div class="form-check">
-																<input th:field="*{pub}" class="form-check-input"
-																	type="radio" name="gridRadiosPublic"
-																	id="gridRadiosPublic2" value="0"> <label
+																<input th:field="*{role}" class="form-check-input"
+																	type="radio" name="gridRadiosAdmin"
+																	id="gridRadiosAdmin2" value="0"> <label
 																	class="form-check-label lead text-sm"
-																	for="gridRadiosPublic2"> Ẩn </label>
+																	for="gridRadiosAdmin2"> Người dùng </label>
 															</div>
 														</div>
 													</div>
 												</fieldset>
-
-												<!-- Hot Input -->
-
-												<fieldset class="form-group">
-													<div class="row">
-														<label class="col-form-label col-sm-2 pt-0">Tin
-															nổi bật</label>
-														<div class="col-sm-10">
-															<div class="form-check">
-																<input th:field="*{hot}" class="form-check-input"
-																	type="radio" name="gridRadiosHot" id="gridRadiosHot1"
-																	value="0"> <label
-																	class="form-check-label lead text-sm"
-																	for="gridRadiosHot1"> Không </label>
-															</div>
-															<div class="form-check">
-																<input th:field="*{hot}" class="form-check-input"
-																	type="radio" name="gridRadiosHot" id="gridRadiosHot2"
-																	value="1"> <label
-																	class="form-check-label lead text-sm"
-																	for="gridRadiosHot2"> Có </label>
-															</div>
-														</div>
-													</div>
-												</fieldset>
-
-
-												<!-- Description Input -->
-												<div class="form-group">
-													<label for="inputDescription">Mô tả</label>
-													<textarea th:field="*{description}" rows="2"
-														style="width: 100%;" placeholder=""></textarea>
-												</div>
-
-												<!-- Content Input -->
-												<div class="form-group">
-													<label for="inputContent">Nội dung</label> <br>
-													<textarea class="textarea" th:field="*{content}"
-														placeholder=""></textarea>
-												</div>
 											</div>
-
-											<!-- Buuton Summit -->
+											<!-- Button Summit -->
 											<div>
-												<a class="btn btn-primary float-right" th:href="@{/news}">Trở về</a>
+												<a class="btn btn-primary float-right" th:href="@{/user}">Trở về</a>
 												<button type="submit"
 													class="float-right btn btn-success mr-2">Lưu</button>
 											</div>
 										</div>
-										<!-- Upload thumbnail image of news -->
+										<!-- Upload avatar image of news -->
 										<div class="col-5">
 											<div>
-												<label for="uploadThumbnail">Thumbnail</label>
+												<label for="uploadAvatar">Ảnh đại diện</label>
 
 												<div>
 													<img
-														th:src="@{*{image} ? *{image} : '/admin-static/images/no-thumbnail-medium.png'}"
-														alt="thumbnail-media" class="img-thumbnail mb-3"
-														id="thumbnail-image" style="max-height: 200px;">
+														th:src="@{*{avatar} ? *{avatar} : '/admin-static/images/no-thumbnail-medium.png'}"
+														alt="avatar-media" class="img-thumbnail mb-3"
+														id="avatar-image" style="max-height: 150px;">
 												</div>
 
-												<input name="news_thumbnail" type="file"
-													class="form-control" id="uploadThumbnail"
-													accept="image/png, image/jpeg" />
+												<input name="user_avatar" type="file" class="form-control"
+													id="uploadAvatar" accept="image/png, image/jpeg" />
 											</div>
 										</div>
-										<!-- /.thumbnail image upload -->
+										<!-- /.avatar image upload -->
 									</div>
 								</form>
 							</div>
@@ -254,27 +199,19 @@
 			});
 		})
 	</script>
-	<!-- Summernote -->
-	<script src="/admin-static/plugins/summernote/summernote-bs4.min.js"></script>
-	<script>
-		$(function() {
-			$('.textarea').summernote({});
-		});
-	</script>
-
-	<!-- preview thumbnail -->
+	<!-- preview avatar -->
 	<script>
 		function readURL(input) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
 
 				reader.onload = function(e) {
-					$('#thumbnail-image').attr('src', e.target.result);
+					$('#avatar-image').attr('src', e.target.result);
 				}
 				reader.readAsDataURL(input.files[0]); // convert to base64 string
 			}
 		}
-		$("#uploadThumbnail").change(function() {
+		$("#uploadAvatar").change(function() {
 			readURL(this);
 		});
 	</script>

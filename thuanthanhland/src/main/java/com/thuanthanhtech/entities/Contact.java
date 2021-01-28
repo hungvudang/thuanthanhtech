@@ -12,8 +12,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "contracts")
-public class Contract {
+@Table(name = "contacts")
+public class Contact {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,11 +43,11 @@ public class Contract {
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
 
-	public Contract() {
+	public Contact() {
 		super();
 	}
 
-	public Contract(Integer id, String name, String email, String title, String address, String phone, String content,
+	public Contact(Integer id, String name, String email, String title, String address, String phone, String content,
 			Integer status, LocalDateTime created_at, LocalDateTime updated_at) {
 		super();
 		this.id = id;

@@ -8,10 +8,10 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.thuanthanhtech.entities.NewsHelper;
+import com.thuanthanhtech.entities.UserHelper;
 
 /**
  * @author hungv
- * File config cho việc hiển thị ảnh thumbnail của tin tức
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
@@ -20,9 +20,21 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 
-		Path uploadDir = Paths.get(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM);
-		String fUploadPath = uploadDir.toFile().getAbsolutePath();
+		// Config cho thư mục upload ảnh thumbnail của tin tức
+		// ============================================================================
+		Path uploadDirForNews = Paths.get(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM);
+		String fUploadPathForNews = uploadDirForNews.toFile().getAbsolutePath();
 		registry.addResourceHandler("/" + NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + "/**")
-				.addResourceLocations("file:/" + fUploadPath + "/");
+				.addResourceLocations("file:/" + fUploadPathForNews + "/");
+		// =============================================================================\
+		
+		// Config cho thư mục upload ảnh đại diện của tài khoản người dùng
+		// ==========================================================================
+		Path uploadDirForUser = Paths.get(UserHelper.ROOT_PATH_AVATAR_MEDIUM);
+		String fUploadPathForUser = uploadDirForUser.toFile().getAbsolutePath();
+		registry.addResourceHandler("/" + UserHelper.ROOT_PATH_AVATAR_MEDIUM + "/**")
+				.addResourceLocations("file:/" + fUploadPathForUser + "/");
+
+		// ===========================================================================
 	}
 }

@@ -46,7 +46,7 @@
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item">Trang chủ</li>
 								<li class="breadcrumb-item active">Danh mục</li>
 							</ol>
 						</div>
@@ -57,66 +57,81 @@
 
 			<!-- Main content -->
 			<div class="container">
-				<!-- <div class="row justify-content-end mb-3">
-                    <div class="col d-block text-right">
-                        <a class="btn btn-md btn-success" th:href="@{/category/create}">
-                            <i class="fas fa-plus"></i> 
-                            <span>Thêm danh mục</span>
-                        </a>
-                    </div>
-                </div> -->
 				<div class="row justify-content-start">
 					<div class="col">
-						<table class="table table-hover">
-							<thead class="thead-dark">
-								<tr>
-									<th>ID</th>
-									<th>Tên danh mục</th>
-									<th>Tiêu đề</th>
-									<th>Nổi bật</th>
-									<th>Hiển thị</th>
-									<th class="text text-center">Hành động</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="c : ${categories}">
-									<td th:utext="${c.id}" th:filed="${c.id}" scope="row"></td>
-									<td th:utext="${c.name}" th:field="${c.name}"></td>
-									<td th:utext="${c.title}" th:field="${c.title}"></td>
-									
-									<div>
-										<th:block th:if="${c.hot == 1}">
-											<td> <span class="badge badge-pill badge-danger">Nổi bật</span> </td>
-										</th:block>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead class="thead-dark">
+									<tr>
+										<th>ID</th>
+										<th>Tên danh mục</th>
+										<th>Tiêu đề</th>
+										<th>Nổi bật</th>
+										<th>Hiển thị</th>
+										<th>Sửa đổi lần cuối</th>
+										<th>Hành động</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="c : ${categories}">
+										<td th:utext="${c.id}" th:filed="${c.id}" scope="row"></td>
+										<td th:utext="${c.name}" th:field="${c.name}"></td>
+										<td th:utext="${c.title}" th:field="${c.title}"></td>
 
-										<th:block th:if="${c.hot == 0}">
-											<td> <span class="badge badge-pill badge-dark">Không</span> </td>
-										</th:block>
-									</div>
-									
-									<div>
-										<th:block th:if="${c.pub == 1}">
-											<td> <span class="badge badge-pill badge-success">Hiển thị</span> </td>
-										</th:block>
+										<div>
+											<th:block th:if="${c.hot == 1}">
+												<td><span class="badge badge-pill badge-danger">Nổi
+														bật</span></td>
+											</th:block>
 
-										<th:block th:if="${c.pub == 0}">
-											<td> <span class="badge badge-pill badge-dark">Ẩn</span> </td>
-										</th:block>
-									</div>
-									
-									<td class="text text-center">
-										<div class="row justify-content-center">
-											<div class="col">
-												<a class=" fas fa-edit fa-lg"
-													th:href="@{'/category/detail/' + ${c.id}}"></a> <a
-													class="fas fa-trash fa-lg mx-2" style="color: red;"
-													th:href="@{'/category/delete/' + ${c.id}}"></a>
-											</div>
+											<th:block th:if="${c.hot == 0}">
+												<td><span class="badge badge-pill badge-dark">Không</span>
+												</td>
+											</th:block>
 										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+
+										<div>
+											<th:block th:if="${c.pub == 1}">
+												<td><span class="badge badge-pill badge-success">Hiển
+														thị</span></td>
+											</th:block>
+
+											<th:block th:if="${c.pub == 0}">
+												<td><span class="badge badge-pill badge-dark">Ẩn</span>
+												</td>
+											</th:block>
+										</div>
+
+										<!-- Last modified -->
+										<div>
+											<th:block th:if="${c.updated_at}">
+												<td
+													th:utext="${#temporals.format(c.updated_at, 'dd/MM/yyyy')}">
+												</td>
+											</th:block>
+
+											<th:block th:unless="${c.updated_at}">
+												<td
+													th:utext="${#temporals.format(c.created_at, 'dd/MM/yyyy')}">
+												</td>
+											</th:block>
+										</div>
+										<!-- /. Last modified	 -->
+
+										<td>
+											<div class="row justify-content-center">
+												<div class="col">
+													<a class=" fas fa-edit fa-lg"
+														th:href="@{'/category/detail/' + ${c.id}}"></a> <a
+														class="fas fa-trash fa-lg mx-3" style="color: red;"
+														th:href="@{'/category/delete/' + ${c.id}}"></a>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>

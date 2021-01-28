@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>AdminLTE 3 | Tin tức</title>
+<title>AdminLTE 3 | Tài khoản</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Font Awesome -->
@@ -39,12 +39,12 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>Tin tức</h1>
+							<h1>Tài khoản</h1>
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item">Trang chủ</li>
-								<li class="breadcrumb-item active">Tin tức</li>
+								<li class="breadcrumb-item active">Tài khoản</li>
 							</ol>
 						</div>
 					</div>
@@ -54,6 +54,13 @@
 
 			<!-- Main content -->
 			<div class="container">
+				<!-- <div class="row justify-content-end mb-3">
+					<div class="col d-block text-right">
+						<a class="btn btn-md btn-success" th:href="@{/news/create}"> <i class="fas fa-plus"></i>
+							<span>Thêm tin tức</span>
+						</a>
+					</div>
+				</div> -->
 				<div class="row justify-content-start">
 					<div class="col">
 						<div class="table-responsive">
@@ -61,67 +68,55 @@
 								<thead class="thead-dark">
 									<tr>
 										<th>ID</th>
-										<th class="text text-left">Tên bài viết</th>
-										<th class="text text-left">Tiêu đề</th>
-										<th>Danh mục</th>
-										<th>Nổi bật</th>
-										<th>Hiện thị</th>
+										<th class="text text-left">Tên tài khoản</th>
+										<th class="text text-left">Email</th>
+										<th>Số điện thoại</th>
+										<th>Địa chỉ</th>
+										<th>Vai trò</th>
 										<th>Sửa đổi lần cuối</th>
 										<th>Hành động</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="n, iter : ${newses}">
-										<td th:utext="${n.id}" scope="row"></td>
-										<td class="text text-left" th:utext="${n.name}"></td>
-										<td class="text text-left" th:utext="${n.title}"></td>
-										<td th:utext="${n.category.name}"></td>
+									<tr th:each="u, iter : ${users}">
+										<td th:utext="${u.id}" scope="row"></td>
+										<td class="text text-left" th:utext="${u.name}"></td>
+										<td class="text text-left" th:utext="${u.email}"></td>
+										<td th:utext="${u.phone}"></td>
+										<td th:utext="${u.address}"></td>
 
 										<div>
-											<th:block th:if="${n.hot == 1}">
-												<td><span class="badge badge-pill badge-danger">Nổi
-														bật</span></td>
-											</th:block>
-
-											<th:block th:if="${n.hot == 0}">
-												<td><span class="badge badge-pill badge-dark">Không</span>
+											<th:block th:if="${u.role == 1}">
+												<td><span class="badge badge-pill badge-warning">Quản trị</span>
 												</td>
 											</th:block>
-										</div>
 
-										<div>
-											<th:block th:if="${n.pub == 1}">
-												<td><span class="badge badge-pill badge-success">Hiển
-														thị</span></td>
-											</th:block>
-
-											<th:block th:if="${n.pub == 0}">
-												<td><span class="badge badge-pill badge-dark">Ẩn</span>
-												</td>
+											<th:block th:if="${u.role == 0}">
+												<td><span class="badge badge-pill badge-dark">Người
+														dùng</span></td>
 											</th:block>
 										</div>
 
 										<!-- Last modified -->
-										<th:block th:if="${n.updated_at}">
+										<th:block th:if="${u.updated_at}">
 											<td
-												th:utext="${#temporals.format(n.updated_at, 'dd/MM/yyyy')}">
+												th:utext="${#temporals.format(u.updated_at, 'dd/MM/yyyy')}">
 											</td>
 										</th:block>
 
-										<th:block th:unless="${n.updated_at}">
+										<th:block th:unless="${u.updated_at}">
 											<td
-												th:utext="${#temporals.format(n.created_at, 'dd/MM/yyyy')}">
+												th:utext="${#temporals.format(u.created_at, 'dd/MM/yyyy')}">
 											</td>
 										</th:block>
 										<!-- /. Last modified	 -->
-										
 										<td>
 											<div class="row justify-content-center">
 												<div class="col">
 													<a class=" fas fa-edit fa-lg"
-														th:href="@{'/news/detail/' + ${n.id}}"></a> <a
+														th:href="@{'/user/detail/' + ${u.id}}"></a> <a
 														class="fas fa-trash fa-lg mx-3" style="color: red;"
-														th:href="@{'/news/delete/' + ${n.id}}"></a>
+														th:href="@{'/user/delete/' + ${u.id}}"></a>
 												</div>
 											</div>
 										</td>
