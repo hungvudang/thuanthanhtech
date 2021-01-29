@@ -168,6 +168,33 @@
                     </ul>
                 </li>
                 <!-- /.liên hệ -->
+                
+                <!-- slide -->
+                <li class="nav-item has-treeview">
+                    <a href="#" th:class="${active_slide}? 'nav-link active':'nav-link'">
+                        <i class="nav-icon fas fa-magic"></i>
+                        <p>
+                            Slides
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/slide}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất cả slide</p>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a th:href="@{/slide/create}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm slide</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /.slide -->
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

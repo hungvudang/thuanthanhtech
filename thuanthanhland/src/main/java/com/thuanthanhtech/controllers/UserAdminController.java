@@ -8,11 +8,14 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,7 +27,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.thuanthanhtech.entities.NewsHelper;
 import com.thuanthanhtech.entities.User;
 import com.thuanthanhtech.entities.UserHelper;
 import com.thuanthanhtech.repositories.UserRepository;
@@ -49,27 +51,52 @@ public class UserAdminController {
 	public String createUser(Model m) {
 		User user = new User();
 		user.setRole(0);
-		user.setAvatar(NewsHelper.NO_THUMBNAIL_MEDIUM_IMAGE);
-		m.addAttribute("user", user);
+		user.setAvatar(UserHelper.NO_AVATAR_MEDIUM_IMAGE);
+
+		if (m.getAttribute("user") == null) {
+			m.addAttribute("user", user);
+		}
+
 		m.addAttribute("active_user", true);
 
 		return "admin-pages/create-user";
 	}
 
 	@PostMapping("/save")
-	public String saveUser(@ModelAttribute("user") User user, @RequestParam("user_avatar") MultipartFile multipartFile,
-			RedirectAttributes ra) throws IOException {
-		if (user.getName() == null || user.getName().isBlank() || user.getEmail() == null || user.getEmail().isBlank()
-				|| user.getPhone() == null || user.getPhone().isBlank() || user.getPassword() == null
-				|| user.getPassword().isBlank()) {
+	public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult br,
+			@RequestParam("user_avatar") MultipartFile multipartFile, RedirectAttributes ra, Model m)
+			throws IOException {
 
-			ra.addFlashAttribute("error", "Tạo tài khoản mới không thành công.");
-			ra.addAttribute("user", user);
+		if (br.hasErrors()) {
+			if (br.hasFieldErrors("name")) {
+				ra.addFlashAttribute("isNameError", true);
+				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
+			}
 
+			if (br.hasFieldErrors("email")) {
+				ra.addFlashAttribute("isEmailError", true);
+				ra.addFlashAttribute("emailErrorMessage", br.getFieldError("email").getDefaultMessage());
+			}
+
+			if (br.hasFieldErrors("phone")) {
+				ra.addFlashAttribute("isPhoneError", true);
+				ra.addFlashAttribute("phoneErrorMessage", br.getFieldError("phone").getDefaultMessage());
+			}
+
+			if (br.hasFieldErrors("password")) {
+				ra.addFlashAttribute("isPasswordError", true);
+				ra.addFlashAttribute("passwordErrorMessage", br.getFieldError("password").getDefaultMessage());
+			}
+
+			user.setAvatar(UserHelper.NO_AVATAR_MEDIUM_IMAGE);
+
+			ra.addFlashAttribute("error", "Tạo tài khoản mới thất bại");
+			ra.addFlashAttribute("user", user);
 			return "redirect:/user/create";
+
 		}
 
-		ra.addFlashAttribute("success", "Tài khoản mới đã được tạo thành công.");
+		ra.addFlashAttribute("success", "Tài khoản mới đã được tạo thành công");
 		User savedUser = uRepository.saveAndFlush(user);
 
 		// Upload ảnh đại diện (avatar)
@@ -84,7 +111,6 @@ public class UserAdminController {
 			uRepository.saveAndFlush(updateAvatarUser);
 		}
 		// =======================================================================================
-
 		return "redirect:/user";
 	}
 
@@ -106,15 +132,29 @@ public class UserAdminController {
 	}
 
 	@PostMapping("/update/{id}")
-	public String updateUser(@PathVariable("id") Integer id, @ModelAttribute("user") User user, @RequestParam("user_avatar")
-			MultipartFile multipartFile, Model m, RedirectAttributes ra) throws IOException {
+	public String updateUser(@PathVariable("id") Integer id, @Valid @ModelAttribute("user") User user, BindingResult br,
+			@RequestParam("user_avatar") MultipartFile multipartFile, Model m, RedirectAttributes ra)
+			throws IOException {
+		
+		// Bỏ qua phần validate password khi cập nhật. Vì không cho phép cập nhật
+		// password
+		if (br.hasErrors() && br.getErrorCount() != 1) {
+			if (br.hasFieldErrors("name")) {
+				ra.addFlashAttribute("isNameError", true);
+				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
+			}
 
-		if (user.getName() == null || user.getName().isBlank() || user.getEmail() == null || user.getEmail().isBlank()
-				|| user.getPhone() == null || user.getPhone().isBlank()) {
+			if (br.hasFieldErrors("email")) {
+				ra.addFlashAttribute("isEmailError", true);
+				ra.addFlashAttribute("emailErrorMessage", br.getFieldError("email").getDefaultMessage());
+			}
 
-			ra.addFlashAttribute("error", "Cập nhật tài khoản thất bại.");
-			ra.addFlashAttribute("user", user);
+			if (br.hasFieldErrors("phone")) {
+				ra.addFlashAttribute("isPhoneError", true);
+				ra.addFlashAttribute("phoneErrorMessage", br.getFieldError("phone").getDefaultMessage());
+			}
 
+			ra.addFlashAttribute("error", "Cập nhật tài khoản thất bại");
 			return "redirect:/user/detail/" + id;
 		}
 //		else
@@ -133,16 +173,17 @@ public class UserAdminController {
 				String fAvatarImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 				String uploadDir = UserHelper.ROOT_PATH_AVATAR_MEDIUM + File.separator + nUser.getId();
 				UserHelper.saveAvatarImage(multipartFile, uploadDir, fAvatarImageName);
-				nUser.setAvatar(UserHelper.ROOT_PATH_AVATAR_MEDIUM + File.separator + nUser.getId() + File.separator +fAvatarImageName);
+				nUser.setAvatar(UserHelper.ROOT_PATH_AVATAR_MEDIUM + File.separator + nUser.getId() + File.separator
+						+ fAvatarImageName);
 			}
 			// =======================================================================================
 
 			uRepository.saveAndFlush(nUser);
-			ra.addFlashAttribute("success", "Tài khoản đã được cập nhật thành công.");
+			ra.addFlashAttribute("success", "Tài khoản đã được cập nhật thành công");
 			return "redirect:/user/detail/" + nUser.getId();
 		} else {
 
-			ra.addFlashAttribute("error", "Tài khoản này không tồn tại hoặc đã bị xóa.");
+			ra.addFlashAttribute("error", "Tài khoản này không tồn tại hoặc đã bị xóa");
 			return "redirect:/user";
 		}
 	}
@@ -153,16 +194,16 @@ public class UserAdminController {
 		Optional<User> opUser = uRepository.findById(id);
 		if (opUser.isPresent()) {
 			uRepository.deleteById(id);
-			
+
 			if (opUser.get().getAvatar() != null) {
 				deleteAvatarImageDir(id);
 			}
-			ra.addFlashAttribute("success", "Tài khoản đã được xóa thành công.");
+			ra.addFlashAttribute("success", "Tài khoản đã được xóa thành công");
 			return "redirect:/user";
 		}
 //		else
 
-		ra.addFlashAttribute("error", "Tài khoản không tồn tại hoặc đã bị xóa.");
+		ra.addFlashAttribute("error", "Tài khoản không tồn tại hoặc đã bị xóa");
 		return "redirect:/user";
 	}
 
@@ -171,17 +212,15 @@ public class UserAdminController {
 	public String handlerException() {
 		return "admin-pages/500";
 	}
-	
-	
-	
+
 	/**
 	 * @param userId
 	 * 
-	 * Xóa folder ảnh đại diện của người dùng khi tài khoản bị xóa
+	 *               Xóa folder ảnh đại diện của người dùng khi tài khoản bị xóa
 	 */
 	private void deleteAvatarImageDir(Integer userId) {
 		Path pUserAvatarImage = Paths.get(UserHelper.ROOT_PATH_AVATAR_MEDIUM + File.separator + userId);
-		
+
 		File fUploadAvatarImageDir = pUserAvatarImage.toFile();
 		if (fUploadAvatarImageDir.exists()) {
 			File[] fAvatarImages = fUploadAvatarImageDir.listFiles();

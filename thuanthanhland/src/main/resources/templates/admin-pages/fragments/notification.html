@@ -1,0 +1,14 @@
+<th:block th:fragment="notification">
+	<div th:if="${error}" class="container-fluid message-box">
+		<div class="row justify-content-start">
+			<span th:utext="${error}"
+				class="badge badge-pill badge-warning text-md mb-2 ml-2">Warning</span>
+		</div>
+	</div>
+	<div th:if="${success}" class="container-fluid message-box">
+		<div class="row justify-content-start">
+			<span th:utext="${success}"
+				class="badge badge-pill badge-success text-md mb-2 ml-2">Success</span>
+		</div>
+	</div>
+</th:block>

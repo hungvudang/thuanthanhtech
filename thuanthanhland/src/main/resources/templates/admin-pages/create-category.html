@@ -54,6 +54,11 @@
 			</section>
 
 			<!-- Main content -->
+
+			<!-- flash notification -->
+
+			<div th:replace="/admin-pages/fragments/notification::notification"></div>
+			<!-- /. flash notification -->
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-7 col-sm-12">
@@ -76,14 +81,15 @@
 												th:field="*{title}" type="text" class="form-control"
 												id="exampleFormControlInput3" placeholder="">
 										</div>
-										
+
 										<!-- Lựa chọn thứ tự hiển thị danh mục -->
 										<div class="form-group">
-											<label for="exampleFormControlInput3">Thứ tự hiển thị danh mục</label> <input
-												th:field="*{sort}" type="text" class="form-control"
-												id="exampleFormControlInput3" placeholder="">
+											<label for="exampleFormControlInput3">Thứ tự hiển thị
+												danh mục</label> <input th:field="*{sort}" type="text"
+												class="form-control" id="exampleFormControlInput3"
+												placeholder="">
 										</div>
-										
+
 										<!-- Lựa chọn danh mục gốc -->
 										<div class="form-group">
 											<label for="inputCategory">Danh mục gốc</label> <select
@@ -96,7 +102,7 @@
 											</select>
 										</div>
 
-										
+
 										<fieldset class="form-group">
 											<div class="row">
 												<label class="col-form-label col-sm-2 pt-0">Hiển thị</label>
@@ -160,7 +166,7 @@
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
-	
+
 		<!-- footer -->
 		<div th:replace="/admin-pages/fragments/footer::footer"></div>
 
@@ -206,6 +212,15 @@
 				$(this).addClass('active');
 			});
 		})
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$(".message-box")
+			setTimeout(function() {
+				$(".message-box").hide();
+			}, 5000);
+		});
 	</script>
 </body>
 

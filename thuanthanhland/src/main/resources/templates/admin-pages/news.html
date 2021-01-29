@@ -53,6 +53,11 @@
 			</section>
 
 			<!-- Main content -->
+
+			<!-- flash notification -->
+
+			<div th:replace="/admin-pages/fragments/notification::notification"></div>
+			<!-- /. flash notification -->
 			<div class="container">
 				<div class="row justify-content-start">
 					<div class="col">
@@ -114,7 +119,7 @@
 											</td>
 										</th:block>
 										<!-- /. Last modified	 -->
-										
+
 										<td>
 											<div class="row justify-content-center">
 												<div class="col">
@@ -183,6 +188,15 @@
 				$(this).addClass('active');
 			});
 		})
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$(".message-box")
+			setTimeout(function() {
+				$(".message-box").hide();
+			}, 5000);
+		});
 	</script>
 </body>
 

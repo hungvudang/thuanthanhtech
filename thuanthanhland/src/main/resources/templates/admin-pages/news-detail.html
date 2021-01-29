@@ -56,6 +56,11 @@
 			</section>
 
 			<!-- Main content -->
+
+			<!-- flash notification -->
+
+			<div th:replace="/admin-pages/fragments/notification::notification"></div>
+			<!-- /. flash notification -->
 			<div class="container-fluid">
 				<div class="row m-1">
 					<div class="card card-info">
@@ -174,7 +179,8 @@
 
 											<!-- Buuton Summit -->
 											<div>
-												<a class="btn btn-primary float-right" th:href="@{/news}">Trở về</a>
+												<a class="btn btn-primary float-right" th:href="@{/news}">Trở
+													về</a>
 												<button type="submit"
 													class="float-right btn btn-success mr-2">Lưu</button>
 											</div>
@@ -276,6 +282,15 @@
 		}
 		$("#uploadThumbnail").change(function() {
 			readURL(this);
+		});
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$(".message-box")
+			setTimeout(function() {
+				$(".message-box").hide();
+			}, 5000);
 		});
 	</script>
 </body>

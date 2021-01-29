@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -19,9 +22,12 @@ public class User {
 	private Integer id;
 
 	@Column(name = "name", columnDefinition = "VARCHAR(255) NOT NULL")
+	@NotBlank(message = "Tên tài khoản không được để trống")
 	private String name;
 
 	@Column(name = "email", columnDefinition = "VARCHAR(255) NOT NULL")
+	@Email(message = "Địa chỉ email không hợp lệ")
+	@NotBlank(message = "Địa chỉ email không được để trống")
 	private String email;
 
 	@Column(name = "role", columnDefinition = "TINYINT(4) DEFAULT 0") // 0: normal; 1: administrator
@@ -31,9 +37,12 @@ public class User {
 	private String address;
 
 	@Column(name = "password", columnDefinition = "VARCHAR(255) NOT NULL")
+	@Size(min = 8, max = 32, message = "Mật khẩu phải có ít nhất 8 kí tự")
+	@NotBlank(message = "Mật khẩu không được để trống")
 	private String password;
 
 	@Column(name = "phone", columnDefinition = "VARCHAR(20) NOT NULL")
+	@NotBlank(message = "Số điện thoại không được để trống")
 	private String phone;
 
 	@Column(name = "avatar")

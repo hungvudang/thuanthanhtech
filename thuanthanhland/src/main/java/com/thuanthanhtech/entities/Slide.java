@@ -31,7 +31,7 @@ public class Slide {
 	private Integer sort;
 	
 	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")
-	private Integer _public;
+	private Integer pub;
 	
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
@@ -40,7 +40,7 @@ public class Slide {
 		super();
 	}
 
-	public Slide(Integer id, String name, String title, String image, Integer sort, Integer _public,
+	public Slide(Integer id, String name, String title, String image, Integer sort, Integer pub,
 			LocalDateTime created_at, LocalDateTime updated_at) {
 		super();
 		this.id = id;
@@ -48,7 +48,7 @@ public class Slide {
 		this.title = title;
 		this.image = image;
 		this.sort = sort;
-		this._public = _public;
+		this.pub = pub;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}
@@ -93,12 +93,12 @@ public class Slide {
 		this.sort = sort;
 	}
 
-	public Integer get_public() {
-		return _public;
+	public Integer getPub() {
+		return pub;
 	}
 
-	public void set_public(Integer _public) {
-		this._public = _public;
+	public void setPub(Integer pub) {
+		this.pub = pub;
 	}
 
 	public LocalDateTime getCreated_at() {

@@ -75,7 +75,7 @@ public class CategoryAdminController {
 	public String saveCategory(@ModelAttribute("category") Category category, RedirectAttributes ra) {
 
 		if (category.getName().isBlank() || category.getName().isEmpty()) {
-			ra.addFlashAttribute("error", "Tạo danh mục mới thất bại.");
+			ra.addFlashAttribute("error", "Tạo danh mục mới thất bại");
 			ra.addFlashAttribute("category", category);
 			
 			return "redirect:/category/create";
@@ -88,7 +88,7 @@ public class CategoryAdminController {
 
 		cRepository.save(category);
 		
-		ra.addFlashAttribute("success", "Danh mục mới đã được tạo thành công.");
+		ra.addFlashAttribute("success", "Danh mục mới đã được tạo thành công");
 		return "redirect:/category";
 	}
 
@@ -140,7 +140,7 @@ public class CategoryAdminController {
 
 		if (category.getName().isBlank() || category.getName().isEmpty()) {
 			
-			ra.addFlashAttribute("error", "Cập nhật danh mục thất bại.");
+			ra.addFlashAttribute("error", "Cập nhật danh mục thất bại");
 			return "redirect:/category/detail/" + id;
 		}
 
@@ -164,11 +164,11 @@ public class CategoryAdminController {
 			// =====================================================
 			
 			cRepository.save(nCategory);
-			ra.addFlashAttribute("success", "Danh mục đã được cập nhật thành công.");
+			ra.addFlashAttribute("success", "Danh mục đã được cập nhật thành công");
 			return "redirect:/category/detail/" + nCategory.getId();
 		} else {
 			
-			ra.addFlashAttribute("error", "Danh mục này không tồn tại hoặc đã bị xóa.");
+			ra.addFlashAttribute("error", "Danh mục này không tồn tại hoặc đã bị xóa");
 			return "redirect:/category";
 		}
 
@@ -199,9 +199,9 @@ public class CategoryAdminController {
 				cRepository.deleteById(child.getId());
 			});
 			cRepository.deleteById(id);
-			ra.addFlashAttribute("success", "Danh mục đã được xóa thành công.");
+			ra.addFlashAttribute("success", "Danh mục đã được xóa thành công");
 		} else {
-			ra.addFlashAttribute("error", "Xóa danh mục thất bại.");
+			ra.addFlashAttribute("error", "Xóa danh mục thất bại");
 		}
 		return "redirect:/category";
 	}
