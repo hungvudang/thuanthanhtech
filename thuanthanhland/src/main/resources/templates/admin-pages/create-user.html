@@ -77,7 +77,7 @@
 													<label for="exampleFormControlInput1">Tên tài khoản</label>
 													<input th:field="*{name}" type="text" class="form-control"
 														id="exampleFormControlInput1" placeholder=""><span
-														class="text text-danger" th:if="${isNameError}"
+														class="text text-danger badge" th:if="${isNameError}"
 														th:utext="${nameErrorMessage}">Name Error</span>
 												</div>
 												<!-- Email Input -->
@@ -86,7 +86,7 @@
 													<label for="exampleFormControlInput2">Email</label> <input
 														th:field="*{email}" type="email" class="form-control"
 														id="exampleFormControlInput2" placeholder=""><span
-														class="text text-danger" th:if="${isEmailError}"
+														class="text text-danger badge" th:if="${isEmailError}"
 														th:utext="${emailErrorMessage}">Email Error</span>
 												</div>
 
@@ -95,7 +95,7 @@
 													<label for="exampleFormControlInput5">Mật khẩu</label> <input
 														th:field="*{password}" type="password"
 														class="form-control" id="exampleFormControlInput5"
-														placeholder=""><span class="text text-danger"
+														placeholder=""><span class="text text-danger badge"
 														th:if="${isPasswordError}"
 														th:utext="${passwordErrorMessage}">Password Error</span>
 												</div>
@@ -105,7 +105,7 @@
 													<label for="exampleFormControlInput3">Số điện thoại</label>
 													<input th:field="*{phone}" type="tel" class="form-control"
 														id="exampleFormControlInput3" placeholder=""> <span
-														class="text text-danger" th:if="${isPhoneError}"
+														class="text text-danger badge" th:if="${isPhoneError}"
 														th:utext="${phoneErrorMessage}">Phone Error</span>
 												</div>
 

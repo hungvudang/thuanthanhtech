@@ -8,14 +8,13 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thuanthanhtech.entities.User;
 import com.thuanthanhtech.entities.UserHelper;
+import com.thuanthanhtech.entities.UserValidator;
 import com.thuanthanhtech.repositories.UserRepository;
 
 @Controller
@@ -63,7 +63,7 @@ public class UserAdminController {
 	}
 
 	@PostMapping("/save")
-	public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult br,
+	public String saveUser(@Validated(UserValidator.saveValidation.class) @ModelAttribute("user") User user, BindingResult br,
 			@RequestParam("user_avatar") MultipartFile multipartFile, RedirectAttributes ra, Model m)
 			throws IOException {
 
@@ -123,7 +123,7 @@ public class UserAdminController {
 			User user = opUser.get();
 
 			m.addAttribute("user", user);
-			m.addAttribute("active_user", true);
+			m.addAttribute("active_user", true);;
 			return "admin-pages/user-detail";
 		}
 
@@ -132,13 +132,13 @@ public class UserAdminController {
 	}
 
 	@PostMapping("/update/{id}")
-	public String updateUser(@PathVariable("id") Integer id, @Valid @ModelAttribute("user") User user, BindingResult br,
+	public String updateUser(@PathVariable("id") Integer id, @Validated(UserValidator.updateValidation.class) @ModelAttribute("user") User user, BindingResult br,
 			@RequestParam("user_avatar") MultipartFile multipartFile, Model m, RedirectAttributes ra)
 			throws IOException {
 		
 		// Bỏ qua phần validate password khi cập nhật. Vì không cho phép cập nhật
 		// password
-		if (br.hasErrors() && br.getErrorCount() != 1) {
+		if (br.hasErrors()) {
 			if (br.hasFieldErrors("name")) {
 				ra.addFlashAttribute("isNameError", true);
 				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());

@@ -22,12 +22,12 @@ public class User {
 	private Integer id;
 
 	@Column(name = "name", columnDefinition = "VARCHAR(255) NOT NULL")
-	@NotBlank(message = "Tên tài khoản không được để trống")
+	@NotBlank(message = "Tên tài khoản không được để trống", groups = {UserValidator.saveValidation.class, UserValidator.updateValidation.class})
 	private String name;
 
 	@Column(name = "email", columnDefinition = "VARCHAR(255) NOT NULL")
-	@Email(message = "Địa chỉ email không hợp lệ")
-	@NotBlank(message = "Địa chỉ email không được để trống")
+	@Email(message = "Địa chỉ email không hợp lệ", groups = {UserValidator.saveValidation.class, UserValidator.updateValidation.class})
+	@NotBlank(message = "Địa chỉ email không được để trống", groups = {UserValidator.saveValidation.class, UserValidator.updateValidation.class})
 	private String email;
 
 	@Column(name = "role", columnDefinition = "TINYINT(4) DEFAULT 0") // 0: normal; 1: administrator
@@ -37,12 +37,13 @@ public class User {
 	private String address;
 
 	@Column(name = "password", columnDefinition = "VARCHAR(255) NOT NULL")
-	@Size(min = 8, max = 32, message = "Mật khẩu phải có ít nhất 8 kí tự")
-	@NotBlank(message = "Mật khẩu không được để trống")
+	@Size(min = 8, max = 32, message = "Mật khẩu phải có ít nhất 8 kí tự", groups = {UserValidator.saveValidation.class})
+	@NotBlank(message = "Mật khẩu không được để trống", groups = {UserValidator.saveValidation.class})
 	private String password;
 
-	@Column(name = "phone", columnDefinition = "VARCHAR(20) NOT NULL")
-	@NotBlank(message = "Số điện thoại không được để trống")
+	@Column(name = "phone", columnDefinition = "VARCHAR(10) NOT NULL")
+	@NotBlank(message = "Số điện thoại không được để trống", groups = {UserValidator.saveValidation.class, UserValidator.updateValidation.class})
+	@Size(min = 10, max = 10, message = "Số điện thoại không đúng định dạng", groups = {UserValidator.saveValidation.class, UserValidator.updateValidation.class})
 	private String phone;
 
 	@Column(name = "avatar")
