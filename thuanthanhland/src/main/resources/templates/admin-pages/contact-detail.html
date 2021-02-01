@@ -1,10 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="utf-8">
+
 </head>
-<body>
+<body class="hold-transition sidebar-mini">
+	<div class="content-wrapper">
+		<!-- Navbar -->
+		<div th:replace="fragments/navbar::navbar"></div>
+		<!-- /.navbar -->
+
+		<!-- Main Sidebar Container -->
+		<div th:replace="fragments/sidebar::sidebar"></div>
+		<!-- Content Wrapper. Contains page content -->
+
+
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Tài khoản</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item">Trang chủ</li>
+								<li class="breadcrumb-item active">Tài khoản</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+		</div>
+	</div>
+
+	<!-- Main content -->
+	<div class="container-fluid">
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-6">
+				<!-- general form elements -->
+				<div class="card card-primary">
+					<div class="card-header">
+						<h2 class="card-title font-weight-bold">Cập nhật liên hệ</h2>
+					</div>
+					<!-- /.card-header -->
+					<!-- form start -->
+					<div class="card-body">
+						<form th:object="@{contact}" th:action="@{'/}" th:method="post">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Họ Tên</label>
+								 <input th:field="*{name}"
+									type="text" class="form-control" id="exampleInputName"
+									placeholder="Enter name">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Email </label> 
+								<input th:field ="*{email}"
+									type="email" class="form-control" id="exampleInputEmail1"
+									placeholder="Enter email">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Địa chỉ</label> 
+								<input th:field ="*{address}"
+									type="text" class="form-control" id="exampleInputAddress"
+									placeholder="Address">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPassword1">Số điện thoại</label> 
+								<input th:field ="*{phone}"
+									type="tel" class="form-control" id="exampleInputPhone"
+									placeholder="Phone">
+							</div>
+
+						</form>
+					</div>
+					<!-- /.card-body -->
+
+					<div class="card-footer">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+					</form>
+				</div>
+				<!-- /.card -->
+
+
+				</form>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+	</div>
+
+
 
 </body>
 </html>
