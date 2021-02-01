@@ -49,11 +49,12 @@ public class UserAdminController {
 
 	@GetMapping("/create")
 	public String createUser(Model m) {
-		User user = new User();
-		user.setRole(0);
-		user.setAvatar(UserHelper.NO_AVATAR_MEDIUM_IMAGE);
 
 		if (m.getAttribute("user") == null) {
+			User user = new User();
+			user.setRole(0);
+			user.setAvatar(UserHelper.NO_AVATAR_MEDIUM_IMAGE);
+			
 			m.addAttribute("user", user);
 		}
 
@@ -63,8 +64,8 @@ public class UserAdminController {
 	}
 
 	@PostMapping("/save")
-	public String saveUser(@Validated(UserValidator.saveValidation.class) @ModelAttribute("user") User user, BindingResult br,
-			@RequestParam("user_avatar") MultipartFile multipartFile, RedirectAttributes ra, Model m)
+	public String saveUser(@Validated(UserValidator.saveValidation.class) @ModelAttribute("user") User user,
+			BindingResult br, @RequestParam("user_avatar") MultipartFile multipartFile, RedirectAttributes ra, Model m)
 			throws IOException {
 
 		if (br.hasErrors()) {
@@ -123,7 +124,8 @@ public class UserAdminController {
 			User user = opUser.get();
 
 			m.addAttribute("user", user);
-			m.addAttribute("active_user", true);;
+			m.addAttribute("active_user", true);
+			;
 			return "admin-pages/user-detail";
 		}
 
@@ -132,10 +134,11 @@ public class UserAdminController {
 	}
 
 	@PostMapping("/update/{id}")
-	public String updateUser(@PathVariable("id") Integer id, @Validated(UserValidator.updateValidation.class) @ModelAttribute("user") User user, BindingResult br,
+	public String updateUser(@PathVariable("id") Integer id,
+			@Validated(UserValidator.updateValidation.class) @ModelAttribute("user") User user, BindingResult br,
 			@RequestParam("user_avatar") MultipartFile multipartFile, Model m, RedirectAttributes ra)
 			throws IOException {
-		
+
 		// Bỏ qua phần validate password khi cập nhật. Vì không cho phép cập nhật
 		// password
 		if (br.hasErrors()) {
@@ -199,11 +202,11 @@ public class UserAdminController {
 				deleteAvatarImageDir(id);
 			}
 			ra.addFlashAttribute("success", "Tài khoản đã được xóa thành công");
-			return "redirect:/user";
+			
+		} else {
+			ra.addFlashAttribute("error", "Tài khoản không tồn tại hoặc đã bị xóa");
 		}
-//		else
 
-		ra.addFlashAttribute("error", "Tài khoản không tồn tại hoặc đã bị xóa");
 		return "redirect:/user";
 	}
 

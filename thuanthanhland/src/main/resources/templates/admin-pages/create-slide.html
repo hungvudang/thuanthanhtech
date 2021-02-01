@@ -1,10 +1,277 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
 
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>AdminLTE 3 | Slide</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="/admin-static/plugins/fontawesome-free/css/all.min.css">
+<!-- Ekko Lightbox -->
+<link rel="stylesheet"
+	href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
+
+<!-- summernote -->
+<link rel="stylesheet"
+	href="/admin-static/plugins/summernote/summernote-bs4.min.css">
+<!-- Google Font: Source Sans Pro -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
+</head>
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+		<!-- Navbar -->
+		<div th:replace="/admin-pages/fragments/navbar::navbar"></div>
+		<!-- /.navbar -->
+
+		<!-- Main Sidebar Container -->
+		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Slide</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item">Trang chủ</li>
+								<li class="breadcrumb-item active">Slide</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+
+			<!-- Main content -->
+
+			<!-- flash notification -->
+
+			<div th:replace="/admin-pages/fragments/notification::notification"></div>
+			<!-- /. flash notification -->
+			<div class="container-fluid">
+				<div class="row m-1">
+					<div class="card card-info" style="width: 100%;">
+						<div class="card-header">
+							<h2 class="card-title font-weight-bold">Tạo slide mới</h2>
+						</div>
+						<div class="card-body">
+							<div class="col">
+								<form th:action="@{/slide/save}" th:method="post"
+									th:object="${slide}" enctype="multipart/form-data">
+									<div class="row">
+										<div class="col-5">
+											<div>
+												<!-- Name Input -->
+												<div class="form-group">
+													<label for="exampleFormControlInput2">Tên</label> <input
+														th:field="*{name}" type="text" class="form-control"
+														id="exampleFormControlInput2" placeholder=""> <span
+														class="text text-danger badge" th:if="${isNameError}"
+														th:utext="${nameErrorMessage}">Name Error</span>
+												</div>
+												<!-- Title Input -->
+
+												<div class="form-group">
+													<label for="exampleFormControlInput3">Tiêu đề</label> <input
+														th:field="*{title}" type="text" class="form-control"
+														id="exampleFormControlInput3" placeholder=""> <span
+														class="text text-danger badge" th:if="${isTitleError}"
+														th:utext="${titleErrorMessage}">Title Error</span>
+												</div>
+
+												<!-- Public Input -->
+
+												<fieldset class="form-group">
+													<div class="row">
+														<label class="col-form-label col-sm-2 pt-0">Hiển
+															thị</label>
+														<div class="col-sm-10">
+															<div class="form-check">
+																<input th:field="*{pub}" class="form-check-input"
+																	type="radio" name="gridRadiosPublic" id="gridRadios1"
+																	value="1"> <label
+																	class="form-check-label lead text-sm" for="gridRadios1">
+																	Hiện thị </label>
+															</div>
+															<div class="form-check">
+																<input th:field="*{pub}" class="form-check-input"
+																	type="radio" name="gridRadiosPublic" id="gridRadios2"
+																	value="0"> <label
+																	class="form-check-label lead text-sm" for="gridRadios2">
+																	Ẩn </label>
+															</div>
+														</div>
+													</div>
+												</fieldset>
+
+												<!-- Sort Input -->
+
+												<div class="form-group">
+													<label for="exampleFormControlInput4">Thứ tự hiển
+														thị</label> <input th:field="*{sort}" type="number"
+														class="form-control" id="exampleFormControlInput4"
+														placeholder=""> <span
+														class="text text-danger badge" th:if="${isSortError}"
+														th:utext="${sortErrorMessage}">Sort Error</span>
+												</div>
+
+											</div>
+
+											<!-- Button Submit -->
+											<div>
+												<!-- <a class="btn btn-primary float-right" th:href="@{/slide}">Hủy
+													bỏ</a> -->
+												<button type="submit"
+													class="btn-submit-default float-right btn btn-success mr-2"
+													hidden="true">Tạo</button>
+											</div>
+											<!-- /. button submit -->
+										</div>
+										<!-- Upload image of slide -->
+										<div class="col-7">
+											<div>
+												<label for="uploadThumbnail">Hình ảnh</label>
+
+												<div>
+													<img th:src="@{*{image}}" alt="image-media"
+														class="img-fluid mb-3" id="slide-image"
+														style="max-height: 350px;">
+												</div>
+
+												<input name="slide_image" type="file" class="form-control"
+													id="uploadImage" accept="image/png, image/jpeg" /> <span
+													class="text text-danger badge" th:if="${isImageError}"
+													th:utext="${imageErrorMessage}">Image Error</span>
+											</div>
+										</div>
+										<!-- /.image upload -->
+									</div>
+
+								</form>
+							</div>
+						</div>
+						<div class="card-footer" style="background-color: white;">
+							<div class="row">
+								<div class="col-5">
+									<!-- Button Submit -->
+									<div>
+										<a class="btn btn-primary float-right" th:href="@{/slide}">Hủy
+											bỏ</a>
+										<button type="submit"
+											class="btn-submit-custom float-right btn btn-success mr-2">Tạo</button>
+									</div>
+									<!-- /. button submit -->
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+
+		<!-- footer -->
+		<div th:replace="/admin-pages/fragments/footer::footer"></div>
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- jQuery -->
+	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script
+		src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- jQuery UI -->
+	<script src="/admin-static/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<!-- Ekko Lightbox -->
+	<script src="/admin-static/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="/admin-static/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="/admin-static/dist/js/demo.js"></script>
+	<!-- Filterizr-->
+	<script src="/admin-static/plugins/filterizr/jquery.filterizr.min.js"></script>
+	<!-- Page specific script -->
+	<script>
+		$(function() {
+			$(document).on('click', '[data-toggle="lightbox"]',
+					function(event) {
+						event.preventDefault();
+						$(this).ekkoLightbox({
+							alwaysShowClose : true
+						});
+					});
+
+			$('.filter-container').filterizr({
+				gutterPixels : 3
+			});
+			$('.btn[data-filter]').on('click', function() {
+				$('.btn[data-filter]').removeClass('active');
+				$(this).addClass('active');
+			});
+		})
+	</script>
+
+	<!-- Summernote -->
+	<script src="/admin-static/plugins/summernote/summernote-bs4.min.js"></script>
+	<script>
+		$(function() {
+			// Summernote
+			$('.textarea').summernote()
+		})
+	</script>
+
+	<!-- preview image -->
+	<script>
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					$('#slide-image').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]); // convert to base64 string
+			}
+		}
+		$("#uploadImage").change(function() {
+			readURL(this);
+		});
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$(".message-box")
+			setTimeout(function() {
+				$(".message-box").hide();
+			}, 5000);
+		});
+
+		$('.btn-submit-custom').click(function() {
+			$('.btn-submit-default').click();
+		})
+	</script>
 </body>
+
 </html>

@@ -44,6 +44,7 @@ public class CategoryAdminController {
 	public String createCategory(Model m) {
 
 		Category c = new Category();
+		c.setSort(0);
 		c.setPub(1);
 		c.setHot(0);
 		c.setParent_id(0);
