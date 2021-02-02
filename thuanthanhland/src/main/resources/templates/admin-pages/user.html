@@ -22,16 +22,17 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
+
 </head>
 
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 		<!-- Navbar -->
-		<div th:replace="/fragments/navbar::navbar"></div>
+		<div th:replace="/admin-pages/fragments/navbar::navbar"></div>
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-		<div th:replace="/fragments/sidebar::sidebar"></div>
+		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
@@ -53,6 +54,11 @@
 			</section>
 
 			<!-- Main content -->
+
+			<!-- flash notification -->
+
+			<div th:replace="/admin-pages/fragments/notification::notification"></div>
+			<!-- /. flash notification -->
 			<div class="container">
 				<!-- <div class="row justify-content-end mb-3">
 					<div class="col d-block text-right">
@@ -87,8 +93,8 @@
 
 										<div>
 											<th:block th:if="${u.role == 1}">
-												<td><span class="badge badge-pill badge-warning">Quản trị</span>
-												</td>
+												<td><span class="badge badge-pill badge-warning">Quản
+														trị</span></td>
 											</th:block>
 
 											<th:block th:if="${u.role == 0}">
@@ -178,6 +184,15 @@
 				$(this).addClass('active');
 			});
 		})
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$(".message-box")
+			setTimeout(function() {
+				$(".message-box").hide();
+			}, 5000);
+		});
 	</script>
 </body>
 

@@ -11,11 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -78,15 +81,22 @@ public class NewsAdminController {
 	}
 
 	@PostMapping("/save")
-	public String saveNews(@ModelAttribute("news") News news,
+	public String saveNews(@Valid @ModelAttribute("news") News news, BindingResult br,
 			@RequestParam("news_thumbnail") MultipartFile multipartFile, RedirectAttributes ra) throws IOException {
 
-		if (news.getName().isEmpty() || news.getTitle().isEmpty() || news.getContent().isEmpty()
-				|| news.getDescription().isEmpty() || news.getCategory() == null) {
+		if (br.hasErrors()) {
+			if (br.hasFieldErrors("name")) {
+				ra.addFlashAttribute("isNameError", true);
+				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
+			}
 
-			ra.addFlashAttribute("error", "Tạo bài viết mới thất bại.");
+			if (br.hasFieldErrors("title")) {
+				ra.addFlashAttribute("isTitleError", true);
+				ra.addFlashAttribute("titleErrorMessage", br.getFieldError("title").getDefaultMessage());
+			}
+			
+			ra.addFlashAttribute("error", "Tạo bài viết mới thất bại");
 			ra.addFlashAttribute("news", news);
-
 			return "redirect:/news/create";
 		}
 
@@ -109,7 +119,7 @@ public class NewsAdminController {
 
 			}
 			// ============================================================================================
-			ra.addFlashAttribute("success", "Bài viết mới đã được tạo thành công.");
+			ra.addFlashAttribute("success", "Bài viết mới đã được tạo thành công");
 			nRepository.save(news);
 		}
 
@@ -117,7 +127,7 @@ public class NewsAdminController {
 	}
 
 	@GetMapping("/detail/{id}")
-	public String detailNews(@PathVariable("id") Integer id, Model m) {
+	public String detailNews(@PathVariable("id") Integer id, Model m, RedirectAttributes ra) {
 
 		m.addAttribute("active_news", true);
 
@@ -139,17 +149,27 @@ public class NewsAdminController {
 
 			return "admin-pages/news-detail";
 		}
+		ra.addFlashAttribute("error", "Bài viết không tồn tại hoặc đã bị xóa");
 		return "redirect:/news";
 	}
 
 	@PostMapping("/update/{id}")
-	public String updateNews(@PathVariable("id") Integer id, @ModelAttribute("news") News news,
+	public String updateNews(@PathVariable("id") Integer id,@Valid @ModelAttribute("news") News news, BindingResult br,
 			@RequestParam("news_thumbnail") MultipartFile multipartFile, RedirectAttributes ra) throws IOException {
 
-		if (news.getTitle().isEmpty() || news.getContent().isEmpty() || news.getCategory() == null) {
-			ra.addFlashAttribute("error", "Cập nhật bài viết thất bại.");
-			return "redirect:/news/detail/" + id;
+		if (br.hasErrors()) {
+			
+			if (br.hasFieldErrors("name")) {
+				ra.addFlashAttribute("isNameError", true);
+				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
+			}
 
+			if (br.hasFieldErrors("title")) {
+				ra.addFlashAttribute("isTitleError", true);
+				ra.addFlashAttribute("titleErrorMessage", br.getFieldError("title").getDefaultMessage());
+			}
+			ra.addFlashAttribute("error", "Cập nhật bài viết thất bại");
+			return "redirect:/news/detail/" + id;
 		}
 
 		Optional<Category> opCategory = cRepository.findById(news.getCategory().getId());
@@ -191,12 +211,12 @@ public class NewsAdminController {
 			}
 			// ============================================================================================
 
-			ra.addFlashAttribute("success", "Bài viết đã được cập nhật thành công.");
+			ra.addFlashAttribute("success", "Bài viết đã được cập nhật thành công");
 			nRepository.save(nNews);
 			return "redirect:/news/detail/" + nNews.getId();
 		} else {
 
-			ra.addFlashAttribute("error", "Bài viết không tồn tại hoặc đã bị xóa.");
+			ra.addFlashAttribute("error", "Bài viết không tồn tại hoặc đã bị xóa");
 			return "redirect:/news";
 		}
 
@@ -211,10 +231,10 @@ public class NewsAdminController {
 			if (opNews.get().getImage() != null) {
 				deleteThumbnailImageDir(opNews.get().getImage());
 			}
-			ra.addFlashAttribute("success", "Xóa bài viết thành công.");
+			ra.addFlashAttribute("success", "Xóa bài viết thành công");
 			
 		} else {
-			ra.addFlashAttribute("error", "Xóa bài viết thất bại.");
+			ra.addFlashAttribute("error", "Xóa bài viết thất bại");
 		}
 		return "redirect:/news";
 	}

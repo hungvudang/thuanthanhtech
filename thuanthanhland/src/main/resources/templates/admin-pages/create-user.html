@@ -28,11 +28,11 @@
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 		<!-- Navbar -->
-		<div th:replace="/fragments/navbar::navbar"></div>
+		<div th:replace="/admin-pages/fragments/navbar::navbar"></div>
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-		<div th:replace="/fragments/sidebar::sidebar"></div>
+		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -55,6 +55,10 @@
 			</section>
 
 			<!-- Main content -->
+
+			<!-- flash notification -->
+			<div th:replace="/admin-pages/fragments/notification::notification"></div>
+			<!-- /. flash notification -->
 			<div class="container-fluid">
 				<div class="row m-1">
 					<div class="card card-info" style="width: 100%;">
@@ -72,14 +76,18 @@
 												<div class="form-group">
 													<label for="exampleFormControlInput1">Tên tài khoản</label>
 													<input th:field="*{name}" type="text" class="form-control"
-														id="exampleFormControlInput1" placeholder="">
+														id="exampleFormControlInput1" placeholder=""><span
+														class="text text-danger badge" th:if="${isNameError}"
+														th:utext="${nameErrorMessage}">Name Error</span>
 												</div>
 												<!-- Email Input -->
 
 												<div class="form-group">
 													<label for="exampleFormControlInput2">Email</label> <input
 														th:field="*{email}" type="email" class="form-control"
-														id="exampleFormControlInput2" placeholder="">
+														id="exampleFormControlInput2" placeholder=""><span
+														class="text text-danger badge" th:if="${isEmailError}"
+														th:utext="${emailErrorMessage}">Email Error</span>
 												</div>
 
 												<!-- Password Input -->
@@ -87,14 +95,18 @@
 													<label for="exampleFormControlInput5">Mật khẩu</label> <input
 														th:field="*{password}" type="password"
 														class="form-control" id="exampleFormControlInput5"
-														placeholder="">
+														placeholder=""><span class="text text-danger badge"
+														th:if="${isPasswordError}"
+														th:utext="${passwordErrorMessage}">Password Error</span>
 												</div>
 
 												<!-- Phone Input -->
 												<div class="form-group">
 													<label for="exampleFormControlInput3">Số điện thoại</label>
 													<input th:field="*{phone}" type="tel" class="form-control"
-														id="exampleFormControlInput3" placeholder="">
+														id="exampleFormControlInput3" placeholder=""> <span
+														class="text text-danger badge" th:if="${isPhoneError}"
+														th:utext="${phoneErrorMessage}">Phone Error</span>
 												</div>
 
 												<!-- Địa chỉ Input -->
@@ -108,8 +120,8 @@
 												<!-- Admin Input -->
 												<fieldset class="form-group">
 													<div class="row">
-														<label class="col-form-label col-sm-4 pt-0"> Vai trò
-														</label>
+														<label class="col-form-label col-sm-4 pt-0"> Vai
+															trò </label>
 														<div class="col-sm-8">
 															<div class="form-check">
 																<input th:field="*{role}" class="form-check-input"
@@ -231,6 +243,15 @@
 		}
 		$("#uploadAvatar").change(function() {
 			readURL(this);
+		});
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$(".message-box")
+			setTimeout(function() {
+				$(".message-box").hide();
+			}, 5000);
 		});
 	</script>
 </body>

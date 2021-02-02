@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "slides")
@@ -18,9 +21,11 @@ public class Slide {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotBlank(message = "Tên không được để trống")
 	@Column(name = "name")
 	private String name;
 	
+	@NotBlank(message = "Tiêu đề không được để trống")
 	@Column(name = "title")
 	private String title;
 	
@@ -28,10 +33,12 @@ public class Slide {
 	private String image;
 	
 	@Column(name = "sort", columnDefinition = "INT NOT NULL UNIQUE")
+	@NotNull(message = "Thứ tự hiển thị không được để trống")
+	@Min(value = 0, message = "Thứ tự hiển thị không không hợp lệ")
 	private Integer sort;
 	
 	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")
-	private Integer _public;
+	private Integer pub;
 	
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
@@ -40,7 +47,7 @@ public class Slide {
 		super();
 	}
 
-	public Slide(Integer id, String name, String title, String image, Integer sort, Integer _public,
+	public Slide(Integer id, String name, String title, String image, Integer sort, Integer pub,
 			LocalDateTime created_at, LocalDateTime updated_at) {
 		super();
 		this.id = id;
@@ -48,7 +55,7 @@ public class Slide {
 		this.title = title;
 		this.image = image;
 		this.sort = sort;
-		this._public = _public;
+		this.pub = pub;
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}
@@ -93,12 +100,12 @@ public class Slide {
 		this.sort = sort;
 	}
 
-	public Integer get_public() {
-		return _public;
+	public Integer getPub() {
+		return pub;
 	}
 
-	public void set_public(Integer _public) {
-		this._public = _public;
+	public void setPub(Integer pub) {
+		this.pub = pub;
 	}
 
 	public LocalDateTime getCreated_at() {

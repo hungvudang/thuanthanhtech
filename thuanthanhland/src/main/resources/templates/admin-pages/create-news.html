@@ -31,11 +31,11 @@
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 		<!-- Navbar -->
-		<div th:replace="/fragments/navbar::navbar"></div>
+		<div th:replace="/admin-pages/fragments/navbar::navbar"></div>
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-		<div th:replace="/fragments/sidebar::sidebar"></div>
+		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -58,6 +58,11 @@
 			</section>
 
 			<!-- Main content -->
+
+			<!-- flash notification -->
+
+			<div th:replace="/admin-pages/fragments/notification::notification"></div>
+			<!-- /. flash notification -->
 			<div class="container-fluid">
 				<div class="row m-1">
 					<div class="card card-info">
@@ -75,14 +80,18 @@
 												<div class="form-group">
 													<label for="exampleFormControlInput2">Tên bài viết</label>
 													<input th:field="*{name}" type="text" class="form-control"
-														id="exampleFormControlInput2" placeholder="">
+														id="exampleFormControlInput2" placeholder=""><span
+														class="text text-danger badge" th:if="${isNameError}"
+														th:utext="${nameErrorMessage}">Name Error</span>
 												</div>
 												<!-- Title Input -->
 
 												<div class="form-group">
 													<label for="exampleFormControlInput3">Tiêu đề</label> <input
 														th:field="*{title}" type="text" class="form-control"
-														id="exampleFormControlInput3" placeholder="">
+														id="exampleFormControlInput3" placeholder=""><span
+														class="text text-danger badge" th:if="${isTitleError}"
+														th:utext="${titleErrorMessage}">Title Error</span>
 												</div>
 												<!-- Select Category -->
 												<div class="form-group">
@@ -269,6 +278,15 @@
 		}
 		$("#uploadThumbnail").change(function() {
 			readURL(this);
+		});
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$(".message-box")
+			setTimeout(function() {
+				$(".message-box").hide();
+			}, 5000);
 		});
 	</script>
 </body>

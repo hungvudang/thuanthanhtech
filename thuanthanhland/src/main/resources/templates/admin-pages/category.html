@@ -27,11 +27,11 @@
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 		<!-- Navbar -->
-		<div th:replace="fragments/navbar::navbar"></div>
+		<div th:replace="/admin-pages/fragments/navbar::navbar"></div>
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-		<div th:replace="fragments/sidebar::sidebar"></div>
+		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
 
 
 
@@ -56,6 +56,12 @@
 			</section>
 
 			<!-- Main content -->
+			
+			<!-- flash notification -->
+			
+			<div th:replace="/admin-pages/fragments/notification::notification"></div>
+			
+			<!-- /. flash notification -->
 			<div class="container">
 				<div class="row justify-content-start">
 					<div class="col">
@@ -74,7 +80,7 @@
 								</thead>
 								<tbody>
 									<tr th:each="c : ${categories}">
-										<td th:utext="${c.id}" th:filed="${c.id}" scope="row"></td>
+										<td th:utext="${c.id}" th:fileld="${c.id}" scope="row"></td>
 										<td th:utext="${c.name}" th:field="${c.name}"></td>
 										<td th:utext="${c.title}" th:field="${c.title}"></td>
 
@@ -183,6 +189,15 @@
 				$(this).addClass('active');
 			});
 		})
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+			$(".message-box")
+			setTimeout(function() {
+				$(".message-box").hide();
+			}, 5000);
+		});
 	</script>
 </body>
 

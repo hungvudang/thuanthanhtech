@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "news")
@@ -23,8 +24,10 @@ public class News {
 	private Integer id;
 
 	@Column(name = "name", columnDefinition = "VARCHAR(255) NOT NULL", unique = true)
+	@NotBlank(message = "Tên không được để trống")
 	private String name;
-
+	
+	@NotBlank(message = "Tiêu đề bài viết không được để trống")
 	@Column(name = "title", columnDefinition = "VARCHAR(255) NOT NULL")
 	private String title;
 

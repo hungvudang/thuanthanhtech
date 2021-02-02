@@ -44,6 +44,7 @@ public class CategoryAdminController {
 	public String createCategory(Model m) {
 
 		Category c = new Category();
+		c.setSort(0);
 		c.setPub(1);
 		c.setHot(0);
 		c.setParent_id(0);
@@ -75,9 +76,9 @@ public class CategoryAdminController {
 	public String saveCategory(@ModelAttribute("category") Category category, RedirectAttributes ra) {
 
 		if (category.getName().isBlank() || category.getName().isEmpty()) {
-			ra.addFlashAttribute("error", "Tạo danh mục mới thất bại.");
+			ra.addFlashAttribute("error", "Tạo danh mục mới thất bại");
 			ra.addFlashAttribute("category", category);
-			
+
 			return "redirect:/category/create";
 		}
 
@@ -87,9 +88,9 @@ public class CategoryAdminController {
 		// ==============================
 
 		cRepository.save(category);
-		
-		ra.addFlashAttribute("success", "Danh mục mới đã được tạo thành công.");
+		ra.addFlashAttribute("success", "Danh mục mới đã được tạo thành công");
 		return "redirect:/category";
+
 	}
 
 	@GetMapping("/detail/{id}")
@@ -132,43 +133,44 @@ public class CategoryAdminController {
 			m.addAttribute("category", category);
 			return "admin-pages/category-detail";
 		}
-		return "rediect:/category";
+		return "redirect:/category";
 	}
 
 	@PostMapping("/update/{id}")
-	public String updateCategory(@PathVariable("id") Integer id, @ModelAttribute("category") Category category, RedirectAttributes ra) {
+	public String updateCategory(@PathVariable("id") Integer id, @ModelAttribute("category") Category category,
+			RedirectAttributes ra) {
 
 		if (category.getName().isBlank() || category.getName().isEmpty()) {
-			
-			ra.addFlashAttribute("error", "Cập nhật danh mục thất bại.");
+
+			ra.addFlashAttribute("error", "Cập nhật danh mục thất bại");
 			return "redirect:/category/detail/" + id;
 		}
 
 		Optional<Category> opCategory = cRepository.findById(id);
 		if (opCategory.isPresent()) {
 			Category nCategory = opCategory.get();
-			
+
 			nCategory.setId(category.getId());
 			nCategory.setName(category.getName());
 			nCategory.setTitle(category.getTitle());
 			nCategory.setParent_id(category.getId());
 			nCategory.setHot(category.getHot());
 			nCategory.setPub(category.getPub());
-			
+
 			nCategory.setParent_id(category.getParent_id());
-			
+
 			// Tạo slug dựa theo tên danh mục
 			// ====================================================
 			String slug = SlugConverter.convert(category.getName());
 			category.setSlug(slug);
 			// =====================================================
-			
+
 			cRepository.save(nCategory);
-			ra.addFlashAttribute("success", "Danh mục đã được cập nhật thành công.");
+			ra.addFlashAttribute("success", "Danh mục đã được cập nhật thành công");
 			return "redirect:/category/detail/" + nCategory.getId();
 		} else {
-			
-			ra.addFlashAttribute("error", "Danh mục này không tồn tại hoặc đã bị xóa.");
+
+			ra.addFlashAttribute("error", "Danh mục này không tồn tại hoặc đã bị xóa");
 			return "redirect:/category";
 		}
 
@@ -189,7 +191,7 @@ public class CategoryAdminController {
 			List<Category> categories = cRepository.findAll();
 			List<RootCategory> childsTargetCategory = new ArrayList<RootCategory>();
 			List<Boolean> visited = new ArrayList<Boolean>();
-			
+
 			categories.parallelStream().forEach((obj) -> {
 				visited.add(false);
 			});
@@ -199,13 +201,13 @@ public class CategoryAdminController {
 				cRepository.deleteById(child.getId());
 			});
 			cRepository.deleteById(id);
-			ra.addFlashAttribute("success", "Danh mục đã được xóa thành công.");
+			ra.addFlashAttribute("success", "Danh mục đã được xóa thành công");
 		} else {
-			ra.addFlashAttribute("error", "Xóa danh mục thất bại.");
+			ra.addFlashAttribute("error", "Xóa danh mục thất bại");
 		}
 		return "redirect:/category";
 	}
-	
+
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String handlerException() {

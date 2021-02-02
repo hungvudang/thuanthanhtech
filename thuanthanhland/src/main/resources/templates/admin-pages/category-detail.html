@@ -22,11 +22,11 @@
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 		<!-- Navbar -->
-		<div th:replace="fragments/navbar::navbar"></div>
+		<div th:replace="/admin-pages/fragments/navbar::navbar"></div>
 		<!-- /.navbar -->
 
 		<!-- Main Sidebar Container -->
-		<div th:replace="fragments/sidebar::sidebar"></div>
+		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
@@ -48,6 +48,12 @@
 			</section>
 
 			<!-- Main content -->
+			
+			<!-- flash notification -->
+			
+			<div th:replace="/admin-pages/fragments/notification::notification"></div>
+			
+			<!-- /. flash notification -->
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-7 col-sm-12">
@@ -65,10 +71,16 @@
 												id="exampleFormControlInput2" placeholder="">
 										</div>
 
-										<div class="form-group">
+										<div class="form-group"> 
 											<label for="exampleFormControlInput3">Tiêu đề</label> <input
 												th:field="*{title}" type="text" class="form-control"
 												id="exampleFormControlInput3" placeholder="">
+										</div>
+										
+										<div class="form-group">
+											<label for="exampleFormControlInput4">Thứ tự hiển thị</label> <input
+												th:field="*{sort}" type="number" class="form-control"
+												id="exampleFormControlInput4" placeholder="">
 										</div>
 
 										<!-- Lựa chọn danh mục gốc -->
@@ -189,6 +201,15 @@
 				$(this).addClass('active');
 			});
 		})
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+			$(".message-box")
+			setTimeout(function() {
+				$(".message-box").hide();
+			}, 5000);
+		});
 	</script>
 </body>
 
