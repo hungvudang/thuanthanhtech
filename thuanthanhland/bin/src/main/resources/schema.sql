@@ -1,3 +1,5 @@
+create database if not exists thuanthanhlanddb;
+
 create table if not exists categories (
 	id int  not null,
 	name varchar(191) not null,

@@ -99,7 +99,8 @@ public class NewsAdminController {
 			ra.addFlashAttribute("news", news);
 			return "redirect:/news/create";
 		}
-
+		
+		
 		Optional<Category> opCategory = cRepository.findById(news.getCategory().getId());
 		if (opCategory.isPresent()) {
 
@@ -173,7 +174,8 @@ public class NewsAdminController {
 		}
 
 		Optional<Category> opCategory = cRepository.findById(news.getCategory().getId());
-
+		
+		
 		if (opCategory.isPresent()) {
 			News nNews = nRepository.findById(id).get();
 
