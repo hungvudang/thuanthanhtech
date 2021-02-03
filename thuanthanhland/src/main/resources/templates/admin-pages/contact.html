@@ -7,7 +7,7 @@
 
 <title>AdminLTE 3 | Dashboard 2</title>
 
-<!-- Font Awesome Icons -->
+<!-- Font Awesome -->
 <link rel="stylesheet"
 	href="/admin-static/plugins/fontawesome-free/css/all.min.css">
 <!-- Ekko Lightbox -->
@@ -22,7 +22,6 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
 	rel="stylesheet">
-<title>Insert title here</title>
 </head>
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
@@ -71,7 +70,7 @@
 							</div>
 						</div>
 						<!-- /.card-header -->
-						<div class="card-body table-responsive p-0">
+						<div class="card-body p-0">
 							<table class="table table-hover text-nowrap">
 								<thead>
 									<tr>
@@ -164,6 +163,15 @@
 				$(this).addClass('active');
 			});
 		})
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$(".message-box")
+			setTimeout(function() {
+				$(".message-box").hide();
+			}, 5000);
+		});
 	</script>
 
 </body>

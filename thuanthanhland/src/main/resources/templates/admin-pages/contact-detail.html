@@ -33,132 +33,97 @@
 		<!-- Main Sidebar Container -->
 		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
 		<div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>Liên hệ</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Liên hệ</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.container-fluid -->
-            </section>
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Liên hệ</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item active">Liên hệ</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+			</section>
 
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <!-- left column -->
-                        <div class="col-md-6">
-                            <!-- general form elements -->
-                            <div class="card card-primary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Liên hệ</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <!-- form start -->
-                                <form th:action="@{'/contact/update/' + ${contact.id}}" th:object="${contact}"
-									th:method="post" >
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Họ Tên</label>
-                                            <input th:field="*{name}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Email </label>
-                                            <input th:field="*{email}" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Địa chỉ</label>
-                                            <input th:field="*{address}" type="text" class="form-control" id="exampleInputAddress" placeholder="Address">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Số điện thoại</label>
-                                            <input th:field="*{phone}" type="tel" class="form-control" id="exampleInputPhone" placeholder="Phone">
-                                        </div>
-                                        <div class="form-group">
-                                        	<label for="exampleInputContent">Nội dung</label>
-                                        	<input th:field="*{content}" type="text" class="form-control" id="exampleInputContent" placeholder="Content">
-           
-                                        </div>
-                                    </div>
-                                    <!-- /.card-body -->
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<!-- left column -->
+						<div class="col-md-6">
+							<!-- general form elements -->
+							<div class="card card-primary">
+								<div class="card-header">
+									<h3 class="card-title">Liên hệ</h3>
+								</div>
+								<!-- /.card-header -->
+								<!-- form start -->
+								<form th:action="@{'/contact/update/' + ${contact.id}}"
+									th:object="${contact}" th:method="post">
+									<div class="card-body">
+										<div class="form-group">
+											<label for="exampleInputEmail1">Họ Tên</label> <input
+												th:field="*{name}" type="text" class="form-control"
+												id="exampleInputEmail1" placeholder="Enter name">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputEmail1">Email </label> <input
+												th:field="*{email}" type="email" class="form-control"
+												id="exampleInputEmail1" placeholder="Enter email">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">Địa chỉ</label> <input
+												th:field="*{address}" type="text" class="form-control"
+												id="exampleInputAddress" placeholder="Address">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputPassword1">Số điện thoại</label> <input
+												th:field="*{phone}" type="tel" class="form-control"
+												id="exampleInputPhone" placeholder="Phone">
+										</div>
+										<div class="form-group">
+											<label for="exampleInputContent">Nội dung</label> <input
+												th:field="*{content}" type="text" class="form-control"
+												id="exampleInputContent" placeholder="Content">
 
-                                    <!-- button submit -->
+										</div>
+									</div>
+									<!-- /.card-body -->
+
+									<!-- button submit -->
 									<div>
-										<a class="btn btn-primary float-right" th:href="@{/contact}">Trở về</a>
+										<a class="btn btn-primary float-right" th:href="@{/contact}">Trở
+											về</a>
 										<button type="submit" class="float-right btn btn-success mr-2">Lưu</button>
 									</div>
 									<!-- /.button submit -->
-                                </form>
-                            </div>
-                            <!-- /.card -->
+								</form>
+							</div>
+							<!-- /.card -->
 
 
-                            </form>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </div>
-                <!--/.col (right) -->
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-    </div>
-
-
-
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark"></h1>
-                    </div>
-                    
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
-
-        <!-- Main content -->
-
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-
-    <!-- Main Footer -->
-    <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.0.5
-        </div>
-    </footer>
-    </div>
-    <!-- ./wrapper -->
-		
+							</form>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
+				</div>
+				<!--/.col (right) -->
+		</div>
+		<!-- /.row -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!--  Footer -->
+		<div th:replace="/admin-pages/fragments/footer::footer"></div>
+		<!-- /.control-sidebar -->
+	</div>
 
 	<!-- jQuery -->
 	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
