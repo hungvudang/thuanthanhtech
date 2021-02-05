@@ -26,7 +26,7 @@ import com.thuanthanhtech.entities.SlugConverter;
 import com.thuanthanhtech.repositories.CategoryRepository;
 
 @Controller
-@RequestMapping("/category")
+@RequestMapping("/admin/category")
 public class CategoryAdminController {
 
 	@Autowired
@@ -79,7 +79,7 @@ public class CategoryAdminController {
 			ra.addFlashAttribute("error", "Tạo danh mục mới thất bại");
 			ra.addFlashAttribute("category", category);
 
-			return "redirect:/category/create";
+			return "redirect:/admin/category/create";
 		}
 
 		// Tạo slug dựa theo tên danh mục
@@ -89,7 +89,7 @@ public class CategoryAdminController {
 
 		cRepository.save(category);
 		ra.addFlashAttribute("success", "Danh mục mới đã được tạo thành công");
-		return "redirect:/category";
+		return "redirect:/admin/category";
 
 	}
 
@@ -133,7 +133,7 @@ public class CategoryAdminController {
 			m.addAttribute("category", category);
 			return "admin-pages/category-detail";
 		}
-		return "redirect:/category";
+		return "redirect:/admin/category";
 	}
 
 	@PostMapping("/update/{id}")
@@ -143,7 +143,7 @@ public class CategoryAdminController {
 		if (category.getName().isBlank() || category.getName().isEmpty()) {
 
 			ra.addFlashAttribute("error", "Cập nhật danh mục thất bại");
-			return "redirect:/category/detail/" + id;
+			return "redirect:/admin/category/detail/" + id;
 		}
 
 		Optional<Category> opCategory = cRepository.findById(id);
@@ -167,11 +167,11 @@ public class CategoryAdminController {
 
 			cRepository.save(nCategory);
 			ra.addFlashAttribute("success", "Danh mục đã được cập nhật thành công");
-			return "redirect:/category/detail/" + nCategory.getId();
+			return "redirect:/admin/category/detail/" + nCategory.getId();
 		} else {
 
 			ra.addFlashAttribute("error", "Danh mục này không tồn tại hoặc đã bị xóa");
-			return "redirect:/category";
+			return "redirect:/admin/category";
 		}
 
 	}
@@ -205,7 +205,7 @@ public class CategoryAdminController {
 		} else {
 			ra.addFlashAttribute("error", "Xóa danh mục thất bại");
 		}
-		return "redirect:/category";
+		return "redirect:/admin/category";
 	}
 
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })

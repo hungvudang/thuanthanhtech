@@ -67,7 +67,7 @@
 						</div>
 						<div class="card-body">
 							<div class="col-auto">
-								<form th:action="@{/user/save}" th:method="post"
+								<form th:action="@{/admin/user/save}" th:method="post"
 									th:object="${user}" enctype="multipart/form-data">
 									<div class="row">
 										<div class="col-7">
@@ -144,7 +144,7 @@
 
 											<!-- Button Submit -->
 											<div>
-												<a class="btn btn-primary float-right" th:href="@{/user}">Hủy
+												<a class="btn btn-primary float-right" th:href="@{/admin/user}">Hủy
 													bỏ</a>
 												<button type="submit"
 													class="float-right btn btn-success mr-2">Tạo</button>

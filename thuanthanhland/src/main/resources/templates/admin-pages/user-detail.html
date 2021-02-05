@@ -69,7 +69,7 @@
 						</div>
 						<div class="card-body">
 							<div class="col">
-								<form th:object="${user}" th:action="@{'/user/update/' + *{id}}"
+								<form th:object="${user}" th:action="@{'/admin/user/update/' + *{id}}"
 									th:method="post" enctype="multipart/form-data">
 									<div class="row">
 										<div class="col-7">
@@ -134,7 +134,7 @@
 											</div>
 											<!-- Button Summit -->
 											<div>
-												<a class="btn btn-primary float-right" th:href="@{/user}">Trở
+												<a class="btn btn-primary float-right" th:href="@{/admin/user}">Trở
 													về</a>
 												<button type="submit"
 													class="float-right btn btn-success mr-2">Lưu</button>

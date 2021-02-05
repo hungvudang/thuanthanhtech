@@ -40,7 +40,7 @@ import com.thuanthanhtech.repositories.CategoryRepository;
 import com.thuanthanhtech.repositories.NewsRepository;
 
 @Controller
-@RequestMapping("/news")
+@RequestMapping("/admin/news")
 public class NewsAdminController {
 
 	@Autowired
@@ -97,7 +97,7 @@ public class NewsAdminController {
 			
 			ra.addFlashAttribute("error", "Tạo bài viết mới thất bại");
 			ra.addFlashAttribute("news", news);
-			return "redirect:/news/create";
+			return "redirect:/admin/news/create";
 		}
 		
 		
@@ -124,7 +124,7 @@ public class NewsAdminController {
 			nRepository.save(news);
 		}
 
-		return "redirect:/news";
+		return "redirect:/admin/news";
 	}
 
 	@GetMapping("/detail/{id}")
@@ -151,7 +151,7 @@ public class NewsAdminController {
 			return "admin-pages/news-detail";
 		}
 		ra.addFlashAttribute("error", "Bài viết không tồn tại hoặc đã bị xóa");
-		return "redirect:/news";
+		return "redirect:/admin/news";
 	}
 
 	@PostMapping("/update/{id}")
@@ -170,7 +170,7 @@ public class NewsAdminController {
 				ra.addFlashAttribute("titleErrorMessage", br.getFieldError("title").getDefaultMessage());
 			}
 			ra.addFlashAttribute("error", "Cập nhật bài viết thất bại");
-			return "redirect:/news/detail/" + id;
+			return "redirect:/admin/news/detail/" + id;
 		}
 
 		Optional<Category> opCategory = cRepository.findById(news.getCategory().getId());
@@ -215,11 +215,11 @@ public class NewsAdminController {
 
 			ra.addFlashAttribute("success", "Bài viết đã được cập nhật thành công");
 			nRepository.save(nNews);
-			return "redirect:/news/detail/" + nNews.getId();
+			return "redirect:/admin/news/detail/" + nNews.getId();
 		} else {
 
 			ra.addFlashAttribute("error", "Bài viết không tồn tại hoặc đã bị xóa");
-			return "redirect:/news";
+			return "redirect:/admin/news";
 		}
 
 	}
@@ -238,7 +238,7 @@ public class NewsAdminController {
 		} else {
 			ra.addFlashAttribute("error", "Xóa bài viết thất bại");
 		}
-		return "redirect:/news";
+		return "redirect:/admin/news";
 	}
 
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })

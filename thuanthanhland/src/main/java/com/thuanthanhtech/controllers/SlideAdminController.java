@@ -32,7 +32,7 @@ import com.thuanthanhtech.entities.SlideHelper;
 import com.thuanthanhtech.repositories.SlideRepository;
 
 @Controller
-@RequestMapping("/slide")
+@RequestMapping("/admin/slide")
 public class SlideAdminController {
 
 	@Autowired
@@ -91,7 +91,7 @@ public class SlideAdminController {
 			}
 			slide.setImage(SlideHelper.NO_IMAGE_MEDIUM);
 			ra.addFlashAttribute("slide", slide);
-			return "redirect:/slide/create";
+			return "redirect:/admin/slide/create";
 		}
 //		else
 		slide.setImage("author:hungv");
@@ -106,7 +106,7 @@ public class SlideAdminController {
 		sRepository.save(saveSlide);
 		// =========================================================================================
 		ra.addFlashAttribute("success", "Slide mới đã được tạo thành công");
-		return "redirect:/slide";
+		return "redirect:/admin/slide";
 	}
 
 	@GetMapping("/detail/{id}")
@@ -120,7 +120,7 @@ public class SlideAdminController {
 		}
 //		else
 		ra.addFlashAttribute("error", "Slide không tồn tại hoặc đã bị xóa");
-		return "redirect:/slide";
+		return "redirect:/admin/slide";
 	}
 
 	@PostMapping("/update/{id}")
@@ -145,7 +145,6 @@ public class SlideAdminController {
 				ra.addFlashAttribute("sortErrorMessage", br.getFieldError("sort").getDefaultMessage());
 			}
 			ra.addFlashAttribute("error", "Cập nhật slide thất bại. Vui lòng kiểm tra lại");
-			
 
 		} else {
 			Optional<Slide> opSlide = sRepository.findById(id);
@@ -171,13 +170,13 @@ public class SlideAdminController {
 				
 			} else {
 				ra.addFlashAttribute("error", "Slide không tồn tại hoặc đã bị xóa. Vui lòng kiểm tra lại");
-				return "redirect:/slide";
+				return "redirect:/admin/slide";
 			}
 
 		}
 		
 		//
-		return "redirect:/slide/detail/" + id;
+		return "redirect:/admin/slide/detail/" + id;
 	}
 	
 	@GetMapping("/delete/{id}")
@@ -193,7 +192,7 @@ public class SlideAdminController {
 			ra.addFlashAttribute("error", "Slide không tồn tại hoặc đã bị xóa. Vui lòng kiểm tra lại");
 		}
 		
-		return "redirect:/slide";
+		return "redirect:/admin/slide";
 	}
 
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })

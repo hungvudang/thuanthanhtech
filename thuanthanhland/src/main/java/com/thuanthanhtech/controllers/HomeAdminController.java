@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 public class HomeAdminController {
 	
-	@GetMapping({"/home", ""})
+	@GetMapping({"/home", "/"})
 	public String index(Model m) {
 		m.addAttribute("active_home", true);
 		return "admin-pages/index";
