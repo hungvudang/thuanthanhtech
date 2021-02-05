@@ -1,6 +1,7 @@
 <th:block th:fragment="notification">
 	<div th:if="${error}" class="container-fluid message-box mb-3">
 		<div class="row justify-content-start">
+<<<<<<< HEAD
 			<div class="badge badge-pill badge-danger ml-3 elevation-2">
 				<i class="fas fa-exclamation-triangle"></i><span th:utext="${error}"
 					class="text-md mb-2 ml-2">Warning</span>
@@ -10,6 +11,17 @@
 	<div th:if="${success}" class="container-fluid message-box mb-3">
 		<div class="row justify-content-start">
 		<div class="badge badge-pill badge-success ml-3 elevation-2">
+=======
+			<div class="badge badge-danger ml-3 elevation-2">
+				<i class="fas fa-exclamation-triangle"></i><span th:utext="${error}"
+					class="text-md mb-2 ml-2">Warning</span>
+			</div>
+		</div>
+	</div>
+	<div th:if="${success}" class="container-fluid message-box mb-3">
+		<div class="row justify-content-start">
+		<div class="badge badge-success ml-3 elevation-2">
+>>>>>>> refs/remotes/origin/dev
 			<i class="fas fa-check-circle"></i> <span
 				th:utext="${success}"
 				class=" text-md mb-2 ml-2">Success</span>

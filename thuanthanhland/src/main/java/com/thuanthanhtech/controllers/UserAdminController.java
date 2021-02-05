@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -32,11 +33,14 @@ import com.thuanthanhtech.entities.UserValidator;
 import com.thuanthanhtech.repositories.UserRepository;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/admin/user")
 public class UserAdminController {
 
 	@Autowired
 	private UserRepository uRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@GetMapping
 	public String user(Model m) {
@@ -49,11 +53,12 @@ public class UserAdminController {
 
 	@GetMapping("/create")
 	public String createUser(Model m) {
-		User user = new User();
-		user.setRole(0);
-		user.setAvatar(UserHelper.NO_AVATAR_MEDIUM_IMAGE);
 
 		if (m.getAttribute("user") == null) {
+			User user = new User();
+			user.setRole(0);
+			user.setAvatar(UserHelper.NO_AVATAR_MEDIUM_IMAGE);
+			
 			m.addAttribute("user", user);
 		}
 
@@ -63,8 +68,8 @@ public class UserAdminController {
 	}
 
 	@PostMapping("/save")
-	public String saveUser(@Validated(UserValidator.saveValidation.class) @ModelAttribute("user") User user, BindingResult br,
-			@RequestParam("user_avatar") MultipartFile multipartFile, RedirectAttributes ra, Model m)
+	public String saveUser(@Validated(UserValidator.saveValidation.class) @ModelAttribute("user") User user,
+			BindingResult br, @RequestParam("user_avatar") MultipartFile multipartFile, RedirectAttributes ra, Model m)
 			throws IOException {
 
 		if (br.hasErrors()) {
@@ -92,11 +97,14 @@ public class UserAdminController {
 
 			ra.addFlashAttribute("error", "Tạo tài khoản mới thất bại");
 			ra.addFlashAttribute("user", user);
-			return "redirect:/user/create";
+			return "redirect:/admin/user/create";
 
 		}
 
 		ra.addFlashAttribute("success", "Tài khoản mới đã được tạo thành công");
+		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
 		User savedUser = uRepository.saveAndFlush(user);
 
 		// Upload ảnh đại diện (avatar)
@@ -111,7 +119,7 @@ public class UserAdminController {
 			uRepository.saveAndFlush(updateAvatarUser);
 		}
 		// =======================================================================================
-		return "redirect:/user";
+		return "redirect:/admin/user";
 	}
 
 	@GetMapping("/detail/{id}")
@@ -123,19 +131,21 @@ public class UserAdminController {
 			User user = opUser.get();
 
 			m.addAttribute("user", user);
-			m.addAttribute("active_user", true);;
+			m.addAttribute("active_user", true);
+			;
 			return "admin-pages/user-detail";
 		}
 
 		// Nếu không tìm thấy tài khoản với id trên thì trở về trang users
-		return "redirect:/user";
+		return "redirect:/admin/user";
 	}
 
 	@PostMapping("/update/{id}")
-	public String updateUser(@PathVariable("id") Integer id, @Validated(UserValidator.updateValidation.class) @ModelAttribute("user") User user, BindingResult br,
+	public String updateUser(@PathVariable("id") Integer id,
+			@Validated(UserValidator.updateValidation.class) @ModelAttribute("user") User user, BindingResult br,
 			@RequestParam("user_avatar") MultipartFile multipartFile, Model m, RedirectAttributes ra)
 			throws IOException {
-		
+
 		// Bỏ qua phần validate password khi cập nhật. Vì không cho phép cập nhật
 		// password
 		if (br.hasErrors()) {
@@ -155,7 +165,7 @@ public class UserAdminController {
 			}
 
 			ra.addFlashAttribute("error", "Cập nhật tài khoản thất bại");
-			return "redirect:/user/detail/" + id;
+			return "redirect:/admin/user/detail/" + id;
 		}
 //		else
 		Optional<User> opUser = uRepository.findById(id);
@@ -177,14 +187,14 @@ public class UserAdminController {
 						+ fAvatarImageName);
 			}
 			// =======================================================================================
-
+			nUser.setPassword(passwordEncoder.encode(nUser.getPassword()));
 			uRepository.saveAndFlush(nUser);
 			ra.addFlashAttribute("success", "Tài khoản đã được cập nhật thành công");
-			return "redirect:/user/detail/" + nUser.getId();
+			return "redirect:/admin/user/detail/" + nUser.getId();
 		} else {
 
 			ra.addFlashAttribute("error", "Tài khoản này không tồn tại hoặc đã bị xóa");
-			return "redirect:/user";
+			return "redirect:/admin/user";
 		}
 	}
 
@@ -199,13 +209,14 @@ public class UserAdminController {
 				deleteAvatarImageDir(id);
 			}
 			ra.addFlashAttribute("success", "Tài khoản đã được xóa thành công");
-			return "redirect:/user";
+			
+		} else {
+			ra.addFlashAttribute("error", "Tài khoản không tồn tại hoặc đã bị xóa");
 		}
-//		else
 
-		ra.addFlashAttribute("error", "Tài khoản không tồn tại hoặc đã bị xóa");
-		return "redirect:/user";
+		return "redirect:/admin/user";
 	}
+	
 
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)

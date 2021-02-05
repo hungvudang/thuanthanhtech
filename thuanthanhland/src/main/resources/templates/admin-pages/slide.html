@@ -1,10 +1,190 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>AdminLTE 3 | Slide</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="/admin-static/plugins/fontawesome-free/css/all.min.css">
+<!-- Ekko Lightbox -->
+<link rel="stylesheet"
+	href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
+<!-- Google Font: Source Sans Pro -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
+</head>
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+		<!-- Navbar -->
+		<div th:replace="/admin-pages/fragments/navbar::navbar"></div>
+		<!-- /.navbar -->
+
+		<!-- Main Sidebar Container -->
+		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Slide</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item">Trang chủ</li>
+								<li class="breadcrumb-item active">Slide</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+
+			<!-- Main content -->
+
+			<!-- flash notification -->
+
+			<div th:replace="/admin-pages/fragments/notification::notification"></div>
+			<!-- /. flash notification -->
+			<div class="container">
+				<div class="row justify-content-start">
+					<div class="col">
+						<div class="table-responsive">
+							<table class="table table-hover text-center">
+								<thead class="thead-dark">
+									<tr>
+										<th>ID</th>
+										<th class="text text-left">Tên</th>
+										<th class="text text-left">Tiêu đề</th>
+										<th>Nổi bật</th>
+										<th>Thứ tự hiển thị</th>
+										<th>Sửa đổi lần cuối</th>
+										<th>Hành động</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="s, iter : ${slides}">
+										<td th:utext="${s.id}" scope="row"></td>
+										<td class="text text-left" th:utext="${s.name}"></td>
+										<td class="text text-left" th:utext="${s.title}"></td>
+										<div>
+											<th:block th:if="${s.pub == 1}">
+												<td><span class="badge badge-pill badge-success">Hiển
+														thị</span></td>
+											</th:block>
+
+											<th:block th:if="${s.pub == 0}">
+												<td><span class="badge badge-pill badge-dark">Ẩn</span>
+												</td>
+											</th:block>
+										</div>
+										<!-- thứ tự hiển thị -->
+										<td th:utext="${s.sort}"></td>
+										
+										<!-- Last modified -->
+										<th:block th:if="${s.updated_at}">
+											<td
+												th:utext="${#temporals.format(s.updated_at, 'dd/MM/yyyy')}">
+											</td>
+										</th:block>
+
+										<th:block th:unless="${s.updated_at}">
+											<td
+												th:utext="${#temporals.format(s.created_at, 'dd/MM/yyyy')}">
+											</td>
+										</th:block>
+										<!-- /. Last modified	 -->
+
+										<td>
+											<div class="row justify-content-center">
+												<div class="col">
+													<a class=" fas fa-edit fa-lg"
+														th:href="@{'/slide/detail/' + ${s.id}}"></a> <a
+														class="fas fa-trash fa-lg mx-3" style="color: red;"
+														th:href="@{'/slide/delete/' + ${s.id}}"></a>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+
+		<!-- footer -->
+		<div th:replace="/admin-pages/fragments/footer::footer"></div>
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- jQuery -->
+	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script
+		src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- jQuery UI -->
+	<script src="/admin-static/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<!-- Ekko Lightbox -->
+	<script src="/admin-static/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="/admin-static/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="/admin-static/dist/js/demo.js"></script>
+	<!-- Filterizr-->
+	<script src="/admin-static/plugins/filterizr/jquery.filterizr.min.js"></script>
+	<!-- Page specific script -->
+	<script>
+		$(function() {
+			$(document).on('click', '[data-toggle="lightbox"]',
+					function(event) {
+						event.preventDefault();
+						$(this).ekkoLightbox({
+							alwaysShowClose : true
+						});
+					});
+
+			$('.filter-container').filterizr({
+				gutterPixels : 3
+			});
+			$('.btn[data-filter]').on('click', function() {
+				$('.btn[data-filter]').removeClass('active');
+				$(this).addClass('active');
+			});
+		})
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$(".message-box")
+			setTimeout(function() {
+				$(".message-box").hide();
+			}, 5000);
+		});
+	</script>
 </body>
+
 </html>

@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "slides")
@@ -18,9 +21,11 @@ public class Slide {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotBlank(message = "Tên không được để trống")
 	@Column(name = "name")
 	private String name;
 	
+	@NotBlank(message = "Tiêu đề không được để trống")
 	@Column(name = "title")
 	private String title;
 	
@@ -28,6 +33,8 @@ public class Slide {
 	private String image;
 	
 	@Column(name = "sort", columnDefinition = "INT NOT NULL UNIQUE")
+	@NotNull(message = "Thứ tự hiển thị không được để trống")
+	@Min(value = 0, message = "Thứ tự hiển thị không không hợp lệ")
 	private Integer sort;
 	
 	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")

@@ -2,8 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4" th:fragment="sidebar">
     <!-- Brand Logo -->
     <a th:href="@{/home}" class="brand-link">
-        <img src="/images/logo.png" alt="ThuanThanhTech Logo"
-            class="brand-image elevation-3" style="opacity: .8">
+        <img src="/images/logo.png" alt="ThuanThanhTech Logo" class="brand-image" style="opacity: .8">
         <span class="brand-text text-md font-weight-light">ThuanThanhLand</span>
     </a>
     <!-- Sidebar -->
@@ -14,7 +13,7 @@
                 <img src="/admin-static/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block"><span sec:authentication="name">Alexander Pierce</span></a>
             </div>
         </div>
 
@@ -52,7 +51,7 @@
                                 <p>Tất cả dự án</p>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -74,13 +73,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a th:href="@{/category}" class="nav-link">
+                            <a th:href="@{/admin/category}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tất cả danh mục</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a th:href="@{/category/create}" class="nav-link">
+                            <a th:href="@{/admin/category/create}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm danh mục</p>
                             </a>
@@ -100,13 +99,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a th:href="@{/news}" class="nav-link">
+                            <a th:href="@{/admin/news}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tất cả tin tức</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a th:href="@{/news/create}" class="nav-link">
+                            <a th:href="@{/admin/news/create}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm tin tức</p>
                             </a>
@@ -126,14 +125,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a th:href="@{/user}" class="nav-link">
+                            <a th:href="@{/admin/user}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tất cả tài khoản</p>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
-                            <a th:href="@{/user/create}" class="nav-link">
+                            <a th:href="@{/admin/user/create}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm tài khoản</p>
                             </a>
@@ -141,7 +140,7 @@
                     </ul>
                 </li>
                 <!-- /.người dùng -->
-                
+
                 <!-- liên hệ -->
                 <li class="nav-item has-treeview">
                     <a href="#" th:class="${active_contact}? 'nav-link active':'nav-link'">
@@ -153,14 +152,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a th:href="@{/contact}" class="nav-link">
+                            <a th:href="@{/admin/contact}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tất cả liên hệ</p>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
-                            <a th:href="@{/contact/create}" class="nav-link">
+                            <a th:href="@{/admin/contact/create}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm liên hệ</p>
                             </a>
@@ -168,7 +167,7 @@
                     </ul>
                 </li>
                 <!-- /.liên hệ -->
-                
+
                 <!-- slide -->
                 <li class="nav-item has-treeview">
                     <a href="#" th:class="${active_slide}? 'nav-link active':'nav-link'">
@@ -180,14 +179,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a th:href="@{/slide}" class="nav-link">
+                            <a th:href="@{/admin/slide}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tất cả slide</p>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
-                            <a th:href="@{/slide/create}" class="nav-link">
+                            <a th:href="@{/admin/slide/create}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm slide</p>
                             </a>
@@ -195,6 +194,19 @@
                     </ul>
                 </li>
                 <!-- /.slide -->
+
+                <!-- logout -->
+                <li class="nav-item has-treeview">
+
+                    <a th:href="@{/logout}" th:class="${active_logout}? 'nav-link active':'nav-link'">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>
+                            Đăng xuất
+                            <!-- <i class="right fas fa-angle-left"></i> -->
+                        </p>
+                    </a>
+                </li>
+                <!-- /.logout -->
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -71,7 +71,7 @@
 					<div class="col">
 						<div class="table-responsive">
 							<table class="table table-hover text-center">
-								<thead class="thead-dark">
+								<thead class="thead-light">
 									<tr>
 										<th>ID</th>
 										<th class="text text-left">Tên tài khoản</th>
@@ -120,9 +120,9 @@
 											<div class="row justify-content-center">
 												<div class="col">
 													<a class=" fas fa-edit fa-lg"
-														th:href="@{'/user/detail/' + ${u.id}}"></a> <a
+														th:href="@{'/admin/user/detail/' + ${u.id}}"></a> <a
 														class="fas fa-trash fa-lg mx-3" style="color: red;"
-														th:href="@{'/user/delete/' + ${u.id}}"></a>
+														th:href="@{'/admin/user/delete/' + ${u.id}}"></a>
 												</div>
 											</div>
 										</td>
