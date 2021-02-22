@@ -113,10 +113,10 @@ public class NewsAdminController {
 			// ===========================================================================================
 			if (multipartFile != null && !multipartFile.isEmpty()) {
 				String fThumbnailImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-				String uploadDir = NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + news.getSlug();
+				String uploadDir = StringUtils.cleanPath(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + news.getSlug());
 
 				NewsHelper.saveThumbnailImage(multipartFile, uploadDir, fThumbnailImageName);
-				news.setImage(uploadDir + File.separator + fThumbnailImageName);
+				news.setImage(StringUtils.cleanPath(uploadDir + File.separator + fThumbnailImageName));
 
 			}
 			// ============================================================================================
@@ -187,7 +187,7 @@ public class NewsAdminController {
 			nNews.setName(news.getName());
 			nNews.setPub(news.getPub());
 			nNews.setTitle(news.getTitle());
-
+			String oldSlug = nNews.getSlug(); 
 			String slug = SlugConverter.convert(nNews.getName());
 			nNews.setSlug(slug);
 
@@ -195,10 +195,11 @@ public class NewsAdminController {
 			// =========================================================================================================
 			if (nNews.getImage() != null) {
 				Path oldThumbnailPathDir = Path
-						.of(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + news.getSlug());
+						.of(StringUtils.cleanPath(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + oldSlug));
 				Path newThumbnailPathDir = Path
-						.of(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug());
-				Files.move(oldThumbnailPathDir, newThumbnailPathDir, StandardCopyOption.REPLACE_EXISTING);
+						.of(StringUtils.cleanPath(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug()));
+				
+				Files.move(oldThumbnailPathDir.normalize(), newThumbnailPathDir.normalize(), StandardCopyOption.REPLACE_EXISTING);
 			}
 			// ==========================================================================================================
 

@@ -20,7 +20,7 @@ public class NewsClientController {
 	@GetMapping
 	public String mainPage(Model m) {
 		
-		List<News> news = nRepository.findAll();
+		List<News> news = nRepository.findByPub(1);
 		m.addAttribute("news", news);
 		return "public-pages/blog";
 	}
