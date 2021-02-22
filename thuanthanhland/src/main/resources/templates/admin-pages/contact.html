@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="ISO-8859-1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
 
-<title>AdminLTE 3 | Dashboard 2</title>
+	<title>AdminLTE 3 | Dashboard 2</title>
 
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/fontawesome-free/css/all.min.css">
-<!-- Ekko Lightbox -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
-<!-- Google Font: Source Sans Pro -->
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/admin-static/plugins/fontawesome-free/css/all.min.css">
+	<!-- Ekko Lightbox -->
+	<link rel="stylesheet" href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
+	<!-- Ionicons -->
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
+	<!-- Google Font: Source Sans Pro -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
+
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 		<!-- Navbar -->
@@ -58,8 +55,8 @@
 						<div class="card-header">
 							<div class="card-tools">
 								<div class="input-group input-group-sm" style="width: 150px;">
-									<input type="text" name="table_search"
-										class="form-control float-right" placeholder="Search">
+									<input type="text" name="table_search" class="form-control float-right"
+										placeholder="Search">
 
 									<div class="input-group-append">
 										<button type="submit" class="btn btn-default">
@@ -94,9 +91,9 @@
 											<div class="row justify-content-center">
 												<div class="col">
 													<a class=" fas fa-edit fa-lg"
-														th:href="@{'/contact/detail/' + ${c.id}}"></a> <a
+														th:href="@{'/admin/contact/detail/' + ${c.id}}"></a> <a
 														class="fas fa-trash fa-lg mx-3" style="color: red;"
-														th:href="@{'/contact/delete/' + ${c.id}}"></a>
+														th:href="@{'/admin/contact/delete/' + ${c.id}}"></a>
 												</div>
 											</div>
 										</td>
@@ -119,8 +116,7 @@
 
 		<!-- Main Footer -->
 		<footer class="main-footer">
-			<strong>Copyright &copy; 2014-2019 <a
-				href="http://adminlte.io">Thuận Thành Land</a>.
+			<strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">Thuận Thành Land</a>.
 			</strong> All rights reserved.
 			<div class="float-right d-none d-sm-inline-block">
 				<b>Version</b> 3.0.5
@@ -132,8 +128,7 @@
 	<!-- jQuery -->
 	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap -->
-	<script
-		src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- jQuery UI -->
 	<script src="/admin-static/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<!-- Ekko Lightbox -->
@@ -146,19 +141,19 @@
 	<script src="/admin-static/plugins/filterizr/jquery.filterizr.min.js"></script>
 	<!-- Page specific script -->
 	<script>
-		$(function() {
+		$(function () {
 			$(document).on('click', '[data-toggle="lightbox"]',
-					function(event) {
-						event.preventDefault();
-						$(this).ekkoLightbox({
-							alwaysShowClose : true
-						});
+				function (event) {
+					event.preventDefault();
+					$(this).ekkoLightbox({
+						alwaysShowClose: true
 					});
+				});
 
 			$('.filter-container').filterizr({
-				gutterPixels : 3
+				gutterPixels: 3
 			});
-			$('.btn[data-filter]').on('click', function() {
+			$('.btn[data-filter]').on('click', function () {
 				$('.btn[data-filter]').removeClass('active');
 				$(this).addClass('active');
 			});
@@ -166,13 +161,14 @@
 	</script>
 
 	<script>
-		$(document).ready(function() {
+		$(document).ready(function () {
 			$(".message-box")
-			setTimeout(function() {
+			setTimeout(function () {
 				$(".message-box").hide();
 			}, 5000);
 		});
 	</script>
 
 </body>
+
 </html>
