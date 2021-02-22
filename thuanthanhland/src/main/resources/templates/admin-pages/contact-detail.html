@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>AdminLTE 3 | Tài khoản</title>
-<!-- Tell the browser to be responsive to screen width -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/fontawesome-free/css/all.min.css">
-<!-- Ekko Lightbox -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
 
-<!-- Google Font: Source Sans Pro -->
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>AdminLTE 3 | Tài khoản</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/admin-static/plugins/fontawesome-free/css/all.min.css">
+	<!-- Ekko Lightbox -->
+	<link rel="stylesheet" href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
+	<!-- Ionicons -->
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
+
+	<!-- Google Font: Source Sans Pro -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
 </head>
+
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 		<!-- Navbar -->
@@ -64,18 +61,18 @@
 								</div>
 								<!-- /.card-header -->
 								<!-- form start -->
-								<form th:action="@{'/contact/update/' + ${contact.id}}"
-									th:object="${contact}" th:method="post">
+								<form th:action="@{'/admin/contact/update/' + ${contact.id}}" th:object="${contact}"
+									th:method="post">
 									<div class="card-body">
 										<div class="form-group">
-											<label for="exampleInputEmail1">Họ Tên</label> <input
-												th:field="*{name}" type="text" class="form-control"
-												id="exampleInputEmail1" placeholder="Enter name">
+											<label for="exampleInputEmail1">Họ Tên</label> <input th:field="*{name}"
+												type="text" class="form-control" id="exampleInputEmail1"
+												placeholder="Enter name">
 										</div>
 										<div class="form-group">
-											<label for="exampleInputEmail1">Email </label> <input
-												th:field="*{email}" type="email" class="form-control"
-												id="exampleInputEmail1" placeholder="Enter email">
+											<label for="exampleInputEmail1">Email </label> <input th:field="*{email}"
+												type="email" class="form-control" id="exampleInputEmail1"
+												placeholder="Enter email">
 										</div>
 										<div class="form-group">
 											<label for="exampleInputPassword1">Địa chỉ</label> <input
@@ -98,7 +95,7 @@
 
 									<!-- button submit -->
 									<div>
-										<a class="btn btn-primary float-right" th:href="@{/contact}">Trở
+										<a class="btn btn-primary float-right" th:href="@{/admin/contact}">Trở
 											về</a>
 										<button type="submit" class="float-right btn btn-success mr-2">Lưu</button>
 									</div>
@@ -128,8 +125,7 @@
 	<!-- jQuery -->
 	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap -->
-	<script
-		src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- jQuery UI -->
 	<script src="/admin-static/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<!-- Ekko Lightbox -->
@@ -142,19 +138,19 @@
 	<script src="/admin-static/plugins/filterizr/jquery.filterizr.min.js"></script>
 	<!-- Page specific script -->
 	<script>
-		$(function() {
+		$(function () {
 			$(document).on('click', '[data-toggle="lightbox"]',
-					function(event) {
-						event.preventDefault();
-						$(this).ekkoLightbox({
-							alwaysShowClose : true
-						});
+				function (event) {
+					event.preventDefault();
+					$(this).ekkoLightbox({
+						alwaysShowClose: true
 					});
+				});
 
 			$('.filter-container').filterizr({
-				gutterPixels : 3
+				gutterPixels: 3
 			});
-			$('.btn[data-filter]').on('click', function() {
+			$('.btn[data-filter]').on('click', function () {
 				$('.btn[data-filter]').removeClass('active');
 				$(this).addClass('active');
 			});
@@ -163,4 +159,5 @@
 
 
 </body>
+
 </html>

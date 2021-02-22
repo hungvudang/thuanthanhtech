@@ -2,29 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>AdminLTE 3 | Tin tức</title>
-<!-- Tell the browser to be responsive to screen width -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/fontawesome-free/css/all.min.css">
-<!-- Ekko Lightbox -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
-<!-- summernote -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/summernote/summernote-bs4.min.css">
-<!-- Google Font: Source Sans Pro -->
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>AdminLTE 3 | Tin tức</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/admin-static/plugins/fontawesome-free/css/all.min.css">
+	<!-- Ekko Lightbox -->
+	<link rel="stylesheet" href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
+	<!-- Ionicons -->
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
+	<!-- summernote -->
+	<link rel="stylesheet" href="/admin-static/plugins/summernote/summernote-bs4.min.css">
+	<!-- Google Font: Source Sans Pro -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -69,8 +63,8 @@
 						</div>
 						<div class="card-body">
 							<div class="col">
-								<form th:object="${news}" th:action="@{'/news/update/' + *{id}}"
-									th:method="post" enctype="multipart/form-data">
+								<form th:object="${news}" th:action="@{'/admin/news/update/' + *{id}}" th:method="post"
+									enctype="multipart/form-data">
 									<div class="row">
 										<div class="col-7">
 											<div>
@@ -97,8 +91,7 @@
 
 												<div class="form-group">
 													<label for="inputCategory">Danh mục</label> <select
-														class="form-control custom-select"
-														th:field="*{category.id}">
+														class="form-control custom-select" th:field="*{category.id}">
 														<th:block th:each="rc : ${root_categories}">
 															<option th:value="${rc.id}" th:utext="${rc.name}"></option>
 														</th:block>
@@ -140,15 +133,15 @@
 														<div class="col-sm-10">
 															<div class="form-check">
 																<input th:field="*{hot}" class="form-check-input"
-																	type="radio" name="gridRadiosHot" id="gridRadiosHot1"
-																	value="0"> <label
+																	type="radio" name="gridRadiosHot"
+																	id="gridRadiosHot1" value="0"> <label
 																	class="form-check-label lead text-sm"
 																	for="gridRadiosHot1"> Không </label>
 															</div>
 															<div class="form-check">
 																<input th:field="*{hot}" class="form-check-input"
-																	type="radio" name="gridRadiosHot" id="gridRadiosHot2"
-																	value="1"> <label
+																	type="radio" name="gridRadiosHot"
+																	id="gridRadiosHot2" value="1"> <label
 																	class="form-check-label lead text-sm"
 																	for="gridRadiosHot2"> Có </label>
 															</div>
@@ -157,24 +150,26 @@
 												</fieldset>
 
 
-												<!-- Description Input -->
-												<div class="form-group">
-													<label for="inputDescription">Mô tả</label>
-													<textarea th:field="*{description}" rows="2"
-														style="width: 100%;" placeholder=""></textarea>
-												</div>
-
 												<!-- Content Input -->
 												<div class="form-group">
 													<label for="inputContent">Nội dung</label> <br>
-													<textarea class="textarea" th:field="*{content}"
+													<textarea class="textarea" th:field="*{content}" rows="2"
+														style="width: 100%;" placeholder=""></textarea>
+												</div>
+
+												<!-- Description Input -->
+												<div class="form-group">
+													<label for="inputDescription">Mô tả</label>
+													<textarea class="textarea" th:field="*{description}"
 														placeholder=""></textarea>
 												</div>
+
+
 											</div>
 
 											<!-- Buuton Summit -->
 											<div>
-												<a class="btn btn-primary float-right" th:href="@{/news}">Trở
+												<a class="btn btn-primary float-right" th:href="@{/admin/news}">Trở
 													về</a>
 												<button type="submit"
 													class="float-right btn btn-success mr-2">Lưu</button>
@@ -186,15 +181,13 @@
 												<label for="uploadThumbnail">Thumbnail</label>
 
 												<div>
-													<img
-														th:src="@{*{image} ? *{image} : '/admin-static/images/no-thumbnail-medium.png'}"
+													<img th:src="@{*{image} ? *{image} : '/admin-static/images/no-thumbnail-medium.png'}"
 														alt="thumbnail-media" class="img-thumbnail mb-3"
 														id="thumbnail-image" style="max-height: 200px;">
 												</div>
 
-												<input name="news_thumbnail" type="file"
-													class="form-control" id="uploadThumbnail"
-													accept="image/png, image/jpeg" />
+												<input name="news_thumbnail" type="file" class="form-control"
+													id="uploadThumbnail" accept="image/png, image/jpeg" />
 											</div>
 										</div>
 										<!-- /.thumbnail image upload -->
@@ -223,8 +216,7 @@
 	<!-- jQuery -->
 	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap -->
-	<script
-		src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- jQuery UI -->
 	<script src="/admin-static/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<!-- Ekko Lightbox -->
@@ -237,19 +229,19 @@
 	<script src="/admin-static/plugins/filterizr/jquery.filterizr.min.js"></script>
 	<!-- Page specific script -->
 	<script>
-		$(function() {
+		$(function () {
 			$(document).on('click', '[data-toggle="lightbox"]',
-					function(event) {
-						event.preventDefault();
-						$(this).ekkoLightbox({
-							alwaysShowClose : true
-						});
+				function (event) {
+					event.preventDefault();
+					$(this).ekkoLightbox({
+						alwaysShowClose: true
 					});
+				});
 
 			$('.filter-container').filterizr({
-				gutterPixels : 3
+				gutterPixels: 3
 			});
-			$('.btn[data-filter]').on('click', function() {
+			$('.btn[data-filter]').on('click', function () {
 				$('.btn[data-filter]').removeClass('active');
 				$(this).addClass('active');
 			});
@@ -258,7 +250,7 @@
 	<!-- Summernote -->
 	<script src="/admin-static/plugins/summernote/summernote-bs4.min.js"></script>
 	<script>
-		$(function() {
+		$(function () {
 			$('.textarea').summernote({});
 		});
 	</script>
@@ -269,21 +261,21 @@
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
 
-				reader.onload = function(e) {
+				reader.onload = function (e) {
 					$('#thumbnail-image').attr('src', e.target.result);
 				}
 				reader.readAsDataURL(input.files[0]); // convert to base64 string
 			}
 		}
-		$("#uploadThumbnail").change(function() {
+		$("#uploadThumbnail").change(function () {
 			readURL(this);
 		});
 	</script>
 
 	<script>
-		$(document).ready(function() {
+		$(document).ready(function () {
 			$(".message-box")
-			setTimeout(function() {
+			setTimeout(function () {
 				$(".message-box").hide();
 			}, 5000);
 		});
