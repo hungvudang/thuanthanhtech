@@ -2,26 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>AdminLTE 3 | Slide</title>
-<!-- Tell the browser to be responsive to screen width -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/fontawesome-free/css/all.min.css">
-<!-- Ekko Lightbox -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
-<!-- Google Font: Source Sans Pro -->
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>AdminLTE 3 | Slide</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/admin-static/plugins/fontawesome-free/css/all.min.css">
+	<!-- Ekko Lightbox -->
+	<link rel="stylesheet" href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
+	<!-- Ionicons -->
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
+	<!-- Google Font: Source Sans Pro -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -54,10 +49,6 @@
 
 			<!-- Main content -->
 
-			<!-- flash notification -->
-
-			<div th:replace="/admin-pages/fragments/notification::notification"></div>
-			<!-- /. flash notification -->
 			<div class="container">
 				<div class="row justify-content-start">
 					<div class="col">
@@ -66,7 +57,6 @@
 								<thead class="thead-dark">
 									<tr>
 										<th>ID</th>
-										<th class="text text-left">Tên</th>
 										<th class="text text-left">Tiêu đề</th>
 										<th>Nổi bật</th>
 										<th>Thứ tự hiển thị</th>
@@ -77,8 +67,8 @@
 								<tbody>
 									<tr th:each="s, iter : ${slides}">
 										<td th:utext="${s.id}" scope="row"></td>
-										<td class="text text-left" th:utext="${s.name}"></td>
 										<td class="text text-left" th:utext="${s.title}"></td>
+
 										<div>
 											<th:block th:if="${s.pub == 1}">
 												<td><span class="badge badge-pill badge-success">Hiển
@@ -90,19 +80,18 @@
 												</td>
 											</th:block>
 										</div>
+
 										<!-- thứ tự hiển thị -->
 										<td th:utext="${s.sort}"></td>
-										
+
 										<!-- Last modified -->
 										<th:block th:if="${s.updated_at}">
-											<td
-												th:utext="${#temporals.format(s.updated_at, 'dd/MM/yyyy')}">
+											<td th:utext="${#temporals.format(s.updated_at, 'dd/MM/yyyy')}">
 											</td>
 										</th:block>
 
 										<th:block th:unless="${s.updated_at}">
-											<td
-												th:utext="${#temporals.format(s.created_at, 'dd/MM/yyyy')}">
+											<td th:utext="${#temporals.format(s.created_at, 'dd/MM/yyyy')}">
 											</td>
 										</th:block>
 										<!-- /. Last modified	 -->
@@ -144,8 +133,7 @@
 	<!-- jQuery -->
 	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap -->
-	<script
-		src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- jQuery UI -->
 	<script src="/admin-static/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<!-- Ekko Lightbox -->
@@ -158,33 +146,29 @@
 	<script src="/admin-static/plugins/filterizr/jquery.filterizr.min.js"></script>
 	<!-- Page specific script -->
 	<script>
-		$(function() {
+		$(function () {
 			$(document).on('click', '[data-toggle="lightbox"]',
-					function(event) {
-						event.preventDefault();
-						$(this).ekkoLightbox({
-							alwaysShowClose : true
-						});
+				function (event) {
+					event.preventDefault();
+					$(this).ekkoLightbox({
+						alwaysShowClose: true
 					});
+				});
 
 			$('.filter-container').filterizr({
-				gutterPixels : 3
+				gutterPixels: 3
 			});
-			$('.btn[data-filter]').on('click', function() {
+			$('.btn[data-filter]').on('click', function () {
 				$('.btn[data-filter]').removeClass('active');
 				$(this).addClass('active');
 			});
 		})
 	</script>
+	
+	<!-- flash notification -->
+	<script th:replace="/admin-pages/fragments/notification::notification"></script>
+	<!-- /. flash notification -->
 
-	<script>
-		$(document).ready(function() {
-			$(".message-box")
-			setTimeout(function() {
-				$(".message-box").hide();
-			}, 5000);
-		});
-	</script>
 </body>
 
 </html>

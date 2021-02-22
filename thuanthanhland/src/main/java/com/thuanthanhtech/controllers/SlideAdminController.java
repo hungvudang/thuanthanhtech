@@ -150,7 +150,7 @@ public class SlideAdminController {
 			Optional<Slide> opSlide = sRepository.findById(id);
 			if (opSlide.isPresent()) {
 				Slide updateSlide = opSlide.get();
-				updateSlide.setName(slide.getName());
+				updateSlide.setDescription(slide.getDescription());
 				updateSlide.setTitle(slide.getTitle());
 				updateSlide.setPub(slide.getPub());
 				updateSlide.setSort(slide.getSort());

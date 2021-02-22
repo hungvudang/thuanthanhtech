@@ -21,13 +21,15 @@ public class Slide {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotBlank(message = "Tên không được để trống")
-	@Column(name = "name")
-	private String name;
 	
 	@NotBlank(message = "Tiêu đề không được để trống")
 	@Column(name = "title")
 	private String title;
+	
+	@NotBlank(message = "Tên không được để trống")
+	@Column(name = "description")
+	private String description;
+	
 	
 	@Column(name = "image", columnDefinition = "VARCHAR(255) NOT NULL")
 	private String image;
@@ -47,11 +49,11 @@ public class Slide {
 		super();
 	}
 
-	public Slide(Integer id, String name, String title, String image, Integer sort, Integer pub,
+	public Slide(Integer id, String description, String title, String image, Integer sort, Integer pub,
 			LocalDateTime created_at, LocalDateTime updated_at) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.description = description;
 		this.title = title;
 		this.image = image;
 		this.sort = sort;
@@ -68,13 +70,14 @@ public class Slide {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDescription(String description) {
+		this.description = description;
 	}
+
 
 	public String getTitle() {
 		return title;

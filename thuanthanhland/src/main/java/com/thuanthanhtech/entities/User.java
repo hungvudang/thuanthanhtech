@@ -25,7 +25,7 @@ public class User {
 	@NotBlank(message = "Tên tài khoản không được để trống", groups = {UserValidator.saveValidation.class, UserValidator.updateValidation.class})
 	private String name;
 
-	@Column(name = "email", columnDefinition = "VARCHAR(255) NOT NULL")
+	@Column(name = "email", columnDefinition = "VARCHAR(255) NOT NULL", unique = true)
 	@Email(message = "Địa chỉ email không hợp lệ", groups = {UserValidator.saveValidation.class, UserValidator.updateValidation.class})
 	@NotBlank(message = "Địa chỉ email không được để trống", groups = {UserValidator.saveValidation.class, UserValidator.updateValidation.class})
 	private String email;

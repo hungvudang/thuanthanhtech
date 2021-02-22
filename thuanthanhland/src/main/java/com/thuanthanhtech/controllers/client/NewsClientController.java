@@ -12,7 +12,7 @@ import com.thuanthanhtech.entities.News;
 import com.thuanthanhtech.repositories.NewsRepository;
 
 @Controller
-@RequestMapping("/client/news")
+@RequestMapping("/news")
 public class NewsClientController {
 	@Autowired
 	private NewsRepository nRepository;

@@ -26,24 +26,9 @@ public class ThuanthanhlandApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Optional<User> opAdmin = uRepository.findById(1);
-		if (opAdmin.isPresent()) {
-			User admin = opAdmin.get();
-			admin.setEmail("admin3t@thuanhthanhtech.com");
-			admin.setName("Adminstrator");
-			admin.setAddress("Ha Noi");
-			admin.setPassword(passwordEncoder.encode("admin@admin"));
-			admin.setRole(1);
-			admin.setPhone("0918273645");
-			uRepository.save(admin);
-		} else {
-			User admin = new User();
-			admin.setEmail("admin3t@thuanhthanhtech.com");
-			admin.setName("Adminstrator");
-			admin.setAddress("Ha Noi");
-			admin.setPassword(passwordEncoder.encode("admin@admin"));
-			admin.setRole(1);
-			admin.setPhone("0918273645");
+		User admin = new User(null, "Adminstrator", "admin3t@thuanhthanhtech.com", 1, "Ha Noi", passwordEncoder.encode("admin@admin"), "0918273645", null, null, null);
+		Optional<User> opAdmin = uRepository.findByEmail(admin.getEmail());
+		if (!opAdmin.isPresent()) {
 			uRepository.save(admin);
 		}
 	}

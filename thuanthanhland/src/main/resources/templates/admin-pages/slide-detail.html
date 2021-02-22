@@ -16,8 +16,6 @@
 	<!-- Theme style -->
 	<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
 
-	<!-- summernote -->
-	<link rel="stylesheet" href="/admin-static/plugins/summernote/summernote-bs4.min.css">
 	<!-- Google Font: Source Sans Pro -->
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -53,10 +51,6 @@
 
 			<!-- Main content -->
 
-			<!-- flash notification -->
-
-			<div th:replace="/admin-pages/fragments/notification::notification"></div>
-			<!-- /. flash notification -->
 			<div class="container-fluid">
 				<div class="row m-1">
 					<div class="card card-info" style="width: 100%;">
@@ -70,14 +64,7 @@
 									<div class="row">
 										<div class="col-5">
 											<div>
-												<!-- Name Input -->
-												<div class="form-group">
-													<label for="exampleFormControlInput2">Tên</label> <input
-														th:field="*{name}" type="text" class="form-control"
-														id="exampleFormControlInput2" placeholder=""><span
-														class="text text-danger badge" th:if="${isNameError}"
-														th:utext="${nameErrorMessage}">Name Error</span>
-												</div>
+
 												<!-- Title Input -->
 
 												<div class="form-group">
@@ -126,6 +113,13 @@
 														Error</span>
 												</div>
 
+												<!-- Description Input -->
+												<div class="form-group">
+													<label for="inputContent">Mô tả</label> <br>
+													<textarea class="textarea" th:field="*{description}" rows="2"
+														style="width: 100%;" placeholder=""></textarea>
+												</div>
+
 											</div>
 
 											<!-- Button Submit -->
@@ -165,8 +159,7 @@
 								<div class="col-5">
 									<!-- Button Submit -->
 									<div>
-										<a class="btn btn-primary float-right" th:href="@{/admin/slide}">Trở
-											về</a>
+										<a class="btn btn-primary float-right" th:href="@{/admin/slide}">Trở về</a>
 										<button type="submit"
 											class="btn-submit-custom float-right btn btn-success mr-2">Lưu</button>
 									</div>
@@ -228,15 +221,6 @@
 		})
 	</script>
 
-	<!-- Summernote -->
-	<script src="/admin-static/plugins/summernote/summernote-bs4.min.js"></script>
-	<script>
-		$(function () {
-			// Summernote
-			$('.textarea').summernote()
-		})
-	</script>
-
 	<!-- preview image -->
 	<script>
 		function readURL(input) {
@@ -255,17 +239,14 @@
 	</script>
 
 	<script>
-		$(document).ready(function () {
-			$(".message-box")
-			setTimeout(function () {
-				$(".message-box").hide();
-			}, 5000);
-		});
-
 		$('.btn-submit-custom').click(function () {
 			$('.btn-submit-default').click();
 		})
 	</script>
+	
+	<!-- flash notification -->
+	<script th:replace="/admin-pages/fragments/notification::notification"></script>
+	<!-- /. flash notification -->
 </body>
 
 </html>
