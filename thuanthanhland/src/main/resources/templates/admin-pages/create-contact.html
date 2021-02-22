@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
                                 <li class="breadcrumb-item active">Liên hệ</li>
                             </ol>
                         </div>
@@ -61,7 +61,7 @@
                             <!-- general form elements -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Liên hệ</h3>
+                                    <h3 class="card-title">Thêm mới liên hệ</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
@@ -70,23 +70,23 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Họ Tên</label>
-                                            <input th:field="*{name}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
+                                            <input th:field="*{name}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nhập vào họ tên">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Email </label>
-                                            <input th:field="*{email}" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                            <input th:field="*{email}" type="email" class="form-control" id="exampleInputEmail1" placeholder="Nhập vào email">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Địa chỉ</label>
-                                            <input th:field="*{address}" type="text" class="form-control" id="exampleInputAddress" placeholder="Address">
+                                            <input th:field="*{address}" type="text" class="form-control" id="exampleInputAddress" placeholder="Nhập vào địa chỉ">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Số điện thoại</label>
-                                            <input th:field="*{phone}" type="tel" class="form-control" id="exampleInputPhone" placeholder="Phone">
+                                            <input th:field="*{phone}" type="tel" class="form-control" id="exampleInputPhone" placeholder="Nhập vào số điện thoại">
                                         </div>
                                         <div class="form-group">
                                         	<label for="exampleInputContent">Nội dung</label>
-                                        	<input th:field="*{content}" type="text" class="form-control" id="exampleInputContent" placeholder="Content">
+                                        	<input th:field="*{content}" type="text" class="form-control" id="exampleInputContent" placeholder="Nội dung">
            
                                         </div>
                                     </div>
@@ -94,7 +94,7 @@
 
                                     <!-- button submit -->
 									<div>
-										<a class="btn btn-primary float-right" th:href="@{/category}">Trở về</a>
+										<a class="btn btn-primary float-right" th:href="@{/contact}">Trở về</a>
 										<button type="submit" class="float-right btn btn-success mr-2">Lưu</button>
 									</div>
 									<!-- /.button submit -->

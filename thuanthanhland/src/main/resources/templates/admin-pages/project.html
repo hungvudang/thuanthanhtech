@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>AdminLTE 3 | Projects</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="/admin-static/plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet"
+	href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+<!-- Google Font: Source Sans Pro -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
+	
+	
+	
+</head>
+<body class="hold-transition sidebar-mini">
+	<!-- Content Wrapper. Contains page content -->
+	<div class="wrapper">
+		<!-- Navbar -->
+		<div th:replace="/admin-pages/fragments/navbar::navbar"></div>
+		<!-- /.navbar -->
+
+		<!-- Main Sidebar Container -->
+		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
+
+		<div class="content-wrapper">
+
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Dự án</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+								<li class="breadcrumb-item active">Dự án</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+
+				<!-- Default box -->
+				<div class="card">
+					<div class="card-body p-0">
+						<table class="table table-striped projects">
+							<thead>
+								<tr>
+									<th>id</th>
+									<th>Tên dự án</th>
+									<th>Tiêu đề</th>
+									<th>Danh mục</th>
+									<th>Nổi bật</th>
+									<th>Hiển thị</th>
+									<th>Sửa đổi lần cuối</th>
+									<th>Hành động</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="p : ${projects}">
+									<td th:utext ="${p.id}" th:fileld="${p.id}" scope ="row"></td>
+									<td th:utext ="${p.name}" th:fileld="${p.name}"></td>
+									<td th:utext ="${p.title}" th:fileld="${p.title}"></td>
+									
+									<div>
+										<th:block th:if="${p.hot==1}">
+											<td><span class="badge badge-pill badge-danger">Nổi
+														bật</span></td>
+											</th:block>
+											
+										<th:block th:if="${p.hot == 0}">
+												<td><span class="badge badge-pill badge-dark">Không</span>
+												</td>
+											</th:block>									
+									</div>
+									
+									<div>
+											<th:block th:if="${p.pub == 1}">
+												<td><span class="badge badge-pill badge-success">Hiển
+														thị</span></td>
+											</th:block>
+
+											<th:block th:if="${p.pub == 0}">
+												<td><span class="badge badge-pill badge-dark">Ẩn</span>
+												</td>
+											</th:block>
+										</div>
+									
+									<!-- Last modified -->
+										<div>
+											<th:block th:if="${p.updated_at}">
+												<td
+													th:utext="${#temporals.format(p.updated_at, 'dd/MM/yyyy')}">
+												</td>
+											</th:block>
+
+											<th:block th:unless="${p.updated_at}">
+												<td
+													th:utext="${#temporals.format(p.created_at, 'dd/MM/yyyy')}">
+												</td>
+											</th:block>
+										</div>
+										<!-- /. Last modified	 -->
+
+										<td>
+											<div class="row justify-content-center">
+												<div class="col">
+													<a class=" fas fa-edit fa-lg"
+														th:href="@{'/category/detail/' + ${p.id}}"></a> <a
+														class="fas fa-trash fa-lg mx-3" style="color: red;"
+														th:href="@{'/category/delete/' + ${p.id}}"></a>
+												</div>
+											</div>
+										</td>
+								
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+
+			</section>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+		
+		<!-- footer -->
+		<div th:replace="/admin-pages/fragments/footer::footer"></div>
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+
+	<!-- jQuery -->
+	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap 4 -->
+	<script
+		src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="/admin-static/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="/admin-static/dist/js/demo.js"></script>
+	
+	<!-- Page specific script -->
+	<script>
+		$(function() {
+			$(document).on('click', '[data-toggle="lightbox"]',
+					function(event) {
+						event.preventDefault();
+						$(this).ekkoLightbox({
+							alwaysShowClose : true
+						});
+					});
+
+			$('.filter-container').filterizr({
+				gutterPixels : 3
+			});
+			$('.btn[data-filter]').on('click', function() {
+				$('.btn[data-filter]').removeClass('active');
+				$(this).addClass('active');
+			});
+		})
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$(".message-box")
+			setTimeout(function() {
+				$(".message-box").hide();
+			}, 5000);
+		});
+	</script>
+
+</body>
+</html>
