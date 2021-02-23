@@ -2,26 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 3 | Tin tức</title>
-	<!-- Tell the browser to be responsive to screen width -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="/admin-static/plugins/fontawesome-free/css/all.min.css">
-	<!-- Ekko Lightbox -->
-	<link rel="stylesheet" href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
-	<!-- Ionicons -->
-	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	<!-- Theme style -->
-	<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>AdminLTE 3 | Tin tức</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="/admin-static/plugins/fontawesome-free/css/all.min.css">
+<!-- Ekko Lightbox -->
+<link rel="stylesheet"
+	href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
 
-	<!-- DataTables -->
-	<link rel="stylesheet" href="/admin-static/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" href="/admin-static/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<!-- DataTables -->
+<link rel="stylesheet"
+	href="/admin-static/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet"
+	href="/admin-static/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
-	<!-- Google Font: Source Sans Pro -->
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<!-- Google Font: Source Sans Pro -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -109,12 +116,14 @@
 
 												<!-- Last modified -->
 												<th:block th:if="${n.updated_at}">
-													<td th:utext="${#temporals.format(n.updated_at, 'dd/MM/yyyy')}">
+													<td
+														th:utext="${#temporals.format(n.updated_at, 'dd/MM/yyyy')}">
 													</td>
 												</th:block>
 
 												<th:block th:unless="${n.updated_at}">
-													<td th:utext="${#temporals.format(n.created_at, 'dd/MM/yyyy')}">
+													<td
+														th:utext="${#temporals.format(n.created_at, 'dd/MM/yyyy')}">
 													</td>
 												</th:block>
 												<!-- /. Last modified	 -->
@@ -124,6 +133,7 @@
 														<div class="col">
 															<a class=" fas fa-edit fa-lg"
 																th:href="@{'/admin/news/detail/' + ${n.id}}"></a> <a
+																onclick="return confirm('Bạn chắc chắn muốn xóa ?')"
 																class="fas fa-trash fa-lg mx-3" style="color: red;"
 																th:href="@{'/admin/news/delete/' + ${n.id}}"></a>
 														</div>
@@ -162,7 +172,8 @@
 	<!-- jQuery -->
 	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap -->
-	<script src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- jQuery UI -->
 	<script src="/admin-static/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<!-- Ekko Lightbox -->
@@ -175,19 +186,19 @@
 	<script src="/admin-static/plugins/filterizr/jquery.filterizr.min.js"></script>
 	<!-- Page specific script -->
 	<script>
-		$(function () {
+		$(function() {
 			$(document).on('click', '[data-toggle="lightbox"]',
-				function (event) {
-					event.preventDefault();
-					$(this).ekkoLightbox({
-						alwaysShowClose: true
+					function(event) {
+						event.preventDefault();
+						$(this).ekkoLightbox({
+							alwaysShowClose : true
+						});
 					});
-				});
 
 			$('.filter-container').filterizr({
-				gutterPixels: 3
+				gutterPixels : 3
 			});
-			$('.btn[data-filter]').on('click', function () {
+			$('.btn[data-filter]').on('click', function() {
 				$('.btn[data-filter]').removeClass('active');
 				$(this).addClass('active');
 			});
@@ -200,24 +211,27 @@
 
 	<!-- DataTables -->
 	<script src="/admin-static/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script src="/admin-static/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-	<script src="/admin-static/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-	<script src="/admin-static/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<script
+		src="/admin-static/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="/admin-static/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="/admin-static/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 	<!-- page script -->
 	<script>
-		$(function () {
+		$(function() {
 			$("#example1").DataTable({
-				"responsive": true,
-				"autoWidth": false,
+				"responsive" : true,
+				"autoWidth" : false,
 			});
 			$('#example2').DataTable({
-				"paging": true,
-				"lengthChange": false,
-				"searching": false,
-				"ordering": true,
-				"info": true,
-				"autoWidth": false,
-				"responsive": true,
+				"paging" : true,
+				"lengthChange" : false,
+				"searching" : false,
+				"ordering" : true,
+				"info" : true,
+				"autoWidth" : false,
+				"responsive" : true,
 			});
 		});
 	</script>

@@ -52,7 +52,7 @@
 			</section>
 
 			<!-- Main content -->
-			
+
 			<div class="container-fluid">
 				<div class="row m-1">
 					<div class="card card-info">
@@ -68,7 +68,8 @@
 											<div>
 												<!-- Name Input -->
 												<div class="form-group">
-													<label for="exampleFormControlInput2">Tên bài viết (<span style="color: red;">*</span>)</label>
+													<label for="exampleFormControlInput2">Tên bài viết (<span
+															style="color: red;">*</span>)</label>
 													<input th:field="*{name}" type="text" class="form-control"
 														id="exampleFormControlInput2" placeholder=""><span
 														class="text text-danger badge" th:if="${isNameError}"
@@ -77,77 +78,17 @@
 												<!-- Title Input -->
 
 												<div class="form-group">
-													<label for="exampleFormControlInput3">Tiêu đề (<span style="color: red;">*</span>)</label> <input
+													<label for="exampleFormControlInput3">Tiêu đề (<span
+															style="color: red;">*</span>)</label> <input
 														th:field="*{title}" type="text" class="form-control"
 														id="exampleFormControlInput3" placeholder=""><span
 														class="text text-danger badge" th:if="${isTitleError}"
 														th:utext="${titleErrorMessage}">Title Error</span>
 												</div>
-												<!-- Select Category -->
-												<div class="form-group">
-													<label for="inputCategory">Danh mục (<span style="color: red;">*</span>)</label> <select
-														name="typeCategory" class="form-control custom-select"
-														th:field="*{category.id}">
-														<th:block th:each="rc : ${root_categories}">
-															<option th:value="${rc.id}" th:utext="${rc.name}"></option>
-														</th:block>
-
-													</select>
-												</div>
-												<!-- Public Input -->
-
-												<fieldset class="form-group">
-													<div class="row">
-														<label class="col-form-label col-sm-2 pt-0">Hiển
-															thị</label>
-														<div class="col-sm-10">
-															<div class="form-check">
-																<input th:field="*{pub}" class="form-check-input"
-																	type="radio" name="gridRadiosPublic"
-																	id="gridRadios1" value="1"> <label
-																	class="form-check-label lead text-sm"
-																	for="gridRadios1">
-																	Hiện thị </label>
-															</div>
-															<div class="form-check">
-																<input th:field="*{pub}" class="form-check-input"
-																	type="radio" name="gridRadiosPublic"
-																	id="gridRadios2" value="0"> <label
-																	class="form-check-label lead text-sm"
-																	for="gridRadios2">
-																	Ẩn </label>
-															</div>
-														</div>
-													</div>
-												</fieldset>
-												<!-- Hot Input -->
-
-												<fieldset class="form-group">
-													<div class="row">
-														<label class="col-form-label col-sm-2 pt-0">Tin
-															nổi bật</label>
-														<div class="col-sm-10">
-															<div class="form-check">
-																<input th:field="*{hot}" class="form-check-input"
-																	type="radio" name="gridRadiosHot"
-																	id="gridRadiosHot1" value="0"> <label
-																	class="form-check-label lead text-sm"
-																	for="gridRadiosHot1"> Không </label>
-															</div>
-															<div class="form-check">
-																<input th:field="*{hot}" class="form-check-input"
-																	type="radio" name="gridRadiosHot"
-																	id="gridRadiosHot2" value="1"> <label
-																	class="form-check-label lead text-sm"
-																	for="gridRadiosHot2"> Có </label>
-															</div>
-														</div>
-													</div>
-												</fieldset>
 
 												<!-- Description Input -->
 												<div class="form-group">
-													<label for="inputDescription">Mô tả (<span style="color: red;">*</span>)</label> <br>
+													<label for="inputDescription">Mô tả</label> <br>
 													<textarea th:field="*{description}" rows="2" style="width: 100%;"
 														placeholder=""></textarea>
 												</div>
@@ -170,9 +111,10 @@
 											</div>
 											<!-- /. button submit -->
 										</div>
-										<!-- Upload thumbnail image of news -->
 										<div class="col-5">
-											<div>
+
+											<!-- Upload thumbnail image of news -->
+											<div class="form-group">
 												<label for="uploadThumbnail">Thumbnail</label>
 
 												<div>
@@ -183,11 +125,72 @@
 
 												<input name="news_thumbnail" type="file" class="form-control"
 													id="uploadThumbnail" accept="image/png, image/jpeg" /><span
-														class="text text-danger badge" th:if="${isThumbnailError}"
-														th:utext="${thumbnailErrorMessage}">Thumbnail Error</span>
+													class="text text-danger badge" th:if="${isThumbnailError}"
+													th:utext="${thumbnailErrorMessage}">Thumbnail Error</span>
 											</div>
+											<!-- /.thumbnail image upload -->
+
+											<!-- Select Category -->
+
+											<div class="form-group">
+												<label for="inputCategory">Danh mục</label> <select
+													class="form-control custom-select" th:field="*{category.id}">
+													<th:block th:each="rc : ${root_categories}">
+														<option th:value="${rc.id}" th:utext="${rc.name}"></option>
+													</th:block>
+
+												</select>
+											</div>
+
+											<!-- Public Input -->
+
+											<fieldset class="form-group">
+												<div class="row">
+													<label class="col-form-label col-sm-5 pt-0">Hiển
+														thị</label>
+													<div class="col-sm-7">
+														<div class="form-check">
+															<input th:field="*{pub}" class="form-check-input"
+																type="radio" name="gridRadiosPublic"
+																id="gridRadiosPublic1" value="1"> <label
+																class="form-check-label lead text-sm"
+																for="gridRadiosPublic1"> Hiện thị </label>
+														</div>
+														<div class="form-check">
+															<input th:field="*{pub}" class="form-check-input"
+																type="radio" name="gridRadiosPublic"
+																id="gridRadiosPublic2" value="0"> <label
+																class="form-check-label lead text-sm"
+																for="gridRadiosPublic2"> Ẩn </label>
+														</div>
+													</div>
+												</div>
+											</fieldset>
+
+											<!-- Hot Input -->
+
+											<fieldset class="form-group">
+												<div class="row">
+													<label class="col-form-label col-sm-5 pt-0">Tin
+														nổi bật</label>
+													<div class="col-sm-7">
+														<div class="form-check">
+															<input th:field="*{hot}" class="form-check-input"
+																type="radio" name="gridRadiosHot" id="gridRadiosHot1"
+																value="0"> <label class="form-check-label lead text-sm"
+																for="gridRadiosHot1"> Không </label>
+														</div>
+														<div class="form-check">
+															<input th:field="*{hot}" class="form-check-input"
+																type="radio" name="gridRadiosHot" id="gridRadiosHot2"
+																value="1"> <label class="form-check-label lead text-sm"
+																for="gridRadiosHot2"> Có </label>
+														</div>
+													</div>
+												</div>
+											</fieldset>
 										</div>
-										<!-- /.thumbnail image upload -->
+
 									</div>
 
 								</form>
@@ -272,7 +275,7 @@
 			readURL(this);
 		});
 	</script>
-	
+
 	<!-- flash notification -->
 	<script th:replace="/admin-pages/fragments/notification::notification"></script>
 	<!-- /. flash notification -->

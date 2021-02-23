@@ -126,6 +126,7 @@
 														<div class="col">
 															<a class=" fas fa-edit fa-lg"
 																th:href="@{'/admin/category/detail/' + ${c.id}}"></a> <a
+																onclick="return confirm('Bạn chắc chắn muốn xóa ?')"
 																class="fas fa-trash fa-lg mx-3" style="color: red;"
 																th:href="@{'/admin/category/delete/' + ${c.id}}"></a>
 														</div>

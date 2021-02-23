@@ -2,27 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>AdminLTE 3 | Tài khoản</title>
-<!-- Tell the browser to be responsive to screen width -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/fontawesome-free/css/all.min.css">
-<!-- Ekko Lightbox -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>AdminLTE 3 | Tài khoản</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="/admin-static/plugins/fontawesome-free/css/all.min.css">
+	<!-- Ekko Lightbox -->
+	<link rel="stylesheet" href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
+	<!-- Ionicons -->
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
 
-<!-- Google Font: Source Sans Pro -->
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+	<!-- Google Font: Source Sans Pro -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
 </head>
 
@@ -67,8 +62,7 @@
 						</div>
 						<div class="card-body">
 							<div class="col">
-								<form th:object="${user}"
-									th:action="@{'/admin/user/update/' + *{id}}" th:method="post"
+								<form th:object="${user}" th:action="@{'/admin/user/update/' + *{id}}" th:method="post"
 									enctype="multipart/form-data">
 									<div class="row">
 										<div class="col-7">
@@ -86,12 +80,12 @@
 
 												<div class="form-group">
 													<label for="exampleFormControlInput2">Email (<span
-														style="color: red;">*</span>)
+															style="color: red;">*</span>)
 													</label> <input th:field="*{email}" type="email"
 														class="form-control" id="exampleFormControlInput2"
-														placeholder="" required> <span
-														class="text text-danger badge" th:if="${isEmailError}"
-														th:utext="${emailErrorMessage}">Email Error</span>
+														placeholder="" readonly> <span class="text text-danger badge"
+														th:if="${isEmailError}" th:utext="${emailErrorMessage}">Email
+														Error</span>
 												</div>
 
 												<!-- Phone Input -->
@@ -137,22 +131,21 @@
 											</div>
 											<!-- Button Summit -->
 											<div>
-												<a class="btn btn-primary float-right"
-													th:href="@{/admin/user}">Trở về</a>
+												<a class="btn btn-primary float-right" th:href="@{/admin/user}">Trở
+													về</a>
 												<button type="submit"
 													class="float-right btn btn-success mr-2">Lưu</button>
 											</div>
 										</div>
 										<!-- Upload avatar image of news -->
 										<div class="col-5">
-											<div>
+											<div class="form-group">
 												<label for="uploadAvatar">Ảnh đại diện</label>
 
 												<div>
-													<img
-														th:src="@{*{avatar} ? *{avatar} : '/admin-static/images/no-thumbnail-medium.png'}"
-														alt="avatar-media" class="img-thumbnail mb-3"
-														id="avatar-image" style="max-height: 150px;">
+													<img th:src="@{*{avatar} ? *{avatar} : '/admin-static/images/no-thumbnail-medium.png'}"
+														alt="avatar-media" class="img-thumbnail mb-3" id="avatar-image"
+														style="max-height: 150px;">
 												</div>
 
 												<input name="user_avatar" type="file" class="form-control"
@@ -187,8 +180,7 @@
 	<!-- jQuery -->
 	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
 	<!-- Bootstrap -->
-	<script
-		src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- jQuery UI -->
 	<script src="/admin-static/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<!-- Ekko Lightbox -->
@@ -201,19 +193,19 @@
 	<script src="/admin-static/plugins/filterizr/jquery.filterizr.min.js"></script>
 	<!-- Page specific script -->
 	<script>
-		$(function() {
+		$(function () {
 			$(document).on('click', '[data-toggle="lightbox"]',
-					function(event) {
-						event.preventDefault();
-						$(this).ekkoLightbox({
-							alwaysShowClose : true
-						});
+				function (event) {
+					event.preventDefault();
+					$(this).ekkoLightbox({
+						alwaysShowClose: true
 					});
+				});
 
 			$('.filter-container').filterizr({
-				gutterPixels : 3
+				gutterPixels: 3
 			});
-			$('.btn[data-filter]').on('click', function() {
+			$('.btn[data-filter]').on('click', function () {
 				$('.btn[data-filter]').removeClass('active');
 				$(this).addClass('active');
 			});
@@ -225,13 +217,13 @@
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
 
-				reader.onload = function(e) {
+				reader.onload = function (e) {
 					$('#avatar-image').attr('src', e.target.result);
 				}
 				reader.readAsDataURL(input.files[0]); // convert to base64 string
 			}
 		}
-		$("#uploadAvatar").change(function() {
+		$("#uploadAvatar").change(function () {
 			readURL(this);
 		});
 	</script>
