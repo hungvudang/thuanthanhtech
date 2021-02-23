@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.thuanthanhtech.entities.Helper;
 import com.thuanthanhtech.entities.User;
 import com.thuanthanhtech.entities.UserHelper;
 import com.thuanthanhtech.entities.UserValidator;
@@ -111,11 +112,11 @@ public class UserAdminController {
 		// ======================================================================================
 		if (multipartFile != null && !multipartFile.isEmpty()) {
 			String fAvatarImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-			String uploadDir = UserHelper.ROOT_PATH_AVATAR_MEDIUM + File.separator + savedUser.getId();
+			String uploadDir = UserHelper.ROOT_PATH_AVATAR_MEDIUM + Helper.FILE_SEPARTOR + savedUser.getId();
 			UserHelper.saveAvatarImage(multipartFile, uploadDir, fAvatarImageName);
 
 			User updateAvatarUser = uRepository.findById(savedUser.getId()).get();
-			updateAvatarUser.setAvatar(uploadDir + File.separator + fAvatarImageName);
+			updateAvatarUser.setAvatar(uploadDir + Helper.FILE_SEPARTOR + fAvatarImageName);
 			uRepository.saveAndFlush(updateAvatarUser);
 		}
 		// =======================================================================================
@@ -175,19 +176,26 @@ public class UserAdminController {
 			nUser.setName(user.getName());
 			nUser.setEmail(user.getEmail());
 			nUser.setPhone(user.getPhone());
+			nUser.setAddress(user.getAddress());
 			nUser.setRole(user.getRole());
 
 			// Cập nhật ảnh đại diện
 			// ======================================================================================
 			if (multipartFile != null && !multipartFile.isEmpty()) {
+				
+				// Xóa ảnh đại đại diện cũ
+				deleteAvatarImageDir(id);
+				
 				String fAvatarImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-				String uploadDir = UserHelper.ROOT_PATH_AVATAR_MEDIUM + File.separator + nUser.getId();
+				String uploadDir = UserHelper.ROOT_PATH_AVATAR_MEDIUM + Helper.FILE_SEPARTOR + nUser.getId();
 				UserHelper.saveAvatarImage(multipartFile, uploadDir, fAvatarImageName);
-				nUser.setAvatar(UserHelper.ROOT_PATH_AVATAR_MEDIUM + File.separator + nUser.getId() + File.separator
+				nUser.setAvatar(UserHelper.ROOT_PATH_AVATAR_MEDIUM + Helper.FILE_SEPARTOR + nUser.getId() + File.separator
 						+ fAvatarImageName);
 			}
 			// =======================================================================================
-			nUser.setPassword(passwordEncoder.encode(nUser.getPassword()));
+
+			// nUser.setPassword(passwordEncoder.encode(nUser.getPassword()));
+			
 			uRepository.saveAndFlush(nUser);
 			ra.addFlashAttribute("success", "Tài khoản đã được cập nhật thành công");
 			return "redirect:/admin/user/detail/" + nUser.getId();
@@ -230,7 +238,7 @@ public class UserAdminController {
 	 *               Xóa folder ảnh đại diện của người dùng khi tài khoản bị xóa
 	 */
 	private void deleteAvatarImageDir(Integer userId) {
-		Path pUserAvatarImage = Paths.get(UserHelper.ROOT_PATH_AVATAR_MEDIUM + File.separator + userId);
+		Path pUserAvatarImage = Paths.get(UserHelper.ROOT_PATH_AVATAR_MEDIUM + Helper.FILE_SEPARTOR + userId);
 
 		File fUploadAvatarImageDir = pUserAvatarImage.toFile();
 		if (fUploadAvatarImageDir.exists()) {

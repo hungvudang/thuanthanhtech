@@ -195,6 +195,8 @@ public class CategoryAdminController {
 			categories.parallelStream().forEach((obj) -> {
 				visited.add(false);
 			});
+			
+			
 			CategoryHelper.recursive_categories(categories, visited, id, "", childsTargetCategory);
 
 			childsTargetCategory.parallelStream().forEach((child) -> {

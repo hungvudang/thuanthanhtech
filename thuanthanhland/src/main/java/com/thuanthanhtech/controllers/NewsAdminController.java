@@ -32,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thuanthanhtech.entities.Category;
 import com.thuanthanhtech.entities.CategoryHelper;
+import com.thuanthanhtech.entities.Helper;
 import com.thuanthanhtech.entities.News;
 import com.thuanthanhtech.entities.NewsHelper;
 import com.thuanthanhtech.entities.RootCategory;
@@ -113,10 +114,10 @@ public class NewsAdminController {
 			// ===========================================================================================
 			if (multipartFile != null && !multipartFile.isEmpty()) {
 				String fThumbnailImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-				String uploadDir = StringUtils.cleanPath(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + news.getSlug());
+				String uploadDir = StringUtils.cleanPath(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + Helper.FILE_SEPARTOR + news.getSlug());
 
 				NewsHelper.saveThumbnailImage(multipartFile, uploadDir, fThumbnailImageName);
-				news.setImage(StringUtils.cleanPath(uploadDir + File.separator + fThumbnailImageName));
+				news.setImage(StringUtils.cleanPath(uploadDir + Helper.FILE_SEPARTOR + fThumbnailImageName));
 
 			}
 			// ============================================================================================
@@ -195,9 +196,9 @@ public class NewsAdminController {
 			// =========================================================================================================
 			if (nNews.getImage() != null) {
 				Path oldThumbnailPathDir = Path
-						.of(StringUtils.cleanPath(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + oldSlug));
+						.of(StringUtils.cleanPath(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + Helper.FILE_SEPARTOR + oldSlug));
 				Path newThumbnailPathDir = Path
-						.of(StringUtils.cleanPath(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug()));
+						.of(StringUtils.cleanPath(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + Helper.FILE_SEPARTOR + nNews.getSlug()));
 				
 				Files.move(oldThumbnailPathDir.normalize(), newThumbnailPathDir.normalize(), StandardCopyOption.REPLACE_EXISTING);
 			}
@@ -207,10 +208,13 @@ public class NewsAdminController {
 			// =======================================================
 			if (multipartFile != null && !multipartFile.isEmpty()) {
 				String fThumbnailImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-				String uploadDir = NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug();
-
+				String uploadDir = NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + Helper.FILE_SEPARTOR + nNews.getSlug();
+				
+				// Xóa thư ảnh thumbnail cũ
+				deleteThumbnailImageDir(uploadDir + Helper.FILE_SEPARTOR + fThumbnailImageName);
+				
 				NewsHelper.saveThumbnailImage(multipartFile, uploadDir, fThumbnailImageName);
-				nNews.setImage(uploadDir + File.separator + fThumbnailImageName);
+				nNews.setImage(uploadDir + Helper.FILE_SEPARTOR + fThumbnailImageName);
 			}
 			// ============================================================================================
 
@@ -259,13 +263,15 @@ public class NewsAdminController {
 		Path path = Paths.get(fThumbnailImagePath);
 		File fParentDirThumbnailImage = path.toAbsolutePath().toFile().getParentFile();
 		// xóa thư mục
-		if (fParentDirThumbnailImage.isDirectory()) {
-			String[] files = fParentDirThumbnailImage.list();
-			for (String childs : files) {
-				File childDirt = new File(fParentDirThumbnailImage, childs);
-				childDirt.delete();
+		if (fParentDirThumbnailImage.exists()) {
+			if (fParentDirThumbnailImage.isDirectory()) {
+				String[] files = fParentDirThumbnailImage.list();
+				for (String childs : files) {
+					File childDirt = new File(fParentDirThumbnailImage, childs);
+					childDirt.delete();
+				}
 			}
+			fParentDirThumbnailImage.delete();
 		}
-		fParentDirThumbnailImage.delete();
 	}
 }

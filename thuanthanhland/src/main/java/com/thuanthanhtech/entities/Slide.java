@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -132,7 +133,7 @@ public class Slide {
 	public void prePersist() {
 		this.created_at = LocalDateTime.now();
 	}
-	
+	@PreUpdate
 	public void preUpdate() {
 		this.updated_at = LocalDateTime.now();
 	}

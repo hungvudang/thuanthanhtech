@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.thuanthanhtech.entities.Helper;
 import com.thuanthanhtech.entities.Slide;
 import com.thuanthanhtech.entities.SlideHelper;
 import com.thuanthanhtech.repositories.SlideRepository;
@@ -100,9 +101,9 @@ public class SlideAdminController {
 		// Cập nhật lại path image cho slide mới tạo
 		// =========================================================================================
 		String fImageSlideName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		String uploadDir = SlideHelper.ROOT_PATH_IMAGE_MEDIUM + File.separator + saveSlide.getId();
+		String uploadDir = SlideHelper.ROOT_PATH_IMAGE_MEDIUM + Helper.FILE_SEPARTOR + saveSlide.getId();
 		SlideHelper.saveImage(multipartFile, uploadDir, fImageSlideName);
-		saveSlide.setImage(uploadDir + File.separator + fImageSlideName);
+		saveSlide.setImage(uploadDir + Helper.FILE_SEPARTOR + fImageSlideName);
 		sRepository.save(saveSlide);
 		// =========================================================================================
 		ra.addFlashAttribute("success", "Slide mới đã được tạo thành công");
@@ -158,10 +159,14 @@ public class SlideAdminController {
 				// Cập nhật lại path image cho slide
 				// =========================================================================================
 				if (!multipartFile.isEmpty()) {
+					
+					// Xóa ảnh cũ của slide
+					deleteImageDir(id);
+					
 					String fImageSlideName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-					String uploadDir = SlideHelper.ROOT_PATH_IMAGE_MEDIUM + File.separator + updateSlide.getId();
+					String uploadDir = SlideHelper.ROOT_PATH_IMAGE_MEDIUM + Helper.FILE_SEPARTOR + updateSlide.getId();
 					SlideHelper.saveImage(multipartFile, uploadDir, fImageSlideName);
-					updateSlide.setImage(uploadDir + File.separator + fImageSlideName);
+					updateSlide.setImage(uploadDir + Helper.FILE_SEPARTOR + fImageSlideName);
 				}
 				// =========================================================================================
 				
@@ -207,7 +212,7 @@ public class SlideAdminController {
 	 * Xóa thư mục lưu ảnh của slide bị xóa đi
 	 */
 	private void deleteImageDir(Integer slideId) {
-		Path pSlideImage = Paths.get(SlideHelper.ROOT_PATH_IMAGE_MEDIUM + File.separator + slideId);
+		Path pSlideImage = Paths.get(SlideHelper.ROOT_PATH_IMAGE_MEDIUM + Helper.FILE_SEPARTOR + slideId);
 
 		File fUploadImageDir = pSlideImage.toFile();
 		if (fUploadImageDir.exists()) {
