@@ -68,7 +68,7 @@
 												<!-- Title Input -->
 
 												<div class="form-group">
-													<label for="exampleFormControlInput3">Tiêu đề</label> <input
+													<label for="exampleFormControlInput3">Tiêu đề (<span style="color: red;">*</span>)</label> <input
 														th:field="*{title}" type="text" class="form-control"
 														id="exampleFormControlInput3" placeholder=""><span
 														class="text text-danger badge" th:if="${isTitleError}"
@@ -115,7 +115,7 @@
 
 												<!-- Description Input -->
 												<div class="form-group">
-													<label for="inputContent">Mô tả</label> <br>
+													<label for="inputContent">Mô tả (<span style="color: red;">*</span>)</label> <br>
 													<textarea class="textarea" th:field="*{description}" rows="2"
 														style="width: 100%;" placeholder=""></textarea>
 												</div>
@@ -135,7 +135,7 @@
 										<!-- Upload image of slide -->
 										<div class="col-7">
 											<div>
-												<label for="uploadThumbnail">Hình ảnh</label>
+												<label for="uploadThumbnail">Hình ảnh (<span style="color: red;">*</span>)</label>
 
 												<div>
 													<img th:src="@{*{image}}" alt="image-media" class="img-fluid mb-3"

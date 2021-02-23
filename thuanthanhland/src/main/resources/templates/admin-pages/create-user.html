@@ -75,7 +75,7 @@
 											<div>
 												<!-- Name Input -->
 												<div class="form-group">
-													<label for="exampleFormControlInput1">Tên tài khoản</label>
+													<label for="exampleFormControlInput1">Tên tài khoản (<span style="color: red;">*</span>)</label>
 													<input th:field="*{name}" type="text" class="form-control"
 														id="exampleFormControlInput1" placeholder=""><span
 														class="text text-danger badge" th:if="${isNameError}"
@@ -84,7 +84,7 @@
 												<!-- Email Input -->
 
 												<div class="form-group">
-													<label for="exampleFormControlInput2">Email</label> <input
+													<label for="exampleFormControlInput2">Email (<span style="color: red;">*</span>)</label> <input
 														th:field="*{email}" type="email" class="form-control"
 														id="exampleFormControlInput2" placeholder=""><span
 														class="text text-danger badge" th:if="${isEmailError}"
@@ -93,7 +93,7 @@
 
 												<!-- Password Input -->
 												<div class="form-group">
-													<label for="exampleFormControlInput5">Mật khẩu</label> <input
+													<label for="exampleFormControlInput5">Mật khẩu (<span style="color: red;">*</span>)</label> <input
 														th:field="*{password}" type="password"
 														class="form-control" id="exampleFormControlInput5"
 														placeholder=""><span
@@ -103,7 +103,7 @@
 
 												<!-- Phone Input -->
 												<div class="form-group">
-													<label for="exampleFormControlInput3">Số điện thoại</label>
+													<label for="exampleFormControlInput3">Số điện thoại (<span style="color: red;">*</span>)</label>
 													<input th:field="*{phone}" type="tel" class="form-control"
 														id="exampleFormControlInput3" placeholder=""> <span
 														class="text text-danger badge" th:if="${isPhoneError}"
@@ -166,7 +166,9 @@
 												</div>
 
 												<input name="user_avatar" type="file" class="form-control"
-													id="uploadAvatar" accept="image/png, image/jpeg" />
+													id="uploadAvatar" accept="image/png, image/jpeg" /> <span class="text text-danger badge"
+													th:if="${isAvatarError}" th:utext="${avatarErrorMessage}">Avatar
+													Error</span>
 											</div>
 										</div>
 										<!-- /.avatar image upload -->

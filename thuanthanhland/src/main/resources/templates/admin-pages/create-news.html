@@ -68,7 +68,7 @@
 											<div>
 												<!-- Name Input -->
 												<div class="form-group">
-													<label for="exampleFormControlInput2">Tên bài viết</label>
+													<label for="exampleFormControlInput2">Tên bài viết (<span style="color: red;">*</span>)</label>
 													<input th:field="*{name}" type="text" class="form-control"
 														id="exampleFormControlInput2" placeholder=""><span
 														class="text text-danger badge" th:if="${isNameError}"
@@ -77,7 +77,7 @@
 												<!-- Title Input -->
 
 												<div class="form-group">
-													<label for="exampleFormControlInput3">Tiêu đề</label> <input
+													<label for="exampleFormControlInput3">Tiêu đề (<span style="color: red;">*</span>)</label> <input
 														th:field="*{title}" type="text" class="form-control"
 														id="exampleFormControlInput3" placeholder=""><span
 														class="text text-danger badge" th:if="${isTitleError}"
@@ -85,7 +85,7 @@
 												</div>
 												<!-- Select Category -->
 												<div class="form-group">
-													<label for="inputCategory">Danh mục</label> <select
+													<label for="inputCategory">Danh mục (<span style="color: red;">*</span>)</label> <select
 														name="typeCategory" class="form-control custom-select"
 														th:field="*{category.id}">
 														<th:block th:each="rc : ${root_categories}">
@@ -147,7 +147,7 @@
 
 												<!-- Description Input -->
 												<div class="form-group">
-													<label for="inputDescription">Mô tả</label> <br>
+													<label for="inputDescription">Mô tả (<span style="color: red;">*</span>)</label> <br>
 													<textarea th:field="*{description}" rows="2" style="width: 100%;"
 														placeholder=""></textarea>
 												</div>
@@ -182,7 +182,9 @@
 												</div>
 
 												<input name="news_thumbnail" type="file" class="form-control"
-													id="uploadThumbnail" accept="image/png, image/jpeg" />
+													id="uploadThumbnail" accept="image/png, image/jpeg" /><span
+														class="text text-danger badge" th:if="${isThumbnailError}"
+														th:utext="${thumbnailErrorMessage}">Thumbnail Error</span>
 											</div>
 										</div>
 										<!-- /.thumbnail image upload -->

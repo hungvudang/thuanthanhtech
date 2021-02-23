@@ -15,6 +15,11 @@
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
+
+	<!-- DataTables -->
+	<link rel="stylesheet" href="/admin-static/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="/admin-static/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
 	<!-- Google Font: Source Sans Pro -->
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -48,73 +53,83 @@
 			</section>
 
 			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Tất cả slide</h3>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<table id="example2" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Tiêu đề</th>
+												<th>Hiển thị</th>
+												<th>Thứ tự hiển thị</th>
+												<th>Sửa đổi lần cuối</th>
+												<th>Hành động</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="s, iter : ${slides}">
+												<td th:utext="${s.id}" scope="row"></td>
+												<td class="text text-left" th:utext="${s.title}"></td>
 
-			<div class="container">
-				<div class="row justify-content-start">
-					<div class="col">
-						<div class="table-responsive">
-							<table class="table table-hover text-center">
-								<thead class="thead-dark">
-									<tr>
-										<th>ID</th>
-										<th class="text text-left">Tiêu đề</th>
-										<th>Hiển thị</th>
-										<th>Thứ tự hiển thị</th>
-										<th>Sửa đổi lần cuối</th>
-										<th>Hành động</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="s, iter : ${slides}">
-										<td th:utext="${s.id}" scope="row"></td>
-										<td class="text text-left" th:utext="${s.title}"></td>
+												<div>
+													<th:block th:if="${s.pub == 1}">
+														<td><span class="badge badge-pill badge-success">Hiển
+																thị</span></td>
+													</th:block>
 
-										<div>
-											<th:block th:if="${s.pub == 1}">
-												<td><span class="badge badge-pill badge-success">Hiển
-														thị</span></td>
-											</th:block>
-
-											<th:block th:if="${s.pub == 0}">
-												<td><span class="badge badge-pill badge-dark">Ẩn</span>
-												</td>
-											</th:block>
-										</div>
-
-										<!-- thứ tự hiển thị -->
-										<td th:utext="${s.sort}"></td>
-
-										<!-- Last modified -->
-										<th:block th:if="${s.updated_at}">
-											<td th:utext="${#temporals.format(s.updated_at, 'dd/MM/yyyy')}">
-											</td>
-										</th:block>
-
-										<th:block th:unless="${s.updated_at}">
-											<td th:utext="${#temporals.format(s.created_at, 'dd/MM/yyyy')}">
-											</td>
-										</th:block>
-										<!-- /. Last modified	 -->
-
-										<td>
-											<div class="row justify-content-center">
-												<div class="col">
-													<a class=" fas fa-edit fa-lg"
-														th:href="@{'/admin/slide/detail/' + ${s.id}}"></a> <a
-														class="fas fa-trash fa-lg mx-3" style="color: red;"
-														th:href="@{'/admin/slide/delete/' + ${s.id}}"></a>
+													<th:block th:if="${s.pub == 0}">
+														<td><span class="badge badge-pill badge-dark">Ẩn</span>
+														</td>
+													</th:block>
 												</div>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+
+												<!-- thứ tự hiển thị -->
+												<td th:utext="${s.sort}"></td>
+
+												<!-- Last modified -->
+												<th:block th:if="${s.updated_at}">
+													<td th:utext="${#temporals.format(s.updated_at, 'dd/MM/yyyy')}">
+													</td>
+												</th:block>
+
+												<th:block th:unless="${s.updated_at}">
+													<td th:utext="${#temporals.format(s.created_at, 'dd/MM/yyyy')}">
+													</td>
+												</th:block>
+												<!-- /. Last modified	 -->
+
+												<td>
+													<div class="row justify-content-center">
+														<div class="col">
+															<a class=" fas fa-edit fa-lg"
+																th:href="@{'/admin/slide/detail/' + ${s.id}}"></a> <a
+																class="fas fa-trash fa-lg mx-3" style="color: red;"
+																th:href="@{'/admin/slide/delete/' + ${s.id}}"></a>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+							<!-- /.card -->
 						</div>
+						<!-- /.col -->
 					</div>
+					<!-- /.row -->
 				</div>
-
-
-			</div>
+				<!-- /.container-fluid -->
+			</section>
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
@@ -164,10 +179,34 @@
 			});
 		})
 	</script>
-	
+
 	<!-- flash notification -->
 	<script th:replace="/admin-pages/fragments/notification::notification"></script>
 	<!-- /. flash notification -->
+
+	<!-- DataTables -->
+	<script src="/admin-static/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script src="/admin-static/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script src="/admin-static/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="/admin-static/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<!-- page script -->
+	<script>
+		$(function () {
+			$("#example1").DataTable({
+				"responsive": true,
+				"autoWidth": false,
+			});
+			$('#example2').DataTable({
+				"paging": true,
+				"lengthChange": false,
+				"searching": false,
+				"ordering": true,
+				"info": true,
+				"autoWidth": false,
+				"responsive": true,
+			});
+		});
+	</script>
 
 </body>
 

@@ -75,8 +75,9 @@
 											<div>
 												<!-- Name Input -->
 												<div class="form-group">
-													<label for="exampleFormControlInput1">Tên tài khoản</label>
-													<input th:field="*{name}" type="text" class="form-control"
+													<label for="exampleFormControlInput1">Tên tài khoản
+														(<span style="color: red;">*</span>)
+													</label> <input th:field="*{name}" type="text" class="form-control"
 														id="exampleFormControlInput1" placeholder=""> <span
 														class="text text-danger badge" th:if="${isNameError}"
 														th:utext="${nameErrorMessage}">Name Error</span>
@@ -84,18 +85,20 @@
 												<!-- Email Input -->
 
 												<div class="form-group">
-													<label for="exampleFormControlInput2">Email</label> <input
-														th:field="*{email}" type="email" class="form-control"
-														id="exampleFormControlInput2" placeholder="" required>
-													<span class="text text-danger badge"
-														th:if="${isEmailError}" th:utext="${emailErrorMessage}">Email
-														Error</span>
+													<label for="exampleFormControlInput2">Email (<span
+														style="color: red;">*</span>)
+													</label> <input th:field="*{email}" type="email"
+														class="form-control" id="exampleFormControlInput2"
+														placeholder="" required> <span
+														class="text text-danger badge" th:if="${isEmailError}"
+														th:utext="${emailErrorMessage}">Email Error</span>
 												</div>
 
 												<!-- Phone Input -->
 												<div class="form-group">
-													<label for="exampleFormControlInput3">Số điện thoại</label>
-													<input th:field="*{phone}" type="tel" class="form-control"
+													<label for="exampleFormControlInput3">Số điện thoại
+														(<span style="color: red;">*</span>)
+													</label> <input th:field="*{phone}" type="tel" class="form-control"
 														id="exampleFormControlInput3" placeholder=""> <span
 														class="text text-danger badge" th:if="${isPhoneError}"
 														th:utext="${phoneErrorMessage}">Phone Error</span>
@@ -153,7 +156,9 @@
 												</div>
 
 												<input name="user_avatar" type="file" class="form-control"
-													id="uploadAvatar" accept="image/png, image/jpeg" />
+													id="uploadAvatar" accept="image/png, image/jpeg" /><span
+													class="text text-danger badge" th:if="${isAvatarError}"
+													th:utext="${avatarErrorMessage}">Avatar Error</span>
 											</div>
 										</div>
 										<!-- /.avatar image upload -->
