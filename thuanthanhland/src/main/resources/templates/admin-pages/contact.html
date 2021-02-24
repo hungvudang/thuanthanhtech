@@ -2,22 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
 
-	<title>AdminLTE 3 | Liên hệ</title>
+<title>AdminLTE 3 | Liên hệ </title>
 
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="/admin-static/plugins/fontawesome-free/css/all.min.css">
-	<!-- Ekko Lightbox -->
-	<link rel="stylesheet" href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
-	<!-- Ionicons -->
-	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	<!-- Theme style -->
-	<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
-	<!-- Google Font: Source Sans Pro -->
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="/admin-static/plugins/fontawesome-free/css/all.min.css">
+<!-- Ekko Lightbox -->
+<link rel="stylesheet"
+	href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
+
+<!-- DataTables -->
+<link rel="stylesheet"
+	href="/admin-static/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet"
+	href="/admin-static/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
+
+<!-- Google Font: Source Sans Pro -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -35,80 +48,84 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1>Liên lạc </h1>
+
+							<h1>Liên hệ</h1>
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-								<li class="breadcrumb-item active">Liên lạc</li>
+								<li class="breadcrumb-item active">Liên hệ</li>
 							</ol>
 						</div>
 					</div>
 				</div>
 				<!-- /.container-fluid -->
 			</section>
-
 			<!-- Main content -->
-			<div class="row justify-content-center">
-				<div class="col-12">
-					<div class="card">
-						<!-- /.card-header -->
-						<div class="card-body p-0">
-							<table class="table table-hover text-nowrap">
-								<thead class="thead-dark">
-									<tr>
-										<th>ID</th>
-										<th>Tên liên lạc</th>
-										<th>Email</th>
-										<th>Địa chỉ</th>
-										<th>Số điện thoại</th>
-										<th>Hành động</th>
-
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="c : ${contacts}">
-										<td th:utext="${c.id}" th:field="${c.id}" scope="row"></td>
-										<td th:utext="${c.name}" th:field="${c.name}"></td>
-										<td th:utext="${c.email}" th:field="${c.email}"></td>
-										<td th:utext="${c.address}" th:field="${c.address}"></td>
-										<td th:utext="${c.phone}" th:field="${c.phone}"></td>
-										<td>
-											<div class="row justify-content-center">
-												<div class="col">
-													<a class=" fas fa-edit fa-lg"
-														th:href="@{'/contact/detail/' + ${c.id}}"></a> <a
-														class="fas fa-trash fa-lg mx-3" style="color: red;"
-														th:href="@{'/contact/delete/' + ${c.id}}"></a>
-												</div>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Tất cả các liên hệ</h3>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<table id="example2" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Tên</th>
+												<th>Email</th>
+												<th>Địa chỉ</th>
+												<th>Sửa đổi lần cuối</th>
+												<th>Hành động</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="c : ${contacts}">
+												<td th:utext="${c.id}" th:field="${c.id}" scope="row"></td>
+												<td th:utext="${c.name}" th:field="${c.name}"></td>
+												<td th:utext="${c.email}" th:field="${c.email}"></td>
+												<td th:utext="${c.address}" th:field="${c.address}"></td>
+												<td th:utext="${c.phone}" th:field="${c.phone}"></td>
+												<td>
+													<div class="row justify-content-center">
+														<div class="col">
+															<a class=" fas fa-edit fa-lg"
+																th:href="@{'/contact/detail/' + ${c.id}}"></a> <a
+																onclick="return confirm('Bạn chắc chắn muốn xóa ?')"
+																class="fas fa-trash fa-lg mx-3" style="color: red;"
+																th:href="@{'/contact/delete/' + ${c.id}}"></a>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+							<!-- /.card -->
 						</div>
-						<!-- /.card-body -->
+						<!-- /.col -->
 					</div>
-					<!-- /.card -->
+					<!-- /.row -->
 				</div>
-			</div>
+				<!-- /.container-fluid -->
+			</section>
+
 		</div>
+
+		<!-- footer -->
+		<div th:replace="/admin-pages/fragments/footer::footer"></div>
 
 		<!-- Control Sidebar -->
 		<aside class="control-sidebar control-sidebar-dark">
 			<!-- Control sidebar content goes here -->
 		</aside>
 		<!-- /.control-sidebar -->
-
-		<!-- Main Footer -->
-		<footer class="main-footer">
-			<strong>Copyright &copy; 2014-2019 <a
-				href="http://adminlte.io">Thuận Thành Land</a>.
-			</strong> All rights reserved.
-			<div class="float-right d-none d-sm-inline-block">
-				<b>Version</b> 3.0.5
-			</div>
-		</footer>
 	</div>
 	<!-- ./wrapper -->
 
@@ -151,5 +168,37 @@
 	<script th:replace="/admin-pages/fragments/notification::notification"></script>
 	<!-- /. flash notification -->
 
+	<!-- flash notification -->
+	<script th:replace="/admin-pages/fragments/notification::notification"></script>
+	<!-- /. flash notification -->
+
+	<!-- DataTables -->
+	<script src="/admin-static/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script
+		src="/admin-static/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="/admin-static/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="/admin-static/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<!-- page script -->
+	<script>
+		$(function() {
+			$("#example1").DataTable({
+				"responsive" : true,
+				"autoWidth" : false,
+			});
+			$('#example2').DataTable({
+				"paging" : true,
+				"lengthChange" : false,
+				"searching" : false,
+				"ordering" : true,
+				"info" : true,
+				"autoWidth" : false,
+				"responsive" : true,
+			});
+		});
+	</script>
+
 </body>
+
 </html>

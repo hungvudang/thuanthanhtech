@@ -113,6 +113,18 @@ public class NewsAdminController {
 			// Upload ảnh thumbnail của tin tức lên server
 			// ===========================================================================================
 			if (multipartFile != null && !multipartFile.isEmpty()) {
+				
+				// Kiểm tra file upload lên có đúng định dạng không
+				String contentType = multipartFile.getContentType();
+				if (! contentType.matches("^image/.+")) {
+					ra.addFlashAttribute("isThumbnailError", true);
+					ra.addFlashAttribute("thumbnailErrorMessage", "Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
+					
+					ra.addFlashAttribute("error", "Tạo bài viết mới thất bại");
+					ra.addFlashAttribute("news", news);
+					return "redirect:/admin/news/create";
+				}
+				
 				String fThumbnailImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 				String uploadDir = StringUtils.cleanPath(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + Helper.FILE_SEPARTOR + news.getSlug());
 
@@ -207,6 +219,17 @@ public class NewsAdminController {
 			// Cập nhật ảnh thumbnail của tin tức lên server
 			// =======================================================
 			if (multipartFile != null && !multipartFile.isEmpty()) {
+				
+				// Kiểm tra file upload lên có đúng định dạng không
+				String contentType = multipartFile.getContentType();
+				if (! contentType.matches("^image/.+")) {
+					ra.addFlashAttribute("isThumbnailError", true);
+					ra.addFlashAttribute("thumbnailErrorMessage", "Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
+					
+					ra.addFlashAttribute("error", "Cập nhật bài viết thất bại");
+					return "redirect:/admin/news/detail/" + id;
+				}
+				
 				String fThumbnailImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 				String uploadDir = NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + Helper.FILE_SEPARTOR + nNews.getSlug();
 				

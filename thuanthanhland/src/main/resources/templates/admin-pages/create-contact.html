@@ -65,19 +65,19 @@
                                 <form th:action="@{/admin/contact/save}" th:object="${contact}" th:method="post">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Họ Tên</label>
+                                            <label for="exampleInputEmail1">Họ Tên (<span style="color: red;">*</span>)</label>
                                             <input th:field="*{name}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Nhập vào họ tên">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Email </label>
+                                            <label for="exampleInputEmail1">Email (<span style="color: red;">*</span>)</label>
                                             <input th:field="*{email}" type="email" class="form-control" id="exampleInputEmail1" placeholder="Nhập vào email">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Địa chỉ</label>
+                                            <label for="exampleInputPassword1">Địa chỉ (<span style="color: red;">*</span>)</label>
                                             <input th:field="*{address}" type="text" class="form-control" id="exampleInputAddress" placeholder="Nhập vào địa chỉ">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Số điện thoại</label>
+                                            <label for="exampleInputPassword1">Số điện thoại (<span style="color: red;">*</span>)</label>
                                             <input th:field="*{phone}" type="tel" class="form-control" id="exampleInputPhone" placeholder="Nhập vào số điện thoại">
                                         </div>
                                         <div class="form-group">

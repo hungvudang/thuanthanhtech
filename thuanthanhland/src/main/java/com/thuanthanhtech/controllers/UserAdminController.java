@@ -111,6 +111,21 @@ public class UserAdminController {
 		// Upload ảnh đại diện (avatar)
 		// ======================================================================================
 		if (multipartFile != null && !multipartFile.isEmpty()) {
+			
+			// Kiểm tra file upload lên có đúng định dạng không
+			String contentType = multipartFile.getContentType();
+			if (!contentType.matches("^image/.+")) {
+				
+				ra.addFlashAttribute("isAvatarError", true);
+				ra.addFlashAttribute("avatarErrorMessage", "Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
+				
+				ra.addFlashAttribute("error", "Tạo tài khoản mới thất bại");
+				user.setAvatar(UserHelper.NO_AVATAR_MEDIUM_IMAGE);
+				ra.addFlashAttribute("user", user);
+				return "redirect:/admin/user/create";
+			}
+			
+			
 			String fAvatarImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			String uploadDir = UserHelper.ROOT_PATH_AVATAR_MEDIUM + Helper.FILE_SEPARTOR + savedUser.getId();
 			UserHelper.saveAvatarImage(multipartFile, uploadDir, fAvatarImageName);
@@ -182,6 +197,17 @@ public class UserAdminController {
 			// Cập nhật ảnh đại diện
 			// ======================================================================================
 			if (multipartFile != null && !multipartFile.isEmpty()) {
+				
+				// Kiểm tra file upload lên có đúng định dạng không
+				String contentType = multipartFile.getContentType();
+				if (!contentType.matches("^image/.+")) {
+					ra.addFlashAttribute("isAvatarError", true);
+					ra.addFlashAttribute("avatarErrorMessage", "Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
+					
+					ra.addFlashAttribute("error", "Cập nhật tài khoản thất bại");
+					return "redirect:/admin/user/detail/" + id;
+				}
+				
 				
 				// Xóa ảnh đại đại diện cũ
 				deleteAvatarImageDir(id);

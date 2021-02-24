@@ -68,7 +68,7 @@ public class SlideAdminController {
 	@PostMapping("/save")
 	public String saveSlide(@Valid @ModelAttribute("slide") Slide slide, BindingResult br,
 			@RequestParam("slide_image") MultipartFile multipartFile, RedirectAttributes ra) throws IOException {
-
+		
 		if (br.hasErrors() || multipartFile.isEmpty()) {
 			ra.addFlashAttribute("error", "Tạo slide mới thất bại");
 			if (br.hasFieldErrors("name")) {
@@ -80,7 +80,7 @@ public class SlideAdminController {
 				ra.addFlashAttribute("isTitleError", true);
 				ra.addFlashAttribute("titleErrorMessage", br.getFieldError("title").getDefaultMessage());
 			}
-
+			
 			if (multipartFile.isEmpty()) {
 				ra.addFlashAttribute("isImageError", true);
 				ra.addFlashAttribute("imageErrorMessage", "Hình ảnh không được để trống");
@@ -95,11 +95,24 @@ public class SlideAdminController {
 			return "redirect:/admin/slide/create";
 		}
 //		else
+		
+		// Kiểm tra file upload lên có đúng định dạng không
+		String contentType = multipartFile.getContentType();
+		if (! contentType.matches("^image/.+")) {
+			ra.addFlashAttribute("isImageError", true);
+			ra.addFlashAttribute("imageErrorMessage", "Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
+			
+			slide.setImage(SlideHelper.NO_IMAGE_MEDIUM);
+			ra.addFlashAttribute("slide", slide);
+			return "redirect:/admin/slide/create";
+		}
+		
 		slide.setImage("author:hungv");
 		Slide saveSlide = sRepository.saveAndFlush(slide);
 
 		// Cập nhật lại path image cho slide mới tạo
 		// =========================================================================================
+		System.out.println(SlideAdminController.class.getSimpleName() + ": " + multipartFile.getContentType());
 		String fImageSlideName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		String uploadDir = SlideHelper.ROOT_PATH_IMAGE_MEDIUM + Helper.FILE_SEPARTOR + saveSlide.getId();
 		SlideHelper.saveImage(multipartFile, uploadDir, fImageSlideName);
@@ -159,6 +172,17 @@ public class SlideAdminController {
 				// Cập nhật lại path image cho slide
 				// =========================================================================================
 				if (!multipartFile.isEmpty()) {
+					
+					System.out.println(SlideAdminController.class.getSimpleName() + ": " + multipartFile.getContentType());
+					
+					// Kiểm tra file upload lên có đúng định dạng không
+					String contentType = multipartFile.getContentType();
+					if (! contentType.matches("^image/.+")) {
+						ra.addFlashAttribute("isImageError", true);
+						ra.addFlashAttribute("imageErrorMessage", "Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
+						ra.addFlashAttribute("error", "Cập nhật slide thất bại. Vui lòng kiểm tra lại");
+						return "redirect:/admin/slide/detail/" + id;
+					}
 					
 					// Xóa ảnh cũ của slide
 					deleteImageDir(id);
