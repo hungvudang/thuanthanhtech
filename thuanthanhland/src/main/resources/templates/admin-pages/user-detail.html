@@ -79,12 +79,11 @@
 												<!-- Email Input -->
 
 												<div class="form-group">
-													<label for="exampleFormControlInput2">Email (<span
-															style="color: red;">*</span>)
-													</label> <input th:field="*{email}" type="email"
-														class="form-control" id="exampleFormControlInput2"
-														placeholder="" readonly> <span class="text text-danger badge"
-														th:if="${isEmailError}" th:utext="${emailErrorMessage}">Email
+													<label for="exampleFormControlInput2">Email</label> <input
+														th:field="*{email}" type="email" class="form-control"
+														id="exampleFormControlInput2" placeholder="" readonly> <span
+														class="text text-danger badge" th:if="${isEmailError}"
+														th:utext="${emailErrorMessage}">Email
 														Error</span>
 												</div>
 
@@ -148,10 +147,11 @@
 														style="max-height: 150px;">
 												</div>
 
-												<input name="user_avatar" type="file" class="form-control"
+												<input name="user_avatar" type="file" class="form-control-file"
 													id="uploadAvatar" accept="image/png, image/jpeg" /><span
 													class="text text-danger badge" th:if="${isAvatarError}"
-													th:utext="${avatarErrorMessage}">Avatar Error</span>
+													th:utext="${avatarErrorMessage}">Avatar
+													Error</span>
 											</div>
 										</div>
 										<!-- /.avatar image upload -->

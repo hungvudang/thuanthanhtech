@@ -48,7 +48,7 @@
 			</section>
 
 			<!-- Main content -->
-			
+
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col">
@@ -61,27 +61,32 @@
 									th:method="post">
 									<div>
 										<div class="form-group">
-											<label for="exampleFormControlInput2">Tên danh mục (<span style="color: red;">*</span>)</label> <input
-												th:field="*{name}" type="text" class="form-control"
-												id="exampleFormControlInput2" placeholder="">
+											<label for="exampleFormControlInput2">Tên danh mục (<span
+													style="color: red;">*</span>)</label> <input th:field="*{name}"
+												type="text" class="form-control" id="exampleFormControlInput2"
+												placeholder="">
 										</div>
 
-										<div class="form-group"> 
-											<label for="exampleFormControlInput3">Tiêu đề (<span style="color: red;">*</span>)</label> <input
-												th:field="*{title}" type="text" class="form-control"
-												id="exampleFormControlInput3" placeholder="">
+										<div class="form-group">
+											<label for="exampleFormControlInput3">Tiêu đề (<span
+													style="color: red;">*</span>)</label> <input th:field="*{title}"
+												type="text" class="form-control" id="exampleFormControlInput3"
+												placeholder="">
 										</div>
-										
+
 										<div class="form-group">
 											<label for="exampleFormControlInput4">Thứ tự hiển thị</label> <input
-												th:field="*{sort}" type="number" class="form-control"
-												id="exampleFormControlInput4" placeholder="">
+												th:field="*{sort}" type="text" class="form-control"
+												id="exampleFormControlInput4" onkeypress="InputNumber(event)"
+												placeholder="">
 										</div>
 
 										<!-- Lựa chọn danh mục gốc -->
 										<div class="form-group">
-											<label for="inputCategory">Danh mục gốc (<span style="color: red;">*</span>)</label> <select name="typeCategory"
-												class="form-control custom-select" th:field="*{parent_id}">
+											<label for="inputCategory">Danh mục gốc (<span
+													style="color: red;">*</span>)</label> <select id="inputCategory"
+												name="typeCategory" class="form-control custom-select"
+												th:field="*{parent_id}">
 												<th:block th:each="rc : ${root_categories}">
 													<th:block th:if="*{id} != ${rc.id}">
 														<option th:value="${rc.id}" th:utext="${rc.name}"></option>
@@ -197,11 +202,21 @@
 			});
 		})
 	</script>
-	
+
 	<!-- flash notification -->
 	<script th:replace="/admin-pages/fragments/notification::notification"></script>
 	<!-- /. flash notification -->
-	
+
+	<!--Event chỉ nhập số-->
+	<script>
+		function InputNumber(evt) {
+			var ch = String.fromCharCode(evt.which);
+			if (!(/[0-9]/.test(ch))) {
+				evt.preventDefault();
+			}
+		}
+	</script>
+
 </body>
 
 </html>

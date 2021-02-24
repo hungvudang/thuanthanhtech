@@ -86,6 +86,19 @@
 														th:utext="${titleErrorMessage}">Title Error</span>
 												</div>
 
+												<!-- Select Category -->
+
+												<div class="form-group">
+													<label for="inputCategory">Danh mục</label> <select
+														class="form-control custom-select" th:field="*{category.id}">
+														<th:block th:each="rc : ${root_categories}">
+															<option th:value="${rc.id}" th:utext="${rc.name}"></option>
+														</th:block>
+
+													</select>
+												</div>
+
+
 												<!-- Description Input -->
 												<div class="form-group">
 													<label for="inputDescription">Mô tả</label> <br>
@@ -122,22 +135,10 @@
 														id="thumbnail-image" style="max-height: 200px;">
 												</div>
 
-												<input name="news_thumbnail" type="file" class="form-control"
+												<input name="news_thumbnail" type="file" class="form-control-file"
 													id="uploadThumbnail" accept="image/png, image/jpeg" />
 											</div>
 											<!-- /.thumbnail image upload -->
-
-											<!-- Select Category -->
-
-											<div class="form-group">
-												<label for="inputCategory">Danh mục</label> <select
-													class="form-control custom-select" th:field="*{category.id}">
-													<th:block th:each="rc : ${root_categories}">
-														<option th:value="${rc.id}" th:utext="${rc.name}"></option>
-													</th:block>
-
-												</select>
-											</div>
 
 											<!-- Public Input -->
 

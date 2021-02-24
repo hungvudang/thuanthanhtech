@@ -187,7 +187,12 @@ public class CategoryAdminController {
 	public String deleteCategory(@PathVariable("id") Integer id, RedirectAttributes ra) {
 		Optional<Category> opCategory = cRepository.findById(id);
 		if (opCategory.isPresent()) {
-
+			
+			if (!opCategory.get().getNewses().isEmpty()) {
+				ra.addFlashAttribute("error", "Bạn phải xóa tất cả các bài viết thuộc danh mục này");
+				return "redirect:/admin/category";
+			}
+			
 			List<Category> categories = cRepository.findAll();
 			List<RootCategory> childsTargetCategory = new ArrayList<RootCategory>();
 			List<Boolean> visited = new ArrayList<Boolean>();
@@ -198,14 +203,19 @@ public class CategoryAdminController {
 			
 			
 			CategoryHelper.recursive_categories(categories, visited, id, "", childsTargetCategory);
-
+			
+			if (!childsTargetCategory.isEmpty()) {
+				ra.addFlashAttribute("error", "Bạn phải xóa tất cả các danh mục con của danh mục này");
+				return "redirect:/admin/category";
+			}
+			
 			childsTargetCategory.parallelStream().forEach((child) -> {
 				cRepository.deleteById(child.getId());
 			});
 			cRepository.deleteById(id);
 			ra.addFlashAttribute("success", "Danh mục đã được xóa thành công");
 		} else {
-			ra.addFlashAttribute("error", "Xóa danh mục thất bại");
+			ra.addFlashAttribute("error", "Danh mục này không tồn tại hoặc đã bị xóa");
 		}
 		return "redirect:/admin/category";
 	}
