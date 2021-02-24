@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/recruitment")
 public class RecruitmentClientController {
-	@GetMapping("/recruitment")
+	@GetMapping
 	public String recruitment(Model m) {
 		return "public-pages/recruitment";
 	}
