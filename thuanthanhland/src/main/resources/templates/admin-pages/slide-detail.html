@@ -107,10 +107,11 @@
 
 												<div class="form-group">
 													<label for="exampleFormControlInput4">Thứ tự hiển
-														thị</label> <input th:field="*{sort}" type="number"
+														thị</label> <input th:field="*{sort}" type="text"
 														class="form-control" id="exampleFormControlInput4"
-														placeholder=""><span class="text text-danger badge"
-														th:if="${isSortError}" th:utext="${sortErrorMessage}">Sort
+														placeholder="" onkeypress="InputNumber(event)"><span
+														class="text text-danger badge" th:if="${isSortError}"
+														th:utext="${sortErrorMessage}">Sort
 														Error</span>
 												</div>
 
@@ -145,7 +146,7 @@
 														id="slide-image" style="max-height: 350px;">
 												</div>
 
-												<input name="slide_image" type="file" class="form-control"
+												<input name="slide_image" type="file" class="form-control-file"
 													id="uploadImage" accept="image/png, image/jpeg" /> <span
 													class="text text-danger badge" th:if="${isImageError}"
 													th:utext="${imageErrorMessage}">Image Error</span>
@@ -250,6 +251,16 @@
 	<!-- flash notification -->
 	<script th:replace="/admin-pages/fragments/notification::notification"></script>
 	<!-- /. flash notification -->
+
+	<!--Event chỉ nhập số-->
+	<script>
+		function InputNumber(evt) {
+			var ch = String.fromCharCode(evt.which);
+			if (!(/[0-9]/.test(ch))) {
+				evt.preventDefault();
+			}
+		}
+	</script>
 </body>
 
 </html>
