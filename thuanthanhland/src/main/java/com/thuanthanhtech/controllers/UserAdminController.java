@@ -159,7 +159,7 @@ public class UserAdminController {
 	@PostMapping("/update/{id}")
 	public String updateUser(@PathVariable("id") Integer id,
 			@Validated(UserValidator.updateValidation.class) @ModelAttribute("user") User user, BindingResult br,
-			@RequestParam("user_avatar") MultipartFile multipartFile, Model m, RedirectAttributes ra)
+			@RequestParam("user_avatar") MultipartFile multipartFile, Model m, RedirectAttributes ra, @RequestParam(name = "isChangePassword", required = false) String isChangePassword, @RequestParam(name = "newPassword", required = false) String newPassword)
 			throws IOException {
 
 		// Bỏ qua phần validate password khi cập nhật. Vì không cho phép cập nhật
@@ -193,6 +193,20 @@ public class UserAdminController {
 			nUser.setPhone(user.getPhone());
 			nUser.setAddress(user.getAddress());
 			nUser.setRole(user.getRole());
+			
+			// Cập nhật mật khẩu nếu có
+			if(isChangePassword != null) {
+				System.out.println(isChangePassword);
+				if (newPassword == null || newPassword.isBlank() || newPassword.length() < 8) {
+					
+					ra.addFlashAttribute("isChangePasswordError", true);
+					ra.addFlashAttribute("changePasswordErrorMessage", "Mật khẩu mới không hợp lệ");
+					ra.addFlashAttribute("error", "Cập nhật tài khoản thất bại");
+					return "redirect:/admin/user/detail/" + id;
+				}
+				
+				nUser.setPassword(passwordEncoder.encode(newPassword));
+			}
 
 			// Cập nhật ảnh đại diện
 			// ======================================================================================

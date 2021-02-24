@@ -12,6 +12,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -44,6 +45,7 @@ public class User {
 	@Column(name = "phone", columnDefinition = "VARCHAR(10) NOT NULL")
 	@NotBlank(message = "Số điện thoại không được để trống", groups = {UserValidator.saveValidation.class, UserValidator.updateValidation.class})
 	@Size(min = 10, max = 10, message = "Số điện thoại không đúng định dạng", groups = {UserValidator.saveValidation.class, UserValidator.updateValidation.class})
+	@Pattern(regexp = "^(84|0[3|5|7|8|9])+([0-9]{8})\\b", message = "Số điện thoại không đúng định dạng")
 	private String phone;
 
 	@Column(name = "avatar")
