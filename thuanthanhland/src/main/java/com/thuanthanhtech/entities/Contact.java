@@ -10,6 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "contacts")
@@ -20,18 +25,24 @@ public class Contact {
 	private Integer id;
 
 	@Column(name = "name", nullable = false)
+	@NotNull
+	@NotBlank(message = "Tên không được để trống")
 	private String name;
 
 	@Column(name = "email", nullable = false)
+	@Email(message = "Email không đúng định dạng")
+	@NotNull
+	@NotBlank(message = "Email không được để trống")
 	private String email;
-
-	@Column(name = "title")
-	private String title;
 
 	@Column(name = "address")
 	private String address;
 
-	@Column(name = "phone")
+	@Column(name = "phone", nullable = false)
+	@NotBlank(message = "Số điện thoại không được để trống")
+	@NotNull
+	@Size(min = 10, max = 10, message = "Số điện thoại không đúng định dạng")
+	@Pattern(regexp = "^(84|0[3|5|7|8|9])+([0-9]{8})\\b", message = "Số điện thoại không đúng định dạng")
 	private String phone;
 
 	@Column(name = "content", columnDefinition = "LONGTEXT NOT NULL")
@@ -47,13 +58,14 @@ public class Contact {
 		super();
 	}
 
-	public Contact(Integer id, String name, String email, String title, String address, String phone, String content,
-			Integer status, LocalDateTime created_at, LocalDateTime updated_at) {
+	
+
+	public Contact(Integer id, String name, String email, String address, String phone, String content, Integer status,
+			LocalDateTime created_at, LocalDateTime updated_at) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.title = title;
 		this.address = address;
 		this.phone = phone;
 		this.content = content;
@@ -61,6 +73,8 @@ public class Contact {
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -84,14 +98,6 @@ public class Contact {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getAddress() {

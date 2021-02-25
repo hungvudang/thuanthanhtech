@@ -29,6 +29,7 @@
 
 		<!-- Main Sidebar Container -->
 		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
+		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
@@ -39,7 +40,7 @@
 						</div>
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+								<li class="breadcrumb-item">Trang chủ</li>
 								<li class="breadcrumb-item active">Liên hệ</li>
 							</ol>
 						</div>
@@ -47,52 +48,63 @@
 				</div>
 				<!-- /.container-fluid -->
 			</section>
-
 			<!-- Main content -->
-			<section class="content">
-				<div class="container-fluid">
-					<div class="row">
-						<!-- left column -->
-						<div class="col-md-6">
-							<!-- general form elements -->
-							<div class="card card-primary">
-								<div class="card-header">
-									<h3 class="card-title">Cập nhật liên hệ</h3>
-								</div>
-								<!-- /.card-header -->
-								<!-- form start -->
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col">
+						<div class="card card-info">
+							<div class="card-header">
+								<h2 class="card-title font-weight-bold">Cập nhật liên hệ</h2>
+							</div>
+							<div class="card-body">
 								<form th:action="@{'/admin/contact/update/' + ${contact.id}}" th:object="${contact}"
 									th:method="post">
-									<div class="card-body">
-										<div class="form-group">
-											<label for="exampleInputEmail1">Họ Tên (<span style="color: red;">*</span>)</label> <input th:field="*{name}"
-												type="text" class="form-control" id="exampleInputEmail1"
-												placeholder="Enter name">
-										</div>
-										<div class="form-group">
-											<label for="exampleInputEmail1">Email (<span style="color: red;">*</span>)</label> <input th:field="*{email}"
-												type="email" class="form-control" id="exampleInputEmail1"
-												placeholder="Enter email">
-										</div>
-										<div class="form-group">
-											<label for="exampleInputPassword1">Địa chỉ (<span style="color: red;">*</span>)</label> <input
-												th:field="*{address}" type="text" class="form-control"
-												id="exampleInputAddress" placeholder="Address">
-										</div>
-										<div class="form-group">
-											<label for="exampleInputPassword1">Số điện thoại (<span style="color: red;">*</span>)</label> <input
-												th:field="*{phone}" type="tel" class="form-control"
-												id="exampleInputPhone" placeholder="Phone">
-										</div>
-										<div class="form-group">
-											<label for="exampleInputContent">Nội dung</label> <input
-												th:field="*{content}" type="text" class="form-control"
-												id="exampleInputContent" placeholder="Content">
+									<div class="row">
+										<div class="col-sm-6">
+											<div>
+												<div class="form-group">
+													<label for="exampleInput1">Tên liên hệ (<span
+															style="color: red;">*</span>)</label> <input
+														th:field="*{name}" type="text" class="form-control"
+														id="exampleInput1" placeholder="Tên liên hệ" /><span
+														class="text text-danger badge" th:if="${isNameError}"
+														th:utext="${nameErrorMessage}">Name Error</span>
+												</div>
+												<div class="form-group">
+													<label for="exampleInput2">Email (<span
+															style="color: red;">*</span>)</label> <input
+														th:field="*{email}" type="email" class="form-control"
+														id="exampleInput2" placeholder="Email" /><span
+														class="text text-danger badge" th:if="${isEmailError}"
+														th:utext="${emailErrorMessage}">Email
+														Error</span>
+												</div>
 
+												<div class="form-group">
+													<label for="exampleInputPhone">Số điện thoại (<span
+															style="color: red;">*</span>)</label> <input
+														th:field="*{phone}" type="tel" class="form-control"
+														id="exampleInputPhone" placeholder="Số điện thoại" /><span
+														class="text text-danger badge" th:if="${isPhoneError}"
+														th:utext="${phoneErrorMessage}">Phone
+														Error</span>
+												</div>
+
+												<div class="form-group">
+													<label for="exampleInputAddress">Địa chỉ</label> <input
+														th:field="*{address}" type="text" class="form-control"
+														id="exampleInputAddress" placeholder="Địa chỉ" />
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="exampleInputContent">Nội dung</label>
+												<textarea th:field="*{content}" rows="5" style="width: 100%;"
+													placeholder="Nội dung"></textarea>
+											</div>
 										</div>
 									</div>
-									<!-- /.card-body -->
-
 									<!-- button submit -->
 									<div>
 										<a class="btn btn-primary float-right" th:href="@{/admin/contact}">Trở
@@ -102,18 +114,12 @@
 									<!-- /.button submit -->
 								</form>
 							</div>
-							<!-- /.card -->
-
-
-							</form>
 						</div>
-						<!-- /.card-body -->
 					</div>
-					<!-- /.card -->
 				</div>
-				<!--/.col (right) -->
+			</div>
+			<!-- /.content -->
 		</div>
-		<!-- /.row -->
 		<aside class="control-sidebar control-sidebar-dark">
 			<!-- Control sidebar content goes here -->
 		</aside>

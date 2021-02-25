@@ -1,0 +1,34 @@
+<th:block th:fragment="notification">
+
+	<link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+	<th:block th:if="${success}">
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var msg = /*[[${success}]]*/'success';
+			Swal.fire({
+				position: 'center',
+				icon: 'success',
+				title: msg,
+				showConfirmButton: false,
+				timer: 3000
+			})
+			/*]]>*/
+		</script>
+	</th:block>
+
+	<th:block th:if="${error}">
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var msg = /*[[${error}]]*/'error';
+			Swal.fire({
+				position: 'center',
+				icon: 'error',
+				title: msg,
+				showConfirmButton: false,
+				timer: 3000
+			})
+			/*]]>*/
+		</script>
+	</th:block>
+</th:block>

@@ -2,26 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Thuận Thành Land &mdash; Free Website Template by
-	Free-Template.co</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Thuận Thành Land &mdash; Free Website Template by
+		Free-Template.co</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800"
-	rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet">
 
-<link rel="stylesheet" href="/public-static/css/animate.css">
-<link rel="stylesheet" href="/public-static/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="/public-static/css/animate.css">
+	<link rel="stylesheet" href="/public-static/css/owl.carousel.min.css">
 
-<link rel="stylesheet" href="/public-static/fonts/ionicons/css/ionicons.min.css">
-<link rel="stylesheet" href="/public-static/fonts/fontawesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/public-static/fonts/ionicons/css/ionicons.min.css">
+	<link rel="stylesheet" href="/public-static/fonts/fontawesome/css/font-awesome.min.css">
 
-<!-- Theme Style -->
-<link rel="stylesheet" href="/public-static/css/style.css">
+	<!-- Theme Style -->
+	<link rel="stylesheet" href="/public-static/css/style.css">
 
-<!-- 
+	<!-- 
     //////////////////////////////////////////////////////
 
     Free Template 
@@ -37,96 +34,68 @@
 </head>
 
 <body>
+	<div class="warpper bg-light">
+		<div th:replace="/public-pages/fragments/header::header"></div>
+		<!-- END header -->
 
-	<div th:replace="/public-pages/fragments/header::header"></div>
-	<!-- END header -->
-
-	<section class="home-slider inner-page owl-carousel">
-		<div class="slider-item"
-			style="background-image: url('/public-static/images/slider-3.jpg');">
-
+		<section class="section bg-light">
+			<div class="row justify-content-center mb-5 element-animate">
+				<div class="col-md-8 text-center">
+					<h1 class="heading mb-4">TUYỂN DỤNG</h1>
+					<p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
+						adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
+						quam minima expedita atque corrupti reiciendis.</p>
+				</div>
+			</div>
 			<div class="container">
-				<div
-					class="row slider-text align-items-center justify-content-center">
-					<div class="col-md-8 text-center col-sm-12 element-animate">
-						<h1>Tuyển dụng</h1>
-						<p class="mb-5">Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit. Commodi unde impedit, necessitatibus, soluta
-							sit quam minima expedita atque corrupti reiciendis.</p>
-						<p>
-							<a href="#" class="btn btn-white btn-outline-white px-3 py-3">Explore</a>
-						</p>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="card" style="height: 100%;">
+							<div class="card-body">
+								<!-- menu recruitment -->
+								<div th:replace="/public-pages/fragments/recruitments/menu"></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-8 text-left">
+						<div class="card" style="height: 100%;">
+							<div class="card-body">
+								<div>
+									<div>
+										<h1 class="h1 mb-5">QUY ĐỊNH VỀ HỒ SƠ ỨNG VIÊN</h1>
+										<b>Khi tham gia ứng tuyển ứng viên phải hoàn chỉnh bộ Hồ sơ ứng
+											tuyển theo quy định của Công ty gồm:</b>
+										<ol>
+											<li>Phiếu Thông tin ứng viên <a>[Tải về tại đây].</a></li>
+											<li>Bằng chuyên môn (chứng thực).</li>
+											<li>Chứng thực chứng chỉ liên quan (chứng chỉ nghề, tin học,
+												ngoại ngữ…)</li>
+											<li>Sơ yếu lý lịch (bản chính có xác nhận của địa phương).</li>
+											<li>Giấy khám sức khỏe (bản chính, không quá 06 tháng).</li>
+											<li>Chứng minh nhân dân, hộ khẩu (có công chứng, chứng thực).</li>
+											<li>Thư dự tuyển (Phiếu dự tuyển lao động hoặc Đơn xin việc).</li>
+											<li>Bảng điểm (nếu chưa có bằng chuyên môn).</li>
+											<li>Hình 3*4 ( 04 tấm)</li>
+										</ol>
+										<i>Lưu ý: Công ty Thuận Thành chỉ liên hệ qua mail hoặc điện
+											thoại đối với các hồ sơ đạt yêu cầu sơ tuyển.</i>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+		</section>
 
-		</div>
-	</section>
-	<!-- END slider -->
+		<div th:replace="/public-pages/fragments/footer::footer"></div>
+		<!-- END footer -->
 
-	<section class="section bg-light">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4" style="background-color: antiquewhite">
-					<div class="mt-2">
-						<a class="btn btn-primary btn-block text text-left"
-							href="./HRpolicies.html">Chính sách nhân sự</a> <a
-							class="btn btn-primary btn-block text text-left"
-							href="./careeropportunities.html">Cơ hội nghề nghiệp</a> <a
-							class="btn btn-primary btn-block text text-left"
-							href="./specifiedcandidateprofile.html">Quy định hồ sơ ứng
-							tuyển</a>
-					</div>
-					<div class="mt-5 text-wrap">
-						<p>
-							<strong>HƯỚNG DẪN NỘP HỒ SƠ</strong>
-						</p>
-						<p>
-							Ứng viên tải Biểu mẫu đăng kí <a href="#">&gt;&gt; tại đây
-								&lt;&lt;,</a>&nbsp;điền đầy đủ thông tin, gởi về địa chỉ
-							email:&nbsp;<a href="mailto:tuyendung@thuanthanhland.com.vn"><span>tuyendung@thuanthanhland.com.vn</span></a>
-						</p>
-						<p>
-							Mọi thắc mắc Liên hệ trực tiếp Bộ phận Tuyển dụng: <br> ĐT:
-							028. 6252 5252 (Ext: 5015)
-						</p>
+		<!-- loader -->
+		<div th:replace="/public-pages/fragments/loader::loader"></div>
+	</div>
 
-						<p>
-							<strong>Ms Thương - CV Tuyển dụng</strong><br> - Email: <a
-								href="mailto:thuongntb@thuanhthanhland.com.vn">thuongntb@thuanthanhland.com.vn</a><br>
-						</p>
-					</div>
-				</div>
-
-				<div class="col-md-8 text-left">
-					<h1 class="h1 mb-5">QUY ĐỊNH VỀ HỒ SƠ ỨNG VIÊN</h1>
-					<b>Khi tham gia ứng tuyển ứng viên phải hoàn chỉnh bộ Hồ sơ ứng
-						tuyển theo quy định của Công ty gồm:</b>
-					<ol>
-						<li>Phiếu Thông tin ứng viên <a>[Tải về tại đây].</a></li>
-						<li>Bằng chuyên môn (chứng thực).</li>
-						<li>Chứng thực chứng chỉ liên quan (chứng chỉ nghề, tin học,
-							ngoại ngữ…)</li>
-						<li>Sơ yếu lý lịch (bản chính có xác nhận của địa phương).</li>
-						<li>Giấy khám sức khỏe (bản chính, không quá 06 tháng).</li>
-						<li>Chứng minh nhân dân, hộ khẩu (có công chứng, chứng thực).</li>
-						<li>Thư dự tuyển (Phiếu dự tuyển lao động hoặc Đơn xin việc).</li>
-						<li>Bảng điểm (nếu chưa có bằng chuyên môn).</li>
-						<li>Hình 3*4 ( 04 tấm)</li>
-					</ol>
-					<i>Lưu ý: Công ty Thuận Thành chỉ liên hệ qua mail hoặc điện
-						thoại đối với các hồ sơ đạt yêu cầu sơ tuyển.</i> <br>
-				</div>
-				<br>
-			</div>
-		</div>
-	</section>
-
-	<div th:replace="/public-pages/fragments/footer::footer"></div>
-	<!-- END footer -->
-
-	<!-- loader -->
-	<div th:replace="/public-pages/fragments/loader::loader"></div>
 
 	<script src="/public-static/js/jquery-3.2.1.min.js"></script>
 	<script src="/public-static/js/popper.min.js"></script>

@@ -71,7 +71,7 @@
 													<label for="exampleFormControlInput3">Tiêu đề (<span
 															style="color: red;">*</span>)</label> <input
 														th:field="*{title}" type="text" class="form-control"
-														id="exampleFormControlInput3" placeholder=""><span
+														id="exampleFormControlInput3" placeholder="Tiêu đề"><span
 														class="text text-danger badge" th:if="${isTitleError}"
 														th:utext="${titleErrorMessage}">Title Error</span>
 												</div>
@@ -109,7 +109,8 @@
 													<label for="exampleFormControlInput4">Thứ tự hiển
 														thị</label> <input th:field="*{sort}" type="text"
 														class="form-control" id="exampleFormControlInput4"
-														placeholder="" onkeypress="InputNumber(event)"><span
+														placeholder="Thứ tự hiển thị"
+														onkeypress="InputNumber(event)"><span
 														class="text text-danger badge" th:if="${isSortError}"
 														th:utext="${sortErrorMessage}">Sort
 														Error</span>
@@ -120,7 +121,7 @@
 													<label for="inputContent">Mô tả (<span
 															style="color: red;">*</span>)</label> <br>
 													<textarea class="textarea" th:field="*{description}" rows="2"
-														style="width: 100%;" placeholder=""></textarea>
+														style="width: 100%;" placeholder="Mô tả"></textarea>
 												</div>
 
 											</div>

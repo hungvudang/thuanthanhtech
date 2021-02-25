@@ -3,7 +3,9 @@
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,19 @@ public class CategoryAdminController {
 	@GetMapping
 	public String category(Model m) {
 		List<Category> categories = cRepository.findAll();
-		m.addAttribute("categories", categories);
+		
+		Map<Category, String> hm = new HashMap<Category, String>();
+		categories.parallelStream().forEach((cate)->{
+			if (cate.getParent_id() == 0) {
+				hm.put(cate, "Danh mục gốc");
+			} else {
+				Category rootCategory = cRepository.findById(cate.getParent_id()).get();
+				hm.put(cate,rootCategory.getName());
+			}
+		});
+		
+//		m.addAttribute("categories", categories);
+		m.addAttribute("categoriesEntryMap", hm.entrySet());
 		m.addAttribute("active_category", true);
 		return "admin-pages/category";
 	}

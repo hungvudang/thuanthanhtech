@@ -143,7 +143,7 @@
 
                 <!-- liên hệ -->
                 <li class="nav-item has-treeview">
-                    <a href="#" th:class="${active_contact}? 'nav-link active':'nav-link'">
+                    <a th:href="@{/admin/contact}" th:class="${active_contact}? 'nav-link active':'nav-link'">
                         <i class="nav-icon fas fa-address-book"></i>
                         <p>
                             Liên hệ
@@ -155,13 +155,6 @@
                             <a th:href="@{/admin/contact}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tất cả liên hệ</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a th:href="@{/admin/contact/create}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm liên hệ</p>
                             </a>
                         </li>
                     </ul>
