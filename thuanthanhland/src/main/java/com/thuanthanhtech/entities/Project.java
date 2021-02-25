@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -14,54 +16,53 @@ import javax.persistence.Table;
 public class Project {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name="name",nullable=false)
+	@Column(name="name", nullable=false)
 	private String name;
 	
-	@Column(name="title")
+	@Column(name="title", nullable=false)
 	private String title;
 	
-	@Column(name="content", columnDefinition = "LONGTEXT NOT NULL")
+	@Column(name="content", columnDefinition = "TEXT NOT NULL")
 	private String content;
 	
-	@Column(name="description")
+	@Column(name="description", columnDefinition = "LONGTEXT NOT NULL")
 	private String description;
 	
-	@Column(name="thumbnail", columnDefinition = "TEXT")
-	private String thumbnail;
+	@Column(name="image", columnDefinition = "TEXT")
+	private String image;
 	
-	@Column(name="status", columnDefinition="TINYINT(4) DEFAULT 0")
-	private Integer status;
-	
-	@Column(name="pub", columnDefinition="TINYINT(4) DEFAULT 0")
+	@Column(name="public", columnDefinition="TINYINT(4) DEFAULT 1")
 	private Integer pub;
 	
 	@Column(name="hot", columnDefinition="TINYINT(4) DEFAULT 0")
 	private Integer hot;
 	
 	private LocalDateTime created_at;
-	private LocalDateTime update_at;
+	private LocalDateTime updated_at;
 	
 	
 	public Integer getId() {
 		return id;
 	}
-	public Project(Integer id, String name, String title, String content, String description, String thumbnail,
-			Integer status, LocalDateTime created_at, LocalDateTime update_at) {
+	
+	public Project(Integer id, String name, String title, String content, String description, String image, Integer pub,
+			Integer hot, LocalDateTime created_at, LocalDateTime updated_at) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.title = title;
 		this.content = content;
 		this.description = description;
-		this.thumbnail = thumbnail;
-		this.status = status;
+		this.image = image;
+		this.pub = pub;
+		this.hot = hot;
 		this.created_at = created_at;
-		this.update_at = update_at;
+		this.updated_at = updated_at;
 	}
-	
-	
+
 	public Project() {
 		super();
 	}
@@ -105,29 +106,25 @@ public class Project {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getThumbnail() {
-		return thumbnail;
+	
+	public String getImage() {
+		return image;
 	}
-	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
+	public void setImage(String image) {
+		this.image = image;
 	}
-	public Integer getStatus() {
-		return status;
-	}
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+	
 	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
 	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
 	}
-	public LocalDateTime getUpdate_at() {
-		return update_at;
+	public LocalDateTime getUpdated_at() {
+		return updated_at;
 	}
-	public void setUpdate_at(LocalDateTime update_at) {
-		this.update_at = update_at;
+	public void setUpdated_at(LocalDateTime updated_at) {
+		this.updated_at = updated_at;
 	}
 	
 	@PrePersist
@@ -136,7 +133,7 @@ public class Project {
 	}
 	@PreUpdate
 	public void preUpdate() {
-		this.update_at = LocalDateTime.now();
+		this.updated_at = LocalDateTime.now();
 	}
 	
 	

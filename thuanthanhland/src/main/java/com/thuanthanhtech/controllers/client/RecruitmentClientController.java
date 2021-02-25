@@ -17,4 +17,5 @@ public class RecruitmentClientController {
 	public String HRrecruitment(Model m) {
 		return "public-pages/HRrecruitment";
 	}
+	
 }
