@@ -50,7 +50,7 @@
 
 			<div class="container">
 				<div class="row justify-content-center">
-					<div class="col-md-6 mb-2 order-2">
+					<div class="col-md-10 mb-3">
 						<div class="card">
 							<div class="card-body">
 								<form th:action="@{/contact/save}" th:object="${contact}" th:method="post">
@@ -64,8 +64,9 @@
 										<div class="col-md-6 form-group">
 											<label for="phone">Số điện thoại</label> <input th:value="*{phone}"
 												th:field="*{phone}" type="text" id="phone" class="form-control"
-												placeholder="Số điện thoại"><span class="text text-danger badge"
-												th:if="${isPhoneError}" th:utext="${phoneErrorMessage}">Phone
+												placeholder="Số điện thoại" onkeypress="InputNumber(event);"><span
+												class="text text-danger badge" th:if="${isPhoneError}"
+												th:utext="${phoneErrorMessage}">Phone
 												Error</span>
 										</div>
 									</div>
@@ -103,8 +104,22 @@
 						</div>
 					</div>
 				</div>
+				<div class="row justify-content-center mt-5">
+					<div class="col-md-10">
+						<div class="card">
+							<div class="card-body">
+								<iframe
+									src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.0547237798855!2d105.80231051437575!3d20.990443386019177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135acbfb81c4d15%3A0x7358bc6b15c5b06a!2zOSDEkMaw4budbmcgTmd1eeG7hW4gWGnhu4NuLCBUaGFuaCBYdcOibiBOYW0sIFRoYW5oIFh1w6JuLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1614236345402!5m2!1svi!2s"
+									width="100%;" height="450" style="border:0;" allowfullscreen=""
+									loading="lazy"></iframe>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
+
 		</section>
+
 
 		<div th:replace="/public-pages/fragments/footer::footer"></div>
 		<!-- END footer -->
@@ -123,6 +138,16 @@
 	<!-- flash notification -->
 	<script th:replace="/public-pages/fragments/notification::notification"></script>
 	<!-- /. flash notification -->
+
+	<!--Event chỉ nhập số-->
+	<script>
+		function InputNumber(evt) {
+			var ch = String.fromCharCode(evt.which);
+			if (!(/[0-9]/.test(ch))) {
+				evt.preventDefault();
+			}
+		}
+	</script>
 </body>
 
 </html>

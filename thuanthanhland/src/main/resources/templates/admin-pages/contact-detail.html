@@ -84,7 +84,8 @@
 													<label for="exampleInputPhone">Số điện thoại (<span
 															style="color: red;">*</span>)</label> <input
 														th:field="*{phone}" type="tel" class="form-control"
-														id="exampleInputPhone" placeholder="Số điện thoại" /><span
+														id="exampleInputPhone" onkeypress="InputNumber(event)"
+														placeholder="Số điện thoại" /><span
 														class="text text-danger badge" th:if="${isPhoneError}"
 														th:utext="${phoneErrorMessage}">Phone
 														Error</span>
@@ -166,6 +167,15 @@
 	<script th:replace="/admin-pages/fragments/notification::notification"></script>
 	<!-- /. flash notification -->
 
+	<!--Event chỉ nhập số-->
+	<script>
+		function InputNumber(evt) {
+			var ch = String.fromCharCode(evt.which);
+			if (!(/[0-9]/.test(ch))) {
+				evt.preventDefault();
+			}
+		}
+	</script>
 
 </body>
 

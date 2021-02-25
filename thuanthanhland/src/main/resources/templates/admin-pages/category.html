@@ -59,7 +59,7 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-12">
-							<div class="card">
+							<div class="card card-info">
 								<div class="card-header">
 									<h3 class="card-title">Tất cả danh mục</h3>
 								</div>
@@ -71,6 +71,7 @@
 												<th>ID</th>
 												<th>Tên danh mục</th>
 												<th>Danh mục cha</th>
+												<th>Thứ tự hiển thị</th>
 												<th>Nổi bật</th>
 												<th>Hiển thị</th>
 												<th>Sửa đổi lần cuối</th>
@@ -84,6 +85,8 @@
 												<td th:utext="${entry.getKey().name}" th:field="${entry.getKey().name}">
 												</td>
 												<td th:utext="${entry.getValue()}" th:field="${entry.getValue()}"></td>
+												<td th:utext="${entry.getKey().sort}" th:field="${entry.getKey().sort}">
+												</td>
 
 												<div>
 													<th:block th:if="${entry.getKey().hot == 1}">

@@ -58,7 +58,7 @@ public class UserAdminController {
 		if (m.getAttribute("user") == null) {
 			User user = new User();
 			user.setRole(0);
-			user.setAvatar(UserHelper.NO_AVATAR_MEDIUM_IMAGE);
+			user.setAvatar(Helper.NO_IMAGE_MEDIUM_PNG);
 			
 			m.addAttribute("user", user);
 		}
@@ -94,7 +94,7 @@ public class UserAdminController {
 				ra.addFlashAttribute("passwordErrorMessage", br.getFieldError("password").getDefaultMessage());
 			}
 
-			user.setAvatar(UserHelper.NO_AVATAR_MEDIUM_IMAGE);
+			user.setAvatar(Helper.NO_IMAGE_MEDIUM_PNG);
 
 			ra.addFlashAttribute("error", "Tạo tài khoản mới thất bại");
 			ra.addFlashAttribute("user", user);
@@ -120,7 +120,7 @@ public class UserAdminController {
 				ra.addFlashAttribute("avatarErrorMessage", "Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
 				
 				ra.addFlashAttribute("error", "Tạo tài khoản mới thất bại");
-				user.setAvatar(UserHelper.NO_AVATAR_MEDIUM_IMAGE);
+				user.setAvatar(Helper.NO_IMAGE_MEDIUM_PNG);
 				ra.addFlashAttribute("user", user);
 				return "redirect:/admin/user/create";
 			}

@@ -69,8 +69,8 @@
 
 												<div class="form-group">
 													<label for="exampleFormControlInput3">Tiêu đề (<span
-															style="color: red;">*</span>)</label> <input
-														th:field="*{title}" type="text" class="form-control"
+															style="color: red;">*</span>)
+													</label> <input th:field="*{title}" type="text" class="form-control"
 														id="exampleFormControlInput3" placeholder="Tiêu đề"> <span
 														class="text text-danger badge" th:if="${isTitleError}"
 														th:utext="${titleErrorMessage}">Title Error</span>
@@ -107,20 +107,21 @@
 
 												<div class="form-group">
 													<label for="exampleFormControlInput4">Thứ tự hiển
-														thị</label> <input th:field="*{sort}" type="text"
-														class="form-control" id="exampleFormControlInput4"
-														placeholder="Thứ tự hiển thị" onkeypress="InputNumber(event)">
-													<span class="text text-danger badge" th:if="${isSortError}"
-														th:utext="${sortErrorMessage}">Sort
-														Error</span>
+														thị (<span style="color: red;">*</span>)
+													</label> <input th:field="*{sort}" type="text" class="form-control"
+														id="exampleFormControlInput4" placeholder="Thứ tự hiển thị"
+														onkeypress="InputNumber(event)"> <span
+														class="text text-danger badge" th:if="${isSortError}"
+														th:utext="${sortErrorMessage}">Sort Error</span>
 												</div>
 
 												<!-- Description Input -->
 												<div class="form-group">
-													<label for="inputContent">Mô tả (<span
-															style="color: red;">*</span>)</label> <br>
-													<textarea class="textarea" th:field="*{description}" rows="2"
-														style="width: 100%;" placeholder="Mô tả"></textarea>
+													<label for="inputContent">Mô tả (<span style="color: red;">*</span>)
+													</label> <br>
+													<textarea class="textarea form-control" id="inputContent"
+														th:field="*{description}" rows="2" style="width: 100%;"
+														placeholder="Mô tả"></textarea>
 												</div>
 
 											</div>
@@ -139,7 +140,8 @@
 										<div class="col-7">
 											<div class="form-group">
 												<label for="uploadThumbnail">Hình ảnh (<span
-														style="color: red;">*</span>)</label>
+														style="color: red;">*</span>)
+												</label>
 
 												<div>
 													<img th:src="@{*{image}}" alt="image-media" class="img-fluid mb-3"
@@ -160,7 +162,7 @@
 						</div>
 						<div class="card-footer" style="background-color: white;">
 							<div class="row">
-								<div class="col-5">
+								<div class="col">
 									<!-- Button Submit -->
 									<div>
 										<a class="btn btn-primary float-right" th:href="@{/admin/slide}">Hủy bỏ</a>

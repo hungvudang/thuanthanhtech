@@ -61,77 +61,98 @@
                         </div>
                         <div class="card-body">
                             <div class="col">
-                                <form th:action="@{/admin/project/save}" th:method="post" th:object="${project}" enctype="multipart/form-data">
+                                <form th:action="@{/admin/project/save}" th:method="post" th:object="${project}"
+                                    enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-7">
                                             <div>
                                                 <!-- Name Input -->
                                                 <div class="form-group">
                                                     <label for="exampleFormControlInput2">Tên dự án (<span
-															style="color: red;">*</span>)</label>
-                                                    <input th:field="*{name}" type="text" class="form-control" id="exampleFormControlInput2" placeholder=""><span class="text text-danger badge" th:if="${isNameError}" th:utext="${nameErrorMessage}">Name Error</span>
+                                                            style="color: red;">*</span>)</label>
+                                                    <input th:field="*{name}" type="text" class="form-control"
+                                                        id="exampleFormControlInput2" placeholder="Tên dự án"><span
+                                                        class="text text-danger badge" th:if="${isNameError}"
+                                                        th:utext="${nameErrorMessage}">Name Error</span>
                                                 </div>
                                                 <!-- Title Input -->
 
                                                 <div class="form-group">
                                                     <label for="exampleFormControlInput3">Tiêu đề (<span
-															style="color: red;">*</span>)</label> <input th:field="*{title}" type="text" class="form-control" id="exampleFormControlInput3" placeholder=""><span class="text text-danger badge" th:if="${isTitleError}"
+                                                            style="color: red;">*</span>)</label> <input
+                                                        th:field="*{title}" type="text" class="form-control"
+                                                        id="exampleFormControlInput3" placeholder="Tiêu đề"><span
+                                                        class="text text-danger badge" th:if="${isTitleError}"
                                                         th:utext="${titleErrorMessage}">Title Error</span>
                                                 </div>
 
-
                                                 <!-- Description Input -->
                                                 <div class="form-group">
-                                                    <label for="inputDescription">Mô tả</label> <br>
-                                                    <textarea th:field="*{description}" rows="2" style="width: 100%;" placeholder=""></textarea>
+                                                    <label for="inputDescription">Mô tả (<span
+                                                            style="color: red;">*</span>)</label> <br>
+                                                    <textarea class="form-control" id="inputDescription"
+                                                        th:field="*{description}" rows="2" style="width: 100%;"
+                                                        placeholder="Mô tả"></textarea>
                                                 </div>
 
                                                 <!-- Content Input -->
                                                 <div class="form-group">
                                                     <label for="inputContent">Nội dung</label>
-                                                    <textarea class="textarea" th:field="*{content}" placeholder=""></textarea>
+                                                    <textarea class="textarea form-control" id="inputContent"
+                                                        th:field="*{content}" placeholder="Nội dung"></textarea>
                                                 </div>
 
                                             </div>
 
                                             <!-- Button Submit -->
                                             <div>
-                                                <a class="btn btn-primary float-right" th:href="@{/admin/project}">Hủy
-													bỏ</a>
-                                                <button type="submit" class="float-right btn btn-success mr-2">Tạo</button>
+                                                <!-- <a class="btn btn-primary float-right" th:href="@{/admin/project}">Hủy
+                                                    bỏ</a> -->
+                                                <button id="btn-submit-default" type="submit"
+                                                    class="float-right btn btn-success mr-2" hidden>Tạo</button>
                                             </div>
                                             <!-- /. button submit -->
                                         </div>
                                         <div class="col-5">
 
-                                            <!-- Upload thumbnail image of news -->
+                                            <!-- Upload thumbnail image of project -->
                                             <div class="form-group">
-                                                <label for="uploadThumbnail">Thumbnail</label>
+                                                <label for="uploadThumbnail">Thumbnail (<span
+                                                        style="color: red;">*</span>)</label>
 
                                                 <div>
-                                                    <img th:src="@{*{image}}" alt="thumbnail-media" class="img-thumbnail mb-3" id="thumbnail-image" style="max-height: 200px;">
+                                                    <img th:src="@{*{image}}" alt="thumbnail-media"
+                                                        class="img-thumbnail mb-3" id="thumbnail-image"
+                                                        style="max-height: 200px;">
                                                 </div>
 
-                                                <input name="project_thumbnail" type="file" class="form-control-file" id="uploadThumbnail" accept="image/png, image/jpeg" /><span class="text text-danger badge" th:if="${isThumbnailError}" th:utext="${thumbnailErrorMessage}">Thumbnail Error</span>
+                                                <input name="project_thumbnail" type="file" class="form-control-file"
+                                                    id="uploadThumbnail" accept="image/png, image/jpeg" /><span
+                                                    class="text text-danger badge" th:if="${isThumbnailError}"
+                                                    th:utext="${thumbnailErrorMessage}">Image Error</span>
                                             </div>
                                             <!-- /.thumbnail image upload -->
-                                            <!-- Image project-->
-
-
-                                            <!--/Image project-->
 
                                             <!-- Public Input -->
 
                                             <fieldset class="form-group">
                                                 <div class="row">
                                                     <label class="col-form-label col-sm-5 pt-0">Hiển
-														thị</label>
+                                                        thị</label>
                                                     <div class="col-sm-7">
                                                         <div class="form-check">
-                                                            <input th:field="*{pub}" class="form-check-input" type="radio" name="gridRadiosPublic" id="gridRadiosPublic1" value="1"> <label class="form-check-label lead text-sm" for="gridRadiosPublic1"> Hiện thị </label>
+                                                            <input th:field="*{pub}" class="form-check-input"
+                                                                type="radio" name="gridRadiosPublic"
+                                                                id="gridRadiosPublic1" value="1"> <label
+                                                                class="form-check-label lead text-sm"
+                                                                for="gridRadiosPublic1"> Hiện thị </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input th:field="*{pub}" class="form-check-input" type="radio" name="gridRadiosPublic" id="gridRadiosPublic2" value="0"> <label class="form-check-label lead text-sm" for="gridRadiosPublic2"> Ẩn </label>
+                                                            <input th:field="*{pub}" class="form-check-input"
+                                                                type="radio" name="gridRadiosPublic"
+                                                                id="gridRadiosPublic2" value="0"> <label
+                                                                class="form-check-label lead text-sm"
+                                                                for="gridRadiosPublic2"> Ẩn </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -142,13 +163,19 @@
                                             <fieldset class="form-group">
                                                 <div class="row">
                                                     <label class="col-form-label col-sm-5 pt-0">Dự án nổi bật
-													</label>
+                                                    </label>
                                                     <div class="col-sm-7">
                                                         <div class="form-check">
-                                                            <input th:field="*{hot}" class="form-check-input" type="radio" name="gridRadiosHot" id="gridRadiosHot1" value="0"> <label class="form-check-label lead text-sm" for="gridRadiosHot1"> Không </label>
+                                                            <input th:field="*{hot}" class="form-check-input"
+                                                                type="radio" name="gridRadiosHot" id="gridRadiosHot1"
+                                                                value="0"> <label class="form-check-label lead text-sm"
+                                                                for="gridRadiosHot1"> Không </label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input th:field="*{hot}" class="form-check-input" type="radio" name="gridRadiosHot" id="gridRadiosHot2" value="1"> <label class="form-check-label lead text-sm" for="gridRadiosHot2"> Có </label>
+                                                            <input th:field="*{hot}" class="form-check-input"
+                                                                type="radio" name="gridRadiosHot" id="gridRadiosHot2"
+                                                                value="1"> <label class="form-check-label lead text-sm"
+                                                                for="gridRadiosHot2"> Có </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -158,6 +185,19 @@
                                     </div>
 
                                 </form>
+                            </div>
+                        </div>
+                        <div class="card-footer" style="background-color: white;">
+                            <div class="row">
+                                <div class="col">
+                                    <!-- Button Submit -->
+                                    <div>
+                                        <a class="btn btn-primary float-right" th:href="@{/admin/project}">Hủy bỏ</a>
+                                        <button id="btn-submit-custom" type="submit"
+                                            class="float-right btn btn-success mr-2">Tạo</button>
+                                    </div>
+                                    <!-- /. button submit -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -195,9 +235,9 @@
     <script src="/admin-static/plugins/filterizr/jquery.filterizr.min.js"></script>
     <!-- Page specific script -->
     <script>
-        $(function() {
+        $(function () {
             $(document).on('click', '[data-toggle="lightbox"]',
-                function(event) {
+                function (event) {
                     event.preventDefault();
                     $(this).ekkoLightbox({
                         alwaysShowClose: true
@@ -207,19 +247,27 @@
             $('.filter-container').filterizr({
                 gutterPixels: 3
             });
-            $('.btn[data-filter]').on('click', function() {
+            $('.btn[data-filter]').on('click', function () {
                 $('.btn[data-filter]').removeClass('active');
                 $(this).addClass('active');
             });
         })
     </script>
 
+    <script>
+        $('#btn-submit-custom').click(function () {
+            $('#btn-submit-default').click();
+        })
+    </script>
+
     <!-- Summernote -->
     <script src="/admin-static/plugins/summernote/summernote-bs4.min.js"></script>
     <script>
-        $(function() {
+        $(function () {
             // Summernote
-            $('.textarea').summernote()
+            $('.textarea').summernote({
+                height: '300px'
+            })
         })
     </script>
 
@@ -229,13 +277,13 @@
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     $('#thumbnail-image').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(input.files[0]); // convert to base64 string
             }
         }
-        $("#uploadThumbnail").change(function() {
+        $("#uploadThumbnail").change(function () {
             readURL(this);
         });
     </script>

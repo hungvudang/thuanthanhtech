@@ -57,7 +57,7 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-12">
-							<div class="card">
+							<div class="card card-info">
 								<div class="card-header">
 									<h3 class="card-title">Tất cả slide</h3>
 								</div>
@@ -81,8 +81,8 @@
 
 												<!-- hình ảnh -->
 												<td class="text-center">
-													<img class="img-thumbnail" th:src="@{${s.image}}" width="150"
-														height="50" alt="">
+													<img class="img-thumbnail" th:src="@{${s.image}}" width="100"
+														height="100" th:alt="${s.title}">
 												</td>
 												<!-- /. hình ảnh -->
 

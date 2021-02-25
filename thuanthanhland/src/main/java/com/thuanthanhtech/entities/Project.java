@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="projects")
@@ -20,18 +22,25 @@ public class Project {
 	private Integer id;
 	
 	@Column(name="name", nullable=false)
+	@NotBlank(message = "Tên không được để trống")
 	private String name;
 	
 	@Column(name="title", nullable=false)
+	@NotBlank(message = "Tiêu để không được để trống")
 	private String title;
 	
-	@Column(name="content", columnDefinition = "TEXT NOT NULL")
+	@Column(name = "slug", columnDefinition = "VARCHAR(255) NOT NULL")
+	private String slug;
+	
+	@Column(name="content", columnDefinition = "LONGTEXT") 
 	private String content;
 	
-	@Column(name="description", columnDefinition = "LONGTEXT NOT NULL")
+	@Column(name="description", columnDefinition = "TEXT NOT NULL")
+	@NotNull(message = "Mô tả không hợp lệ")
+	@NotBlank(message = "Mô tả không được để trống")
 	private String description;
 	
-	@Column(name="image", columnDefinition = "TEXT")
+	@Column(name="image", columnDefinition = "NVARCHAR(255)", nullable = false)
 	private String image;
 	
 	@Column(name="public", columnDefinition="TINYINT(4) DEFAULT 1")
@@ -48,20 +57,7 @@ public class Project {
 		return id;
 	}
 	
-	public Project(Integer id, String name, String title, String content, String description, String image, Integer pub,
-			Integer hot, LocalDateTime created_at, LocalDateTime updated_at) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.title = title;
-		this.content = content;
-		this.description = description;
-		this.image = image;
-		this.pub = pub;
-		this.hot = hot;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-	}
+	
 
 	public Project() {
 		super();
@@ -127,6 +123,19 @@ public class Project {
 		this.updated_at = updated_at;
 	}
 	
+	
+	public String getSlug() {
+		return slug;
+	}
+
+
+
+	public void setSlug(String slug) {
+		this.slug = slug;
+	}
+
+
+
 	@PrePersist
 	public void prePersist() {
 		this.created_at = LocalDateTime.now();

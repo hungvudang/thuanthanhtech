@@ -9,12 +9,11 @@ import java.nio.file.StandardCopyOption;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class SlideHelper {
-	
-	public final static String ROOT_PATH_IMAGE_MEDIUM = "/public/upload/slides";
+public class ProjectHelper {
 
-	public static void saveImage(MultipartFile multipartFile, String uploadDir, String fImageName)
-			throws IOException {
+	public final static String ROOT_PATH_IMAGE_MEDIUM = "/public/upload/projects";
+
+	public static void saveImage(MultipartFile multipartFile, String uploadDir, String fImageName) throws IOException {
 		Path pUploadDirImage = Paths.get(uploadDir);
 
 		if (!Files.exists(pUploadDirImage)) {

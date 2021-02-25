@@ -1,17 +1,21 @@
-	package com.thuanthanhtech.controllers;
+package com.thuanthanhtech.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,17 +41,17 @@ public class CategoryAdminController {
 	@GetMapping
 	public String category(Model m) {
 		List<Category> categories = cRepository.findAll();
-		
+
 		Map<Category, String> hm = new HashMap<Category, String>();
-		categories.parallelStream().forEach((cate)->{
+		categories.parallelStream().forEach((cate) -> {
 			if (cate.getParent_id() == 0) {
 				hm.put(cate, "Danh mục gốc");
 			} else {
 				Category rootCategory = cRepository.findById(cate.getParent_id()).get();
-				hm.put(cate,rootCategory.getName());
+				hm.put(cate, rootCategory.getName());
 			}
 		});
-		
+
 //		m.addAttribute("categories", categories);
 		m.addAttribute("categoriesEntryMap", hm.entrySet());
 		m.addAttribute("active_category", true);
@@ -87,12 +91,35 @@ public class CategoryAdminController {
 	}
 
 	@PostMapping("/save")
-	public String saveCategory(@ModelAttribute("category") Category category, RedirectAttributes ra) {
+	public String saveCategory(@Valid @ModelAttribute("category") Category category, BindingResult br,
+			RedirectAttributes ra) {
 
-		if (category.getName().isBlank() || category.getName().isEmpty()) {
+		if (br.hasErrors()) {
+
+			if (br.hasFieldErrors("name")) {
+				ra.addFlashAttribute("isNameError", true);
+				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
+			}
+
+			if (br.hasFieldErrors("sort")) {
+				ra.addFlashAttribute("isSortError", true);
+				ra.addFlashAttribute("sortErrorMessage", br.getFieldError("sort").getDefaultMessage());
+			}
+
 			ra.addFlashAttribute("error", "Tạo danh mục mới thất bại");
 			ra.addFlashAttribute("category", category);
 
+			return "redirect:/admin/category/create";
+		}
+
+		// Kiểm tra trường sort là duy nhất
+		Optional<Category> opCheckCatagory = cRepository.findBySort(category.getSort());
+		if (opCheckCatagory.isPresent()) {
+			ra.addFlashAttribute("isSortError", true);
+			ra.addFlashAttribute("sortErrorMessage", "Thứ tự hiện thị bị trùng");
+
+			ra.addFlashAttribute("slide", category);
+			ra.addFlashAttribute("error", "Tạo danh mục mới thất bại");
 			return "redirect:/admin/category/create";
 		}
 
@@ -151,10 +178,20 @@ public class CategoryAdminController {
 	}
 
 	@PostMapping("/update/{id}")
-	public String updateCategory(@PathVariable("id") Integer id, @ModelAttribute("category") Category category,
-			RedirectAttributes ra) {
+	public String updateCategory(@PathVariable("id") Integer id, @Valid @ModelAttribute("category") Category category,
+			BindingResult br, RedirectAttributes ra) {
 
-		if (category.getName().isBlank() || category.getName().isEmpty()) {
+		if (br.hasErrors()) {
+
+			if (br.hasFieldErrors("name")) {
+				ra.addFlashAttribute("isNameError", true);
+				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
+			}
+
+			if (br.hasFieldErrors("sort")) {
+				ra.addFlashAttribute("isSortError", true);
+				ra.addFlashAttribute("sortErrorMessage", br.getFieldError("sort").getDefaultMessage());
+			}
 
 			ra.addFlashAttribute("error", "Cập nhật danh mục thất bại");
 			return "redirect:/admin/category/detail/" + id;
@@ -166,12 +203,23 @@ public class CategoryAdminController {
 
 			nCategory.setId(category.getId());
 			nCategory.setName(category.getName());
-			nCategory.setTitle(category.getTitle());
 			nCategory.setParent_id(category.getId());
 			nCategory.setHot(category.getHot());
 			nCategory.setPub(category.getPub());
 
 			nCategory.setParent_id(category.getParent_id());
+
+			// Kiểm tra trường sort là duy nhất
+			Optional<Category> opCheckCatagory = cRepository.findBySort(category.getSort());
+			if (opCheckCatagory.isPresent() && opCheckCatagory.get().getId() != id) {
+				ra.addFlashAttribute("isSortError", true);
+				ra.addFlashAttribute("sortErrorMessage", "Thứ tự hiện thị bị trùng");
+
+				ra.addFlashAttribute("error", "Cập nhật danh mục thất bại");
+				return "redirect:/admin/category/detail/" + id;
+			} else {
+				nCategory.setSort(category.getSort());
+			}
 
 			// Tạo slug dựa theo tên danh mục
 			// ====================================================
@@ -201,12 +249,12 @@ public class CategoryAdminController {
 	public String deleteCategory(@PathVariable("id") Integer id, RedirectAttributes ra) {
 		Optional<Category> opCategory = cRepository.findById(id);
 		if (opCategory.isPresent()) {
-			
+
 			if (!opCategory.get().getNewses().isEmpty()) {
 				ra.addFlashAttribute("error", "Bạn phải xóa tất cả các bài viết thuộc danh mục này");
 				return "redirect:/admin/category";
 			}
-			
+
 			List<Category> categories = cRepository.findAll();
 			List<RootCategory> childsTargetCategory = new ArrayList<RootCategory>();
 			List<Boolean> visited = new ArrayList<Boolean>();
@@ -214,15 +262,14 @@ public class CategoryAdminController {
 			categories.parallelStream().forEach((obj) -> {
 				visited.add(false);
 			});
-			
-			
+
 			CategoryHelper.recursive_categories(categories, visited, id, "", childsTargetCategory);
-			
+
 			if (!childsTargetCategory.isEmpty()) {
 				ra.addFlashAttribute("error", "Bạn phải xóa tất cả các danh mục con của danh mục này");
 				return "redirect:/admin/category";
 			}
-			
+
 			childsTargetCategory.parallelStream().forEach((child) -> {
 				cRepository.deleteById(child.getId());
 			});
@@ -234,7 +281,8 @@ public class CategoryAdminController {
 		return "redirect:/admin/category";
 	}
 
-	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })
+	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class,
+			SQLIntegrityConstraintViolationException.class })
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String handlerException() {
 		return "admin-pages/500";

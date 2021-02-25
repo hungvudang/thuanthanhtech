@@ -35,9 +35,9 @@ public class Slide {
 	@Column(name = "image", columnDefinition = "VARCHAR(255) NOT NULL")
 	private String image;
 	
-	@Column(name = "sort", columnDefinition = "INT NOT NULL UNIQUE")
-	@NotNull(message = "Thứ tự hiển thị không được để trống")
-	@Min(value = 0, message = "Thứ tự hiển thị không không hợp lệ")
+	@Column(name = "sort", nullable = false ,unique = true)
+	@NotNull(message = "Số thứ tự không hợp lệ")
+	@Min(value = 0, message = "Số thứ tự không hợp lệ")
 	private Integer sort;
 	
 	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")

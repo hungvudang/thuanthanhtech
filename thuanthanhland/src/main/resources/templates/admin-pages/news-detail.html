@@ -102,15 +102,16 @@
 												<!-- Description Input -->
 												<div class="form-group">
 													<label for="inputDescription">Mô tả</label> <br>
-													<textarea th:field="*{description}" rows="2" style="width: 100%;"
+													<textarea class="form-control" id="inputDescription"
+														th:field="*{description}" rows="2" style="width: 100%;"
 														placeholder="Mô tả"></textarea>
 												</div>
 
 												<!-- Content Input -->
 												<div class="form-group">
 													<label for="inputContent">Nội dung</label>
-													<textarea class="textarea" th:field="*{content}"
-														placeholder="Nội dung"></textarea>
+													<textarea class="textarea form-control" id="inputContent"
+														th:field="*{content}" placeholder="Nội dung"></textarea>
 												</div>
 
 
@@ -118,10 +119,10 @@
 
 											<!-- Buuton Summit -->
 											<div>
-												<a class="btn btn-primary float-right" th:href="@{/admin/news}">Trở
-													về</a>
-												<button type="submit"
-													class="float-right btn btn-success mr-2">Lưu</button>
+												<!-- <a class="btn btn-primary float-right" th:href="@{/admin/news}">Trở
+													về</a> -->
+												<button id="btn-submit-default" type="submit"
+													class="float-right btn btn-success mr-2" hidden>Lưu</button>
 											</div>
 										</div>
 										<div class="col-5">
@@ -193,6 +194,19 @@
 								</form>
 							</div>
 						</div>
+						<div class="card-footer" style="background-color: white;">
+							<div class="row">
+								<div class="col">
+									<!-- Button Submit -->
+									<div>
+										<a class="btn btn-primary float-right" th:href="@{/admin/news}">Trở về</a>
+										<button id="btn-submit-custom" type="submit"
+											class="float-right btn btn-success mr-2">Lưu</button>
+									</div>
+									<!-- /. button submit -->
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -245,11 +259,20 @@
 			});
 		})
 	</script>
+
+	<script>
+		$('#btn-submit-custom').click(function () {
+			$('#btn-submit-default').click();
+		})
+	</script>
+
 	<!-- Summernote -->
 	<script src="/admin-static/plugins/summernote/summernote-bs4.min.js"></script>
 	<script>
 		$(function () {
-			$('.textarea').summernote({});
+			$('.textarea').summernote({
+				height: '400px'
+			});
 		});
 	</script>
 

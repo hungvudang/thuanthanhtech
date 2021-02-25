@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "categories")
@@ -23,10 +26,9 @@ public class Category {
 	private Integer id;
 
 	@Column(name = "name", nullable = false, unique = true)
+	@NotNull(message = "Tên danh mục không hợp lệ")
+	@NotBlank(message = "Tên danh mục không được để trống")
 	private String name;
-
-	@Column(columnDefinition = "varchar(255)", name = "title")
-	private String title;
 
 	@Column(name = "slug")
 	private String slug;
@@ -40,7 +42,9 @@ public class Category {
 	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")
 	private Integer pub;
 	
-	@Column(name = "sort")
+	@Column(name = "sort", nullable = false ,unique = true)
+	@NotNull(message = "Số thứ tự không hợp lệ")
+	@Min(value = 0, message = "Số thứ tự không hợp lệ")
 	private Integer sort;
 	
 	private LocalDateTime created_at;
@@ -53,6 +57,28 @@ public class Category {
 
 	public Category() {
 	}
+	
+	
+
+	public Category(Integer id,
+			@NotNull(message = "Tên danh mục không hợp lệ") @NotBlank(message = "Tên danh mục không được để trống") String name,
+			String slug, Integer parent_id, Integer hot, Integer pub,
+			@NotNull(message = "Số thứ tự không hợp lệ") @Min(value = 0, message = "Số thứ tự không hợp lệ") Integer sort,
+			LocalDateTime created_at, LocalDateTime updated_at, List<News> newses) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.slug = slug;
+		this.parent_id = parent_id;
+		this.hot = hot;
+		this.pub = pub;
+		this.sort = sort;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+		this.newses = newses;
+	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -68,14 +94,6 @@ public class Category {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getSlug() {
@@ -156,15 +174,5 @@ public class Category {
 	public void preUpdate() {
 		this.updated_at = LocalDateTime.now();
 	}
-
-
-	@Override
-	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", title=" + title + ", slug=" + slug + ", parent_id="
-				+ parent_id + ", hot=" + hot + ", public=" + pub + ", created_at=" + created_at + ", updated_at="
-				+ updated_at + "]";
-	}
-	
-	
 
 }

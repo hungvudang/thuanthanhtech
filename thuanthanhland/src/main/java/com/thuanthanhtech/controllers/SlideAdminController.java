@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +58,7 @@ public class SlideAdminController {
 			Slide slide = new Slide();
 			slide.setSort(0);
 			slide.setPub(1);
-			slide.setImage(SlideHelper.NO_IMAGE_MEDIUM);
+			slide.setImage(Helper.NO_IMAGE_MEDIUM_PNG);
 
 			m.addAttribute("slide", slide);
 		}
@@ -90,11 +92,24 @@ public class SlideAdminController {
 				ra.addFlashAttribute("isSortError", true);
 				ra.addFlashAttribute("sortErrorMessage", br.getFieldError("sort").getDefaultMessage());
 			}
-			slide.setImage(SlideHelper.NO_IMAGE_MEDIUM);
+			slide.setImage(Helper.NO_IMAGE_MEDIUM_PNG);
 			ra.addFlashAttribute("slide", slide);
+			ra.addFlashAttribute("error", "Tạo mới slide thất bại");
 			return "redirect:/admin/slide/create";
 		}
 //		else
+		
+		// Kiểm tra trường sort là duy nhất
+		Optional<Slide> opCheckSlide = sRepository.findBySort(slide.getSort());
+		if(opCheckSlide.isPresent()) {
+			ra.addFlashAttribute("isSortError", true);
+			ra.addFlashAttribute("sortErrorMessage", "Thứ tự hiện thị bị trùng");
+			
+			slide.setImage(Helper.NO_IMAGE_MEDIUM_PNG);
+			ra.addFlashAttribute("slide", slide);
+			ra.addFlashAttribute("error", "Tạo mới slide thất bại");
+			return "redirect:/admin/slide/create";
+		}
 		
 		// Kiểm tra file upload lên có đúng định dạng không
 		String contentType = multipartFile.getContentType();
@@ -102,8 +117,9 @@ public class SlideAdminController {
 			ra.addFlashAttribute("isImageError", true);
 			ra.addFlashAttribute("imageErrorMessage", "Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
 			
-			slide.setImage(SlideHelper.NO_IMAGE_MEDIUM);
+			slide.setImage(Helper.NO_IMAGE_MEDIUM_PNG);
 			ra.addFlashAttribute("slide", slide);
+			ra.addFlashAttribute("error", "Tạo mới slide thất bại");
 			return "redirect:/admin/slide/create";
 		}
 		
@@ -159,6 +175,7 @@ public class SlideAdminController {
 				ra.addFlashAttribute("sortErrorMessage", br.getFieldError("sort").getDefaultMessage());
 			}
 			ra.addFlashAttribute("error", "Cập nhật slide thất bại. Vui lòng kiểm tra lại");
+			
 
 		} else {
 			Optional<Slide> opSlide = sRepository.findById(id);
@@ -167,8 +184,19 @@ public class SlideAdminController {
 				updateSlide.setDescription(slide.getDescription());
 				updateSlide.setTitle(slide.getTitle());
 				updateSlide.setPub(slide.getPub());
-				updateSlide.setSort(slide.getSort());
-
+				
+				// Kiểm tra trường sort là duy nhất
+				Optional<Slide> opCheckSlide = sRepository.findBySort(slide.getSort());
+				if(opCheckSlide.isPresent() && opCheckSlide.get().getId() != id) {
+					ra.addFlashAttribute("isSortError", true);
+					ra.addFlashAttribute("sortErrorMessage", "Thứ tự hiện thị bị trùng");
+					
+					ra.addFlashAttribute("error", "Cập nhật slide thất bại. Vui lòng kiểm tra lại");
+					return "redirect:/admin/slide/detail/" + id;
+				} else {
+					updateSlide.setSort(slide.getSort());
+				}
+				
 				// Cập nhật lại path image cho slide
 				// =========================================================================================
 				if (!multipartFile.isEmpty()) {
@@ -224,9 +252,10 @@ public class SlideAdminController {
 		return "redirect:/admin/slide";
 	}
 
-	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })
+	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class , SQLIntegrityConstraintViolationException.class})
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
-	public String handlerException() {
+	public String handlerException(HttpServletRequest req, Exception ex) {
+		
 		return "admin-pages/500";
 	}
 	

@@ -92,7 +92,8 @@
 													<label for="exampleFormControlInput3">Số điện thoại
 														(<span style="color: red;">*</span>)
 													</label> <input th:field="*{phone}" type="tel" class="form-control"
-														id="exampleFormControlInput3" placeholder="Số điện thoại"> <span
+														id="exampleFormControlInput3" onkeypress="InputNumber(event)"
+														placeholder="Số điện thoại"> <span
 														class="text text-danger badge" th:if="${isPhoneError}"
 														th:utext="${phoneErrorMessage}">Phone Error</span>
 												</div>
@@ -130,10 +131,10 @@
 											</div>
 											<!-- Button Summit -->
 											<div>
-												<a class="btn btn-primary float-right" th:href="@{/admin/user}">Trở
-													về</a>
-												<button type="submit"
-													class="float-right btn btn-success mr-2">Lưu</button>
+												<!-- <a class="btn btn-primary float-right" th:href="@{/admin/user}">Trở
+													về</a> -->
+												<button id="btn-submit-default" type="submit"
+													class="float-right btn btn-success mr-2" hidden>Lưu</button>
 											</div>
 										</div>
 										<div class="col-5">
@@ -188,6 +189,19 @@
 								</form>
 							</div>
 						</div>
+						<div class="card-footer" style="background-color: white;">
+							<div class="row">
+								<div class="col">
+									<!-- Button Submit -->
+									<div>
+										<a class="btn btn-primary float-right" th:href="@{/admin/user}">Trở về</a>
+										<button id="btn-submit-custom" type="submit"
+											class="float-right btn btn-success mr-2">Lưu</button>
+									</div>
+									<!-- /. button submit -->
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -240,6 +254,13 @@
 			});
 		})
 	</script>
+
+	<script>
+		$('#btn-submit-custom').click(function () {
+			$('#btn-submit-default').click();
+		})
+	</script>
+
 	<!-- preview avatar -->
 	<script>
 		function readURL(input) {
@@ -268,6 +289,15 @@
 				inputChangePassword.disabled = true;
 			} else {
 				inputChangePassword.disabled = false;
+			}
+		}
+	</script>
+	<!--Event chỉ nhập số-->
+	<script>
+		function InputNumber(evt) {
+			var ch = String.fromCharCode(evt.which);
+			if (!(/[0-9]/.test(ch))) {
+				evt.preventDefault();
 			}
 		}
 	</script>

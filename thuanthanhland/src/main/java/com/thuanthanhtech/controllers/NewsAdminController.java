@@ -62,7 +62,7 @@ public class NewsAdminController {
 		News news = new News();
 		news.setPub(1);
 		news.setHot(0);
-		news.setImage(NewsHelper.NO_THUMBNAIL_MEDIUM_IMAGE);
+		news.setImage(Helper.NO_IMAGE_MEDIUM_PNG);
 
 		List<Category> categories = cRepository.findAll();
 

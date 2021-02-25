@@ -11,8 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class NewsHelper {
 
-	public final static String NO_THUMBNAIL_MEDIUM_IMAGE = "/admin-static/images/no-thumbnail-medium.png";
-
 	public final static String ROOT_PATH_THUMBNAIL_MEDIUM = "/public/upload/news";
 
 	public static void saveThumbnailImage(MultipartFile multipartFile, String uploadDir, String fThumbnailImageName)

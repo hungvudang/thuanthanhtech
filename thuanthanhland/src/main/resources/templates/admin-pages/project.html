@@ -19,6 +19,10 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/admin-static/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/admin-static/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -38,11 +42,11 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Dự án</h1>
+                            <h1>Tin tức</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                                <li class="breadcrumb-item">Trang chủ</li>
                                 <li class="breadcrumb-item active">Dự án</li>
                             </ol>
                         </div>
@@ -53,86 +57,98 @@
 
             <!-- Main content -->
             <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card card-info">
+                                <div class="card-header">
+                                    <h3 class="card-title">Tất cả dự án</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="example2" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Tên dự án</th>
+                                                <th>Tiêu đề</th>
+                                                <th>Dự án nổi bật</th>
+                                                <th>Hiển thị</th>
+                                                <th>Sửa đổi lần cuối</th>
+                                                <th>Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="p : ${projects}">
+                                                <td th:utext="${p.id}" th:fileld="${p.id}" scope="row"></td>
+                                                <td th:utext="${p.name}" th:fileld="${p.name}"></td>
+                                                <td th:utext="${p.title}" th:fileld="${p.title}"></td>
 
-                <!-- Default box -->
-                <div class="card">
-                    <div class="card-body p-0">
-                        <table class="table table-striped projects">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Tên dự án</th>
-                                    <th>Tiêu đề</th>
-                                    <td>Dự án nổi bật</td>
-                                    <th>Hiển thị</th>
-                                    <th>Sửa đổi lần cuối</th>
-                                    <th>Hành động</th>
+                                                <div>
+                                                    <th:block th:if="${p.hot==1}">
+                                                        <td><span class="badge badge-pill badge-danger">Nổi
+                                                                bật</span></td>
+                                                    </th:block>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="p : ${projects}">
-                                    <td th:utext="${p.id}" th:fileld="${p.id}" scope="row"></td>
-                                    <td th:utext="${p.name}" th:fileld="${p.name}"></td>
-                                    <td th:utext="${p.title}" th:fileld="${p.title}"></td>
+                                                    <th:block th:if="${p.hot == 0}">
+                                                        <td><span class="badge badge-pill badge-dark">Không</span>
+                                                        </td>
+                                                    </th:block>
+                                                </div>
 
-                                    <div>
-                                        <th:block th:if="${p.hot==1}">
-                                            <td><span class="badge badge-pill badge-danger">Nổi
-													bật</span></td>
-                                        </th:block>
+                                                <div>
+                                                    <th:block th:if="${p.pub == 1}">
+                                                        <td><span class="badge badge-pill badge-success">Hiển
+                                                                thị</span></td>
+                                                    </th:block>
 
-                                        <th:block th:if="${p.hot == 0}">
-                                            <td><span class="badge badge-pill badge-dark">Không</span>
-                                            </td>
-                                        </th:block>
-                                    </div>
+                                                    <th:block th:if="${p.pub == 0}">
+                                                        <td><span class="badge badge-pill badge-dark">Ẩn</span>
+                                                        </td>
+                                                    </th:block>
+                                                </div>
 
-                                    <div>
-                                        <th:block th:if="${p.pub == 1}">
-                                            <td><span class="badge badge-pill badge-success">Hiển
-													thị</span></td>
-                                        </th:block>
+                                                <!-- Last modified -->
+                                                <div>
+                                                    <th:block th:if="${p.updated_at}">
+                                                        <td th:utext="${#temporals.format(p.updated_at, 'dd/MM/yyyy')}">
+                                                        </td>
+                                                    </th:block>
 
-                                        <th:block th:if="${p.pub == 0}">
-                                            <td><span class="badge badge-pill badge-dark">Ẩn</span>
-                                            </td>
-                                        </th:block>
-                                    </div>
+                                                    <th:block th:unless="${p.updated_at}">
+                                                        <td th:utext="${#temporals.format(p.created_at, 'dd/MM/yyyy')}">
+                                                        </td>
+                                                    </th:block>
+                                                </div>
+                                                <!-- /. Last modified	 -->
 
-                                    <!-- Last modified -->
-                                    <div>
-                                        <th:block th:if="${p.updated_at}">
-                                            <td th:utext="${#temporals.format(p.updated_at, 'dd/MM/yyyy')}">
-                                            </td>
-                                        </th:block>
+                                                <td>
+                                                    <div class="row justify-content-center">
+                                                        <div class="col">
+                                                            <a class=" fas fa-edit fa-lg"
+                                                                th:href="@{'/admin/project/detail/' + ${p.id}}"></a>
+                                                            <a onclick="return confirm('Bạn chắc chắn muốn xóa ?')"
+                                                                class="fas fa-trash fa-lg mx-3" style="color:  red ;"
+                                                                th:href="@{'/admin/project/delete/' + ${p.id}}"></a>
+                                                        </div>
+                                                    </div>
+                                                </td>
 
-                                        <th:block th:unless="${p.updated_at}">
-                                            <td th:utext="${#temporals.format(p.created_at, 'dd/MM/yyyy')}">
-                                            </td>
-                                        </th:block>
-                                    </div>
-                                    <!-- /. Last modified	 -->
-
-                                    <td>
-                                        <div class="row justify-content-center">
-                                            <div class="col">
-                                                <a class=" fas fa-edit fa-lg" th:href="@{'/admin/project/detail/' + ${p.id}}"></a>
-                                                <a onclick="return confirm('Bạn chắc chắn muốn xóa ?')" class="fas fa-trash fa-lg mx-3" style="color:  red ;" th:href="@{'/admin/project/delete/' + ${p.id}}"></a>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-                        </table>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
                     </div>
-                    <!-- /.card-body -->
+                    <!-- /.row -->
                 </div>
-                <!-- /.card -->
-
+                <!-- /.container-fluid -->
             </section>
+
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
@@ -163,9 +179,9 @@
     <script src="/admin-static/plugins/filterizr/jquery.filterizr.min.js"></script>
     <!-- Page specific script -->
     <script>
-        $(function() {
+        $(function () {
             $(document).on('click', '[data-toggle="lightbox"]',
-                function(event) {
+                function (event) {
                     event.preventDefault();
                     $(this).ekkoLightbox({
                         alwaysShowClose: true
@@ -175,7 +191,7 @@
             $('.filter-container').filterizr({
                 gutterPixels: 3
             });
-            $('.btn[data-filter]').on('click', function() {
+            $('.btn[data-filter]').on('click', function () {
                 $('.btn[data-filter]').removeClass('active');
                 $(this).addClass('active');
             });
@@ -185,7 +201,29 @@
     <script th:replace="/admin-pages/fragments/notification::notification"></script>
     <!-- /. flash notification -->
 
-
+    <!-- DataTables -->
+    <script src="/admin-static/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/admin-static/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/admin-static/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/admin-static/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
 </body>
 
 </html>
