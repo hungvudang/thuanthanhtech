@@ -1,35 +1,34 @@
 <th:block th:fragment="notification">
 
 	<!-- Vanilla Toast -->
-	<script type="text/javascript"
-		src="/js/vanilla-toast/vanilla-toast.min.js"></script>
+	<script type="text/javascript" th:src="${#request.contextPath} + '/js/vanilla-toast/vanilla-toast.min.js'"></script>
 	<th:block th:if="${success}">
 		<script th:inline="javascript">
 			/*<![CDATA[*/
 			var msg = /*[[${success}]]*/'success';
 			vt.success(msg, {
-				title : "Thành Công",
-				position : "top-right",
-				duration : 4000,
-				closable : true,
-				focusable : false,
-				callback : undefined
+				title: "Thành Công",
+				position: "top-right",
+				duration: 4000,
+				closable: true,
+				focusable: false,
+				callback: undefined
 			});
 			/*]]>*/
 		</script>
 	</th:block>
-	
+
 	<th:block th:if="${error}">
 		<script th:inline="javascript">
 			/*<![CDATA[*/
 			var msg = /*[[${error}]]*/'error';
 			vt.error(msg, {
-				title : "Thất Bại",
-				position : "top-right",
-				duration : 4000,
-				closable : true,
-				focusable : false,
-				callback : undefined
+				title: "Thất Bại",
+				position: "top-right",
+				duration: 4000,
+				closable: true,
+				focusable: false,
+				callback: undefined
 			});
 			/*]]>*/
 		</script>

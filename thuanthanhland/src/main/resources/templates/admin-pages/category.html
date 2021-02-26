@@ -1,44 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/admin-pages/admin-layout">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 3 | Danh mục</title>
-	<!-- Tell the browser to be responsive to screen width -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="/admin-static/plugins/fontawesome-free/css/all.min.css">
-	<!-- Ekko Lightbox -->
-	<link rel="stylesheet" href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
-	<!-- Ionicons -->
-	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	<!-- Theme style -->
-	<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
+	<meta charset="UTF-8">
 
-	<!-- DataTables -->
-	<link rel="stylesheet" href="/admin-static/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" href="/admin-static/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+	<title>Danh mục</title>
 
-	<!-- Google Font: Source Sans Pro -->
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
 </head>
 
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
-		<!-- Navbar -->
-		<div th:replace="/admin-pages/fragments/navbar::navbar"></div>
-		<!-- /.navbar -->
-
-		<!-- Main Sidebar Container -->
-		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
-
-
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			<section class="content-header">
+			<div class="content-header" layout:fragment="content-header">
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
@@ -53,183 +31,117 @@
 					</div>
 				</div>
 				<!-- /.container-fluid -->
-			</section>
+			</div>
+			<!-- /.content-header -->
+
 			<!-- Main content -->
-			<section class="content">
+			<div class="content" layout:fragment="content">
 				<div class="container-fluid">
 					<div class="row">
-						<div class="col-12">
-							<div class="card card-info">
-								<div class="card-header">
-									<h3 class="card-title">Tất cả danh mục</h3>
-								</div>
-								<!-- /.card-header -->
-								<div class="card-body">
-									<table id="example1" class="table table-bordered table-striped">
-										<thead>
-											<tr>
-												<th>ID</th>
-												<th>Tên danh mục</th>
-												<th>Danh mục cha</th>
-												<th>Thứ tự hiển thị</th>
-												<th>Nổi bật</th>
-												<th>Hiển thị</th>
-												<th>Sửa đổi lần cuối</th>
-												<th>Hành động</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each="entry : ${categoriesEntryMap}">
-												<td th:utext="${entry.getKey().id}" th:fileld="${entry.getKey().id}"
-													scope="row"></td>
-												<td th:utext="${entry.getKey().name}" th:field="${entry.getKey().name}">
-												</td>
-												<td th:utext="${entry.getValue()}" th:field="${entry.getValue()}"></td>
-												<td th:utext="${entry.getKey().sort}" th:field="${entry.getKey().sort}">
-												</td>
 
-												<div>
-													<th:block th:if="${entry.getKey().hot == 1}">
-														<td><span class="badge badge-pill badge-danger">Nổi
-																bật</span></td>
-													</th:block>
-
-													<th:block th:if="${entry.getKey().hot == 0}">
-														<td><span class="badge badge-pill badge-dark">Không</span>
-														</td>
-													</th:block>
-												</div>
-
-												<div>
-													<th:block th:if="${entry.getKey().pub == 1}">
-														<td><span class="badge badge-pill badge-success">Hiển
-																thị</span></td>
-													</th:block>
-
-													<th:block th:if="${entry.getKey().pub == 0}">
-														<td><span class="badge badge-pill badge-dark">Ẩn</span>
-														</td>
-													</th:block>
-												</div>
-
-												<!-- Last modified -->
-												<div>
-													<th:block th:if="${entry.getKey().updated_at}">
-														<td
-															th:utext="${#temporals.format(entry.getKey().updated_at, 'dd/MM/yyyy')}">
-														</td>
-													</th:block>
-
-													<th:block th:unless="${entry.getKey().updated_at}">
-														<td
-															th:utext="${#temporals.format(entry.getKey().created_at, 'dd/MM/yyyy')}">
-														</td>
-													</th:block>
-												</div>
-												<!-- /. Last modified	 -->
-
-												<td>
-													<div class="row justify-content-center">
-														<div class="col">
-															<a class=" fas fa-edit fa-lg"
-																th:href="@{'/admin/category/detail/' + ${entry.getKey().id}}"></a>
-															<a onclick="return confirm('Bạn chắc chắn muốn xóa ?')"
-																class="fas fa-trash fa-lg mx-3" style="color: red;"
-																th:href="@{'/admin/category/delete/' + ${entry.getKey().id}}"></a>
-														</div>
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<!-- /.card-body -->
+						<div class="card card-info">
+							<div class="card-header">
+								<h3 class="card-title">Tất cả danh mục</h3>
 							</div>
-							<!-- /.card -->
+							<!-- /.card-header -->
+							<div class="card-body">
+								<table id="datatable1" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Tên danh mục</th>
+											<th>Danh mục cha</th>
+											<th>Thứ tự hiển thị</th>
+											<th>Nổi bật</th>
+											<th>Hiển thị</th>
+											<th>Sửa đổi lần cuối</th>
+											<th>Hành động</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="entry : ${categoriesEntryMap}">
+											<td th:utext="${entry.getKey().id}" th:fileld="${entry.getKey().id}"
+												scope="row"></td>
+											<td th:utext="${entry.getKey().name}" th:field="${entry.getKey().name}">
+											</td>
+											<td th:utext="${entry.getValue()}" th:field="${entry.getValue()}"></td>
+											<td th:utext="${entry.getKey().sort}" th:field="${entry.getKey().sort}">
+											</td>
+
+											<div>
+												<th:block th:if="${entry.getKey().hot == 1}">
+													<td><span class="badge badge-pill badge-danger">Nổi
+															bật</span></td>
+												</th:block>
+
+												<th:block th:if="${entry.getKey().hot == 0}">
+													<td><span class="badge badge-pill badge-dark">Không</span>
+													</td>
+												</th:block>
+											</div>
+
+											<div>
+												<th:block th:if="${entry.getKey().pub == 1}">
+													<td><span class="badge badge-pill badge-success">Hiển
+															thị</span></td>
+												</th:block>
+
+												<th:block th:if="${entry.getKey().pub == 0}">
+													<td><span class="badge badge-pill badge-dark">Ẩn</span>
+													</td>
+												</th:block>
+											</div>
+
+											<!-- Last modified -->
+											<div>
+												<th:block th:if="${entry.getKey().updated_at}">
+													<td
+														th:utext="${#temporals.format(entry.getKey().updated_at, 'dd/MM/yyyy')}">
+													</td>
+												</th:block>
+
+												<th:block th:unless="${entry.getKey().updated_at}">
+													<td
+														th:utext="${#temporals.format(entry.getKey().created_at, 'dd/MM/yyyy')}">
+													</td>
+												</th:block>
+											</div>
+											<!-- /. Last modified	 -->
+
+											<td>
+												<div class="row justify-content-center">
+													<div class="col">
+														<a class=" fas fa-edit fa-lg"
+															th:href="@{'/admin/category/detail/' + ${entry.getKey().id}}"></a>
+														<a onclick="return confirm('Bạn chắc chắn muốn xóa ?')"
+															class="fas fa-trash fa-lg mx-3" style="color: red;"
+															th:href="@{'/admin/category/delete/' + ${entry.getKey().id}}"></a>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- /.card-body -->
 						</div>
-						<!-- /.col -->
+						<!-- /.card -->
+
 					</div>
 					<!-- /.row -->
 				</div>
 				<!-- /.container-fluid -->
-			</section>
-
+			</div>
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
-		<!-- footer -->
-		<div th:replace="/admin-pages/fragments/footer::footer"></div>
-
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
 
-	<!-- jQuery -->
-	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap -->
-	<script src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- jQuery UI -->
-	<script src="/admin-static/plugins/jquery-ui/jquery-ui.min.js"></script>
-	<!-- Ekko Lightbox -->
-	<script src="/admin-static/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="/admin-static/dist/js/adminlte.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="/admin-static/dist/js/demo.js"></script>
-	<!-- Filterizr-->
-	<script src="/admin-static/plugins/filterizr/jquery.filterizr.min.js"></script>
-	<!-- Page specific script -->
-	<script>
-		$(function () {
-			$(document).on('click', '[data-toggle="lightbox"]',
-				function (event) {
-					event.preventDefault();
-					$(this).ekkoLightbox({
-						alwaysShowClose: true
-					});
-				});
-
-			$('.filter-container').filterizr({
-				gutterPixels: 3
-			});
-			$('.btn[data-filter]').on('click', function () {
-				$('.btn[data-filter]').removeClass('active');
-				$(this).addClass('active');
-			});
-		})
-	</script>
-
-	<!-- flash notification -->
-	<script th:replace="/admin-pages/fragments/notification::notification"></script>
-	<!-- /. flash notification -->
-
-	<!-- DataTables -->
-	<script src="/admin-static/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script src="/admin-static/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-	<script src="/admin-static/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-	<script src="/admin-static/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-	<!-- page script -->
-	<script>
-		$(function () {
-			$("#example1").DataTable({
-				"responsive": true,
-				"autoWidth": false,
-			});
-			$('#example2').DataTable({
-				"paging": true,
-				"lengthChange": false,
-				"searching": false,
-				"ordering": true,
-				"info": true,
-				"autoWidth": false,
-				"responsive": true,
-			});
-		});
-	</script>
+	<!-- script option -->
+	<th:block layout:fragment="script">
+	</th:block>
+	<!-- /. script option -->
 </body>
 
 </html>

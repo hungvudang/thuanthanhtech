@@ -1,49 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/admin-pages/admin-layout">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 3 | Dashboard</title>
-	<!-- Tell the browser to be responsive to screen width -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="/admin-static/plugins/fontawesome-free/css/all.min.css">
-	<!-- Ionicons -->
-	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	<!-- Tempusdominus Bbootstrap 4 -->
-	<link rel="stylesheet" href="/admin-static/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-	<!-- iCheck -->
-	<link rel="stylesheet" href="/admin-static/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-	<!-- JQVMap -->
-	<link rel="stylesheet" href="/admin-static/plugins/jqvmap/jqvmap.min.css">
-	<!-- Theme style -->
-	<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
-	<!-- overlayScrollbars -->
-	<link rel="stylesheet" href="/admin-static/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-	<!-- Daterange picker -->
-	<link rel="stylesheet" href="/admin-static/plugins/daterangepicker/daterangepicker.css">
-	<!-- summernote -->
-	<link rel="stylesheet" href="/admin-static/plugins/summernote/summernote-bs4.css">
-	<!-- Google Font: Source Sans Pro -->
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+	<meta charset="UTF-8">
+
+	<title>Dashboard</title>
+
+
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini">
 	<div class="wrapper">
-
-		<!-- Navbar -->
-		<div th:replace="/admin-pages/fragments/navbar::navbar"></div>
-		<!-- /.navbar -->
-
-		<!-- Main Sidebar Container -->
-		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
-		<!-- /.sidebar-menu -->
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			<div class="content-header">
+			<div class="content-header" layout:fragment="content-header">
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
@@ -65,7 +38,7 @@
 			<!-- /.content-header -->
 
 			<!-- Main content -->
-			<section class="content">
+			<div class="content" layout:fragment="content">
 				<div class="container-fluid">
 					<!-- Small boxes (Stat box) -->
 					<div class="row">
@@ -618,55 +591,39 @@
 					<!-- /.row (main row) -->
 				</div>
 				<!-- /.container-fluid -->
-			</section>
+			</div>
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
-		<!-- footer -->
-		<div th:replace="/admin-pages/fragments/footer::footer"></div>
-
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
 
-	<!-- jQuery -->
-	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
-	<!-- jQuery UI 1.11.4 -->
-	<script src="/admin-static/plugins/jquery-ui/jquery-ui.min.js"></script>
-	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-	<script>
-		$.widget.bridge('uibutton', $.ui.button)
-	</script>
-	<!-- Bootstrap 4 -->
-	<script src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- ChartJS -->
-	<script src="/admin-static/plugins/chart.js/Chart.min.js"></script>
-	<!-- Sparkline -->
-	<script src="/admin-static/plugins/sparklines/sparkline.js"></script>
-	<!-- JQVMap -->
-	<script src="/admin-static/plugins/jqvmap/jquery.vmap.min.js"></script>
-	<script src="/admin-static/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-	<!-- jQuery Knob Chart -->
-	<script src="/admin-static/plugins/jquery-knob/jquery.knob.min.js"></script>
-	<!-- daterangepicker -->
-	<script src="/admin-static/plugins/moment/moment.min.js"></script>
-	<script src="/admin-static/plugins/daterangepicker/daterangepicker.js"></script>
-	<!-- Tempusdominus Bootstrap 4 -->
-	<script src="/admin-static/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-	<!-- Summernote -->
-	<script src="/admin-static/plugins/summernote/summernote-bs4.min.js"></script>
-	<!-- overlayScrollbars -->
-	<script src="admin-static/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="/admin-static/dist/js/adminlte.js"></script>
-	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-	<script src="/admin-static/dist/js/pages/dashboard.js"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="/admin-static/dist/js/demo.js"></script>
+	<!-- script option -->
+	<th:block layout:fragment="script">
+		<script>
+			$('#btn-submit-custom').click(function () {
+				$('#btn-submit-default').click();
+			})
+		</script>
+
+		<!-- preview thumbnail -->
+		<script>
+			function readURL(input) {
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function (e) {
+						$('#thumbnail-image').attr('src', e.target.result);
+					}
+					reader.readAsDataURL(input.files[0]); // convert to base64 string
+				}
+			}
+			$("#uploadThumbnail").change(function () {
+				readURL(this);
+			});
+		</script>
+	</th:block>
+	<!-- /. script option -->
 </body>
 
 </html>

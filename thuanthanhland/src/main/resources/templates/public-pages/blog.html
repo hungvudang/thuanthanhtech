@@ -50,7 +50,7 @@
 			<div class="container">
 				<div class="row">
 					<th:block th:each=" n : ${news}">
-						<div class="col-lg-3 col-md-6 col-xl-3 d-flex align-items-stretch mb-3">
+						<div class="col-lg-3 col-md-6 col-xl-3 d-flex align-items-stretch mb-3 element-animate">
 							<div class="card card-bordedless">
 								<a th:href="@{'/news/detail/' + ${n.slug}}">
 									<img class="card-img-top" style="object-fit: cover;" width="200" height="200"
