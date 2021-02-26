@@ -1,45 +1,27 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/public-pages/public-layout">
 
 <head>
-	<title>Thuận Thành Land &mdash; Free Website Template by
-		Free-Template.co</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="UTF-8">
 
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet">
+	<title>Tin tức</title>
 
-	<link rel="stylesheet" href="/public-static/css/animate.css">
-	<link rel="stylesheet" href="/public-static/css/owl.carousel.min.css">
-
-	<link rel="stylesheet" href="/public-static/fonts/ionicons/css/ionicons.min.css">
-	<link rel="stylesheet" href="/public-static/fonts/fontawesome/css/font-awesome.min.css">
-
-	<!-- Theme Style -->
-	<link rel="stylesheet" href="/public-static/css/style.css">
-
-	<!-- 
-    //////////////////////////////////////////////////////
-
-    Free Template 
-    DESIGNED & DEVELOPED by free-template.co
-      
-    Website:    https://free-template.co
-    Email:      freetemplate.co@gmail.com
-    Twitter:    https://twitter.com/Free_Templateco
-    Facebook:   https://www.facebook.com/Free.Template.co/
-
-    //////////////////////////////////////////////////////
-     -->
 </head>
 
 <body>
 	<div class="wrapper bg-light">
-		<div th:replace="/public-pages/fragments/header::header"></div>
-		<!-- END header -->
+
+		<div layout:fragment="option-content-before">
+
+		</div>
+
+
 
 		<section class="section">
-			<div class="row justify-content-center mb-5 element-animate">
+
+			<!-- content header -->
+			<div class="row justify-content-center mb-5 element-animate" layout:fragment="content-header">
 				<div class="col-md-8 text-center">
 					<h1 class="heading mb-4">TIN TỨC</h1>
 					<p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
@@ -47,7 +29,9 @@
 						quam minima expedita atque corrupti reiciendis.</p>
 				</div>
 			</div>
-			<div class="container">
+			<!-- /.content header -->
+
+			<div class="container" layout:fragment="container">
 				<div class="row">
 					<div class="col-lg-9">
 						<div class="card">
@@ -90,23 +74,20 @@
 
 				</div>
 			</div>
-		</section>
+	</div>
+	</section>
 
-		<div th:replace="/public-pages/fragments/footer::footer"></div>
-		<!-- END footer -->
+	<div layout:fragment="option-content-after">
 
-		<!-- loader -->
-		<div th:replace="/public-pages/fragments/loader::loader"></div>
 	</div>
 
 
+	</div>
+	<!-- ./wrapper -->
 
-	<script src="/public-static/js/jquery-3.2.1.min.js"></script>
-	<script src="/public-static/js/popper.min.js"></script>
-	<script src="/public-static/js/bootstrap.min.js"></script>
-	<script src="/public-static/js/owl.carousel.min.js"></script>
-	<script src="/public-static/js/jquery.waypoints.min.js"></script>
-	<script src="/public-static/js/main.js"></script>
+	<!-- script option -->
+	<th:block layout:fragment="script"></th:block>
+	<!-- /. script option -->
 </body>
 
 </html>
