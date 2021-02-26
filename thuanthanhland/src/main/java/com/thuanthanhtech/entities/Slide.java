@@ -27,7 +27,6 @@ public class Slide {
 	@Column(name = "title")
 	private String title;
 	
-	@NotBlank(message = "Tên không được để trống")
 	@Column(name = "description")
 	private String description;
 	

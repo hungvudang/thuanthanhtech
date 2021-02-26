@@ -70,10 +70,11 @@
 												<div class="form-group">
 													<label for="exampleFormControlInput3">Tiêu đề (<span
 															style="color: red;">*</span>)
-													</label> <input th:field="*{title}" type="text" class="form-control"
-														id="exampleFormControlInput3" placeholder="Tiêu đề"> <span
-														class="text text-danger badge" th:if="${isTitleError}"
-														th:utext="${titleErrorMessage}">Title Error</span>
+													</label> <input th:field="*{title}" type="text"
+														th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid': 'form-control' "
+														id="exampleFormControlInput3" placeholder="Tiêu đề">
+													<div th:errors="*{title}" th:if="${#fields.hasErrors('title')}"
+														class="invalid-feedback">>Title Error</div>
 												</div>
 
 												<!-- Public Input -->
@@ -108,18 +109,19 @@
 												<div class="form-group">
 													<label for="exampleFormControlInput4">Thứ tự hiển
 														thị (<span style="color: red;">*</span>)
-													</label> <input th:field="*{sort}" type="text" class="form-control"
+													</label> <input th:field="*{sort}" type="text"
+														th:class="${#fields.hasErrors('sort')} ? 'form-control is-invalid' : 'form-control'"
 														id="exampleFormControlInput4" placeholder="Thứ tự hiển thị"
-														onkeypress="InputNumber(event)"> <span
-														class="text text-danger badge" th:if="${isSortError}"
-														th:utext="${sortErrorMessage}">Sort Error</span>
+														onkeypress="InputNumber(event)">
+													<div th:errors="*{sort}" th:if="${#fields.hasErrors('sort')}"
+														class="invalid-feedback">Sort Error</div>
+
 												</div>
 
 												<!-- Description Input -->
 												<div class="form-group">
-													<label for="inputContent">Mô tả (<span style="color: red;">*</span>)
-													</label> <br>
-													<textarea class="textarea form-control" id="inputContent"
+													<label for="inputContent">Mô tả</label> <br>
+													<textarea class="form-control" id="inputContent"
 														th:field="*{description}" rows="2" style="width: 100%;"
 														placeholder="Mô tả"></textarea>
 												</div>
@@ -148,11 +150,13 @@
 														id="slide-image" style="max-height: 350px;">
 												</div>
 
-												<input name="slide_image" type="file" class="form-control-file"
-													id="uploadImage" accept="image/png, image/jpeg" /> <span
-													class="text text-danger badge" th:if="${isImageError}"
-													th:utext="${imageErrorMessage}">Image Error</span>
+												<input name="slide_image" type="file"
+													th:class="${#fields.hasErrors('image')} ? 'form-control-file is-invalid' : 'form-control-file'"
+													id="uploadImage" accept="image/png, image/jpeg" />
+												<div th:errors="*{image}" th:if="${#fields.hasErrors('image')}"
+													class="invalid-feedback">Image Error</div>
 											</div>
+											<input hidden th:field="*{image}" type="text">
 										</div>
 										<!-- /.image upload -->
 									</div>
