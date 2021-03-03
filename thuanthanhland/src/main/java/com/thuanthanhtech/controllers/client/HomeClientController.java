@@ -10,13 +10,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.thuanthanhtech.entities.Slide;
+import com.thuanthanhtech.entities.Spotlight;
 import com.thuanthanhtech.repositories.SlideRepository;
+import com.thuanthanhtech.repositories.SpotlightRepository;
 
 @Controller
 public class HomeClientController {
 	
 	@Autowired
 	private SlideRepository sRepository;
+	
+	@Autowired
+	private SpotlightRepository spotRepository;
 	
 	@GetMapping({"/trang-chu", "/"})
 	public String home(Model m) {
@@ -33,7 +38,25 @@ public class HomeClientController {
 				}
 			});
 		}
+		
+		List<Spotlight> spotlights = spotRepository.findByPub(1);
+		
+		if(spotlights != null) {
+			Collections.sort(spotlights, (o1, o2)->{
+				Spotlight s1 = (Spotlight) o1;
+				Spotlight s2 = (Spotlight) o2;
+				
+				if(s1.getSort() > s2.getSort()) {
+					return 1;
+				} else if (s1.getSort() < s2.getSort()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			});
+		}
 		m.addAttribute("slides", slides);
+		m.addAttribute("spotlights", spotlights);
 		return "public-pages/index";
 	}
 }

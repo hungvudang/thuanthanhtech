@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="/admin-pages/admin-layout">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Spotlight</title>
+
+
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header" layout:fragment="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Spotlight</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item">Trang chủ</li>
+                                <li class="breadcrumb-item active">Spotlight</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="content" layout:fragment="content">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="card card-info w-100">
+                            <div class="card-header">
+                                <h2 class="card-title font-weight-bold">Cập nhật spotlight</h2>
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{'/admin/spotlight/update/' + *{id}}" th:method="post"
+                                    th:object="${spotlight}" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <!-- input spotlight -->
+                                        <div class="col-7">
+                                            <div class="form-group">
+                                                <label for="formControlInputName">Tên(<span
+                                                        style="color: red;">*</span>)
+                                                </label> <input th:field="*{name}" type="text" class="form-control"
+                                                    th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
+                                                    id="formControlInputName" placeholder="Tên">
+                                                <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}"
+                                                    class="invalid-feedback">Name Error</div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="formControlInputTitle">Tiêu đề(<span
+                                                        style="color: red;">*</span>)
+                                                </label> <input th:field="*{title}" type="text" class="form-control"
+                                                    th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'"
+                                                    id="formControlInputTitle" placeholder="Tiêu đề">
+                                                <div th:errors="*{title}" th:if="${#fields.hasErrors('title')}"
+                                                    class="invalid-feedback">Title Error</div>
+                                            </div>
+
+                                            <!-- Lựa chọn thứ tự hiển thị danh mục -->
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput4">Thứ tự hiển thị (<span
+                                                        style="color: red;">*</span>)
+                                                </label> <input th:field="*{sort}" type="text" class="form-control"
+                                                    th:class="${#fields.hasErrors('sort')} ? 'form-control is-invalid' : 'form-control'"
+                                                    id="exampleFormControlInput4" onkeypress="InputNumber(event);"
+                                                    placeholder="Thứ tự hiển thị">
+                                                <div th:errors="*{sort}" th:if="${#fields.hasErrors('sort')}"
+                                                    class="invalid-feedback">Sort Error</div>
+                                            </div>
+
+                                            <!-- Description Input -->
+                                            <div class="form-group">
+                                                <label for="inputDescription">Mô tả (<span
+                                                        style="color: red;">*</span>)</label>
+                                                <textarea class="form-control"
+                                                    th:class="${#fields.hasErrors('description')} ? 'form-control is-invalid' : 'form-control'"
+                                                    id="inputDescription" th:field="*{description}" rows="2"
+                                                    style="width: 100%;" placeholder="Mô tả"></textarea>
+                                                <div th:errors="*{description}"
+                                                    th:if="${#fields.hasErrors('description')}"
+                                                    class="invalid-feedback">Description Error</div>
+                                            </div>
+
+                                            <!-- button submit -->
+                                            <div>
+                                                <!-- <a class="btn btn-primary float-right" th:href="@{/admin/spotlight}">Trở về</a> -->
+                                                <button id="btn-submit-default" type="submit"
+                                                    class="float-right btn btn-success mr-2" hidden>Lưu</button>
+                                            </div>
+                                            <!-- /. button submit -->
+
+                                        </div>
+                                        <!-- /. input spotlight -->
+
+                                        <div class="col-5">
+                                            <!-- upload image -->
+                                            <div class="form-group">
+                                                <label for="uploadThumbnail">Hình ảnh</label>
+
+                                                <div>
+                                                    <img th:src="@{*{image}}" alt="thumbnail-media"
+                                                        class="img-thumbnail mb-3" id="spotlight-image"
+                                                        style="max-height: 200px;">
+                                                </div>
+
+                                                <input name="spotlight_image" type="file" class="form-control-file"
+                                                    th:class="${#fields.hasErrors('image')} ? 'form-control-file is-invalid' : 'form-control-file'"
+                                                    id="uploadImage" accept="image/png, image/jpeg" />
+                                                <div th:errors="*{image}" th:if="${#fields.hasErrors('image')}"
+                                                    class="invalid-feedback">Image Error</div>
+                                            </div>
+
+                                            <input hidden th:field="*{image}" type="text">
+                                            <!-- /.upload image -->
+
+                                            <fieldset class="form-group">
+                                                <div class="row">
+                                                    <label class="col-form-label col-sm-2 pt-0">Hiển thị</label>
+                                                    <div class="col-sm-10">
+                                                        <div class="form-check">
+                                                            <input th:field="*{pub}" class="form-check-input"
+                                                                type="radio" name="gridRadiosPublic"
+                                                                id="gridRadiosPublic1" value="1" checked> <label
+                                                                class="form-check-label lead text-sm"
+                                                                for="gridRadiosPublic1"> Hiện thị </label>
+                                                        </div>
+
+                                                        <div class="form-check">
+                                                            <input th:field="*{pub}" class="form-check-input"
+                                                                type="radio" name="gridRadiosPublic"
+                                                                id="gridRadiosPublic2" value="0">
+                                                            <label class="form-check-label lead text-sm"
+                                                                for="gridRadiosPublic2"> Ẩn </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="card-footer" style="background-color: white;">
+                                <div class="row">
+                                    <div class="col">
+                                        <!-- Button Submit -->
+                                        <div>
+                                            <a class="btn btn-primary float-right" th:href="@{/admin/spotlight}">Trờ
+                                                về</a>
+                                            <button id="btn-submit-custom" type="submit"
+                                                class="float-right btn btn-success mr-2">Lưu</button>
+                                        </div>
+                                        <!-- /. button submit -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- script option -->
+    <th:block layout:fragment="script">
+        <!--Event chỉ nhập số-->
+        <script>
+            function InputNumber(evt) {
+                var ch = String.fromCharCode(evt.which);
+                if (!(/[0-9]/.test(ch))) {
+                    evt.preventDefault();
+                }
+            }
+        </script>
+
+        <!-- preview image -->
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#spotlight-image').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                }
+            }
+            $("#uploadImage").change(function () {
+                readURL(this);
+            });
+        </script>
+
+        <script>
+            $('#btn-submit-custom').click(function () {
+                $('#btn-submit-default').click();
+            })
+        </script>
+    </th:block>
+    <!-- /. script option -->
+</body>
+
+</html>
