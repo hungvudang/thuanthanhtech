@@ -54,20 +54,21 @@
 														<label for="exampleFormControlInput1">Tên tài khoản
 															(<span style="color: red;">*</span>)
 														</label> <input th:field="*{name}" type="text"
-															class="form-control" id="exampleFormControlInput1"
-															placeholder="Tên tài khoản"> <span
-															class="text text-danger badge" th:if="${isNameError}"
-															th:utext="${nameErrorMessage}">Name Error</span>
+															class="form-control"
+															th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
+															id="exampleFormControlInput1" placeholder="Tên tài khoản">
+														<div th:errors="*{name}" th:if="${#fields.hasErrors('name')}"
+															class="invalid-feedback">Name Error</div>
 													</div>
 													<!-- Email Input -->
 
 													<div class="form-group">
 														<label for="exampleFormControlInput2">Email</label> <input
 															th:field="*{email}" type="email" class="form-control"
+															th:class="${#fields.hasErrors('email')} ? 'form-control is-invalid' : 'form-control'"
 															id="exampleFormControlInput2" placeholder="Email" readonly>
-														<span class="text text-danger badge" th:if="${isEmailError}"
-															th:utext="${emailErrorMessage}">Email
-															Error</span>
+														<div th:errors="*{email}" th:if="${#fields.hasErrors('email')}"
+															class="invalid-feedback">Email Error</div>
 													</div>
 
 													<!-- Phone Input -->
@@ -75,10 +76,12 @@
 														<label for="exampleFormControlInput3">Số điện thoại
 															(<span style="color: red;">*</span>)
 														</label> <input th:field="*{phone}" type="tel"
-															class="form-control" id="exampleFormControlInput3"
+															class="form-control"
+															th:class="${#fields.hasErrors('phone')} ? 'form-control is-invalid' : 'form-control'"
+															id="exampleFormControlInput3"
 															onkeypress="InputNumber(event)" placeholder="Số điện thoại">
-														<span class="text text-danger badge" th:if="${isPhoneError}"
-															th:utext="${phoneErrorMessage}">Phone Error</span>
+														<div th:errors="*{phone}" th:if="${#fields.hasErrors('phone')}"
+															class="invalid-feedback">Phone Error</div>
 													</div>
 
 													<!-- Địa chỉ Input -->
@@ -126,17 +129,18 @@
 													<label for="uploadAvatar">Ảnh đại diện</label>
 
 													<div>
-														<img th:src="@{*{avatar} ? *{avatar} : '/admin-static/images/no-thumbnail-medium.png'}"
-															alt="avatar-media" class="img-thumbnail mb-3"
-															id="avatar-image" style="max-height: 200px;">
+														<img th:src="@{*{avatar}}" alt="avatar-media"
+															class="img-thumbnail mb-3" id="avatar-image"
+															style="max-height: 200px;">
 													</div>
 
 													<input name="user_avatar" type="file" class="form-control-file"
-														id="uploadAvatar" accept="image/png, image/jpeg" /> <span
-														class="text text-danger badge" th:if="${isAvatarError}"
-														th:utext="${avatarErrorMessage}">Avatar
-														Error</span>
+														th:class="${#fields.hasErrors('avatar')} ? 'form-control-file is-invalid' : 'form-control-file'"
+														id="uploadAvatar" accept="image/png, image/jpeg" />
+													<div th:errors="*{avatar}" th:if="${#fields.hasErrors('avatar')}"
+														class="invalid-feedback">Avatar Error</div>
 												</div>
+												<input hidden th:field="*{avatar}" type="text">
 												<!-- /.avatar image upload -->
 
 												<!-- thay đổi mật khẩu -->
@@ -155,13 +159,13 @@
 																khẩu</label>
 															<div class="col-sm-10">
 																<input name="newPassword" type="password"
-																	class="form-control" id="inputChangePassword"
-																	placeholder="Mật khẩu" disabled><span
-																	class="text text-danger badge"
-																	th:if="${isChangePasswordError}"
-																	th:utext="${changePasswordErrorMessage}">New
-																	Password
-																	Error</span>
+																	class="form-control"
+																	th:class="${#fields.hasErrors('password')} ? 'form-control is-invalid' : 'form-control'"
+																	id="inputChangePassword" placeholder="Mật khẩu"
+																	disabled>
+																<div th:errors="*{password}"
+																	th:if="${#fields.hasErrors('password')}"
+																	class="invalid-feedback">Change Password Error</div>
 															</div>
 														</div>
 
@@ -199,6 +203,13 @@
 
 	<!-- script option -->
 	<th:block layout:fragment="script">
+
+		<script>
+			$('#btn-submit-custom').click(function () {
+				$('#btn-submit-default').click();
+			})
+		</script>
+
 		<!-- preview avatar -->
 		<script>
 			function readURL(input) {

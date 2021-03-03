@@ -39,7 +39,7 @@
 				<div class="container-fluid">
 					<div class="row">
 
-						<div class="card card-info">
+						<div class="card card-info w-100">
 							<div class="card-header">
 								<h2 class="card-title font-weight-bold">Cập nhật danh mục</h2>
 							</div>
@@ -48,28 +48,40 @@
 									th:method="post">
 									<div>
 										<div class="form-group">
-											<label for="exampleFormControlInput2">Tên danh mục (<span
+											<label for="formControlInputName">Tên danh mục (<span
 													style="color: red;">*</span>)
 											</label> <input th:field="*{name}" type="text" class="form-control"
-												id="exampleFormControlInput2" placeholder="Tên danh mục">
-											<span class="text text-danger badge" th:if="${isNameError}"
-												th:utext="${nameErrorMessage}">Name Error</span>
+												th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
+												id="formControlInputName" placeholder="Tên danh mục">
+											<div th:errors="*{name}" th:if="${#fields.hasErrors('name')}"
+												class="invalid-feedback">>Name Error</div>
+										</div>
+
+										<div class="form-group">
+											<label for="formControlInputSlug">Slug</label>
+											<input th:field="*{slug}" type="text" class="form-control"
+												th:class="${#fields.hasErrors('slug')} ? 'form-control is-invalid' : 'form-control'"
+												id="formControlInputSlug" placeholder="" readonly>
+											<div th:errors="*{slug}" th:if="${#fields.hasErrors('slug')}"
+												class="invalid-feedback">Slug Error</div>
 										</div>
 
 										<div class="form-group">
 											<label for="exampleFormControlInput4">Thứ tự hiển thị
 												(<span style="color: red;">*</span>)
 											</label> <input th:field="*{sort}" type="text" class="form-control"
+												th:class="${#fields.hasErrors('sort')} ? 'form-control is-invalid' : 'form-control'"
 												id="exampleFormControlInput4" onkeypress="InputNumber(event)"
-												placeholder="Thứ tự hiển thị"> <span class="text text-danger badge"
-												th:if="${isSortError}" th:utext="${sortErrorMessage}">Sort Error</span>
+												placeholder="Thứ tự hiển thị">
+											<div th:errors="*{sort}" th:if="${#fields.hasErrors('sort')}"
+												class="invalid-feedback">Sort Error</div>
 										</div>
 
 										<!-- Lựa chọn danh mục gốc -->
 										<div class="form-group">
 											<label for="inputCategory">Danh mục gốc</label> <select id="inputCategory"
 												name="typeCategory" class="form-control custom-select"
-												th:field="*{parent_id}">
+												th:field="*{parentId}">
 												<th:block th:each="rc : ${root_categories}">
 													<th:block th:if="*{id} != ${rc.id}">
 														<option th:value="${rc.id}" th:utext="${rc.name}"></option>

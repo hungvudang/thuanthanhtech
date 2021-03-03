@@ -75,8 +75,8 @@ public class SlideAdminController {
 			ra.addFlashAttribute("error", "Tạo slide mới thất bại");
 
 			if (multipartFile.isEmpty()) {
-				ra.addFlashAttribute("isImageError", true);
-				ra.addFlashAttribute("imageErrorMessage", "Hình ảnh không được để trống");
+				FieldError imageError = new FieldError("slide", "image", "Hình ảnh không được để trống");
+				br.addError(imageError);
 			}
 
 			slide.setImage(Helper.NO_IMAGE_MEDIUM_PNG);

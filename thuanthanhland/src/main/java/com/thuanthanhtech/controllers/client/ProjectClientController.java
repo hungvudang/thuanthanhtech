@@ -13,7 +13,7 @@ import com.thuanthanhtech.entities.Project;
 import com.thuanthanhtech.repositories.ProjectRepository;
 
 @Controller
-@RequestMapping("/project")
+@RequestMapping("/du-an")
 public class ProjectClientController {
 	
 	@Autowired
@@ -21,7 +21,7 @@ public class ProjectClientController {
 	
 	@GetMapping
 	public String project(Model m) {
-		List<Project> projects = pRepository.findAll();
+		List<Project> projects = pRepository.findByPub(1);
 		
 		m.addAttribute("projects", projects);
 		return "public-pages/project";

@@ -32,6 +32,7 @@ public class News {
 	private String title;
 
 	@Column(name = "slug", columnDefinition = "VARCHAR(255) NOT NULL")
+	@NotBlank(message = "Slug không được để trống")
 	private String slug;
 
 	@Column(name = "description", columnDefinition = "TEXT NOT NULL")

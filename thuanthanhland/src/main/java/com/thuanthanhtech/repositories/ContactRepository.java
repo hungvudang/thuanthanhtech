@@ -7,5 +7,5 @@ import com.thuanthanhtech.entities.Contact;
 
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Integer>{
-
+	
 }

@@ -51,31 +51,48 @@
                                                 <div>
                                                     <!-- Name Input -->
                                                     <div class="form-group">
-                                                        <label for="exampleFormControlInput2">Tên dự án (<span
+                                                        <label for="formControlInputName">Tên dự án (<span
                                                                 style="color: red;">*</span>)</label>
                                                         <input th:field="*{name}" type="text" class="form-control"
-                                                            id="exampleFormControlInput2" placeholder=""><span
-                                                            class="text text-danger badge" th:if="${isNameError}"
-                                                            th:utext="${nameErrorMessage}">Name Error</span>
+                                                            th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
+                                                            id="formControlInputName" placeholder="Tên dự án">
+                                                        <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}"
+                                                            class="invalid-feedback">Name Error</div>
                                                     </div>
+
+                                                    <!-- Slug Input -->
+                                                    <div class="form-group">
+                                                        <label for="formControlInputSlug">Slug</label>
+                                                        <input th:field="*{slug}" type="text" class="form-control"
+                                                            th:class="${#fields.hasErrors('slug')} ? 'form-control is-invalid' : 'form-control'"
+                                                            id="formControlInputSlug" placeholder="" readonly>
+                                                        <div th:errors="*{slug}" th:if="${#fields.hasErrors('slug')}"
+                                                            class="invalid-feedback">Slug Error</div>
+                                                    </div>
+
                                                     <!-- Title Input -->
 
                                                     <div class="form-group">
                                                         <label for="exampleFormControlInput3">Tiêu đề (<span
                                                                 style="color: red;">*</span>)</label> <input
                                                             th:field="*{title}" type="text" class="form-control"
-                                                            id="exampleFormControlInput3" placeholder=""><span
-                                                            class="text text-danger badge" th:if="${isTitleError}"
-                                                            th:utext="${titleErrorMessage}">Title Error</span>
+                                                            th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'"
+                                                            id="exampleFormControlInput3" placeholder="Tiêu đề">
+                                                        <div th:errors="*{title}" th:if="${#fields.hasErrors('title')}"
+                                                            class="invalid-feedback">Title Error</div>
                                                     </div>
 
                                                     <!-- Description Input -->
                                                     <div class="form-group">
                                                         <label for="inputDescription">Mô tả (<span
                                                                 style="color: red;">*</span>)</label> <br>
-                                                        <textarea class="form-control" id="inputDescription"
-                                                            th:field="*{description}" rows="2" style="width: 100%;"
-                                                            placeholder="Mô tả"></textarea>
+                                                        <textarea class="form-control"
+                                                            th:class="${#fields.hasErrors('description')} ? 'form-control is-invalid' : 'form-control'"
+                                                            id="inputDescription" th:field="*{description}" rows="2"
+                                                            style="width: 100%;" placeholder="Mô tả"></textarea>
+                                                        <div th:errors="*{description}"
+                                                            th:if="${#fields.hasErrors('description')}"
+                                                            class="invalid-feedback">Description Error</div>
                                                     </div>
 
                                                     <!-- Content Input -->
@@ -84,9 +101,6 @@
                                                         <textarea class="textarea form-control" id="inputContent"
                                                             th:field="*{content}" placeholder="Nội dung"></textarea>
                                                     </div>
-
-
-
 
                                                 </div>
 
@@ -114,12 +128,14 @@
                                                     </div>
 
                                                     <input name="project_thumbnail" type="file"
-                                                        class="form-control-file" id="uploadThumbnail"
-                                                        accept="image/png, image/jpeg" /><span
-                                                        class="text text-danger badge" th:if="${isThumbnailError}"
-                                                        th:utext="${thumbnailErrorMessage}">Image Error</span>
+                                                        class="form-control-file"
+                                                        th:class="${#fields.hasErrors('image')} ? 'form-control-file is-invalid' : 'form-control-file'"
+                                                        id="uploadThumbnail" accept="image/png, image/jpeg" />
+                                                    <div th:errors="*{image}" th:if="${#fields.hasErrors('image')}"
+                                                        class="invalid-feedback">Thumbnail Error</div>
                                                 </div>
-                                                <!-- /.thumbnail image upload -->
+
+                                                <input hidden th:field="*{image}" type="text">
 
                                                 <!-- Public Input -->
 

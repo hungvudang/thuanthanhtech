@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,7 +33,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.thuanthanhtech.entities.Helper;
 import com.thuanthanhtech.entities.Project;
 import com.thuanthanhtech.entities.ProjectHelper;
-import com.thuanthanhtech.entities.SlugConverter;
 import com.thuanthanhtech.repositories.ProjectRepository;
 
 @Controller
@@ -53,12 +53,11 @@ public class ProjectAdminController {
 
 	@GetMapping("/create")
 	public String createProject(Model m) {
-		Project project = new Project();
-		project.setPub(1);
-		project.setHot(0);
-		project.setImage(Helper.NO_IMAGE_MEDIUM_PNG);
-
-		if (m.getAttribute("project") == null) {
+		if (!m.containsAttribute("project")) {
+			Project project = new Project();
+			project.setPub(1);
+			project.setHot(0);
+			project.setImage(Helper.NO_IMAGE_MEDIUM_PNG);
 			m.addAttribute("project", project);
 		}
 
@@ -72,34 +71,17 @@ public class ProjectAdminController {
 
 		if (br.hasErrors() || multipartFile.isEmpty()) {
 
-			if (br.hasFieldErrors("name")) {
-				ra.addFlashAttribute("isNameError", true);
-				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
-			}
-
-			if (br.hasFieldErrors("title")) {
-				ra.addFlashAttribute("isTitleError", true);
-				ra.addFlashAttribute("titleErrorMessage", br.getFieldError("title").getDefaultMessage());
-			}
-			
 			if (multipartFile.isEmpty()) {
-				ra.addFlashAttribute("isThumbnailError", true);
-				ra.addFlashAttribute("thumbnailErrorMessage", "Hình ảnh không được để trống");
-			}
-
-			if (br.hasFieldErrors("description")) {
-				ra.addFlashAttribute("isDescriptionError", true);
-				ra.addFlashAttribute("descriptionErrorMessage", br.getFieldError("description").getDefaultMessage());
+				FieldError imageError = new FieldError("project", "image", "Hình ảnh không được để trống");
+				br.addError(imageError);
 			}
 
 			ra.addFlashAttribute("error", "Tạo dự án mới thất bại");
 			project.setImage(Helper.NO_IMAGE_MEDIUM_PNG);
+			ra.addFlashAttribute("org.springframework.validation.BindingResult.project", br);
 			ra.addFlashAttribute("project", project);
 			return "redirect:/admin/project/create";
 		}
-
-		String slug = SlugConverter.convert(project.getName());
-		project.setSlug(slug);
 
 		// Upload ảnh thumbnail của dự án lên server
 		// ===========================================================================================
@@ -107,12 +89,13 @@ public class ProjectAdminController {
 			// Kiểm tra file upload lên có đúng định dạng không
 			String contentType = multipartFile.getContentType();
 			if (!contentType.matches("^image/.+")) {
-				ra.addFlashAttribute("isThumbnailError", true);
-				ra.addFlashAttribute("thumbnailErrorMessage",
+				FieldError imageError = new FieldError("project", "image",
 						"Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
+				br.addError(imageError);
 
 				ra.addFlashAttribute("error", "Tạo dự án mới thất bại");
 				project.setImage(Helper.NO_IMAGE_MEDIUM_PNG);
+				ra.addFlashAttribute("org.springframework.validation.BindingResult.project", br);
 				ra.addFlashAttribute("project", project);
 				return "redirect:/admin/project/create";
 			}
@@ -132,15 +115,20 @@ public class ProjectAdminController {
 
 	@GetMapping("/detail/{id}")
 	public String detailProject(@PathVariable("id") Integer id, Model m, RedirectAttributes ra) {
-		m.addAttribute("active_project", true);
-		Optional<Project> opProject = pRepository.findById(id);
-		if (opProject.isPresent()) {
-			Project project = opProject.get();
-			m.addAttribute("project", project);
-			return "/admin-pages/project-detail";
+		if (!m.containsAttribute("project")) {
+			Optional<Project> opProject = pRepository.findById(id);
+			if (opProject.isPresent()) {
+				Project project = opProject.get();
+				m.addAttribute("project", project);
+			} else {
+				ra.addFlashAttribute("error", "Dự án không tồn tại hoặc đã bị xóa");
+				return "redirect:/admin/project";
+			}
 		}
-		ra.addFlashAttribute("error", "Dự án không tồn tại hoặc đã bị xóa");
-		return "redirect:/admin/project";
+
+		m.addAttribute("active_project", true);
+		return "/admin-pages/project-detail";
+
 	}
 
 	@PostMapping("update/{id}")
@@ -150,21 +138,8 @@ public class ProjectAdminController {
 
 		if (br.hasErrors()) {
 
-			if (br.hasFieldErrors("name")) {
-				ra.addFlashAttribute("isNameError", true);
-				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
-			}
-
-			if (br.hasFieldErrors("title")) {
-				ra.addFlashAttribute("isTitleError", true);
-				ra.addFlashAttribute("titleErrorMessage", br.getFieldError("title").getDefaultMessage());
-			}
-
-			if (br.hasFieldErrors("description")) {
-				ra.addFlashAttribute("isDescriptionError", true);
-				ra.addFlashAttribute("descriptionErrorMessage", br.getFieldError("description").getDefaultMessage());
-			}
-
+			ra.addFlashAttribute("org.springframework.validation.BindingResult.project", br);
+			ra.addFlashAttribute("project", project);
 			ra.addFlashAttribute("error", "Cập nhật dự án thất bại");
 			return "redirect:/admin/project/detail/" + id;
 		}
@@ -177,9 +152,10 @@ public class ProjectAdminController {
 			nProject.setTitle(project.getTitle());
 			nProject.setContent(project.getContent());
 			nProject.setDescription(project.getDescription());
-
+			nProject.setHot(project.getHot());
+			nProject.setPub(project.getPub());
 			String oldSlug = nProject.getSlug();
-			nProject.setSlug(SlugConverter.convert(project.getName()));
+			nProject.setSlug(project.getSlug());
 
 			// Đổi tên thư mục lưu ảnh thumbnail của dư án khi cập nhập slug
 			// =========================================================================================================
@@ -191,6 +167,11 @@ public class ProjectAdminController {
 
 				Files.move(oldThumbnailPathDir.normalize(), newThumbnailPathDir.normalize(),
 						StandardCopyOption.REPLACE_EXISTING);
+
+				String fImageName = project.getImage().substring(project.getImage().lastIndexOf('/') + 1);
+				
+				project.setImage(StringUtils
+						.cleanPath(ProjectHelper.ROOT_PATH_IMAGE_MEDIUM + Helper.FILE_SEPARTOR + nProject.getSlug() + Helper.FILE_SEPARTOR + fImageName));
 			}
 			// ==========================================================================================================
 
@@ -200,10 +181,12 @@ public class ProjectAdminController {
 				// Kiểm tra file upload lên có đúng định dạng không
 				String contentType = multipartFile.getContentType();
 				if (!contentType.matches("^image/.+")) {
-					ra.addFlashAttribute("isThumbnailError", true);
-					ra.addFlashAttribute("thumbnailErrorMessage",
+					FieldError imageError = new FieldError("project", "image",
 							"Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
+					br.addError(imageError);
 
+					ra.addFlashAttribute("org.springframework.validation.BindingResult.project", br);
+					ra.addFlashAttribute("project", project);
 					ra.addFlashAttribute("error", "Cập nhật dự án thất bại");
 					return "redirect:/admin/project/detail/" + id;
 				}
@@ -211,13 +194,15 @@ public class ProjectAdminController {
 				String fThumbnailImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 				String uploadDir = StringUtils
 						.cleanPath(ProjectHelper.ROOT_PATH_IMAGE_MEDIUM + Helper.FILE_SEPARTOR + nProject.getSlug());
-				
+
 				// Xóa thư ảnh thumbnail cũ
 				deleteImageDir(nProject.getSlug());
-				
+
 				ProjectHelper.saveImage(multipartFile, uploadDir, fThumbnailImageName);
-				nProject.setImage(StringUtils.cleanPath(uploadDir + Helper.FILE_SEPARTOR + fThumbnailImageName));
+				project.setImage(StringUtils.cleanPath(uploadDir + Helper.FILE_SEPARTOR + fThumbnailImageName));
+
 			}
+			nProject.setImage(project.getImage());
 
 			pRepository.save(nProject);
 			ra.addFlashAttribute("success", "Cập nhật dự án thành công");
@@ -233,9 +218,9 @@ public class ProjectAdminController {
 		Optional<Project> opProject = pRepository.findById(id);
 		if (opProject.isPresent()) {
 			pRepository.deleteById(id);
-			
+
 			deleteImageDir(opProject.get().getSlug());
-			
+
 			ra.addFlashAttribute("success", "Xóa dự án thành công");
 		} else {
 			ra.addFlashAttribute("error", "Xóa dự án thất bại");
@@ -248,10 +233,9 @@ public class ProjectAdminController {
 	public String handlerException() {
 		return "admin-pages/500";
 	}
-	
+
 	/**
-	 * @param projectSlug
-	 * Xóa thư mục lưu ảnh của dự án bị xóa đi
+	 * @param projectSlug Xóa thư mục lưu ảnh của dự án bị xóa đi
 	 */
 	private void deleteImageDir(String projectSlug) {
 		Path pProjectImage = Paths.get(ProjectHelper.ROOT_PATH_IMAGE_MEDIUM + Helper.FILE_SEPARTOR + projectSlug);

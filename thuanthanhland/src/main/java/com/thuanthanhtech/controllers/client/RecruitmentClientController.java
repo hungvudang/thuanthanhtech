@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/recruitment")
+@RequestMapping("/tuyen-dung")
 public class RecruitmentClientController {
 	@GetMapping
 	public String recruitment(Model m) {
@@ -14,13 +14,13 @@ public class RecruitmentClientController {
 		return "public-pages/recruitment";
 	}
 	
-	@GetMapping("/careeropportunities")
+	@GetMapping("/co-hoi-nghe-nghiep")
 	public String careerOpportUnities(Model m) {
 		
 		return "public-pages/careeropportunities";
 	}
 	
-	@GetMapping("/specifiedcandidateprofile")
+	@GetMapping("/quy-dinh-ho-so-ung-tuyen")
 	public String specifiedCandidateProfile(Model m) {
 		
 		return "public-pages/specifiedcandidateprofile";

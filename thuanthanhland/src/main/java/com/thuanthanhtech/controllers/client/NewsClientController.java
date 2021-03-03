@@ -18,7 +18,7 @@ import com.thuanthanhtech.repositories.NewsPagingAndSortRepository;
 import com.thuanthanhtech.repositories.NewsRepository;
 
 @Controller
-@RequestMapping("/news")
+@RequestMapping("/tin-tuc")
 public class NewsClientController {
 	@Autowired
 	private NewsRepository nRepository;
@@ -28,12 +28,12 @@ public class NewsClientController {
 
 	@GetMapping
 	public String news(Model m) {
-		return "redirect:/news/page/1";
+		return "redirect:/tin-tuc/page/1";
 	}
 	@GetMapping("/page/{index}")
 	public String nextPage(@PathVariable("index") Integer index, Model m) {
 		Pageable pageable = PageRequest.of(index - 1, 8);
-		Page<News> page = nPagingAndSortRepository.findAll(pageable);
+		Page<News> page = nPagingAndSortRepository.findByPub(1, pageable);
 		
 		List<News> news = page.getContent();
 		int currentPage = index;
@@ -57,6 +57,6 @@ public class NewsClientController {
 			return "public-pages/blog-detail";
 		}
 		
-		return "redirect:/news";
+		return "redirect:/tin-tuc";
 	}
 }

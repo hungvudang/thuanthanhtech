@@ -18,8 +18,9 @@ public class HomeClientController {
 	@Autowired
 	private SlideRepository sRepository;
 	
-	@GetMapping({"/home", "/"})
+	@GetMapping({"/trang-chu", "/"})
 	public String home(Model m) {
+		
 		List<Slide> slides = sRepository.findByPub(1);
 		if (slides != null) {
 			Collections.sort(slides, new Comparator<Slide>() {

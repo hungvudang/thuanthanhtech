@@ -22,7 +22,7 @@ import com.thuanthanhtech.entities.Contact;
 import com.thuanthanhtech.repositories.ContactRepository;
 
 @Controller
-@RequestMapping("/contact")
+@RequestMapping("/lien-he")
 public class ContactClientController {
 
 	@Autowired
@@ -60,14 +60,14 @@ public class ContactClientController {
 			ra.addFlashAttribute("error", "Thông tin bạn cung cấp không đúng. Vui lòng thử lại");
 			contact.setStatus(0);
 			ra.addFlashAttribute("contact", contact);
-			return "redirect:/contact";
+			return "redirect:/lien-he";
 		}
 //		else
 		contact.setStatus(0);
 		cRepository.saveAndFlush(contact);
 		ra.addFlashAttribute("success",
 				"Chúng tôi đã nhận được phản hồi của bạn. Chúng tôi sẽ liên hệ lại với bạn trong thời gian sớm nhất");
-		return "redirect:/contact";
+		return "redirect:/lien-he";
 	}
 
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })

@@ -1,7 +1,6 @@
 <script src="/public-static/js/jquery-3.2.1.min.js"
     th:src="${#request.contextPath} + '/public-static/js/jquery-3.2.1.min.js'"></script>
 
-
 <script src="/public-static/js/popper.min.js"
     th:src="${#request.contextPath} + '/public-static/js/popper.min.js'"></script>
 
@@ -15,3 +14,55 @@
     th:src="${#request.contextPath} + '/public-static/js/jquery.waypoints.min.js'"></script>
 
 <script src="/public-static/js/main.js" th:src="${#request.contextPath} + '/public-static/js/main.js'"></script>
+
+<!-- Dependency SpeakingURL -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/speakingurl/6.0.0/speakingurl.min.js"></script>
+
+<script th:inline="javascript">
+    $.get(url = "http://localhost:8080/api/category",
+        success = function (root) {
+            $.each(root.childs, function (index, cate) {
+                if (cate.childs.length == 0) {
+                    $('.navbar-nav').append(`
+                    <li class="nav-item">
+                        <a class="nav-link" href="/${cate.parent.slug}">${cate.parent.name}</a>
+                    </li>
+                    `)
+                } else {
+                    $('.navbar-nav').append(`
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/${cate.parent.slug}" id="navbarDropdownMenuLink"
+                            aria-haspopup="true" aria-expanded="false">${cate.parent.name}</a>
+                            <ul id = "dropdown-menu-${cate.id}" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                            </ul>
+                        </li>
+                    `)
+                    recursive(cate);
+                }
+            })
+        }
+    )
+
+    function recursive($rootcate) {
+        var childs = $rootcate.childs;
+        $.each(childs, function (index, cate) {
+            if (cate.childs.length == 0) {
+                $(`#dropdown-menu-${$rootcate.id}`).append(`
+                <li><a class="dropdown-item" href="${cate.parent.slug}">${cate.parent.name}</a></li> 
+            `)
+            } else {
+                $(`#dropdown-menu-${$rootcate.id}`).append(`
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
+                                href="${cate.parent.slug}">${cate.parent.name}</a>
+                        <ul id="dropdown-menu-${cate.id}" class="dropdown-menu">
+
+                        </ul>
+                    </li>
+                `)
+                recursive(cate);
+            }
+        })
+
+    }
+</script>

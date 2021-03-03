@@ -51,13 +51,14 @@
 												<div>
 													<!-- Name Input -->
 													<div class="form-group">
-														<label for="exampleFormControlInput1">Tên tài khoản (<span
-																style="color: red;">*</span>)</label>
-														<input th:field="*{name}" type="text" class="form-control"
-															id="exampleFormControlInput1"
-															placeholder="Tên tài khoản"><span
-															class="text text-danger badge" th:if="${isNameError}"
-															th:utext="${nameErrorMessage}">Name Error</span>
+														<label for="exampleFormControlInput1">Tên tài khoản
+															(<span style="color: red;">*</span>)
+														</label> <input th:field="*{name}" type="text"
+															class="form-control"
+															th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
+															id="exampleFormControlInput1" placeholder="Tên tài khoản">
+														<div th:errors="*{name}" th:if="${#fields.hasErrors('name')}"
+															class="invalid-feedback">Name Error</div>
 													</div>
 													<!-- Email Input -->
 
@@ -65,9 +66,10 @@
 														<label for="exampleFormControlInput2">Email (<span
 																style="color: red;">*</span>)</label> <input
 															th:field="*{email}" type="text" class="form-control"
-															id="exampleFormControlInput2" placeholder="Email"><span
-															class="text text-danger badge" th:if="${isEmailError}"
-															th:utext="${emailErrorMessage}">Email Error</span>
+															th:class="${#fields.hasErrors('email')} ? 'form-control is-invalid' : 'form-control'"
+															id="exampleFormControlInput2" placeholder="Email">
+														<div th:errors="*{email}" th:if="${#fields.hasErrors('email')}"
+															class="invalid-feedback">Email Error</div>
 													</div>
 
 													<!-- Password Input -->
@@ -75,10 +77,12 @@
 														<label for="exampleFormControlInput5">Mật khẩu (<span
 																style="color: red;">*</span>)</label> <input
 															th:field="*{password}" type="password" class="form-control"
+															th:class="${#fields.hasErrors('password')} ? 'form-control is-invalid' : 'form-control'"
 															id="exampleFormControlInput5" placeholder="Mật khẩu"
-															onkeyup="passwordConfirm()"><span
-															class="text text-danger badge" th:if="${isPasswordError}"
-															th:utext="${passwordErrorMessage}">Password Error</span>
+															onkeyup="passwordConfirm()">
+														<div th:errors="*{password}"
+															th:if="${#fields.hasErrors('password')}"
+															class="invalid-feedback">Password Error</div>
 													</div>
 
 													<!-- Password Confirm Input -->
@@ -97,10 +101,11 @@
 														<label for="exampleFormControlInput3">Số điện thoại (<span
 																style="color: red;">*</span>)</label>
 														<input th:field="*{phone}" type="tel" class="form-control"
+															th:class="${#fields.hasErrors('phone')} ? 'form-control is-invalid' : 'form-control'"
 															id="exampleFormControlInput3"
 															onkeypress="InputNumber(event)" placeholder="Số điện thoại">
-														<span class="text text-danger badge" th:if="${isPhoneError}"
-															th:utext="${phoneErrorMessage}">Phone Error</span>
+														<div th:errors="*{phone}" th:if="${#fields.hasErrors('phone')}"
+															class="invalid-feedback">Phone Error</div>
 													</div>
 
 													<!-- Địa chỉ Input -->
@@ -159,10 +164,10 @@
 													</div>
 
 													<input name="user_avatar" type="file" class="form-control-file"
-														id="uploadAvatar" accept="image/png, image/jpeg" /> <span
-														class="text text-danger badge" th:if="${isAvatarError}"
-														th:utext="${avatarErrorMessage}">Avatar
-														Error</span>
+														th:class="${#fields.hasErrors('avatar')} ? 'form-control-file is-invalid' : 'form-control-file'"
+														id="uploadAvatar" accept="image/png, image/jpeg" />
+													<div th:errors="*{avatar}" th:if="${#fields.hasErrors('avatar')}"
+														class="invalid-feedback">Avatar Error</div>
 												</div>
 												<!-- /.avatar image upload -->
 											</div>
@@ -229,8 +234,10 @@
 			var passwordConfirm = function () {
 				if (!(document.getElementById('exampleFormControlInput5').value == document.getElementById('exampleFormControlInput6').value)) {
 					document.getElementById('messageConfirm').innerHTML = "Mật khẩu không trùng khớp";
+					document.getElementById('btn-submit-custom').disabled = true;
 				} else {
 					document.getElementById('messageConfirm').innerHTML = "";
+					document.getElementById('btn-submit-custom').disabled = false;
 				}
 			}
 		</script>

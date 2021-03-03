@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +40,7 @@ public class UserAdminController {
 
 	@Autowired
 	private UserRepository uRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -55,11 +56,11 @@ public class UserAdminController {
 	@GetMapping("/create")
 	public String createUser(Model m) {
 
-		if (m.getAttribute("user") == null) {
+		if (!m.containsAttribute("user")) {
 			User user = new User();
 			user.setRole(0);
 			user.setAvatar(Helper.NO_IMAGE_MEDIUM_PNG);
-			
+
 			m.addAttribute("user", user);
 		}
 
@@ -74,58 +75,40 @@ public class UserAdminController {
 			throws IOException {
 
 		if (br.hasErrors()) {
-			if (br.hasFieldErrors("name")) {
-				ra.addFlashAttribute("isNameError", true);
-				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
-			}
-
-			if (br.hasFieldErrors("email")) {
-				ra.addFlashAttribute("isEmailError", true);
-				ra.addFlashAttribute("emailErrorMessage", br.getFieldError("email").getDefaultMessage());
-			}
-
-			if (br.hasFieldErrors("phone")) {
-				ra.addFlashAttribute("isPhoneError", true);
-				ra.addFlashAttribute("phoneErrorMessage", br.getFieldError("phone").getDefaultMessage());
-			}
-
-			if (br.hasFieldErrors("password")) {
-				ra.addFlashAttribute("isPasswordError", true);
-				ra.addFlashAttribute("passwordErrorMessage", br.getFieldError("password").getDefaultMessage());
-			}
 
 			user.setAvatar(Helper.NO_IMAGE_MEDIUM_PNG);
-
 			ra.addFlashAttribute("error", "Tạo tài khoản mới thất bại");
 			ra.addFlashAttribute("user", user);
+			ra.addFlashAttribute("org.springframework.validation.BindingResult.user", br);
 			return "redirect:/admin/user/create";
 
 		}
 
 		ra.addFlashAttribute("success", "Tài khoản mới đã được tạo thành công");
-		
+
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		
+
 		User savedUser = uRepository.saveAndFlush(user);
 
 		// Upload ảnh đại diện (avatar)
 		// ======================================================================================
 		if (multipartFile != null && !multipartFile.isEmpty()) {
-			
+
 			// Kiểm tra file upload lên có đúng định dạng không
 			String contentType = multipartFile.getContentType();
 			if (!contentType.matches("^image/.+")) {
-				
-				ra.addFlashAttribute("isAvatarError", true);
-				ra.addFlashAttribute("avatarErrorMessage", "Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
-				
+
+				FieldError avatarError = new FieldError("user", "avatar",
+						"Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
+				br.addError(avatarError);
+
 				ra.addFlashAttribute("error", "Tạo tài khoản mới thất bại");
 				user.setAvatar(Helper.NO_IMAGE_MEDIUM_PNG);
 				ra.addFlashAttribute("user", user);
+				ra.addFlashAttribute("org.springframework.validation.BindingResult.user", br);
 				return "redirect:/admin/user/create";
 			}
-			
-			
+
 			String fAvatarImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			String uploadDir = UserHelper.ROOT_PATH_AVATAR_MEDIUM + Helper.FILE_SEPARTOR + savedUser.getId();
 			UserHelper.saveAvatarImage(multipartFile, uploadDir, fAvatarImageName);
@@ -139,47 +122,39 @@ public class UserAdminController {
 	}
 
 	@GetMapping("/detail/{id}")
-	public String detailUser(@PathVariable("id") Integer id, Model m) {
+	public String detailUser(@PathVariable("id") Integer id, Model m, RedirectAttributes ra) {
+		if (!m.containsAttribute("user")) {
+			Optional<User> opUser = uRepository.findById(id);
 
-		Optional<User> opUser = uRepository.findById(id);
+			if (opUser.isPresent()) {
+				User user = opUser.get();
+				m.addAttribute("user", user);
 
-		if (opUser.isPresent()) {
-			User user = opUser.get();
+			} else {
+				// Nếu không tìm thấy tài khoản với id trên thì trở về trang users
+				ra.addFlashAttribute("error", "Tài khoản không tồn tại hoặc đã bị xóa");
+				return "redirect:/admin/user";
+			}
 
-			m.addAttribute("user", user);
-			m.addAttribute("active_user", true);
-			;
-			return "admin-pages/user-detail";
 		}
 
-		// Nếu không tìm thấy tài khoản với id trên thì trở về trang users
-		return "redirect:/admin/user";
+		m.addAttribute("active_user", true);
+		return "admin-pages/user-detail";
 	}
 
 	@PostMapping("/update/{id}")
 	public String updateUser(@PathVariable("id") Integer id,
 			@Validated(UserValidator.updateValidation.class) @ModelAttribute("user") User user, BindingResult br,
-			@RequestParam("user_avatar") MultipartFile multipartFile, Model m, RedirectAttributes ra, @RequestParam(name = "isChangePassword", required = false) String isChangePassword, @RequestParam(name = "newPassword", required = false) String newPassword)
-			throws IOException {
+			@RequestParam("user_avatar") MultipartFile multipartFile, Model m, RedirectAttributes ra,
+			@RequestParam(name = "isChangePassword", required = false) String isChangePassword,
+			@RequestParam(name = "newPassword", required = false) String newPassword) throws IOException {
 
 		// Bỏ qua phần validate password khi cập nhật. Vì không cho phép cập nhật
 		// password
 		if (br.hasErrors()) {
-			if (br.hasFieldErrors("name")) {
-				ra.addFlashAttribute("isNameError", true);
-				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
-			}
 
-			if (br.hasFieldErrors("email")) {
-				ra.addFlashAttribute("isEmailError", true);
-				ra.addFlashAttribute("emailErrorMessage", br.getFieldError("email").getDefaultMessage());
-			}
-
-			if (br.hasFieldErrors("phone")) {
-				ra.addFlashAttribute("isPhoneError", true);
-				ra.addFlashAttribute("phoneErrorMessage", br.getFieldError("phone").getDefaultMessage());
-			}
-
+			ra.addFlashAttribute("user", user);
+			ra.addFlashAttribute("org.springframework.validation.BindingResult.user", br);
 			ra.addFlashAttribute("error", "Cập nhật tài khoản thất bại");
 			return "redirect:/admin/user/detail/" + id;
 		}
@@ -193,49 +168,51 @@ public class UserAdminController {
 			nUser.setPhone(user.getPhone());
 			nUser.setAddress(user.getAddress());
 			nUser.setRole(user.getRole());
-			
+
 			// Cập nhật mật khẩu nếu có
-			if(isChangePassword != null) {
-				System.out.println(isChangePassword);
+			if (isChangePassword != null) {
+				
 				if (newPassword == null || newPassword.isBlank() || newPassword.length() < 8) {
-					
-					ra.addFlashAttribute("isChangePasswordError", true);
-					ra.addFlashAttribute("changePasswordErrorMessage", "Mật khẩu mới không hợp lệ");
+
+					FieldError passwordError = new FieldError("user", "password", "Mật khẩu mới không hợp lệ");
+					br.addError(passwordError);
+
+					ra.addFlashAttribute("user", user);
+					ra.addFlashAttribute("org.springframework.validation.BindingResult.user", br);
 					ra.addFlashAttribute("error", "Cập nhật tài khoản thất bại");
 					return "redirect:/admin/user/detail/" + id;
 				}
-				
+
 				nUser.setPassword(passwordEncoder.encode(newPassword));
 			}
 
 			// Cập nhật ảnh đại diện
 			// ======================================================================================
 			if (multipartFile != null && !multipartFile.isEmpty()) {
-				
+
 				// Kiểm tra file upload lên có đúng định dạng không
 				String contentType = multipartFile.getContentType();
 				if (!contentType.matches("^image/.+")) {
-					ra.addFlashAttribute("isAvatarError", true);
-					ra.addFlashAttribute("avatarErrorMessage", "Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
-					
+					FieldError imageError = new FieldError("user", "avatar",
+							"Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
+					br.addError(imageError);
+					ra.addFlashAttribute("user", user);
+					ra.addFlashAttribute("org.springframework.validation.BindingResult.user", br);
 					ra.addFlashAttribute("error", "Cập nhật tài khoản thất bại");
 					return "redirect:/admin/user/detail/" + id;
 				}
-				
-				
+
 				// Xóa ảnh đại đại diện cũ
 				deleteAvatarImageDir(id);
-				
+
 				String fAvatarImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 				String uploadDir = UserHelper.ROOT_PATH_AVATAR_MEDIUM + Helper.FILE_SEPARTOR + nUser.getId();
 				UserHelper.saveAvatarImage(multipartFile, uploadDir, fAvatarImageName);
-				nUser.setAvatar(UserHelper.ROOT_PATH_AVATAR_MEDIUM + Helper.FILE_SEPARTOR + nUser.getId() + File.separator
-						+ fAvatarImageName);
+				nUser.setAvatar(UserHelper.ROOT_PATH_AVATAR_MEDIUM + Helper.FILE_SEPARTOR + nUser.getId()
+						+ File.separator + fAvatarImageName);
 			}
 			// =======================================================================================
 
-			// nUser.setPassword(passwordEncoder.encode(nUser.getPassword()));
-			
 			uRepository.saveAndFlush(nUser);
 			ra.addFlashAttribute("success", "Tài khoản đã được cập nhật thành công");
 			return "redirect:/admin/user/detail/" + nUser.getId();
@@ -257,14 +234,13 @@ public class UserAdminController {
 				deleteAvatarImageDir(id);
 			}
 			ra.addFlashAttribute("success", "Tài khoản đã được xóa thành công");
-			
+
 		} else {
 			ra.addFlashAttribute("error", "Tài khoản không tồn tại hoặc đã bị xóa");
 		}
 
 		return "redirect:/admin/user";
 	}
-	
 
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
