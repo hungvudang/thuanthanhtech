@@ -137,7 +137,7 @@
 													<input name="news_thumbnail" type="file" class="form-control-file"
 														th:class="${#fields.hasErrors('image')} ? 'form-control-file is-invalid' : 'form-control-file'"
 														id="uploadThumbnail" accept="image/png, image/jpeg" />
-													<div th:errors="*{thmbnail}" th:if="${#fields.hasErrors('image')}"
+													<div th:errors="*{image}" th:if="${#fields.hasErrors('image')}"
 														class="invalid-feedback">Image Error</div>
 												</div>
 												<!-- /.thumbnail image upload -->
