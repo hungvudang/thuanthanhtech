@@ -10036,7 +10036,7 @@ header .navbar .dropdown-menu:before {
   bottom: 100%;
   left: 10%;
   border: solid transparent;
-  content: " ";
+  /* content: " "; */
   height: 0;
   width: 0;
   position: absolute;
