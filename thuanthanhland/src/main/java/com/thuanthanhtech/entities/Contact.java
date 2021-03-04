@@ -29,7 +29,7 @@ public class Contact {
 	@NotBlank(message = "Tên không được để trống")
 	private String name;
 
-	@Column(name = "email", nullable = false)
+	@Column(name = "email", nullable = false, unique = true)
 	@Email(message = "Email không đúng định dạng")
 	@NotNull
 	@NotBlank(message = "Email không được để trống")

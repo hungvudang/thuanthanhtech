@@ -2,11 +2,13 @@ package com.thuanthanhtech.controllers.client;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thuanthanhtech.entities.Contact;
+import com.thuanthanhtech.entities.ContactHelper;
 import com.thuanthanhtech.repositories.ContactRepository;
 
 @Controller
@@ -27,6 +30,9 @@ public class ContactClientController {
 
 	@Autowired
 	private ContactRepository cRepository;
+	
+	@Autowired
+	private JavaMailSender javaMailSender;
 
 	@GetMapping
 	public String contact(Model m) {
@@ -63,8 +69,26 @@ public class ContactClientController {
 			return "redirect:/lien-he";
 		}
 //		else
-		contact.setStatus(0);
-		cRepository.saveAndFlush(contact);
+		
+		// Kiểm tra email đã có trong csdl chưa
+		Optional<Contact> opContact = cRepository.findByEmail(contact.getEmail());
+		if (opContact.isPresent()) {
+			Contact nContact = opContact.get();
+			nContact.setName(contact.getName());
+			nContact.setPhone(contact.getPhone());
+			nContact.setContent(contact.getContent());
+			nContact.setEmail(contact.getEmail());
+			nContact.setAddress(contact.getAddress());
+			nContact.setStatus(0);
+			
+			cRepository.saveAndFlush(nContact);
+		} else {
+			contact.setStatus(0);
+			cRepository.saveAndFlush(contact);
+		}
+		
+		ContactHelper.sendMail(contact.getEmail(), javaMailSender);
+		
 		ra.addFlashAttribute("success",
 				"Chúng tôi đã nhận được phản hồi của bạn. Chúng tôi sẽ liên hệ lại với bạn trong thời gian sớm nhất");
 		return "redirect:/lien-he";
