@@ -38,7 +38,8 @@
 							<div class="card card-bordedless">
 								<a th:href="@{'/tin-tuc/detail/' + ${n.slug}}">
 									<img class="card-img-top" style="object-fit: cover;" width="200" height="200"
-										th:src="@{${n.image}}" th:alt="${n.name}">
+										th:src="@{${BASE_PATH_NEWS_RESOURCE} + '/' + ${n.id} + '/' + ${n.thumbnail}}"
+										th:alt="${n.name}">
 								</a>
 								<div class="card-body d-flex flex-column pb-0" style="max-height: 300px;">
 									<div>

@@ -79,14 +79,14 @@
 
 										<!-- Lựa chọn danh mục gốc -->
 										<div class="form-group">
-											<label for="inputCategory">Danh mục gốc</label> <select id="inputCategory"
-												name="typeCategory" class="form-control custom-select"
-												th:field="*{parentId}">
-												<th:block th:each="rc : ${root_categories}">
+											<label for="formControlInputCategory">Danh mục gốc</label>
+											<select id="formControlInputCategory" name="typeCategory"
+												class="form-control custom-select" th:field="*{parentId}">
+												<!-- <th:block th:each="rc : ${root_categories}">
 													<th:block th:if="*{id} != ${rc.id}">
 														<option th:value="${rc.id}" th:utext="${rc.name}"></option>
 													</th:block>
-												</th:block>
+												</th:block> -->
 											</select>
 										</div>
 
@@ -161,6 +161,43 @@
 				}
 			}
 		</script>
+
+		<!-- List danh mục -->
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var $rootCate = /*[[${rootCate}]]*/'rootCate';
+			var $targetId = /*[[${category.id}]]*/'id';
+			var $targetParentId = /*[[${category.parentId}]]*/'parentId';
+			/*]]>*/
+			var selected = "";
+			recursive($rootCate, $targetId, $targetParentId, "");
+
+
+			function recursive($rootCate, $targetId, $targetParentId, $level) {
+
+				if ($rootCate.id == $targetParentId) {
+					selected = 'selected';
+				}
+
+				if ($rootCate.id != $targetId) {
+					$('#formControlInputCategory').append(`
+						<option value="${$rootCate.id}" ${selected}>${$level}${$rootCate.self.name}</option>
+					`)
+
+					selected = "";
+
+					if ($rootCate.childs.length > 0 && $rootCate.id != $targetId) {
+						$.each($rootCate.childs, function ($index, $cate) {
+							recursive($cate, $targetId, $targetParentId, $level + '&emsp;');
+						})
+					}
+				}
+			}
+		</script>
+		<!-- List danh mục -->
+
+
+
 	</th:block>
 	<!-- /. script option -->
 </body>

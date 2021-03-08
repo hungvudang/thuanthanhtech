@@ -25,14 +25,14 @@
                 if (cate.childs.length == 0) {
                     $('.navbar-nav').append(`
                     <li class="nav-item">
-                        <a class="nav-link" href="/${cate.parent.slug}">${cate.parent.name}</a>
+                        <a class="nav-link" href="/${cate.self.slug}">${cate.self.name}</a>
                     </li>
                     `)
                 } else {
                     $('.navbar-nav').append(`
                         <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="/${cate.parent.slug}" id="navbarDropdownMenuLink"
-                            aria-haspopup="true" aria-expanded="false">${cate.parent.name}</a>
+                        <a class="nav-link dropdown-toggle" href="/${cate.self.slug}" id="navbarDropdownMenuLink"
+                            aria-haspopup="true" aria-expanded="false">${cate.self.name}</a>
                             <ul id = "dropdown-menu-${cate.id}" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
                             </ul>
@@ -49,12 +49,12 @@
         $.each(childs, function (index, cate) {
             if (cate.childs.length == 0) {
                 $(`#dropdown-menu-${$rootcate.id}`).append(`
-                <li><a class="dropdown-item" href="${cate.parent.slug}">${cate.parent.name}</a></li> 
+                <li><a class="dropdown-item" href="${cate.self.slug}">${cate.self.name}</a></li> 
             `)
             } else {
                 $(`#dropdown-menu-${$rootcate.id}`).append(`
                     <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
-                                href="${cate.parent.slug}">${cate.parent.name}</a>
+                                href="${cate.self.slug}">${cate.self.name}</a>
                         <ul id="dropdown-menu-${cate.id}" class="dropdown-menu">
 
                         </ul>

@@ -49,20 +49,6 @@ public class Spotlight {
 		super();
 	}
 
-	
-	public Spotlight(Integer id, @NotBlank(message = "Tên không hợp lệ") String name,
-			@NotBlank(message = "Tiêu đề không hợp lệ") String title, String image, Integer sort, Integer pub,
-			@NotBlank(message = "Mô tả không hợp lệ") String description) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.title = title;
-		this.image = image;
-		this.sort = sort;
-		this.pub = pub;
-		this.description = description;
-	}
-
 
 	public Integer getId() {
 		return id;

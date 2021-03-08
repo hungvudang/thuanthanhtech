@@ -1,29 +1,168 @@
 package com.thuanthanhtech.entities;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.thuanthanhtech.repositories.NewsRepository;
+
 public class NewsHelper {
 
-	public final static String ROOT_PATH_THUMBNAIL_MEDIUM = "/public/upload/news";
+	public final static String BASE_PATH_NEWS_RESOURCE = "/public/upload/news";
+	public final static String DIR_IMAGE_DETAILS = "/images";
 
-	public static void saveThumbnailImage(MultipartFile multipartFile, String uploadDir, String fThumbnailImageName)
-			throws IOException {
-		Path pUploadDirThumbnailImage = Paths.get(uploadDir);
+	@Transactional(rollbackOn = { SQLException.class, IOException.class, NullPointerException.class })
+	public static boolean insertNewsEntity(News news, MultipartFile multipartNewsThumbnail,
+			MultipartFile[] multipartNewsImages, NewsRepository nRepository) {
 
-		if (!Files.exists(pUploadDirThumbnailImage)) {
-			Files.createDirectories(pUploadDirThumbnailImage);
+		int targetNewsId = nRepository.save(news).getId();
+
+		String targetUploadDir = BASE_PATH_NEWS_RESOURCE + Helper.FILE_SEPARTOR + targetNewsId;
+		String uploadImagesDir = targetUploadDir + Helper.FILE_SEPARTOR + DIR_IMAGE_DETAILS;
+
+		try {
+
+			if (multipartNewsThumbnail != null && !multipartNewsThumbnail.isEmpty()) {
+
+				String thumbnailImageName = multipartNewsThumbnail.getOriginalFilename();
+				saveImage(multipartNewsThumbnail, targetUploadDir, thumbnailImageName);
+
+			}
+
+			if (multipartNewsImages != null) {
+				
+				for (MultipartFile multipartImage : multipartNewsImages) {
+					if (multipartImage != null && !multipartImage.isEmpty()) {
+						String fImageName = multipartImage.getOriginalFilename();
+						saveImage(multipartImage, uploadImagesDir, fImageName);
+
+					}
+				}
+			}
+
+		} catch (IOException e) {
+			System.err.println(NewsHelper.class.getSimpleName() + ": " + e.getMessage());
+			news.setThumbnail(Helper.NO_IMAGE_MEDIUM_PNG);
+			news.setImages(null);
+			deleteNewsResourceDir(targetUploadDir);
+			return false;
+		}
+
+		return true;
+	}
+
+	@Transactional(rollbackOn = { SQLException.class, IOException.class , NullPointerException.class})
+	public static boolean updateNewsById(Integer targetNewsId, News news, MultipartFile multipartNewsThumbnail,
+			MultipartFile[] multipartNewsImages, NewsRepository nRepository) {
+		Optional<News> opNews = nRepository.findById(targetNewsId);
+		
+		if (opNews.isPresent()) {
+			News nNews = opNews.get();
+
+			nNews.setName(news.getName());
+			nNews.setTitle(news.getTitle());
+			nNews.setSlug(news.getSlug());
+			nNews.setDescription(news.getDescription());
+			nNews.setContent(news.getContent());
+
+			nNews.setCategory(news.getCategory());
+			nNews.setPub(news.getPub());
+			nNews.setHot(news.getHot());
+			
+			String oldNameThumbnail = nNews.getThumbnail(); 
+			
+			String targetUploadDir = BASE_PATH_NEWS_RESOURCE + Helper.FILE_SEPARTOR + targetNewsId;
+			String uploadImagesDir = targetUploadDir + Helper.FILE_SEPARTOR + DIR_IMAGE_DETAILS;
+			
+			try {
+				
+				if (multipartNewsThumbnail != null && !multipartNewsThumbnail.isEmpty()) {
+					// Xóa ảnh thumbnail cũ
+					deleteNewsResourceDir(targetUploadDir + Helper.FILE_SEPARTOR + oldNameThumbnail);
+					
+					// Cập nhật ảnh thumbnail mới
+					String thumbnailImageName = multipartNewsThumbnail.getOriginalFilename();
+					saveImage(multipartNewsThumbnail, targetUploadDir, thumbnailImageName);
+					
+					nNews.setThumbnail(news.getThumbnail());
+				}
+
+				if (multipartNewsImages != null) {
+					List<Image> newImages = new ArrayList<Image>();
+					
+					for (MultipartFile multipartImage : multipartNewsImages) {
+						if (multipartImage != null && !multipartImage.isEmpty()) {
+							String fImageName = multipartImage.getOriginalFilename();
+							saveImage(multipartImage, uploadImagesDir, fImageName);
+							Image img = new Image();
+							img.setName(fImageName);
+							img.setNews(nNews);
+							
+							newImages.add(img);
+						}
+					}
+					
+					// Cập nhật thêm hình ảnh mô tả
+					if (!newImages.isEmpty()) {
+						nNews.setImages(newImages);
+					}
+				}
+				
+				nRepository.save(nNews);
+				
+				
+				return true;
+
+			} catch (IOException e) {
+				System.err.println(NewsHelper.class.getSimpleName() + ": " + e.getMessage());
+				return false;
+			}
+
+			
+		}
+//		else
+		return false;
+	}
+
+	public static void saveImage(MultipartFile multipartFile, String uploadDir, String fImageName) throws IOException {
+		Path pUploadDirImage = Paths.get(uploadDir);
+
+		if (!Files.exists(pUploadDirImage)) {
+			Files.createDirectories(pUploadDirImage);
 		}
 
 		InputStream is = multipartFile.getInputStream();
-		Path pSaveThumbnailImage = pUploadDirThumbnailImage.resolve(fThumbnailImageName);
-		Files.copy(is, pSaveThumbnailImage, StandardCopyOption.REPLACE_EXISTING);
+		Path pSaveImage = pUploadDirImage.resolve(fImageName);
+		Files.copy(is, pSaveImage, StandardCopyOption.REPLACE_EXISTING);
 		is.close();
+	}
+
+	public static void deleteNewsResourceDir(String pathName) {
+		File fImageDir = new File(pathName);
+		if (fImageDir.exists()) {
+			if (fImageDir.isDirectory()) {
+				
+				for (File fImage : fImageDir.listFiles()) {
+					if (fImage.isFile()) {
+						fImage.delete();
+					} else {
+						deleteNewsResourceDir(fImage.getPath());
+					}
+				}
+			}
+			fImageDir.delete();
+		}
 	}
 }

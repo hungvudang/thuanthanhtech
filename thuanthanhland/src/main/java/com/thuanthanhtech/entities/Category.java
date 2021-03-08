@@ -48,7 +48,7 @@ public class Category {
 	@Column(name = "sort", nullable = false ,unique = true)
 	@NotNull(message = "Số thứ tự không hợp lệ")
 	@Min(value = 0, message = "Số thứ tự không hợp lệ")
-	private Integer sort;
+	private int sort;
 	
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
@@ -56,28 +56,10 @@ public class Category {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "category", targetEntity = News.class)
 	@JsonIgnore
-	List<News> newses;
+	private List<News> newses;
 
 
 	public Category() {
-	}
-
-	public Category(Integer id,
-			@NotNull(message = "Tên danh mục không hợp lệ") @NotBlank(message = "Tên danh mục không được để trống") String name,
-			@NotBlank(message = "Slug không được để trống") String slug, Integer parentId, Integer hot, Integer pub,
-			@NotNull(message = "Số thứ tự không hợp lệ") @Min(value = 0, message = "Số thứ tự không hợp lệ") Integer sort,
-			LocalDateTime created_at, LocalDateTime updated_at, List<News> newses) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.slug = slug;
-		this.parentId = parentId;
-		this.hot = hot;
-		this.pub = pub;
-		this.sort = sort;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-		this.newses = newses;
 	}
 
 	public Integer getId() {
@@ -129,11 +111,11 @@ public class Category {
 	}
 
 	
-	public Integer getSort() {
+	public int getSort() {
 		return sort;
 	}
 
-	public void setSort(Integer sort) {
+	public void setSort(int sort) {
 		this.sort = sort;
 	}
 
@@ -159,10 +141,10 @@ public class Category {
 
 	public void setNewses(List<News> newses) {
 		this.newses = newses;
+		newses.parallelStream().forEach((news)->{
+			news.setCategory(this);
+		});
 		
-		for (News n : newses) {
-			n.setCategory(this);
-		}
 	}
 	
 	@PrePersist

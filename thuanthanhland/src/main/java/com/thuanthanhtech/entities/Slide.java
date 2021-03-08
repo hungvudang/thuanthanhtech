@@ -49,18 +49,6 @@ public class Slide {
 		super();
 	}
 
-	public Slide(Integer id, String description, String title, String image, Integer sort, Integer pub,
-			LocalDateTime created_at, LocalDateTime updated_at) {
-		super();
-		this.id = id;
-		this.description = description;
-		this.title = title;
-		this.image = image;
-		this.sort = sort;
-		this.pub = pub;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-	}
 
 	public Integer getId() {
 		return id;

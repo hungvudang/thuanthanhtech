@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.thuanthanhtech.entities.News;
+import com.thuanthanhtech.entities.NewsHelper;
 import com.thuanthanhtech.repositories.NewsPagingAndSortRepository;
 import com.thuanthanhtech.repositories.NewsRepository;
 
@@ -27,7 +28,7 @@ public class NewsClientController {
 	private NewsPagingAndSortRepository nPagingAndSortRepository;
 
 	@GetMapping
-	public String news(Model m) {
+	public String news() {
 		return "redirect:/tin-tuc/page/1";
 	}
 	@GetMapping("/page/{index}")
@@ -45,6 +46,9 @@ public class NewsClientController {
 		m.addAttribute("totalPages", totalPages);
 		m.addAttribute("numOfElements", numOfElements);
 		
+		m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
+		m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
+		
 		return "public-pages/blog";
 	}
 	
@@ -54,6 +58,10 @@ public class NewsClientController {
 		if (opNews.isPresent()) {
 			News news = opNews.get();
 			m.addAttribute("news", news);
+			
+			m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
+			m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
+			
 			return "public-pages/blog-detail";
 		}
 		

@@ -15,6 +15,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.thuanthanhtech.entities.UserValidator.saveValidation;
+import com.thuanthanhtech.entities.UserValidator.updateValidation;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -58,7 +61,20 @@ public class User {
 		super();
 	}
 
-	public User(Integer id, String name, String email, Integer role, String address, String password, String phone,
+	
+
+	public User(Integer id,
+			@NotBlank(message = "Tên tài khoản không được để trống", groups = { saveValidation.class,
+					updateValidation.class }) String name,
+			@Email(message = "Địa chỉ email không hợp lệ", groups = { saveValidation.class,
+					updateValidation.class }) @NotBlank(message = "Địa chỉ email không được để trống", groups = {
+							saveValidation.class, updateValidation.class }) String email,
+			Integer role, String address,
+			@Size(min = 8, max = 32, message = "Mật khẩu phải có ít nhất 8 kí tự", groups = saveValidation.class) @NotBlank(message = "Mật khẩu không được để trống", groups = saveValidation.class) String password,
+			@NotBlank(message = "Số điện thoại không được để trống", groups = { saveValidation.class,
+					updateValidation.class }) @Size(min = 10, max = 10, message = "Số điện thoại không đúng định dạng", groups = {
+							saveValidation.class,
+							updateValidation.class }) @Pattern(regexp = "^(84|0[3|5|7|8|9])+([0-9]{8})\\b", message = "Số điện thoại không đúng định dạng") String phone,
 			String avatar, LocalDateTime created_at, LocalDateTime updated_at) {
 		super();
 		this.id = id;
@@ -72,6 +88,8 @@ public class User {
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 	}
+
+
 
 	public Integer getId() {
 		return id;

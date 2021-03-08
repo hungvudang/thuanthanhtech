@@ -58,23 +58,6 @@ public class Contact {
 		super();
 	}
 
-	
-
-	public Contact(Integer id, String name, String email, String address, String phone, String content, Integer status,
-			LocalDateTime created_at, LocalDateTime updated_at) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.address = address;
-		this.phone = phone;
-		this.content = content;
-		this.status = status;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-	}
-
-
 
 	public Integer getId() {
 		return id;

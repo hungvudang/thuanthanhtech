@@ -86,13 +86,10 @@
 													<!-- Select Category -->
 
 													<div class="form-group">
-														<label for="inputCategory">Danh mục</label> <select
+														<label for="formControlInputCategory">Danh mục</label>
+														<select id="formControlInputCategory"
 															class="form-control custom-select"
 															th:field="*{category.id}">
-															<th:block th:each="rc : ${root_categories}">
-																<option th:value="${rc.id}" th:utext="${rc.name}">
-																</option>
-															</th:block>
 
 														</select>
 													</div>
@@ -100,10 +97,15 @@
 
 													<!-- Description Input -->
 													<div class="form-group">
-														<label for="inputDescription">Mô tả</label> <br>
-														<textarea class="form-control" id="inputDescription"
-															th:field="*{description}" rows="2" style="width: 100%;"
-															placeholder="Mô tả"></textarea>
+														<label for="inputDescription">Mô tả (<span
+																style="color: red;">*</span>)</label> <br>
+														<textarea class="form-control"
+															th:class="${#fields.hasErrors('description')} ? 'form-control is-invalid' : 'form-control'"
+															id="inputDescription" th:field="*{description}" rows="2"
+															style="width: 100%;" placeholder="Mô tả"></textarea>
+														<div th:errors="*{description}"
+															th:if="${#fields.hasErrors('description')}"
+															class="invalid-feedback">Description Error</div>
 													</div>
 
 													<!-- Content Input -->
@@ -130,19 +132,22 @@
 													<label for="uploadThumbnail">Thumbnail</label>
 
 													<div>
-														<img th:src="@{*{image}}" alt="thumbnail-media"
-															class="img-thumbnail mb-3" id="thumbnail-image"
-															style="max-height: 200px;">
+														<img th:src="@{${BASE_PATH_NEWS_RESOURCE} +'/'+ *{id} + '/' + *{thumbnail}}"
+															alt="thumbnail-media" class="img-thumbnail mb-2 w-100"
+															id="thumbnail-image-preview"
+															style="max-height: 250px; object-fit: cover;">
 													</div>
 
-													<input name="news_thumbnail" type="file" class="form-control-file"
-														th:class="${#fields.hasErrors('image')} ? 'form-control-file is-invalid' : 'form-control-file'"
-														id="uploadThumbnail" accept="image/png, image/jpeg" />
-													<div th:errors="*{image}" th:if="${#fields.hasErrors('image')}"
-														class="invalid-feedback">Image Error</div>
+													<input type="file" class="form-control" name="news_thumbnail"
+														th:class="${#fields.hasErrors('thumbnail')} ? 'form-control is-invalid' : 'form-control'"
+														id="uploadThumbnail" accept="image/png, image/jpeg"
+														onchange="previewImage(event, 'thumbnail-image-preview')" />
+													<div th:errors="*{thumbnail}"
+														th:if="${#fields.hasErrors('thumbnail')}"
+														class="invalid-feedback">Thumbnail Error</div>
 
-													<input hidden th:field="*{image}" type="text">
 												</div>
+												<input hidden th:field="*{thumbnail}" type="text">
 												<!-- /.thumbnail image upload -->
 
 												<!-- Public Input -->
@@ -195,6 +200,26 @@
 													</div>
 												</fieldset>
 
+												<!-- Input ImageDetails -->
+												<div class="form-group">
+													<label for="formControlInputImageDetails">Thêm ảnh mô tả</label>
+													<div id="formControlInputImageDetails" class="card border-info">
+														<div class="card-body">
+
+															<div id="images-container" class="container">
+																<!-- Image Container -->
+															</div>
+															<div id="old-images-container" hidden>
+
+															</div>
+															<button id="btn-add-image" type="button"
+																class="float-right btn btn-sm btn-outline-primary"><i
+																	class="fas fa-plus"></i>
+																Thêm ảnh</button>
+														</div>
+													</div>
+												</div>
+
 											</div>
 										</div>
 									</form>
@@ -226,28 +251,38 @@
 
 	<!-- script option -->
 	<th:block layout:fragment="script">
-		<!-- preview image -->
-		<script>
-			function readURL(input) {
-				if (input.files && input.files[0]) {
-					var reader = new FileReader();
 
-					reader.onload = function (e) {
-						$('#thumbnail-image').attr('src', e.target.result);
-					}
-					reader.readAsDataURL(input.files[0]); // convert to base64 string
+		<!-- List danh mục -->
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var $rootCate = /*[[${rootCate}]]*/'rootCate';
+			var $targetCategoryId = /*[[${news.category.id}]]*/'prarentId';
+			/*]]>*/
+			var selected = "";
+			recursive($rootCate, $targetCategoryId, "");
+
+
+			function recursive($rootCate, $targetCategoryId, $level) {
+
+				if ($rootCate.id == $targetCategoryId) {
+					selected = 'selected';
+				}
+
+				$('#formControlInputCategory').append(`
+					<option value="${$rootCate.id}" ${selected}>${$level}${$rootCate.self.name}</option>
+				`)
+
+				selected = "";
+				if ($rootCate.childs.length > 0) {
+					$.each($rootCate.childs, function ($index, $cate) {
+						recursive($cate, $targetCategoryId, $level + '&emsp;');
+					})
 				}
 			}
-			$("#uploadThumbnail").change(function () {
-				readURL(this);
-			});
 		</script>
+		<!-- List danh mục -->
+		<script th:replace="/admin-pages/fragments/scripts/news-scripts/news-script"></script>
 
-		<script>
-			$('#btn-submit-custom').click(function () {
-				$('#btn-submit-default').click();
-			})
-		</script>
 	</th:block>
 	<!-- /. script option -->
 </body>

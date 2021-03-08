@@ -59,34 +59,35 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="entry : ${categoriesEntryMap}">
-											<td th:utext="${entry.getKey().id}" th:fileld="${entry.getKey().id}"
-												scope="row"></td>
-											<td th:utext="${entry.getKey().name}" th:field="${entry.getKey().name}">
+										<tr th:each="c : ${categories}">
+											<td th:utext="${c.getKey().id}" th:fileld="${c.getKey().id}" scope="row">
 											</td>
-											<td th:utext="${entry.getValue()}" th:field="${entry.getValue()}"></td>
-											<td th:utext="${entry.getKey().sort}" th:field="${entry.getKey().sort}">
+											</td>
+											<td th:utext="${c.getKey().name}" th:field="${c.getKey().name}">
+											</td>
+											<td th:utext="${c.getValue()}" th:field="${c.getValue()}"></td>
+											<td th:utext="${c.getKey().sort}" th:field="${c.getKey().sort}">
 											</td>
 
 											<div>
-												<th:block th:if="${entry.getKey().hot == 1}">
+												<th:block th:if="${c.getKey().hot == 1}">
 													<td><span class="badge badge-pill badge-danger">Nổi
 															bật</span></td>
 												</th:block>
 
-												<th:block th:if="${entry.getKey().hot == 0}">
+												<th:block th:if="${c.getKey().hot == 0}">
 													<td><span class="badge badge-pill badge-dark">Không</span>
 													</td>
 												</th:block>
 											</div>
 
 											<div>
-												<th:block th:if="${entry.getKey().pub == 1}">
+												<th:block th:if="${c.getKey().pub == 1}">
 													<td><span class="badge badge-pill badge-success">Hiển
 															thị</span></td>
 												</th:block>
 
-												<th:block th:if="${entry.getKey().pub == 0}">
+												<th:block th:if="${c.getKey().pub == 0}">
 													<td><span class="badge badge-pill badge-dark">Ẩn</span>
 													</td>
 												</th:block>
@@ -94,15 +95,15 @@
 
 											<!-- Last modified -->
 											<div>
-												<th:block th:if="${entry.getKey().updated_at}">
+												<th:block th:if="${c.getKey().updated_at}">
 													<td
-														th:utext="${#temporals.format(entry.getKey().updated_at, 'dd/MM/yyyy')}">
+														th:utext="${#temporals.format(c.getKey().updated_at, 'dd/MM/yyyy')}">
 													</td>
 												</th:block>
 
-												<th:block th:unless="${entry.getKey().updated_at}">
+												<th:block th:unless="${c.getKey().updated_at}">
 													<td
-														th:utext="${#temporals.format(entry.getKey().created_at, 'dd/MM/yyyy')}">
+														th:utext="${#temporals.format(c.getKey().created_at, 'dd/MM/yyyy')}">
 													</td>
 												</th:block>
 											</div>
@@ -112,10 +113,10 @@
 												<div class="row justify-content-center">
 													<div class="col">
 														<a class=" fas fa-edit fa-lg"
-															th:href="@{'/admin/category/detail/' + ${entry.getKey().id}}"></a>
+															th:href="@{'/admin/category/detail/' + ${c.getKey().id}}"></a>
 														<a onclick="return confirm('Bạn chắc chắn muốn xóa ?')"
 															class="fas fa-trash fa-lg mx-3" style="color: red;"
-															th:href="@{'/admin/category/delete/' + ${entry.getKey().id}}"></a>
+															th:href="@{'/admin/category/delete/' + ${c.getKey().id}}"></a>
 													</div>
 												</div>
 											</td>

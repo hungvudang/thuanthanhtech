@@ -80,12 +80,12 @@
 
 										<!-- Lựa chọn danh mục gốc -->
 										<div class="form-group">
-											<label for="inputCategory">Danh mục gốc</label> <select id="inputCategory"
-												name="typeCategory" class="form-control custom-select"
-												th:field="*{parentId}">
-												<th:block th:each="rc : ${root_categories}">
+											<label for="formControlInputCategory">Danh mục gốc</label>
+											<select id="formControlInputCategory" name="typeCategory"
+												class="form-control custom-select" th:field="*{parentId}">
+												<!-- <th:block th:each="rc : ${root_categories}">
 													<option th:value="${rc.id}" th:utext="${rc.name}"></option>
-												</th:block>
+												</th:block> -->
 											</select>
 										</div>
 
@@ -109,7 +109,6 @@
 												</div>
 											</div>
 										</fieldset>
-
 										<fieldset class="form-group">
 											<div class="row">
 												<label class="col-form-label col-sm-2 pt-0">Nổi bật</label>
@@ -164,6 +163,27 @@
 				}
 			}
 		</script>
+
+		<!-- List danh mục -->
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var $rootCate = /*[[${rootCate}]]*/'rootCate';
+			recursive($rootCate, "");
+			/*]]>*/
+			function recursive($rootCate, $level) {
+				$('#formControlInputCategory').append(`
+					<option value="${$rootCate.id}">${$level}${$rootCate.self.name}</option>
+				`)
+				if ($rootCate.childs.length > 0) {
+
+					$.each($rootCate.childs, function (index, $cate) {
+						recursive($cate, $level + '&emsp;');
+					})
+				}
+			}
+		</script>
+		<!-- List danh mục -->
+
 	</th:block>
 	<!-- /. script option -->
 </body>

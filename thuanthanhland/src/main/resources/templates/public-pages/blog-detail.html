@@ -24,9 +24,9 @@
 			<div class="row justify-content-center mb-5 element-animate" layout:fragment="content-header">
 				<div class="col-md-8 text-center">
 					<h1 class="heading mb-4">TIN TỨC</h1>
-					<p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
+					<!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
 						adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
-						quam minima expedita atque corrupti reiciendis.</p>
+						quam minima expedita atque corrupti reiciendis.</p> -->
 				</div>
 			</div>
 			<!-- /.content header -->
@@ -53,7 +53,8 @@
 											</div>
 
 											<img class="img-fluid element-animate" width="100%" height="100%"
-												th:src="@{${news.image}}" th:alt="${news.name}">
+												th:src="@{${BASE_PATH_NEWS_RESOURCE} + '/' + ${news.id} + '/' + ${news.thumbnail}}"
+												th:alt="${news.name}">
 
 											<div class="text text-left element-animate">
 												<div th:utext="${news.content}" class="mt-3">

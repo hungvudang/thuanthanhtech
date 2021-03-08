@@ -10,7 +10,7 @@ import com.thuanthanhtech.entities.News;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Integer> {
-	List<News> findByPub(Integer pub);
+	List<News> findByPub(int pub);
 	
 	Optional<News> findBySlug(String slug);
 }

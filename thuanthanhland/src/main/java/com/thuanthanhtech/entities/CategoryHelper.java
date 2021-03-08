@@ -1,21 +1,37 @@
 package com.thuanthanhtech.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.annotation.Bean;
-
 public class CategoryHelper {
-
-	@Bean
-	public static void recursive_categories(List<Category> categories, List<Boolean> visited, Integer parentId, String rank, List<RootCategory> root) {
+	
+	
+	public static void getCategoryTree(List<Category> categories, Item<Category> root, Category target ) {
+		List<Boolean> visited = new ArrayList<Boolean>();
+		
+		root.setId(target.getId());
+		root.setSelf(target);
+		root.setChilds(new ArrayList<Item<Category>>());
+		
+		categories.stream().forEach((it)->{
+			visited.add(false);
+		});
+		
+		recursive(categories, visited, root);
+		
+	}
+	
+	
+	private static void recursive(List<Category> categories, List<Boolean> visited, Item<Category> root) {
 		for (int i = 0; i < categories.size(); i++) {
-			if ((visited.get(i) == false) && (categories.get(i).getParentId() == parentId)) {
-				Integer id = categories.get(i).getId();
-				String name = rank + categories.get(i).getName();
-				root.add(new RootCategory(id, name));
+			if (visited.get(i) == false && categories.get(i).getParentId() == root.getId()) {
 				visited.set(i, true);
-				recursive_categories(categories, visited, categories.get(i).getId(), rank + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",root);
+				Item<Category> child = new Item<Category>(categories.get(i).getId(), categories.get(i),
+						new ArrayList<Item<Category>>());
+				root.getChilds().add(child);
+				recursive(categories, visited, child);
 			}
 		}
 	}
+
 }
