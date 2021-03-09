@@ -251,38 +251,7 @@
 
 	<!-- script option -->
 	<th:block layout:fragment="script">
-
-		<!-- List danh mục -->
-		<script th:inline="javascript">
-			/*<![CDATA[*/
-			var $rootCate = /*[[${rootCate}]]*/'rootCate';
-			var $targetCategoryId = /*[[${news.category.id}]]*/'prarentId';
-			/*]]>*/
-			var selected = "";
-			recursive($rootCate, $targetCategoryId, "");
-
-
-			function recursive($rootCate, $targetCategoryId, $level) {
-
-				if ($rootCate.id == $targetCategoryId) {
-					selected = 'selected';
-				}
-
-				$('#formControlInputCategory').append(`
-					<option value="${$rootCate.id}" ${selected}>${$level}${$rootCate.self.name}</option>
-				`)
-
-				selected = "";
-				if ($rootCate.childs.length > 0) {
-					$.each($rootCate.childs, function ($index, $cate) {
-						recursive($cate, $targetCategoryId, $level + '&emsp;');
-					})
-				}
-			}
-		</script>
-		<!-- List danh mục -->
 		<script th:replace="/admin-pages/fragments/scripts/news-scripts/news-script"></script>
-
 	</th:block>
 	<!-- /. script option -->
 </body>

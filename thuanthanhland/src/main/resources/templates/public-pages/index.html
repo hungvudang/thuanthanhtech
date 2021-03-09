@@ -25,7 +25,8 @@
 			<!-- content header -->
 			<div class="row justify-content-center mb-5 element-animate" layout:fragment="content-header">
 				<div class="col-md-8 text-center">
-					<h1 class="heading text-uppercase mb-4" th:utext="${spotlights[0].name}">VINHOMES_TEST</h1>
+					<h1 th:if="${spotlights}" th:utext="${spotlights[0].name}" class="heading text-uppercase mb-4">
+						VINHOMES</h1>
 					<!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
 						adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
 						quam minima expedita atque corrupti reiciendis.</p> -->

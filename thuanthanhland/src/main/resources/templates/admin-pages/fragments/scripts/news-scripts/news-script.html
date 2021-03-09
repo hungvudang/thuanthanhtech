@@ -1,3 +1,37 @@
+<!-- list danh mục -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var $rootCate = /*[[${rootCate}]]*/'rootCate';
+    var $targetCategoryId = /*[[${news.category.id}]]*/'prarentId';
+    /*]]>*/
+
+    var selected = "";
+
+    $.each($rootCate.childs, function (index, $cate) {
+        recursive($cate, $targetCategoryId, "");
+    })
+
+    function recursive($rootCate, $targetCategoryId, $level) {
+
+        if ($rootCate.id == $targetCategoryId) {
+            selected = 'selected';
+        }
+
+        if ($rootCate.id != 0) {
+            $('#formControlInputCategory').append(`
+                <option value="${$rootCate.id}" ${selected}>${$level}${$rootCate.self.name}</option>
+            `)
+        }
+
+        selected = "";
+        if ($rootCate.childs.length > 0) {
+            $.each($rootCate.childs, function ($index, $cate) {
+                recursive($cate, $targetCategoryId, $level + '&emsp;');
+            })
+        }
+    }
+</script>
+
 <!-- hiển thị hình ảnh mô tả trong news-detail -->
 <script th:inline="javascript">
     /*<![CDATA[*/
