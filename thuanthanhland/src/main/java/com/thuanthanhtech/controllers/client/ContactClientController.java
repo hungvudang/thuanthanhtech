@@ -87,7 +87,10 @@ public class ContactClientController {
 			cRepository.saveAndFlush(contact);
 		}
 		
-		ContactHelper.sendMail(contact.getEmail(), javaMailSender);
+		Thread sendMailTask = new Thread(()->{
+			ContactHelper.sendMail(contact.getEmail(), javaMailSender);
+		});
+		sendMailTask.start();
 		
 		ra.addFlashAttribute("success",
 				"Chúng tôi đã nhận được phản hồi của bạn. Chúng tôi sẽ liên hệ lại với bạn trong thời gian sớm nhất");
@@ -97,6 +100,6 @@ public class ContactClientController {
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String handlerException() {
-		return "admin-pages/500";
+		return "public-pages/error-pages/500";
 	}
 }
