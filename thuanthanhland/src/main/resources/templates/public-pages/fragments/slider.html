@@ -1,6 +1,6 @@
 <!-- home slider -->
 <th:block th:fragment="home-slider">
-	<section id="home-slider" class="home-slider owl-carousel">
+	<div id="home-slider" class="home-slider owl-carousel">
 		<th:block th:each="s : ${slides}">
 			<div class="slider-item" th:style="'background-image: url('+ @{${#uris.escapePath(s.image)}} + ');'">
 
@@ -18,7 +18,7 @@
 
 			</div>
 		</th:block>
-	</section>
+	</div>
 </th:block>
 
 <!-- /.home slider -->

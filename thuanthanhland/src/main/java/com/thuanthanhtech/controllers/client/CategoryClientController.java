@@ -25,7 +25,7 @@ public class CategoryClientController {
 	
 	@GetMapping
 	public ResponseEntity<?> findAll(){
-		List<Category> categories = cRepository.findAll(Sort.by(Sort.Direction.ASC, "parentId", "sort"));
+		List<Category> categories = cRepository.findByPub(1,Sort.by(Sort.Direction.ASC, "parentId", "sort"));
 		
 		Item<Category> root = new Item<Category>();
 		Category cate = new Category();

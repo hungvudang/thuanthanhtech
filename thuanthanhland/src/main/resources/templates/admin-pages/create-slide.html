@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="/admin-pages/admin-layout">
+	layout:decorate="~{/admin-pages/admin-layout}">
 
 <head>
 	<meta charset="UTF-8">
@@ -132,12 +132,12 @@
 
 													<div>
 														<img th:src="@{*{image}}" alt="image-media"
-															class="img-fluid mb-3" id="slide-image"
-															style="max-height: 350px;">
+															class="img-fluid mb-3 w-100" id="slide-image"
+															style="max-height: 350px; object-fit: cover;">
 													</div>
 
 													<input name="slide_image" type="file"
-														th:class="${#fields.hasErrors('image')} ? 'form-control-file is-invalid' : 'form-control-file'"
+														th:class="${#fields.hasErrors('image')} ? 'form-control is-invalid' : 'form-control'"
 														id="uploadImage" accept="image/png, image/jpeg" />
 													<div th:errors="*{image}" th:if="${#fields.hasErrors('image')}"
 														class="invalid-feedback">Image Error</div>

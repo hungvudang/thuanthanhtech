@@ -6,6 +6,11 @@
 	<meta charset="UTF-8">
 
 	<title>Trang chủ</title>
+	<style>
+		.section {
+			padding: 2em 0 !important;
+		}
+	</style>
 
 </head>
 
@@ -13,9 +18,7 @@
 	<div class="wrapper bg-light">
 
 		<div layout:fragment="option-content-before">
-
 			<div th:replace="/public-pages/fragments/slider::home-slider"></div>
-			<!-- END slider -->
 		</div>
 
 
@@ -23,14 +26,12 @@
 		<section class="section element-animate">
 
 			<!-- content header -->
-			<div class="row justify-content-center mb-5 element-animate" layout:fragment="content-header">
-				<div class="col-md-8 text-center">
-					<h1 th:if="${spotlights}" th:utext="${spotlights[0].name}" class="heading text-uppercase mb-4">
-						VINHOMES</h1>
-					<!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
+			<div class="col-md-8 text-center" layout:fragment="content-header">
+				<h1 th:unless="${spotlights.isEmpty()}" th:utext="${spotlights[0].name}"
+					class="heading text-uppercase mb-4">VINHOMES</h1>
+				<!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
 						adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
 						quam minima expedita atque corrupti reiciendis.</p> -->
-				</div>
 			</div>
 			<!-- /.content header -->
 

@@ -1,11 +1,13 @@
 <script src="/public-static/js/jquery-3.2.1.min.js"
     th:src="${#request.contextPath} + '/public-static/js/jquery-3.2.1.min.js'"></script>
 
+
 <script src="/public-static/js/popper.min.js"
     th:src="${#request.contextPath} + '/public-static/js/popper.min.js'"></script>
 
 <script src="/public-static/js/bootstrap.min.js"
     th:src="${#request.contextPath} + '/public-static/js/bootstrap.min.js'"></script>
+
 
 <script src="/public-static/js/owl.carousel.min.js"
     th:src="${#request.contextPath} + '/public-static/js/owl.carousel.min.js'"></script>
@@ -15,52 +17,53 @@
 
 <script src="/public-static/js/main.js" th:src="${#request.contextPath} + '/public-static/js/main.js'"></script>
 
-<!-- Dependency SpeakingURL -->
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/speakingurl/6.0.0/speakingurl.min.js"></script>
-
+<!-- Multi dropdown navbar -->
+<!-- <script th:src="${#request.contextPath} + '/js/multi-dropdown-navbar/bootstrap-4-navbar.js'"></script> -->
+<!-- <script th:src="${#request.contextPath} + '/js/multi-dropdown-navbar/bootstrap-4-navbar.min.js'"></script> -->
 <script th:inline="javascript">
     $.get(url = "/api/category",
         success = function (root) {
             $.each(root.childs, function (index, cate) {
                 if (cate.childs.length == 0) {
                     $('.navbar-nav').append(`
-                    <li class="nav-item">
-                        <a class="nav-link" href="/${cate.self.slug}">${cate.self.name}</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/${cate.self.slug}">${cate.self.name}</a>
+                        </li>
                     `)
                 } else {
                     $('.navbar-nav').append(`
                         <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="/${cate.self.slug}" id="navbarDropdownMenuLink"
-                            aria-haspopup="true" aria-expanded="false">${cate.self.name}</a>
-                            <ul id = "dropdown-menu-${cate.id}" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-
+                            <a class="nav-link dropdown-toggle" href="/${cate.self.slug}" id="navbarDropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${cate.self.name}</a>
+                            <ul id="dropdown-menu-${cate.id}" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             </ul>
                         </li>
                     `)
-                    recursive(cate);
+                    recursive(cate, cate.self.slug);
                 }
             })
         }
-    )
+    ).done(function () {
+        // <!-- Multi dropdown navbar -->
+        $.getScript('/js/multi-dropdown-navbar/bootstrap-4-navbar.js');
+    })
 
-    function recursive($rootcate) {
-        var childs = $rootcate.childs;
+    function recursive($rootCate, $rootCateSlug) {
+        var childs = $rootCate.childs;
         $.each(childs, function (index, cate) {
             if (cate.childs.length == 0) {
-                $(`#dropdown-menu-${$rootcate.id}`).append(`
-                <li><a class="dropdown-item" href="${cate.self.slug}">${cate.self.name}</a></li> 
+                $(`#dropdown-menu-${$rootCate.id}`).append(`
+                <li><a class="dropdown-item" href="/${$rootCateSlug}/${cate.self.slug}">${cate.self.name}</a></li> 
             `)
             } else {
-                $(`#dropdown-menu-${$rootcate.id}`).append(`
-                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"
-                                href="${cate.self.slug}">${cate.self.name}</a>
+                $(`#dropdown-menu-${$rootCate.id}`).append(`
+                    <li><a class="dropdown-item dropdown-toggle" href="/${$rootCateSlug}/${cate.self.slug}" >${cate.self.name}</a>
                         <ul id="dropdown-menu-${cate.id}" class="dropdown-menu">
-
+                            
                         </ul>
                     </li>
                 `)
-                recursive(cate);
+                recursive(cate, $rootCateSlug);
             }
         })
 

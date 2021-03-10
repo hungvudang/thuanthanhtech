@@ -10,29 +10,10 @@
 <link rel="stylesheet" href="/public-static/fonts/fontawesome/css/font-awesome.min.css"
     th:href="${#request.contextPath} + '/public-static/fonts/fontawesome/css/font-awesome.min.css'">
 
+<!-- Multi dropdown navbar -->
+<link rel="stylesheet" th:href="${#request.contextPath} + '/css/multi-dropdown-navbar/bootstrap-4-navbar.css'">
+<!-- <link rel="stylesheet" th:href="${#request.contextPath} + '/css/multi-dropdown-navbar/bootstrap-4-navbar.min.css'"> -->
+
 <!-- Theme Style -->
 <link rel="stylesheet" href="/public-static/css/style.css"
     th:href="${#request.contextPath} + '/public-static/css/style.css'">
-
-
-<style>
-    .navbar-nav li:hover>ul.dropdown-menu {
-        display: block;
-    }
-
-    .dropdown-submenu {
-        position: relative;
-    }
-
-    .dropdown-submenu>.dropdown-menu {
-        top: 10%;
-        left: 100%;
-        margin-top: -6px;
-    }
-
-    /* rotate caret on hover */
-    .dropdown-menu>li>a:hover:after {
-        text-decoration: underline;
-        transform: rotate(-90deg);
-    }
-</style>

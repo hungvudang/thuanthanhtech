@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="/admin-pages/admin-layout">
+	layout:decorate="~{/admin-pages/admin-layout}">
 
 <head>
 	<meta charset="UTF-8">
@@ -40,7 +40,7 @@
 				<div class="container-fluid">
 					<div class="row">
 
-						<div class="card card-info">
+						<div class="card card-info w-100">
 							<div class="card-header">
 								<h2 class="card-title font-weight-bold">Cập nhật liên hệ</h2>
 							</div>
@@ -89,8 +89,8 @@
 										<div class="col-sm-6">
 											<div class="form-group">
 												<label for="exampleInputContent">Nội dung</label>
-												<textarea th:field="*{content}" rows="5" style="width: 100%;"
-													placeholder="Nội dung"></textarea>
+												<textarea class="form-control" th:field="*{content}" rows="5"
+													style="width: 100%;" placeholder="Nội dung"></textarea>
 											</div>
 										</div>
 									</div>

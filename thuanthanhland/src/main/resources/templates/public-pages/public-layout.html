@@ -22,15 +22,17 @@
         <!-- /.navbar -->
 
         <!-- option content -->
-
         <div layout:fragment="option-content-before"></div>
-
         <!-- /. option content -->
 
         <section class="section element-animate">
             <!-- content header -->
-            <div class="row justify-content-center mb-5 element-animate" layout:fragment="content-header">
-                <div class="col-md-8 text-center">
+            <div class="row justify-content-center mb-5 element-animate">
+                <!-- breadcrumb -->
+                <div th:replace="/public-pages/fragments/breadcrumb"></div>
+                <!-- /.breadcrumb -->
+
+                <div class="col-md-8 text-center" layout:fragment="content-header">
                     <h1 class="heading mb-4">CONTENT HEADER</h1>
                     <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
                         adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
