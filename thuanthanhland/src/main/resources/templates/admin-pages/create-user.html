@@ -163,8 +163,8 @@
 															style="max-height: 200px;">
 													</div>
 
-													<input name="user_avatar" type="file" class="form-control-file"
-														th:class="${#fields.hasErrors('avatar')} ? 'form-control-file is-invalid' : 'form-control-file'"
+													<input name="user_avatar" type="file" class="form-control"
+														th:class="${#fields.hasErrors('avatar')} ? 'form-control is-invalid' : 'form-control'"
 														id="uploadAvatar" accept="image/png, image/jpeg" />
 													<div th:errors="*{avatar}" th:if="${#fields.hasErrors('avatar')}"
 														class="invalid-feedback">Avatar Error</div>
@@ -203,9 +203,6 @@
 
 	<!-- script option -->
 	<th:block layout:fragment="script">
-		<!-- scripts -->
-		<script th:replace="/admin-pages/fragments/scripts"></script>
-		<!-- /.scripts -->
 
 		<script>
 			$('#btn-submit-custom').click(function () {

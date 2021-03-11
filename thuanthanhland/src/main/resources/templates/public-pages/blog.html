@@ -47,17 +47,27 @@
 										</h6>
 									</div>
 
-									<div th:utext="${n.description}" class="text-muted"
+									<div th:utext="${n.description}" class="text-muted "
 										style="overflow: hidden; text-overflow: ellipsis;" data-toggle="tooltip"
 										data-placement="bottom" th:title="${n.description}">
 										ThuanThanhLand</div>
 									<div class="text text-sm d-flex align-items-center pt-2 mb-0 mt-auto">
 										<div>
-											<small class="d-block text-muted">
-												<p th:utext="${#temporals.format(n.created_at, 'dd/MM/yyyy')}">19
-													December,
-													2019</p>
-											</small>
+											<th:block th:if="${n.updatedAt}">
+												<small class="d-block text-muted">
+													<p th:utext="${#temporals.format(n.updatedAt, 'dd/MM/yyyy')}">19
+														December,
+														2019</p>
+												</small>
+											</th:block>
+											<th:block th:unless="${n.updatedAt}">
+												<small class="d-block text-muted">
+													<p th:utext="${#temporals.format(n.createdAt, 'dd/MM/yyyy')}">19
+														December,
+														2019</p>
+												</small>
+											</th:block>
+
 										</div>
 									</div>
 								</div>

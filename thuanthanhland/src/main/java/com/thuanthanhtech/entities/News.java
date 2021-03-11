@@ -64,8 +64,10 @@ public class News {
 	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")
 	private Integer pub;
 
-	private LocalDateTime created_at;
-	private LocalDateTime updated_at;
+	@Column(name = "created_at")
+	private LocalDateTime createdAt;
+	@Column(name = "updated_at")
+	private LocalDateTime updatedAt;
 
 	
 	public News() {
@@ -171,29 +173,29 @@ public class News {
 	}
 
 
-	public LocalDateTime getCreated_at() {
-		return created_at;
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(LocalDateTime created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public LocalDateTime getUpdated_at() {
-		return updated_at;
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public void setUpdated_at(LocalDateTime updated_at) {
-		this.updated_at = updated_at;
+	public void setUpdatedAt(LocalDateTime updatetAt) {
+		this.updatedAt = updatetAt;
 	}
 
 	@PrePersist
 	public void prePersist() {
-		this.created_at = LocalDateTime.now();
+		this.createdAt = LocalDateTime.now();
 	}
 
 	@PreUpdate
 	public void preUpdate() {
-		this.updated_at = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 }

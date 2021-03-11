@@ -31,8 +31,11 @@
 
 			<div class="container" layout:fragment="container">
 				<div class="row">
-					<div class="col-lg-9">
+					<div class="col-lg-8">
 						<div class="card">
+							<!-- <div class="card-header">
+								<h5>BÀI VIẾT</h5>
+							</div> -->
 							<div class="card-body ">
 								<div class="d-flex d-block align-items-stretch">
 									<div class="container">
@@ -40,8 +43,14 @@
 											<div class="text text-left element-animate">
 												<h3 th:utext="${news.title}" class="mb-2">Vinpearl Phú
 													Quốc</h3>
-												<span th:utext="${#temporals.format(news.created_at, 'dd/MM/yyyy')}"
-													class="post-meta">June 8, 2018</span>
+												<th:block th:if="${news.updatedAt}">
+													<span th:utext="${#temporals.format(news.updatedAt, 'dd/MM/yyyy')}"
+														class="post-meta">June 8, 2018</span>
+												</th:block>
+												<th:block th:unless="${news.updatedAt}">
+													<span th:utext="${#temporals.format(news.createdAt, 'dd/MM/yyyy')}"
+														class="post-meta">June 8, 2018</span>
+												</th:block>
 												<p th:utext="${news.description}" class="mb-3">Lorem ipsum
 													dolor sit amet, consectetur adipisicing elit. Corporis
 													tempora inventore, aliquam ratione. Eum vero sapiente
@@ -69,7 +78,49 @@
 							</div>
 						</div>
 					</div>
+					<div class="col-lg-4">
+						<div class="card h-100">
+							<div class="card-header">
+								<h6>TIN TỨC MỚI NHẤT</h6>
+							</div>
+							<div class="card-body">
+								<div class="container">
+									<div class="row">
+										<th:block th:each="topnews : ${topNewses}">
+											<div class="card border-left-0 border-top-0 border-right-0 mb-2">
+												<div class="card-body">
+													<div class="row">
+														<th:block th:if="${topnews.updatedAt}">
+															<span
+																th:utext="${#temporals.format(topnews.updatedAt, 'dd/MM/yyyy')}"
+																class="post-meta">June 8, 2018</span>
+														</th:block>
+														<th:block th:unless="${topnews.updatedAt}">
+															<span
+																th:utext="${#temporals.format(topnews.createdAt, 'dd/MM/yyyy')}"
+																class="post-meta">June 8, 2018</span>
+														</th:block>
+														<p class="d-block overflow-hidden w-100">
+															<a class="card-text" th:utext="${topnews.title}"
+																th:href="@{'/tin-tuc/' + ${cateSlug} + '/' + ${topnews.slug}}">
+																Some quick example text to build on the card title and
+																make up the bulk of the card's content.
+															</a>
+														</p>
 
+													</div>
+												</div>
+
+											</div>
+
+										</th:block>
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
 
 				</div>
 			</div>
