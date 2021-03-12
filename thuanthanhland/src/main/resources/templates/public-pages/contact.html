@@ -1,145 +1,107 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/public-pages/public-layout}">
 
 <head>
-<title>Thuận Thành Land &mdash; Free Website Template by
-	Free-Template.co</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
 
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800"
-	rel="stylesheet">
+    <title>Liên hệ</title>
 
-<link rel="stylesheet" href="css/animate.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-
-<link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
-<link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
-
-<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-
-<!-- Theme Style -->
-<link rel="stylesheet" href="css/style.css">
-
-<!-- 
-    //////////////////////////////////////////////////////
-
-    Free Template 
-    DESIGNED & DEVELOPED by free-template.co
-      
-    Website:    https://free-template.co
-    Email:      freetemplate.co@gmail.com
-    Twitter:    https://twitter.com/Free_Templateco
-    Facebook:   https://www.facebook.com/Free.Template.co/
-
-    //////////////////////////////////////////////////////
-     -->
 </head>
 
 <body>
+    <div class="wrapper bg-light">
 
-	<div th:replace="fragments/header::header"></div>
-	<!-- END header -->
 
-	<section class="home-slider inner-page owl-carousel">
-		<div class="slider-item"
-			style="background-image: url('images/slider-3.jpg');">
+        <section class="section">
 
-			<div class="container">
-				<div
-					class="row slider-text align-items-center justify-content-center">
-					<div class="col-md-8 text-center col-sm-12 element-animate">
-						<h1>Liên hệ</h1>
-						<p class="mb-5">Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit. Commodi unde impedit, necessitatibus, soluta
-							sit quam minima expedita atque corrupti reiciendis.</p>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</section>
-	<!-- END slider -->
-
-	<section class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 mb-2 order-2">
-					<form action="#" method="post">
-						<div class="row">
-							<div class="col-md-6 form-group">
-								<label for="name">Họ tên</label> <input type="text" id="name"
-									class="form-control ">
-							</div>
-							<div class="col-md-6 form-group">
-								<label for="phone">Điện thoại</label> <input type="text"
-									id="phone" class="form-control ">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 form-group">
-								<label for="email">Email</label> <input type="email" id="email"
-									class="form-control ">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 form-group">
-								<label for="message">Tin nhắn</label>
-								<textarea name="message" id="message" class="form-control "
-									cols="30" rows="8"></textarea>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 form-group">
-								<input type="submit" value="Gửi"
-									class="btn btn-primary px-3 py-3">
-							</div>
-						</div>
-					</form>
-				</div>
-
-				<!-- Loại bỏ phần info công ty -->
-				<!-- <div class="col-md-4 order-2 mb-5">
-          <div class="row justify-content-right">
-            <div class="col-md-12 mx-auto contact-form-contact-info">
-              <p class="d-flex">
-                <span class="ion-ios-location icon mr-5"></span>
-                <span>34 Street Name, City Name Here, United States</span>
-              </p>
-
-              <p class="d-flex">
-                <span class="ion-ios-telephone icon mr-5"></span>
-                <span>+1 242 4942 290</span>
-              </p>
-
-              <p class="d-flex">
-                <span class="ion-android-mail icon mr-5"></span>
-                <span>info@yourdomain.com</span>
-              </p>
+            <!-- content header -->
+            <div class="col-md-8 text-center" layout:fragment="content-header">
+                <!-- <h1 class="heading mb-4">LIÊN HỆ</h1> -->
+                <!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
+						adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
+						quam minima expedita atque corrupti reiciendis.</p> -->
             </div>
-          </div>
-        </div> -->
-			</div>
-		</div>
-	</section>
+            <!-- /.content header -->
+
+            <div class="container" layout:fragment="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <form th:action="@{/lien-he/save}" th:object="${contact}" th:method="post">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label for="name">Họ và tên</label> <input th:value="*{name}"
+                                                th:field="*{name}" type="text" id="name" class="form-control"
+                                                placeholder="Họ và tên"><span class="text text-danger badge"
+                                                th:if="${isNameError}" th:utext="${nameErrorMessage}">Name Error</span>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="phone">Số điện thoại</label> <input th:value="*{phone}"
+                                                th:field="*{phone}" type="text" id="phone" class="form-control"
+                                                placeholder="Số điện thoại" onkeypress="InputNumber(event);"><span
+                                                class="text text-danger badge" th:if="${isPhoneError}"
+                                                th:utext="${phoneErrorMessage}">Phone
+                                                Error</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group">
+                                            <label for="email">Email</label> <input th:value="*{email}"
+                                                th:field="*{email}" type="text" id="email" class="form-control"
+                                                placeholder="Email"><span class="text text-danger badge"
+                                                th:if="${isEmailError}" th:utext="${emailErrorMessage}">Email
+                                                Error</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group">
+                                            <label for="address">Địa chỉ</label> <input th:value="*{address}"
+                                                th:field="*{address}" type="text" id="address" class="form-control"
+                                                placeholder="Địa chỉ">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 form-group">
+                                            <label for="message">Nội dung</label>
+                                            <textarea th:value="*{content}" th:field="*{content}" name="message"
+                                                id="message" class="form-control" placeholder="Nội dung tin nhắn"
+                                                cols="30" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <input type="submit" value="Gửi" class="btn btn-primary px-3 py-3">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-5">
+                    <div class="col-md-10">
+                        <div class="card">
+                            <div class="card-body">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.0547237798855!2d105.80231051437575!3d20.990443386019177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135acbfb81c4d15%3A0x7358bc6b15c5b06a!2zOSDEkMaw4budbmcgTmd1eeG7hW4gWGnhu4NuLCBUaGFuaCBYdcOibiBOYW0sIFRoYW5oIFh1w6JuLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1614236345402!5m2!1svi!2s"
+                                    width="100%;" height="450" style="border:0;" allowfullscreen=""
+                                    loading="lazy"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
+    </div>
+    <!-- ./wrapper -->
 
-
-	<div th:replace="fragments/footer::footer"></div>
-	<!-- END footer -->
-
-	<!-- loader -->
-	<div th:replace="fragments/loader::loader"></div>
-
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/main.js"></script>
+    <!-- script option -->
+    <th:block layout:fragment="script"></th:block>
+    <!-- /. script option -->
 </body>
 
 </html>

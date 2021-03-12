@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/admin-pages/admin-layout}">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Dự án</title>
+
+
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header" layout:fragment="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Dự án</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item">Trang chủ</li>
+                                <li class="breadcrumb-item active">Dự án</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="content" layout:fragment="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="card card-info" style="width:100%;">
+                            <div class="card-header">
+                                <h2 class="card-title font-weight-bold">Tạo dự án mới</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <form th:action="@{/admin/project/save}" th:method="post" th:object="${project}"
+                                        enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div>
+                                                    <!-- Name Input -->
+                                                    <div class="form-group">
+                                                        <label for="formControlInputName">Tên dự án (<span
+                                                                style="color: red;">*</span>)</label>
+                                                        <input th:field="*{name}" type="text" class="form-control"
+                                                            th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
+                                                            id="formControlInputName" placeholder="Tên dự án">
+                                                        <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}"
+                                                            class="invalid-feedback">Name Error</div>
+                                                    </div>
+
+                                                    <!-- Slug Input -->
+                                                    <div class="form-group">
+                                                        <label for="formControlInputSlug">Slug</label>
+                                                        <input th:field="*{slug}" type="text" class="form-control"
+                                                            th:class="${#fields.hasErrors('slug')} ? 'form-control is-invalid' : 'form-control'"
+                                                            id="formControlInputSlug" placeholder="" readonly>
+                                                        <div th:errors="*{slug}" th:if="${#fields.hasErrors('slug')}"
+                                                            class="invalid-feedback">Slug Error</div>
+                                                    </div>
+
+                                                    <!-- Title Input -->
+
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlInput3">Tiêu đề (<span
+                                                                style="color: red;">*</span>)</label> <input
+                                                            th:field="*{title}" type="text" class="form-control"
+                                                            th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'"
+                                                            id="exampleFormControlInput3" placeholder="Tiêu đề">
+                                                        <div th:errors="*{title}" th:if="${#fields.hasErrors('title')}"
+                                                            class="invalid-feedback">Title Error</div>
+                                                    </div>
+
+                                                    <!-- Description Input -->
+                                                    <div class="form-group">
+                                                        <label for="inputDescription">Mô tả (<span
+                                                                style="color: red;">*</span>)</label> <br>
+                                                        <textarea class="form-control"
+                                                            th:class="${#fields.hasErrors('description')} ? 'form-control is-invalid' : 'form-control'"
+                                                            id="inputDescription" th:field="*{description}" rows="2"
+                                                            style="width: 100%;" placeholder="Mô tả"></textarea>
+                                                        <div th:errors="*{description}"
+                                                            th:if="${#fields.hasErrors('description')}"
+                                                            class="invalid-feedback">Description Error</div>
+                                                    </div>
+
+                                                    <!-- Content Input -->
+                                                    <div class="form-group">
+                                                        <label for="inputContent">Nội dung</label>
+                                                        <textarea class="textarea form-control" id="inputContent"
+                                                            th:field="*{content}" placeholder="Nội dung"></textarea>
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- Button Submit -->
+                                                <div>
+                                                    <!-- <a class="btn btn-primary float-right" th:href="@{/admin/project}">Hủy
+                                                        bỏ</a> -->
+                                                    <button id="btn-submit-default" type="submit"
+                                                        class="float-right btn btn-success mr-2" hidden>Tạo</button>
+                                                </div>
+                                                <!-- /. button submit -->
+                                            </div>
+                                            <div class="col-5">
+
+                                                <!-- Upload thumbnail image of project -->
+                                                <div class="form-group">
+                                                    <label for="uploadThumbnail">Thumbnail (<span
+                                                            style="color: red;">*</span>)</label>
+
+                                                    <div>
+                                                        <img th:src="@{*{image}}" alt="thumbnail-media"
+                                                            class="img-thumbnail mb-3" id="thumbnail-image"
+                                                            style="max-height: 200px;">
+                                                    </div>
+
+                                                    <input name="project_thumbnail" type="file"
+                                                        class="form-control-file"
+                                                        th:class="${#fields.hasErrors('image')} ? 'form-control-file is-invalid' : 'form-control-file'"
+                                                        id="uploadThumbnail" accept="image/png, image/jpeg" />
+                                                    <div th:errors="*{image}" th:if="${#fields.hasErrors('image')}"
+                                                        class="invalid-feedback">Thumbnail Error</div>
+                                                </div>
+
+                                                <!-- /.thumbnail image upload -->
+
+                                                <!-- Public Input -->
+
+                                                <fieldset class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-form-label col-sm-5 pt-0">Hiển
+                                                            thị</label>
+                                                        <div class="col-sm-7">
+                                                            <div class="form-check">
+                                                                <input th:field="*{pub}" class="form-check-input"
+                                                                    type="radio" name="gridRadiosPublic"
+                                                                    id="gridRadiosPublic1" value="1"> <label
+                                                                    class="form-check-label lead text-sm"
+                                                                    for="gridRadiosPublic1"> Hiện thị </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input th:field="*{pub}" class="form-check-input"
+                                                                    type="radio" name="gridRadiosPublic"
+                                                                    id="gridRadiosPublic2" value="0"> <label
+                                                                    class="form-check-label lead text-sm"
+                                                                    for="gridRadiosPublic2"> Ẩn </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+
+                                                <!-- Hot Input -->
+
+                                                <fieldset class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-form-label col-sm-5 pt-0">Dự án nổi bật
+                                                        </label>
+                                                        <div class="col-sm-7">
+                                                            <div class="form-check">
+                                                                <input th:field="*{hot}" class="form-check-input"
+                                                                    type="radio" name="gridRadiosHot"
+                                                                    id="gridRadiosHot1" value="0"> <label
+                                                                    class="form-check-label lead text-sm"
+                                                                    for="gridRadiosHot1"> Không </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input th:field="*{hot}" class="form-check-input"
+                                                                    type="radio" name="gridRadiosHot"
+                                                                    id="gridRadiosHot2" value="1"> <label
+                                                                    class="form-check-label lead text-sm"
+                                                                    for="gridRadiosHot2"> Có </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card-footer" style="background-color: white;">
+                                <div class="row">
+                                    <div class="col">
+                                        <!-- Button Submit -->
+                                        <div>
+                                            <a class="btn btn-primary float-right" th:href="@{/admin/project}">Hủy
+                                                bỏ</a>
+                                            <button id="btn-submit-custom" type="submit"
+                                                class="float-right btn btn-success mr-2">Tạo</button>
+                                        </div>
+                                        <!-- /. button submit -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- script option -->
+    <th:block layout:fragment="script">
+        <script>
+            $('#btn-submit-custom').click(function () {
+                $('#btn-submit-default').click();
+            })
+        </script>
+
+        <!-- preview thumbnail -->
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#thumbnail-image').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                }
+            }
+            $("#uploadThumbnail").change(function () {
+                readURL(this);
+            });
+        </script>
+    </th:block>
+    <!-- /. script option -->
+</body>
+
+</html>

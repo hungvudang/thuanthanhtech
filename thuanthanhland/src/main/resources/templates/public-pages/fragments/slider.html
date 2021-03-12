@@ -1,0 +1,24 @@
+<!-- home slider -->
+<th:block th:fragment="home-slider">
+	<div id="home-slider" class="home-slider owl-carousel">
+		<th:block th:each="s : ${slides}">
+			<div class="slider-item" th:style="'background-image: url('+ @{${#uris.escapePath(s.image)}} + ');'">
+
+				<div class="container">
+					<div class="row slider-text align-items-center justify-content-center">
+						<div class="col-md-10 text-center col-sm-12 element-animate">
+							<h1 th:utext="${s.title}">Thuận Thành Land</h1>
+							<p class="mb-5 sub-text" th:utext="${s.description}">Lorem
+								ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde
+								impedit, necessitatibus, soluta sit quam minima expedita atque
+								corrupti reiciendis.</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</th:block>
+	</div>
+</th:block>
+
+<!-- /.home slider -->

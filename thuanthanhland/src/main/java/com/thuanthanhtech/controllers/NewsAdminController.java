@@ -1,11 +1,6 @@
 package com.thuanthanhtech.controllers;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,10 +28,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thuanthanhtech.entities.Category;
 import com.thuanthanhtech.entities.CategoryHelper;
+import com.thuanthanhtech.entities.Helper;
+import com.thuanthanhtech.entities.Image;
+import com.thuanthanhtech.entities.Item;
 import com.thuanthanhtech.entities.News;
 import com.thuanthanhtech.entities.NewsHelper;
-import com.thuanthanhtech.entities.RootCategory;
-import com.thuanthanhtech.entities.SlugConverter;
 import com.thuanthanhtech.repositories.CategoryRepository;
 import com.thuanthanhtech.repositories.NewsRepository;
 
@@ -45,6 +42,7 @@ public class NewsAdminController {
 
 	@Autowired
 	private NewsRepository nRepository;
+
 	@Autowired
 	private CategoryRepository cRepository;
 
@@ -53,172 +51,212 @@ public class NewsAdminController {
 		List<News> newses = nRepository.findAll();
 		m.addAttribute("newses", newses);
 		m.addAttribute("active_news", true);
+		m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
+		m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
 		return "admin-pages/news";
 	}
 
 	@GetMapping("/create")
 	public String creatNews(Model m) {
-		News news = new News();
-		news.setPub(1);
-		news.setHot(0);
-		news.setImage(NewsHelper.NO_THUMBNAIL_MEDIUM_IMAGE);
+
+		if (!m.containsAttribute("news")) {
+			News news = new News();
+			news.setPub(1);
+			news.setHot(0);
+			news.setThumbnail(Helper.NO_IMAGE_MEDIUM_PNG);
+			m.addAttribute("news", news);
+		}
 
 		List<Category> categories = cRepository.findAll();
 
-		List<RootCategory> root = new ArrayList<RootCategory>();
-		List<Boolean> visited = new ArrayList<Boolean>();
+		Item<Category> root = new Item<Category>();
+		Category cate = new Category();
+		cate.setId(0);
+		cate.setName("Danh mục gốc");
 
-		for (int i = 0; i < categories.size(); i++) {
-			visited.add(false);
-		}
-		CategoryHelper.recursive_categories(categories, visited, 0, "", root);
+		CategoryHelper.getCategoryTree(categories, root, cate);
 
-		m.addAttribute("news", news);
 		m.addAttribute("categories", categories);
-		m.addAttribute("root_categories", root);
+		m.addAttribute("rootCate", root);
 		m.addAttribute("active_news", true);
+		m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
+		m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
 		return "admin-pages/create-news";
 	}
 
 	@PostMapping("/save")
 	public String saveNews(@Valid @ModelAttribute("news") News news, BindingResult br,
-			@RequestParam("news_thumbnail") MultipartFile multipartFile, RedirectAttributes ra) throws IOException {
+			@RequestParam("news_thumbnail") MultipartFile multipartNewsThumbnail,
+			@RequestParam(name = "news_images[]", required = false) MultipartFile[] multipartNewsImages,
+			RedirectAttributes ra) throws IOException {
 
 		if (br.hasErrors()) {
-			if (br.hasFieldErrors("name")) {
-				ra.addFlashAttribute("isNameError", true);
-				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
+
+			if (multipartNewsThumbnail.isEmpty()) {
+				FieldError imageError = new FieldError("news", "thumbnail", "Hình ảnh không được để trống");
+				br.addError(imageError);
 			}
 
-			if (br.hasFieldErrors("title")) {
-				ra.addFlashAttribute("isTitleError", true);
-				ra.addFlashAttribute("titleErrorMessage", br.getFieldError("title").getDefaultMessage());
-			}
-			
 			ra.addFlashAttribute("error", "Tạo bài viết mới thất bại");
 			ra.addFlashAttribute("news", news);
+			ra.addFlashAttribute("org.springframework.validation.BindingResult.news", br);
 			return "redirect:/admin/news/create";
 		}
-		
-		
-		Optional<Category> opCategory = cRepository.findById(news.getCategory().getId());
-		if (opCategory.isPresent()) {
 
-			news.setCategory(opCategory.get());
+		Category category = cRepository.findById(news.getCategory().getId()).get();
+		news.setCategory(category);
 
-			String slug = SlugConverter.convert(news.getName());
-			news.setSlug(slug);
+		// Lưu ảnh thumbnail của tin tức
+		// ===========================================================================================
+		if (multipartNewsThumbnail != null && !multipartNewsThumbnail.isEmpty()) {
 
-			// Upload ảnh thumbnail của tin tức lên server
-			// ===========================================================================================
-			if (multipartFile != null && !multipartFile.isEmpty()) {
-				String fThumbnailImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-				String uploadDir = NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + news.getSlug();
+			// Kiểm tra file upload lên có đúng định dạng không
+			if (validTypeOfNewsImage(multipartNewsThumbnail, "thumbnail", br)) {
 
-				NewsHelper.saveThumbnailImage(multipartFile, uploadDir, fThumbnailImageName);
-				news.setImage(uploadDir + File.separator + fThumbnailImageName);
+				ra.addFlashAttribute("news", news);
+				ra.addFlashAttribute("org.springframework.validation.BindingResult.news", br);
+				ra.addFlashAttribute("error", "Tạo bài viết mới thất bại");
 
+				return "redirect:/admin/news/create";
 			}
-			// ============================================================================================
+
+			String fThumbnailImageName = StringUtils.cleanPath(multipartNewsThumbnail.getOriginalFilename());
+			news.setThumbnail(fThumbnailImageName);
+		}
+		// ============================================================================================
+
+		// Lưu ảnh mô tả nếu có
+		// ============================================================================================
+		if (multipartNewsImages != null) {
+			List<Image> images = new ArrayList<Image>();
+			for (MultipartFile multipartImage : multipartNewsImages) {
+				if (multipartImage != null && !multipartImage.isEmpty()) {
+
+					if (!validTypeOfNewsImage(multipartImage, "thumbnail", br)) {
+
+						String fImageName = StringUtils.cleanPath(multipartImage.getOriginalFilename());
+						Image img = new Image();
+						img.setName(fImageName);
+						images.add(img);
+
+					} else {
+						ra.addFlashAttribute("news", news);
+						ra.addFlashAttribute("error", "Tạo bài viết mới thất bại");
+						return "redirect:/admin/news/create";
+					}
+				}
+			}
+
+			if (!images.isEmpty()) {
+				news.setImages(images);
+			}
+		}
+		// ============================================================================================
+
+		if ((NewsHelper.insertNewsEntity(news, multipartNewsThumbnail, multipartNewsImages, nRepository))) {
 			ra.addFlashAttribute("success", "Bài viết mới đã được tạo thành công");
-			nRepository.save(news);
+
+		} else {
+			ra.addFlashAttribute("news", news);
+			ra.addFlashAttribute("error", "Tạo bài viết mới thất bại");
 		}
 
-		return "redirect:/admin/news";
+		return "redirect:/admin/news/create";
 	}
 
 	@GetMapping("/detail/{id}")
 	public String detailNews(@PathVariable("id") Integer id, Model m, RedirectAttributes ra) {
+		if (!m.containsAttribute("news")) {
+			Optional<News> opNews = nRepository.findById(id);
+			if (opNews.isPresent()) {
+				m.addAttribute("news", opNews.get());
+			} else {
+				ra.addFlashAttribute("error", "Bài viết không tồn tại hoặc đã bị xóa");
+				return "redirect:/admin/news";
+			}
+
+		}
+
+		List<Category> categories = cRepository.findAll();
+		Item<Category> root = new Item<Category>();
+		Category cate = new Category();
+		cate.setId(0);
+		cate.setName("Danh mục gốc");
+
+		CategoryHelper.getCategoryTree(categories, root, cate);
+
+		m.addAttribute("rootCate", root);
 
 		m.addAttribute("active_news", true);
+		m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
+		m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
+		return "admin-pages/news-detail";
 
-		Optional<News> opNews = nRepository.findById(id);
-		if (opNews.isPresent()) {
-			List<Category> categories = cRepository.findAll();
-
-			List<RootCategory> root = new ArrayList<RootCategory>();
-			List<Boolean> visited = new ArrayList<Boolean>();
-
-			for (int i = 0; i < categories.size(); i++) {
-				visited.add(false);
-			}
-			CategoryHelper.recursive_categories(categories, visited, 0, "", root);
-
-			m.addAttribute("categories", categories);
-			m.addAttribute("root_categories", root);
-			m.addAttribute("news", opNews.get());
-
-			return "admin-pages/news-detail";
-		}
-		ra.addFlashAttribute("error", "Bài viết không tồn tại hoặc đã bị xóa");
-		return "redirect:/admin/news";
 	}
 
 	@PostMapping("/update/{id}")
-	public String updateNews(@PathVariable("id") Integer id,@Valid @ModelAttribute("news") News news, BindingResult br,
-			@RequestParam("news_thumbnail") MultipartFile multipartFile, RedirectAttributes ra) throws IOException {
-
+	public String updateNews(@PathVariable("id") Integer id, @Valid @ModelAttribute("news") News news, BindingResult br,
+			@RequestParam("news_thumbnail") MultipartFile multipartNewsThumbnail,
+			@RequestParam(name = "news_images[]", required = false) MultipartFile[] multipartNewsImages,
+			RedirectAttributes ra) throws IOException {
 		if (br.hasErrors()) {
-			
-			if (br.hasFieldErrors("name")) {
-				ra.addFlashAttribute("isNameError", true);
-				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
-			}
 
-			if (br.hasFieldErrors("title")) {
-				ra.addFlashAttribute("isTitleError", true);
-				ra.addFlashAttribute("titleErrorMessage", br.getFieldError("title").getDefaultMessage());
-			}
+			ra.addFlashAttribute("news", news);
+			ra.addFlashAttribute("org.springframework.validation.BindingResult.news", br);
+
 			ra.addFlashAttribute("error", "Cập nhật bài viết thất bại");
 			return "redirect:/admin/news/detail/" + id;
 		}
 
-		Optional<Category> opCategory = cRepository.findById(news.getCategory().getId());
-		
-		
-		if (opCategory.isPresent()) {
-			News nNews = nRepository.findById(id).get();
+		// Cập nhật danh mục
+		Category category = cRepository.findById(news.getCategory().getId()).get();
+		news.setCategory(category);
 
-			nNews.setId(news.getId());
-			nNews.setCategory(opCategory.get());
-			nNews.setContent(news.getContent());
-			nNews.setDescription(news.getDescription());
-			nNews.setHot(news.getHot());
-			nNews.setName(news.getName());
-			nNews.setPub(news.getPub());
-			nNews.setTitle(news.getTitle());
+		// Cập nhật ảnh thumbnail của tin tức lên server
+		// =======================================================
+		if (multipartNewsThumbnail != null && !multipartNewsThumbnail.isEmpty()) {
 
-			String slug = SlugConverter.convert(nNews.getName());
-			nNews.setSlug(slug);
+			// Kiểm tra file upload lên có đúng định dạng không
+			if (validTypeOfNewsImage(multipartNewsThumbnail, "thumbnail", br)) {
 
-			// Đổi tên thư mục lưu ảnh thumbnail của tin tức khi cập nhập slug
-			// =========================================================================================================
-			if (nNews.getImage() != null) {
-				Path oldThumbnailPathDir = Path
-						.of(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + news.getSlug());
-				Path newThumbnailPathDir = Path
-						.of(NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug());
-				Files.move(oldThumbnailPathDir, newThumbnailPathDir, StandardCopyOption.REPLACE_EXISTING);
+				ra.addFlashAttribute("news", news);
+				ra.addFlashAttribute("org.springframework.validation.BindingResult.news", br);
+				ra.addFlashAttribute("error", "Cập nhật bài viết thất bại");
+				return "redirect:/admin/news/detail/" + id;
 			}
-			// ==========================================================================================================
 
-			// Cập nhật ảnh thumbnail của tin tức lên server
-			// =======================================================
-			if (multipartFile != null && !multipartFile.isEmpty()) {
-				String fThumbnailImageName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-				String uploadDir = NewsHelper.ROOT_PATH_THUMBNAIL_MEDIUM + File.separator + nNews.getSlug();
+			String fThumbnailImageName = StringUtils.cleanPath(multipartNewsThumbnail.getOriginalFilename());
+			news.setThumbnail(fThumbnailImageName);
+		}
+		// ============================================================================================
 
-				NewsHelper.saveThumbnailImage(multipartFile, uploadDir, fThumbnailImageName);
-				nNews.setImage(uploadDir + File.separator + fThumbnailImageName);
+		// Cập nhật Images Detail
+		// ============================================================================================
+		if (multipartNewsImages != null) {
+			for (MultipartFile multipartImage : multipartNewsImages) {
+				if (multipartImage != null && !multipartImage.isEmpty()) {
+
+					if (validTypeOfNewsImage(multipartImage, "images", br)) {
+
+						ra.addFlashAttribute("news", news);
+						ra.addFlashAttribute("error",
+								"Cập nhật bài viết thất bại. Hình ảnh mô tả không đúng định dạng");
+						return "redirect:/admin/news/detail/" + id;
+
+					}
+				}
 			}
-			// ============================================================================================
+		}
+		// ============================================================================================
+
+		if (NewsHelper.updateNewsById(id, news, multipartNewsThumbnail, multipartNewsImages, nRepository)) {
 
 			ra.addFlashAttribute("success", "Bài viết đã được cập nhật thành công");
-			nRepository.save(nNews);
-			return "redirect:/admin/news/detail/" + nNews.getId();
+			return "redirect:/admin/news/detail/" + id;
+
 		} else {
 
-			ra.addFlashAttribute("error", "Bài viết không tồn tại hoặc đã bị xóa");
+			ra.addFlashAttribute("error", "Cập nhật bài viết thất bại");
 			return "redirect:/admin/news";
 		}
 
@@ -229,12 +267,10 @@ public class NewsAdminController {
 		Optional<News> opNews = nRepository.findById(id);
 		if (opNews.isPresent()) {
 			nRepository.deleteById(id);
-			
-			if (opNews.get().getImage() != null) {
-				deleteThumbnailImageDir(opNews.get().getImage());
-			}
+
+			NewsHelper.deleteNewsResourceDir(NewsHelper.BASE_PATH_NEWS_RESOURCE + Helper.FILE_SEPARTOR + id);
 			ra.addFlashAttribute("success", "Xóa bài viết thành công");
-			
+
 		} else {
 			ra.addFlashAttribute("error", "Xóa bài viết thất bại");
 		}
@@ -247,24 +283,19 @@ public class NewsAdminController {
 		return "admin-pages/500";
 	}
 
-	
-	
-	/**
-	 * @param fThumbnailImagePath
-	 * Xóa folder lưu ảnh thumbnail của bài viết bị xóa.
-	 */
-	private void deleteThumbnailImageDir(String fThumbnailImagePath) {
-		
-		Path path = Paths.get(fThumbnailImagePath);
-		File fParentDirThumbnailImage = path.toAbsolutePath().toFile().getParentFile();
-		// xóa thư mục
-		if (fParentDirThumbnailImage.isDirectory()) {
-			String[] files = fParentDirThumbnailImage.list();
-			for (String childs : files) {
-				File childDirt = new File(fParentDirThumbnailImage, childs);
-				childDirt.delete();
-			}
+	// Kiểm tra file upload lên có đúng định dạng không
+	private boolean validTypeOfNewsImage(MultipartFile multipartFile, String nameFieldError, BindingResult br) {
+
+		String contentType = multipartFile.getContentType();
+
+		if (!contentType.matches("^image/.+")) {
+			FieldError error = new FieldError("news", nameFieldError,
+					"Hình ảnh không đúng định dạng. Ảnh phải có định dạnh (*.jpg, *.jpge, *.png)");
+			br.addError(error);
+			return true;
 		}
-		fParentDirThumbnailImage.delete();
+
+		// else
+		return false;
 	}
 }

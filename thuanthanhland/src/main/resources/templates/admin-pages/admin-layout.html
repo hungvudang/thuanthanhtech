@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- stylesheets -->
+	<link th:replace="/admin-pages/fragments/stylesheets/stylesheets" />
+	<!-- /.stylesheets -->
+
+	<title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">Thuận
+		Thành Land</title>
+
+</head>
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+
+		<!-- Navbar -->
+		<div th:replace="/admin-pages/fragments/navbar::navbar"></div>
+		<!-- /.navbar -->
+
+		<!-- Main Sidebar Container -->
+		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
+		<!-- /.sidebar-menu -->
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div class="content-header" layout:fragment="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1 class="m-0 text-dark">Starter Page</h1>
+						</div><!-- /.col -->
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item active">Starter Page</li>
+							</ol>
+						</div><!-- /.col -->
+					</div><!-- /.row -->
+				</div><!-- /.container-fluid -->
+			</div>
+			<!-- /.content-header -->
+
+			<!-- Main content -->
+			<div class="content" layout:fragment="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">Card title</h5>
+
+									<p class="card-text">
+										Some quick example text to build on the card title and make up the bulk of the
+										card's
+										content.
+									</p>
+
+									<a href="#" class="card-link">Card link</a>
+									<a href="#" class="card-link">Another link</a>
+								</div>
+							</div>
+
+							<div class="card card-primary card-outline">
+								<div class="card-body">
+									<h5 class="card-title">Card title</h5>
+
+									<p class="card-text">
+										Some quick example text to build on the card title and make up the bulk of the
+										card's
+										content.
+									</p>
+									<a href="#" class="card-link">Card link</a>
+									<a href="#" class="card-link">Another link</a>
+								</div>
+							</div><!-- /.card -->
+						</div>
+						<!-- /.col-md-6 -->
+						<div class="col-lg-6">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="m-0">Featured</h5>
+								</div>
+								<div class="card-body">
+									<h6 class="card-title">Special title treatment</h6>
+
+									<p class="card-text">With supporting text below as a natural lead-in to additional
+										content.</p>
+									<a href="#" class="btn btn-primary">Go somewhere</a>
+								</div>
+							</div>
+
+							<div class="card card-primary card-outline">
+								<div class="card-header">
+									<h5 class="m-0">Featured</h5>
+								</div>
+								<div class="card-body">
+									<h6 class="card-title">Special title treatment</h6>
+
+									<p class="card-text">With supporting text below as a natural lead-in to additional
+										content.</p>
+									<a href="#" class="btn btn-primary">Go somewhere</a>
+								</div>
+							</div>
+						</div>
+						<!-- /.col-md-6 -->
+					</div>
+					<!-- /.row -->
+				</div><!-- /.container-fluid -->
+			</div>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+
+		<!-- Main Footer -->
+		<footer th:replace="/admin-pages/fragments/footer::footer"></footer>
+
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- scripts -->
+	<script th:replace="/admin-pages/fragments/scripts/scripts"></script>
+	<!-- /.scripts -->
+	<!-- flash notification -->
+	<script th:replace="/admin-pages/fragments/notification::notification"></script>
+	<!-- /. flash notification -->
+
+	<!-- script option -->
+	<th:block layout:fragment="script"></th:block>
+	<!-- /. script option -->
+</body>
+
+</html>

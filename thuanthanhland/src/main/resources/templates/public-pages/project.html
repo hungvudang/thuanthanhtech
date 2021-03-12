@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/public-pages/public-layout}">
+
+<head>
+	<meta charset="UTF-8">
+
+	<title>Dự án</title>
+
+</head>
+
+<body>
+	<div class="wrapper bg-light">
+
+		<div layout:fragment="option-content-before">
+		</div>
+
+		<section class="section">
+
+			<!-- content header -->
+			<div class="col-md-8 text-center" layout:fragment="content-header">
+			</div>
+			<!-- /.content header -->
+
+			<div class="container" layout:fragment="container">
+				<div class="row align-items-stretch mb-5">
+
+					<th:block th:each="p : ${targetNewses}">
+						<div class="col-lg-3 col-md-4 col-xl-3 element-animate mb-2">
+							<div class="card">
+								<a th:href="@{'/tin-tuc/' + ${cateSlug} + '/' + ${p.slug}}" class="link-thumbnail"><span
+										class="ion-plus icon"></span>
+									<img src="/public-static/images/img_1.jpg"
+										th:src="@{${BASE_PATH_NEWS_RESOURCE} + '/' + ${p.id} + '/' + ${p.thumbnail}}"
+										th:alt="${p.name}" class="card-img-top" style="object-fit: cover;" width="200"
+										height="200">
+								</a>
+								<div class="card-body">
+									<a th:href="@{'/tin-tuc/' + ${cateSlug} + '/' + ${p.slug}}">
+										<h5 class="lead font-weight-bold text text-center text-sm text-secondary"
+											th:utext="${p.name}">Vinhomes
+											Golden River</h5>
+									</a>
+								</div>
+							</div>
+
+						</div>
+					</th:block>
+				</div>
+
+				<!-- phân trang -->
+				<div th:replace="/public-pages/fragments/paging::news-paging"></div>
+
+			</div>
+
+
+		</section>
+
+
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- script option -->
+	<th:block layout:fragment="script"></th:block>
+	<!-- /. script option -->
+</body>
+
+</html>

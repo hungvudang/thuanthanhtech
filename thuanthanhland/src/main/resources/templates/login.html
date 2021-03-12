@@ -1,28 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>AdminLTE 3 | Đăng nhập</title>
-<!-- Tell the browser to be responsive to screen width -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/fontawesome-free/css/all.min.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- icheck bootstrap -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
-<!-- Google Font: Source Sans Pro -->
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>AdminLTE 3 | Đăng nhập</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link th:replace="/admin-pages/fragments/stylesheets/stylesheets" />
 </head>
+
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
@@ -40,8 +28,7 @@
 				</div>
 				<form th:action="@{/login}" method="post">
 					<div class="input-group mb-3">
-						<input name="username" type="email" class="form-control"
-							placeholder="Nhập địa chỉ email">
+						<input name="username" type="email" class="form-control" placeholder="Nhập địa chỉ email">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-envelope"></span>
@@ -49,8 +36,7 @@
 						</div>
 					</div>
 					<div class="input-group mb-3">
-						<input name="password" type="password" class="form-control"
-							placeholder="Nhập mật khẩu">
+						<input name="password" type="password" class="form-control" placeholder="Nhập mật khẩu">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-lock"></span>
@@ -60,8 +46,8 @@
 					<div class="row">
 						<div class="col-6 text-sm">
 							<div class="icheck-primary">
-								<input type="checkbox" id="remember"> <label
-									for="remember"> Ghi nhớ mật khẩu </label>
+								<input type="checkbox" id="remember"> <label for="remember"> Ghi nhớ mật khẩu
+								</label>
 							</div>
 						</div>
 						<!-- /.col -->
@@ -73,7 +59,7 @@
 					</div>
 				</form>
 
-				<div class="social-auth-links text-center mb-3">
+				<!-- <div class="social-auth-links text-center mb-3">
 					<p>- Hoặc -</p>
 					<a href="#" class="btn btn-block btn-primary"> <i
 						class="fab fa-facebook mr-2"></i> Đăng nhập bằng tài khoản
@@ -82,7 +68,7 @@
 						class="fab fa-google-plus mr-2"></i> Đăng nhập bằng tài khoản
 						Google
 					</a>
-				</div>
+				</div> -->
 				<!-- /.social-auth-links -->
 
 				<p class="mb-1">
@@ -97,13 +83,8 @@
 	</div>
 	<!-- /.login-box -->
 
-	<!-- jQuery -->
-	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 4 -->
-	<script
-		src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="/admin-static/dist/js/adminlte.min.js"></script>
+	<script th:replace="/admin-pages/fragments/scripts/scripts"></script>
 
 </body>
+
 </html>

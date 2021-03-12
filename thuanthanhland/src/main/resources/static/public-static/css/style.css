@@ -4,7 +4,7 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-:root {
+ :root {
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -10036,7 +10036,7 @@ header .navbar .dropdown-menu:before {
   bottom: 100%;
   left: 10%;
   border: solid transparent;
-  content: " ";
+  /* content: " "; */
   height: 0;
   width: 0;
   position: absolute;

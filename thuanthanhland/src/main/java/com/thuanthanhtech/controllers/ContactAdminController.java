@@ -5,10 +5,13 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,19 +41,44 @@ public class ContactAdminController {
 	@GetMapping("/create")
 	public String createContact(Model m) {
 		Contact contact = new Contact();
-		m.addAttribute("contact", contact);
+		contact.setStatus(0);
+		
+		if(m.getAttribute("contact") == null) {
+			m.addAttribute("contact", contact);
+		}
+		
 		m.addAttribute("active-contact", true);
 		return "admin-pages/create-contact";
 	}
 
 	@PostMapping("/save")
-	public String saveContact(@ModelAttribute("contact") Contact contact, RedirectAttributes ra) {
-		if (contact.getName() == null || contact.getName().isBlank() || contact.getName().isEmpty()) {
+	public String saveContact(@Valid @ModelAttribute("contact") Contact contact, RedirectAttributes ra, BindingResult br) {
+		
+		if (br.hasErrors()) {
+			
+			if (br.hasFieldErrors("name")) {
+				ra.addFlashAttribute("isNameError", true);
+				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
+			}
+
+			if (br.hasFieldErrors("email")) {
+				ra.addFlashAttribute("isEmailError", true);
+				ra.addFlashAttribute("emailErrorMessage", br.getFieldError("email").getDefaultMessage());
+			}
+
+			if (br.hasFieldErrors("phone")) {
+				ra.addFlashAttribute("isPhoneError", true);
+				ra.addFlashAttribute("phoneErrorMessage", br.getFieldError("phone").getDefaultMessage());
+			}
+			
 			ra.addFlashAttribute("error", "Tạo liên hệ mới thất bại");
+			contact.setStatus(0);
 			ra.addFlashAttribute("contact", contact);
 			return "redirect:/admin/contact/create";
 		}
-		ctRepository.save(contact);
+//		else
+		
+		ctRepository.saveAndFlush(contact);
 		ra.addFlashAttribute("success", "Tạo liên hệ mới thành công");
 		return "redirect:/admin/contact";
 	}
@@ -68,13 +96,31 @@ public class ContactAdminController {
 	}
 
 	@PostMapping("/update/{id}")
-	public String updateCategory(@PathVariable("id") Integer id, @ModelAttribute("contact") Contact contact,
-			RedirectAttributes ra) {
+	public String updateContact(@PathVariable("id") Integer id, @Valid @ModelAttribute("contact") Contact contact,
+			BindingResult br, RedirectAttributes ra) {
+		
+		if(br.hasErrors()) {
+			
+			if (br.hasFieldErrors("name")) {
+				ra.addFlashAttribute("isNameError", true);
+				ra.addFlashAttribute("nameErrorMessage", br.getFieldError("name").getDefaultMessage());
+			}
 
-		if (contact.getName().isBlank() || contact.getName().isEmpty()) {
-			ra.addFlashAttribute("error", "cập nhật liên hệ thất bại");
+			if (br.hasFieldErrors("email")) {
+				ra.addFlashAttribute("isEmailError", true);
+				ra.addFlashAttribute("emailErrorMessage", br.getFieldError("email").getDefaultMessage());
+			}
+
+			if (br.hasFieldErrors("phone")) {
+				ra.addFlashAttribute("isPhoneError", true);
+				ra.addFlashAttribute("phoneErrorMessage", br.getFieldError("phone").getDefaultMessage());
+			}
+			
+			ra.addFlashAttribute("error", "Cập nhật liên hệ thất bại");
 			return "redirect:/admin/contact/detail/" + id;
 		}
+		
+		
 		Optional<Contact> opContact = ctRepository.findById(id);
 		if (opContact.isPresent()) {
 			Contact nContact = opContact.get();
@@ -83,14 +129,15 @@ public class ContactAdminController {
 			nContact.setEmail(contact.getEmail());
 			nContact.setAddress(contact.getAddress());
 			nContact.setPhone(contact.getPhone());
-
+			nContact.setContent(contact.getContent());
+			
 			ctRepository.save(nContact);
 			ra.addFlashAttribute("success", "Cập nhật liên hệ thành công");
 			return "redirect:/admin/contact/detail/" + nContact.getId();
-		} else {
-			ra.addFlashAttribute("error", "Liên hệ không tồn tại");
-			// return "redirect:/contact";
 		}
+//		else
+
+		ra.addFlashAttribute("error", "Liên hệ không tồn tại");
 		return "redirect:/admin/contact";
 	}
 
@@ -99,8 +146,9 @@ public class ContactAdminController {
 		Optional<Contact> opContact = ctRepository.findById(id);
 		if (opContact.isPresent()) {
 			ctRepository.deleteById(id);
+			ra.addFlashAttribute("success", "Liên hệ đã được xóa thành công");
 		} else {
-			ra.addFlashAttribute("error", "Xóa liên hệ thất bại");
+			ra.addFlashAttribute("error", "Liên hệ không tồn tại hoặc đã bị xóa");
 		}
 		return "redirect:/admin/contact";
 	}

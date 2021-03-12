@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class UserHelper {
 	
-	public static final String NO_AVATAR_MEDIUM_IMAGE = "/admin-static/images/no-thumbnail-medium.png";
 	public static final String ROOT_PATH_AVATAR_MEDIUM = "/public/upload/user";
 	
 	

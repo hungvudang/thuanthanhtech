@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- stylesheets -->
+    <link th:replace="/public-pages/fragments/stylesheets" />
+    <!-- /.stylesheets -->
+
+    <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">Thuận
+        Thành Land</title>
+
+</head>
+
+<body>
+    <div class="wrapper bg-light">
+
+        <!-- Navbar -->
+        <div th:replace="/public-pages/fragments/header::header"></div>
+        <!-- /.navbar -->
+
+        <!-- option content -->
+        <div layout:fragment="option-content-before"></div>
+        <!-- /. option content -->
+
+        <section class="section element-animate">
+            <!-- content header -->
+            <div class="row justify-content-center mb-5 element-animate">
+                <!-- breadcrumb -->
+                <div th:replace="/public-pages/fragments/breadcrumb"></div>
+                <!-- /.breadcrumb -->
+
+                <div class="col-md-8 text-center" layout:fragment="content-header">
+                    <h1 class="heading mb-4">CONTENT HEADER</h1>
+                    <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
+                        adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
+                        quam minima expedita atque corrupti reiciendis.</p>
+                </div>
+            </div>
+            <!-- /.content header -->
+
+            <div class="container" layout:fragment="container">
+
+            </div>
+        </section>
+
+
+        <!-- option content -->
+
+        <div layout:fragment="option-content-after"></div>
+
+        <!-- /. option content -->
+
+
+        <div th:replace="/public-pages/fragments/footer::footer"></div>
+        <!-- END footer -->
+
+        <!-- loader -->
+        <div th:replace="/public-pages/fragments/loader::loader"></div>
+
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- scripts -->
+    <script th:replace="/public-pages/fragments/scripts"></script>
+    <!-- /.scripts -->
+
+    <!-- flash notification -->
+    <script th:replace="/public-pages/fragments/notification::notification"></script>
+    <!-- /. flash notification -->
+
+    <!-- script option -->
+    <th:block layout:fragment="script"></th:block>
+    <!-- /. script option -->
+</body>
+
+</html>

@@ -1,36 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/admin-pages/admin-layout}">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 3 | Danh mục</title>
-	<!-- Tell the browser to be responsive to screen width -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="/admin-static/plugins/fontawesome-free/css/all.min.css">
-	<!-- Ekko Lightbox -->
-	<link rel="stylesheet" href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
-	<!-- Ionicons -->
-	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	<!-- Theme style -->
-	<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
-	<!-- Google Font: Source Sans Pro -->
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+	<meta charset="UTF-8">
+
+	<title>Danh mục</title>
+
+
 </head>
 
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
-		<!-- Navbar -->
-		<div th:replace="/admin-pages/fragments/navbar::navbar"></div>
-		<!-- /.navbar -->
 
-		<!-- Main Sidebar Container -->
-		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			<section class="content-header">
+			<div class="content-header" layout:fragment="content-header">
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
@@ -45,53 +31,62 @@
 					</div>
 				</div>
 				<!-- /.container-fluid -->
-			</section>
+			</div>
+			<!-- /.content-header -->
 
 			<!-- Main content -->
-			
-			<!-- flash notification -->
-			
-			<div th:replace="/admin-pages/fragments/notification::notification"></div>
-			
-			<!-- /. flash notification -->
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-7 col-sm-12">
-						<div class="card card-info">
+			<div class="content" layout:fragment="content">
+				<div class="container-fluid">
+					<div class="row">
+
+						<div class="card card-info w-100">
 							<div class="card-header">
 								<h2 class="card-title font-weight-bold">Cập nhật danh mục</h2>
 							</div>
 							<div class="card-body">
-								<form th:action="@{'/category/update/' + ${category.id}}" th:object="${category}"
+								<form th:action="@{'/admin/category/update/' + ${category.id}}" th:object="${category}"
 									th:method="post">
 									<div>
 										<div class="form-group">
-											<label for="exampleFormControlInput2">Tên danh mục</label> <input
-												th:field="*{name}" type="text" class="form-control"
-												id="exampleFormControlInput2" placeholder="">
+											<label for="formControlInputName">Tên danh mục (<span
+													style="color: red;">*</span>)
+											</label> <input th:field="*{name}" type="text" class="form-control"
+												th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
+												id="formControlInputName" placeholder="Tên danh mục">
+											<div th:errors="*{name}" th:if="${#fields.hasErrors('name')}"
+												class="invalid-feedback">>Name Error</div>
 										</div>
 
-										<div class="form-group"> 
-											<label for="exampleFormControlInput3">Tiêu đề</label> <input
-												th:field="*{title}" type="text" class="form-control"
-												id="exampleFormControlInput3" placeholder="">
-										</div>
-										
 										<div class="form-group">
-											<label for="exampleFormControlInput4">Thứ tự hiển thị</label> <input
-												th:field="*{sort}" type="number" class="form-control"
-												id="exampleFormControlInput4" placeholder="">
+											<label for="formControlInputSlug">Slug</label>
+											<input th:field="*{slug}" type="text" class="form-control"
+												th:class="${#fields.hasErrors('slug')} ? 'form-control is-invalid' : 'form-control'"
+												id="formControlInputSlug" placeholder="" readonly>
+											<div th:errors="*{slug}" th:if="${#fields.hasErrors('slug')}"
+												class="invalid-feedback">Slug Error</div>
+										</div>
+
+										<div class="form-group">
+											<label for="exampleFormControlInput4">Thứ tự hiển thị
+												(<span style="color: red;">*</span>)
+											</label> <input th:field="*{sort}" type="text" class="form-control"
+												th:class="${#fields.hasErrors('sort')} ? 'form-control is-invalid' : 'form-control'"
+												id="exampleFormControlInput4" onkeypress="InputNumber(event)"
+												placeholder="Thứ tự hiển thị">
+											<div th:errors="*{sort}" th:if="${#fields.hasErrors('sort')}"
+												class="invalid-feedback">Sort Error</div>
 										</div>
 
 										<!-- Lựa chọn danh mục gốc -->
 										<div class="form-group">
-											<label for="inputCategory">Danh mục gốc</label> <select name="typeCategory"
-												class="form-control custom-select" th:field="*{parent_id}">
-												<th:block th:each="rc : ${root_categories}">
+											<label for="formControlInputCategory">Danh mục gốc</label>
+											<select id="formControlInputCategory" name="typeCategory"
+												class="form-control custom-select" th:field="*{parentId}">
+												<!-- <th:block th:each="rc : ${root_categories}">
 													<th:block th:if="*{id} != ${rc.id}">
 														<option th:value="${rc.id}" th:utext="${rc.name}"></option>
 													</th:block>
-												</th:block>
+												</th:block> -->
 											</select>
 										</div>
 
@@ -103,18 +98,13 @@
 														<input th:field="*{pub}" class="form-check-input" type="radio"
 															name="gridRadiosPublic" id="gridRadiosPublic1" value="1">
 														<label class="form-check-label lead text-sm"
-															for="gridRadiosPublic1">
-															Hiện
-															thị
-														</label>
+															for="gridRadiosPublic1"> Hiện thị </label>
 													</div>
 													<div class="form-check">
 														<input th:field="*{pub}" class="form-check-input" type="radio"
 															name="gridRadiosPublic" id="gridRadiosPublic2" value="0">
 														<label class="form-check-label lead text-sm"
-															for="gridRadiosPublic2">
-															Ẩn
-														</label>
+															for="gridRadiosPublic2"> Ẩn </label>
 													</div>
 												</div>
 											</div>
@@ -128,8 +118,7 @@
 														<input th:field="*{hot}" class="form-check-input" type="radio"
 															name="gridRadiosHot" id="gridRadiosHot1" value="0" checked>
 														<label class="form-check-label lead text-sm"
-															for="gridRadiosHot1">
-															Không </label>
+															for="gridRadiosHot1"> Không </label>
 													</div>
 													<div class="form-check">
 														<input th:field="*{hot}" class="form-check-input" type="radio"
@@ -143,74 +132,74 @@
 									</div>
 									<!-- button submit -->
 									<div>
-										<a class="btn btn-primary float-right" th:href="@{/category}">Trở về</a>
+										<a class="btn btn-primary float-right" th:href="@{/admin/category}">Trở về</a>
 										<button type="submit" class="float-right btn btn-success mr-2">Lưu</button>
 									</div>
 									<!-- /.button submit -->
 								</form>
 							</div>
 						</div>
+
 					</div>
 				</div>
+				<!-- /.container-fluid -->
 			</div>
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
-
-		<!-- footer -->
-		<div th:replace="/admin-pages/fragments/footer::footer"></div>
-
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
 
-	<!-- jQuery -->
-	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap -->
-	<script src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- jQuery UI -->
-	<script src="/admin-static/plugins/jquery-ui/jquery-ui.min.js"></script>
-	<!-- Ekko Lightbox -->
-	<script src="/admin-static/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="/admin-static/dist/js/adminlte.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="/admin-static/dist/js/demo.js"></script>
-	<!-- Filterizr-->
-	<script src="/admin-static/plugins/filterizr/jquery.filterizr.min.js"></script>
-	<!-- Page specific script -->
-	<script>
-		$(function () {
-			$(document).on('click', '[data-toggle="lightbox"]',
-				function (event) {
-					event.preventDefault();
-					$(this).ekkoLightbox({
-						alwaysShowClose: true
-					});
-				});
+	<!-- script option -->
+	<th:block layout:fragment="script">
+		<!--Event chỉ nhập số-->
+		<script>
+			function InputNumber(evt) {
+				var ch = String.fromCharCode(evt.which);
+				if (!(/[0-9]/.test(ch))) {
+					evt.preventDefault();
+				}
+			}
+		</script>
 
-			$('.filter-container').filterizr({
-				gutterPixels: 3
-			});
-			$('.btn[data-filter]').on('click', function () {
-				$('.btn[data-filter]').removeClass('active');
-				$(this).addClass('active');
-			});
-		})
-	</script>
-	
-	<script>
-		$(document).ready(function() {
-			$(".message-box")
-			setTimeout(function() {
-				$(".message-box").hide();
-			}, 5000);
-		});
-	</script>
+		<!-- List danh mục -->
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var $rootCate = /*[[${rootCate}]]*/'rootCate';
+			var $targetId = /*[[${category.id}]]*/'id';
+			var $targetParentId = /*[[${category.parentId}]]*/'parentId';
+			/*]]>*/
+			var selected = "";
+			recursive($rootCate, $targetId, $targetParentId, "");
+
+
+			function recursive($rootCate, $targetId, $targetParentId, $level) {
+
+				if ($rootCate.id == $targetParentId) {
+					selected = 'selected';
+				}
+
+				if ($rootCate.id != $targetId) {
+					$('#formControlInputCategory').append(`
+						<option value="${$rootCate.id}" ${selected}>${$level}${$rootCate.self.name}</option>
+					`)
+
+					selected = "";
+
+					if ($rootCate.childs.length > 0 && $rootCate.id != $targetId) {
+						$.each($rootCate.childs, function ($index, $cate) {
+							recursive($cate, $targetId, $targetParentId, $level + '&emsp;');
+						})
+					}
+				}
+			}
+		</script>
+		<!-- List danh mục -->
+
+
+
+	</th:block>
+	<!-- /. script option -->
 </body>
 
 </html>

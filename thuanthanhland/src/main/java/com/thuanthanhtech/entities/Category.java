@@ -14,6 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "categories")
@@ -23,16 +28,16 @@ public class Category {
 	private Integer id;
 
 	@Column(name = "name", nullable = false, unique = true)
+	@NotNull(message = "Tên danh mục không hợp lệ")
+	@NotBlank(message = "Tên danh mục không được để trống")
 	private String name;
 
-	@Column(columnDefinition = "varchar(255)", name = "title")
-	private String title;
-
 	@Column(name = "slug")
+	@NotBlank(message = "Slug không được để trống")
 	private String slug;
 
 	@Column(name = "parent_id")
-	private Integer parent_id;
+	private Integer parentId;
 
 	@Column(name = "hot", columnDefinition = "TINYINT(4) DEFAULT 0")
 	private Integer hot;
@@ -40,15 +45,18 @@ public class Category {
 	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")
 	private Integer pub;
 	
-	@Column(name = "sort")
-	private Integer sort;
+	@Column(name = "sort", nullable = false ,unique = true)
+	@NotNull(message = "Số thứ tự không hợp lệ")
+	@Min(value = 0, message = "Số thứ tự không hợp lệ")
+	private int sort;
 	
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
 	
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "category", targetEntity = News.class)
-	List<News> newses;
+	@JsonIgnore
+	private List<News> newses;
 
 
 	public Category() {
@@ -70,14 +78,6 @@ public class Category {
 		this.name = name;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	public String getSlug() {
 		return slug;
 	}
@@ -86,12 +86,12 @@ public class Category {
 		this.slug = slug;
 	}
 
-	public Integer getParent_id() {
-		return parent_id;
+	public Integer getParentId() {
+		return parentId;
 	}
 
-	public void setParent_id(Integer parent_id) {
-		this.parent_id = parent_id;
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
 	public Integer getHot() {
@@ -111,11 +111,11 @@ public class Category {
 	}
 
 	
-	public Integer getSort() {
+	public int getSort() {
 		return sort;
 	}
 
-	public void setSort(Integer sort) {
+	public void setSort(int sort) {
 		this.sort = sort;
 	}
 
@@ -141,10 +141,10 @@ public class Category {
 
 	public void setNewses(List<News> newses) {
 		this.newses = newses;
+		newses.parallelStream().forEach((news)->{
+			news.setCategory(this);
+		});
 		
-		for (News n : newses) {
-			n.setCategory(this);
-		}
 	}
 	
 	@PrePersist
@@ -157,14 +157,23 @@ public class Category {
 		this.updated_at = LocalDateTime.now();
 	}
 
-
 	@Override
-	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", title=" + title + ", slug=" + slug + ", parent_id="
-				+ parent_id + ", hot=" + hot + ", public=" + pub + ", created_at=" + created_at + ", updated_at="
-				+ updated_at + "]";
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Category other = (Category) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
-	
-	
 
+
+	
 }

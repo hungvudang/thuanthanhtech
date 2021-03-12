@@ -1,19 +1,36 @@
 <th:block th:fragment="notification">
-	<div th:if="${error}" class="container-fluid message-box mb-3">
-		<div class="row justify-content-start">
-			<div class="badge badge-danger ml-3 elevation-2">
-				<i class="fas fa-exclamation-triangle"></i><span th:utext="${error}"
-					class="text-md mb-2 ml-2">Warning</span>
-			</div>
-		</div>
-	</div>
-	<div th:if="${success}" class="container-fluid message-box mb-3">
-		<div class="row justify-content-start">
-		<div class="badge badge-success ml-3 elevation-2">
-			<i class="fas fa-check-circle"></i> <span
-				th:utext="${success}"
-				class=" text-md mb-2 ml-2">Success</span>
-		</div>
-		</div>
-	</div>
+
+	<!-- Vanilla Toast -->
+	<script type="text/javascript" th:src="${#request.contextPath} + '/js/vanilla-toast/vanilla-toast.min.js'"></script>
+	<th:block th:if="${success}">
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var msg = /*[[${success}]]*/'success';
+			vt.success(msg, {
+				title: "Thành Công",
+				position: "top-right",
+				duration: 4000,
+				closable: true,
+				focusable: false,
+				callback: undefined
+			});
+			/*]]>*/
+		</script>
+	</th:block>
+
+	<th:block th:if="${error}">
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var msg = /*[[${error}]]*/'error';
+			vt.error(msg, {
+				title: "Thất Bại",
+				position: "top-right",
+				duration: 4000,
+				closable: true,
+				focusable: false,
+				callback: undefined
+			});
+			/*]]>*/
+		</script>
+	</th:block>
 </th:block>

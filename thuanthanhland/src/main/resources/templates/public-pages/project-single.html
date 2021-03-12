@@ -1,220 +1,192 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/public-pages/public-layout}">
 
 <head>
-<title>Thuận Thành Land &mdash; Free Website Template by
-	Free-Template.co</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
 
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800"
-	rel="stylesheet">
+    <title>Dự án</title>
 
-<link rel="stylesheet" href="css/animate.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-
-<link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
-<link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
-
-<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-
-<!-- Theme Style -->
-<link rel="stylesheet" href="css/style.css">
-
-<!-- 
-    //////////////////////////////////////////////////////
-
-    Free Template 
-    DESIGNED & DEVELOPED by free-template.co
-      
-    Website:    https://free-template.co
-    Email:      freetemplate.co@gmail.com
-    Twitter:    https://twitter.com/Free_Templateco
-    Facebook:   https://www.facebook.com/Free.Template.co/
-
-    //////////////////////////////////////////////////////
-     -->
 </head>
 
 <body>
-	<div th:replace="fragments/header::header"></div>
-	<!-- END header -->
+    <div class="wrapper bg-light">
 
-	<section class="home-slider inner-page owl-carousel">
-		<div class="slider-item"
-			style="background-image: url('images/slider-3.jpg');">
+        <div layout:fragment="option-content-before">
+            <section class="home-slider inner-page owl-carousel">
+                <div class="slider-item"
+                    th:style="'background-image: url('+ ${#request.contextPath} + '/public-static/images/slider-3.jpg' + ');'">
 
-			<div class="container">
-				<div
-					class="row slider-text align-items-center justify-content-center">
-					<div class="col-md-8 text-center col-sm-12 element-animate">
-						<h1>Vinpearl Phú Quốc</h1>
-						<p class="mb-4 sub-text">Corporis tempora inventore, aliquam
-							ratione. Eum vero sapiente tempora eveniet perspiciatis libero.</p>
-					</div>
-				</div>
-			</div>
-		</div>
+                    <div class="container">
+                        <div class="row slider-text align-items-center justify-content-center">
+                            <div class="col-md-8 text-center col-sm-12 element-animate">
+                                <h1>Vinpearl Phú Quốc</h1>
+                                <p class="mb-4 sub-text">Corporis tempora inventore, aliquam
+                                    ratione. Eum vero sapiente tempora eveniet perspiciatis libero.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-		<div class="slider-item"
-			style="background-image: url('images/slider-1.jpg');">
+                <div class="slider-item"
+                    th:style="'background-image: url(' + ${#request.contextPath} + '/public-static/images/slider-1.jpg' + ');'">
 
-			<div class="container">
-				<div
-					class="row slider-text align-items-center justify-content-center">
-					<div class="col-md-8 text-center col-sm-12 element-animate">
-						<h1>vinpearl Phú Quốc</h1>
-						<p class="mb-4 sub-text">Corporis tempora inventore, aliquam
-							ratione. Eum vero sapiente tempora eveniet perspiciatis libero.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- END slider -->
+                    <div class="container">
+                        <div class="row slider-text align-items-center justify-content-center">
+                            <div class="col-md-8 text-center col-sm-12 element-animate">
+                                <h1>vinpearl Phú Quốc</h1>
+                                <p class="mb-4 sub-text">Corporis tempora inventore, aliquam
+                                    ratione. Eum vero sapiente tempora eveniet perspiciatis libero.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-
-	<section class="section">
-		<div class="container">
-
-			<div class="row justify-content-center">
-				<div class="col-md-8 mb-5">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-						Vero nulla delectus sit vel magnam, ad voluptatem hic. Maxime
-						ipsam quibusdam eius exercitationem iusto, totam possimus dolore
-						magnam voluptatum illum consequuntur.</p>
-				</div>
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-8 mb-5">
-					<h2>&ldquo; Lorem ipsum dolor sit amet, consectetur
-						adipisicing elit. Praesentium sapiente ratione nesciunt saepe
-						ipsam, officiis reiciendis doloribus vero, facilis maiores
-						incidunt vel eaque non illo animi voluptatem similique&rdquo;</h2>
-				</div>
-			</div>
-
-			<div class="row justify-content-center">
-				<div class="col-md-8">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-						Vero nulla delectus sit vel magnam, ad voluptatem hic. Maxime
-						ipsam quibusdam eius exercitationem iusto, totam possimus dolore
-						magnam voluptatum illum consequuntur.</p>
-					<p>Deserunt cupiditate error repudiandae doloribus est sit id
-						ad repellendus voluptates molestiae ratione eaque, iure, odit
-						culpa delectus harum asperiores ab a aut, molestias possimus!
-						Tempore commodi iste soluta voluptatibus.</p>
-					<p>Quaerat vero velit voluptatem nostrum natus ipsa, eius dicta
-						veritatis iste odio maiores harum nesciunt reiciendis, dolore eum
-						animi error quia earum enim beatae omnis, laudantium minima ab ut
-						accusamus.</p>
-					<p>Voluptatem, ullam, beatae. Libero ad nemo, id. Quidem
-						facilis, eaque iste ducimus dicta quia quaerat quisquam cum ab,
-						velit voluptate at optio vero, nostrum enim, a officiis rerum
-						recusandae eum?</p>
-					<p class="mb-5">Laboriosam recusandae vitae aliquid veritatis
-						facilis omnis architecto officia, explicabo deleniti doloribus
-						odio sequi, harum id suscipit ipsa laborum, ducimus. Sequi quasi
-						vitae necessitatibus harum ab pariatur eos perspiciatis quo!</p>
-
-					<p>
-						<img src="images/slider-3.jpg"
-							alt="Free Template by Free-Template.co" class="img-fluid">
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
+            </section>
+            <!-- END slider -->
+        </div>
 
 
-	<section class="section border-t pb-0">
-		<div class="container">
-			<div class="row justify-content-center mb-3 element-animate">
-				<div class="col-md-8 text-center">
-					<h2 class=" heading mb-4">CÁC DỰ ÁN KHÁC</h2>
-					<p class="mb-4 lead">Lorem ipsum dolor sit amet, consectetur
+
+        <section class="section">
+
+            <!-- content header -->
+            <div class="col-md-8 text-center" layout:fragment="content-header">
+                <!-- <h1 class="heading mb-4">DỰ ÁN</h1> -->
+                <!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
 						adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
-						quam minima expedita atque corrupti reiciendis.</p>
-				</div>
-			</div>
-		</div>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-4 element-animate">
-					<a href="project-single.html" class="link-thumbnail"> <span
-						class="ion-plus icon"></span> <img src="images/img_1.jpg"
-						alt="thuanthanhland.com" class="img-fluid">
-					</a>
-					<h3
-						class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Vinhomes
-						Golden River</h3>
-				</div>
-				<div class="col-md-4 element-animate">
-					<a href="project-single.html" class="link-thumbnail"> <span
-						class="ion-plus icon"></span> <img src="images/img_2.jpg"
-						alt="thuanthanhland.com" class="img-fluid">
-					</a>
-					<h3
-						class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Tràng
-						An Complex</h3>
-				</div>
-				<div class="col-md-4 element-animate">
-					<a href="project-single.html" class="link-thumbnail"> <span
-						class="ion-plus icon"></span> <img src="images/img_3.jpg"
-						alt="thuanthanhland.com" class="img-fluid">
-					</a>
-					<h3
-						class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Gamuda
-						Gardens</h3>
-				</div>
-				<div class="col-md-4 element-animate">
-					<a href="project-single.html" class="link-thumbnail"> <span
-						class="ion-plus icon"></span> <img src="images/img_4.jpg"
-						alt="thuanthanhland.com" class="img-fluid">
-					</a>
-					<h3
-						class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Permier
-						Village Phú Quốc</h3>
-				</div>
-				<div class="col-md-4 element-animate">
-					<a href="project-single.html" class="link-thumbnail"> <!-- <h3>Him Lam Chợ Lớn</h3> -->
-						<span class="ion-plus icon"></span> <img src="images/img_5.jpg"
-						alt="thuanthanhland.com" class="img-fluid">
-					</a>
-					<h3
-						class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Him
-						Lam Chợ Lớn</h3>
-				</div>
-				<div class="col-md-4 element-animate">
-					<a href="project-single.html" class="link-thumbnail"> <!-- <h3>Mon City Mỹ Đình</h3> -->
-						<span class="ion-plus icon"></span> <img src="images/img_6.jpg"
-						alt="thuanthanhland.com" class="img-fluid">
-					</a>
-					<h3
-						class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Mon
-						City Mỹ Đình</h3>
-				</div>
-			</div>
+						quam minima expedita atque corrupti reiciendis.</p> -->
+            </div>
+            <!-- /.content header -->
 
-		</div>
-	</section>
-	<!-- END section -->
+            <div class="container" layout:fragment="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 mb-5">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Vero nulla delectus sit vel magnam, ad voluptatem hic. Maxime
+                            ipsam quibusdam eius exercitationem iusto, totam possimus dolore
+                            magnam voluptatum illum consequuntur.</p>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-8 mb-5">
+                        <h2>&ldquo; Lorem ipsum dolor sit amet, consectetur
+                            adipisicing elit. Praesentium sapiente ratione nesciunt saepe
+                            ipsam, officiis reiciendis doloribus vero, facilis maiores
+                            incidunt vel eaque non illo animi voluptatem similique&rdquo;</h2>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Vero nulla delectus sit vel magnam, ad voluptatem hic. Maxime
+                            ipsam quibusdam eius exercitationem iusto, totam possimus dolore
+                            magnam voluptatum illum consequuntur.</p>
+                        <p>Deserunt cupiditate error repudiandae doloribus est sit id
+                            ad repellendus voluptates molestiae ratione eaque, iure, odit
+                            culpa delectus harum asperiores ab a aut, molestias possimus!
+                            Tempore commodi iste soluta voluptatibus.</p>
+                        <p>Quaerat vero velit voluptatem nostrum natus ipsa, eius dicta
+                            veritatis iste odio maiores harum nesciunt reiciendis, dolore eum
+                            animi error quia earum enim beatae omnis, laudantium minima ab ut
+                            accusamus.</p>
+                        <p>Voluptatem, ullam, beatae. Libero ad nemo, id. Quidem
+                            facilis, eaque iste ducimus dicta quia quaerat quisquam cum ab,
+                            velit voluptate at optio vero, nostrum enim, a officiis rerum
+                            recusandae eum?</p>
+                        <p class="mb-5">Laboriosam recusandae vitae aliquid veritatis
+                            facilis omnis architecto officia, explicabo deleniti doloribus
+                            odio sequi, harum id suscipit ipsa laborum, ducimus. Sequi quasi
+                            vitae necessitatibus harum ab pariatur eos perspiciatis quo!</p>
+
+                        <p>
+                            <img th:src="${#request.contextPath} + '/public-static/images/slider-3.jpg'" alt=""
+                                class="img-fluid">
+                        </p>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </section>
+
+    <div layout:fragment="option-content-after">
+        <section class="section border-t pb-0">
+            <div class="container">
+                <div class="row justify-content-center mb-3 element-animate">
+                    <div class="col-md-8 text-center">
+                        <h2 class=" heading mb-4">CÁC DỰ ÁN KHÁC</h2>
+                        <p class="mb-4 lead">Lorem ipsum dolor sit amet, consectetur
+                            adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
+                            quam minima expedita atque corrupti reiciendis.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 element-animate">
+                        <a href="project-single.html" class="link-thumbnail"> <span class="ion-plus icon"></span> <img
+                                th:src="${#request.contextPath} + '/public-static/images/img_1.jpg'"
+                                alt="thuanthanhland.com" class="img-fluid">
+                        </a>
+                        <h3 class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Vinhomes
+                            Golden River</h3>
+                    </div>
+                    <div class="col-md-4 element-animate">
+                        <a href="project-single.html" class="link-thumbnail"> <span class="ion-plus icon"></span> <img
+                                th:src="${#request.contextPath} + '/public-static/images/img_2.jpg'"
+                                alt="thuanthanhland.com" class="img-fluid">
+                        </a>
+                        <h3 class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Tràng
+                            An Complex</h3>
+                    </div>
+                    <div class="col-md-4 element-animate">
+                        <a href="project-single.html" class="link-thumbnail"> <span class="ion-plus icon"></span> <img
+                                th:src="${#request.contextPath} + '/public-static/images/img_3.jpg'"
+                                alt="thuanthanhland.com" class="img-fluid">
+                        </a>
+                        <h3 class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Gamuda
+                            Gardens</h3>
+                    </div>
+                    <div class="col-md-4 element-animate">
+                        <a href="project-single.html" class="link-thumbnail"> <span class="ion-plus icon"></span> <img
+                                th:src="${#request.contextPath} + '/public-static/images/img_4.jpg'"
+                                alt="thuanthanhland.com" class="img-fluid">
+                        </a>
+                        <h3 class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Permier
+                            Village Phú Quốc</h3>
+                    </div>
+                    <div class="col-md-4 element-animate">
+                        <a href="project-single.html" class="link-thumbnail">
+                            <span class="ion-plus icon"></span> <img
+                                th:src="${#request.contextPath} + '/public-static/images/img_5.jpg'"
+                                alt="thuanthanhland.com" class="img-fluid">
+                        </a>
+                        <h3 class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Him
+                            Lam Chợ Lớn</h3>
+                    </div>
+                    <div class="col-md-4 element-animate">
+                        <a href="project-single.html" class="link-thumbnail">
+                            <span class="ion-plus icon"></span> <img
+                                th:src="${#request.contextPath} + '/public-static/images/img_6.jpg'"
+                                alt="thuanthanhland.com" class="img-fluid">
+                        </a>
+                        <h3 class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Mon
+                            City Mỹ Đình</h3>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
 
 
-	<div th:replace="fragments/footer::footer"></div>
-	<!-- END footer -->
+    </div>
+    <!-- ./wrapper -->
 
-	<!-- loader -->
-	<div th:replace="fragments/loader::loader"></div>
-
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/main.js"></script>
+    <!-- script option -->
+    <th:block layout:fragment="script"></th:block>
+    <!-- /. script option -->
 </body>
 
 </html>

@@ -11,8 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class SlideHelper {
 	
-	public final static String NO_IMAGE_MEDIUM = "/admin-static/images/no-thumbnail-medium.png";
-
 	public final static String ROOT_PATH_IMAGE_MEDIUM = "/public/upload/slides";
 
 	public static void saveImage(MultipartFile multipartFile, String uploadDir, String fImageName)

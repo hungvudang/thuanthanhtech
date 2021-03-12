@@ -1,42 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/admin-pages/admin-layout}">
 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>AdminLTE 3 | Tài khoản</title>
-<!-- Tell the browser to be responsive to screen width -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/fontawesome-free/css/all.min.css">
-<!-- Ekko Lightbox -->
-<link rel="stylesheet"
-	href="/admin-static/plugins/ekko-lightbox/ekko-lightbox.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="/admin-static/dist/css/adminlte.min.css">
-<!-- Google Font: Source Sans Pro -->
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
+	<meta charset="UTF-8">
+
+	<title>Tài khoản</title>
+
 
 </head>
 
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
-		<!-- Navbar -->
-		<div th:replace="/admin-pages/fragments/navbar::navbar"></div>
-		<!-- /.navbar -->
 
-		<!-- Main Sidebar Container -->
-		<div th:replace="/admin-pages/fragments/sidebar::sidebar"></div>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			<section class="content-header">
+			<div class="content-header" layout:fragment="content-header">
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
@@ -51,149 +31,94 @@
 					</div>
 				</div>
 				<!-- /.container-fluid -->
-			</section>
+			</div>
+			<!-- /.content-header -->
 
 			<!-- Main content -->
+			<div class="content" layout:fragment="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card card-info">
+								<div class="card-header">
+									<h3 class="card-title">Tất cả tài khoản</h3>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<table id="datatable1" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Tên tài khoản</th>
+												<th>Email</th>
+												<th>Số điện thoại</th>
+												<th>Địa chỉ</th>
+												<th>Vai trò</th>
+												<th>Sửa đổi lần cuối</th>
+												<th>Hành động</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="u, iter : ${users}">
+												<td th:utext="${u.id}" scope="row"></td>
+												<td class="text text-left" th:utext="${u.name}"></td>
+												<td class="text text-left" th:utext="${u.email}"></td>
+												<td th:utext="${u.phone}"></td>
+												<td th:utext="${u.address}"></td>
 
-			<!-- flash notification -->
+												<div>
+													<th:block th:if="${u.role == 1}">
+														<td><span class="badge badge-pill badge-warning">Quản
+																trị</span></td>
+													</th:block>
 
-			<div th:replace="/admin-pages/fragments/notification::notification"></div>
-			<!-- /. flash notification -->
-			<div class="container">
-				<!-- <div class="row justify-content-end mb-3">
-					<div class="col d-block text-right">
-						<a class="btn btn-md btn-success" th:href="@{/news/create}"> <i class="fas fa-plus"></i>
-							<span>Thêm tin tức</span>
-						</a>
-					</div>
-				</div> -->
-				<div class="row justify-content-start">
-					<div class="col">
-						<div class="table-responsive">
-							<table class="table table-hover text-center">
-								<thead class="thead-light">
-									<tr>
-										<th>ID</th>
-										<th class="text text-left">Tên tài khoản</th>
-										<th class="text text-left">Email</th>
-										<th>Số điện thoại</th>
-										<th>Địa chỉ</th>
-										<th>Vai trò</th>
-										<th>Sửa đổi lần cuối</th>
-										<th>Hành động</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="u, iter : ${users}">
-										<td th:utext="${u.id}" scope="row"></td>
-										<td class="text text-left" th:utext="${u.name}"></td>
-										<td class="text text-left" th:utext="${u.email}"></td>
-										<td th:utext="${u.phone}"></td>
-										<td th:utext="${u.address}"></td>
-
-										<div>
-											<th:block th:if="${u.role == 1}">
-												<td><span class="badge badge-pill badge-warning">Quản
-														trị</span></td>
-											</th:block>
-
-											<th:block th:if="${u.role == 0}">
-												<td><span class="badge badge-pill badge-dark">Người
-														dùng</span></td>
-											</th:block>
-										</div>
-
-										<!-- Last modified -->
-										<th:block th:if="${u.updated_at}">
-											<td
-												th:utext="${#temporals.format(u.updated_at, 'dd/MM/yyyy')}">
-											</td>
-										</th:block>
-
-										<th:block th:unless="${u.updated_at}">
-											<td
-												th:utext="${#temporals.format(u.created_at, 'dd/MM/yyyy')}">
-											</td>
-										</th:block>
-										<!-- /. Last modified	 -->
-										<td>
-											<div class="row justify-content-center">
-												<div class="col">
-													<a class=" fas fa-edit fa-lg"
-														th:href="@{'/admin/user/detail/' + ${u.id}}"></a> <a
-														class="fas fa-trash fa-lg mx-3" style="color: red;"
-														th:href="@{'/admin/user/delete/' + ${u.id}}"></a>
+													<th:block th:if="${u.role == 0}">
+														<td><span class="badge badge-pill badge-dark">Người
+																dùng</span></td>
+													</th:block>
 												</div>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+
+												<!-- Last modified -->
+												<th:block th:if="${u.updated_at}">
+													<td th:utext="${#temporals.format(u.updated_at, 'dd/MM/yyyy')}">
+													</td>
+												</th:block>
+
+												<th:block th:unless="${u.updated_at}">
+													<td th:utext="${#temporals.format(u.created_at, 'dd/MM/yyyy')}">
+													</td>
+												</th:block>
+												<!-- /. Last modified	 -->
+												<td>
+													<div class="row justify-content-center">
+														<div class="col">
+															<a class=" fas fa-edit fa-lg"
+																th:href="@{'/admin/user/detail/' + ${u.id}}"></a>
+															<a onclick="return confirm('Bạn chắc chắn muốn xóa ?')"
+																class="fas fa-trash fa-lg mx-3" style="color: red;"
+																th:href="@{'/admin/user/delete/' + ${u.id}}"></a>
+														</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+							<!-- /.card -->
 						</div>
+						<!-- /.col -->
 					</div>
+					<!-- /.row -->
 				</div>
-
-
+				<!-- /.container-fluid -->
 			</div>
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
-
-		<!-- footer -->
-		<div th:replace="/admin-pages/fragments/footer::footer"></div>
-
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
 	</div>
 	<!-- ./wrapper -->
-
-	<!-- jQuery -->
-	<script src="/admin-static/plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap -->
-	<script
-		src="/admin-static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- jQuery UI -->
-	<script src="/admin-static/plugins/jquery-ui/jquery-ui.min.js"></script>
-	<!-- Ekko Lightbox -->
-	<script src="/admin-static/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="/admin-static/dist/js/adminlte.min.js"></script>
-	<!-- AdminLTE for demo purposes -->
-	<script src="/admin-static/dist/js/demo.js"></script>
-	<!-- Filterizr-->
-	<script src="/admin-static/plugins/filterizr/jquery.filterizr.min.js"></script>
-	<!-- Page specific script -->
-	<script>
-		$(function() {
-			$(document).on('click', '[data-toggle="lightbox"]',
-					function(event) {
-						event.preventDefault();
-						$(this).ekkoLightbox({
-							alwaysShowClose : true
-						});
-					});
-
-			$('.filter-container').filterizr({
-				gutterPixels : 3
-			});
-			$('.btn[data-filter]').on('click', function() {
-				$('.btn[data-filter]').removeClass('active');
-				$(this).addClass('active');
-			});
-		})
-	</script>
-
-	<script>
-		$(document).ready(function() {
-			$(".message-box")
-			setTimeout(function() {
-				$(".message-box").hide();
-			}, 5000);
-		});
-	</script>
 </body>
 
 </html>

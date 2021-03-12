@@ -1,171 +1,131 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/public-pages/public-layout}">
 
 <head>
-<title>Thuận Thành Land &mdash; Free Website Template by
-	Free-Template.co</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="UTF-8">
 
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800"
-	rel="stylesheet">
+	<title>Dịch vụ của chúng tôi</title>
 
-<link rel="stylesheet" href="css/animate.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-
-<link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
-<link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
-
-<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-
-<!-- Theme Style -->
-<link rel="stylesheet" href="css/style.css">
-
-<!-- 
-    //////////////////////////////////////////////////////
-
-    Free Template 
-    DESIGNED & DEVELOPED by free-template.co
-      
-    Website:    https://free-template.co
-    Email:      freetemplate.co@gmail.com
-    Twitter:    https://twitter.com/Free_Templateco
-    Facebook:   https://www.facebook.com/Free.Template.co/
-
-    //////////////////////////////////////////////////////
-     -->
 </head>
 
 <body>
+	<div class="wrapper bg-light">
 
-	<div th:replace="fragments/header::header"></div>
-	<!-- END header -->
-
-	<section class="home-slider inner-page owl-carousel">
-		<div class="slider-item"
-			style="background-image: url('images/slider-3.jpg');">
-
-			<div class="container">
-				<div
-					class="row slider-text align-items-center justify-content-center">
-					<div class="col-md-8 text-center col-sm-12 element-animate">
-						<h1>Dịch vụ</h1>
-						<p class="mb-5">Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit. Commodi unde impedit, necessitatibus, soluta
-							sit quam minima expedita atque corrupti reiciendis.</p>
-						<p>
-							<a href="#" class="btn btn-white btn-outline-white px-4 py-3">Explore</a>
-						</p>
-					</div>
-				</div>
-			</div>
+		<div layout:fragment="option-content-before">
 
 		</div>
-	</section>
-	<!-- END slider -->
 
-	<section class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-lg-4 element-animate mb-4">
-					<div class="media block-6 d-block text-center">
-						<div class="icon mb-3">
-							<span class="ion-ios-bell-outline"></span>
-						</div>
-						<div class="media-body">
-							<h3 class="heading">Tầm Nhìn</h3>
-							<p>Even the all-powerful Pointing has no control about the
-								blind texts it is an almost unorthographic.</p>
-						</div>
-					</div>
 
-				</div>
-				<div class="col-md-6 col-lg-4 element-animate mb-4">
-					<div class="media block-6 d-block text-center">
-						<div class="icon mb-3">
-							<span class="ion-ios-heart-outline"></span>
-						</div>
-						<div class="media-body">
-							<h3 class="heading">Sứ Mệnh</h3>
-							<p>Even the all-powerful Pointing has no control about the
-								blind texts it is an almost unorthographic.</p>
-						</div>
-					</div>
 
-				</div>
-				<div class="col-md-6 col-lg-4 element-animate mb-4">
-					<div class="media block-6 d-block text-center">
-						<div class="icon mb-3">
-							<span class="ion-ios-bolt-outline"></span>
-						</div>
-						<div class="media-body">
-							<h3 class="heading">Giá Trị Cốt Lõi</h3>
-							<p>Even the all-powerful Pointing has no control about the
-								blind texts it is an almost unorthographic.</p>
-						</div>
-					</div>
+		<section class="section element-animate">
 
-				</div>
-
-				<div class="col-md-6 col-lg-4 element-animate mb-4">
-					<div class="media block-6 d-block text-center">
-						<div class="icon mb-3">
-							<span class="ion-ios-bell-outline"></span>
-						</div>
-						<div class="media-body">
-							<h3 class="heading">Tầm Nhìn</h3>
-							<p>Even the all-powerful Pointing has no control about the
-								blind texts it is an almost unorthographic.</p>
-						</div>
-					</div>
-
-				</div>
-				<div class="col-md-6 col-lg-4 element-animate mb-4">
-					<div class="media block-6 d-block text-center">
-						<div class="icon mb-3">
-							<span class="ion-ios-heart-outline"></span>
-						</div>
-						<div class="media-body">
-							<h3 class="heading">Sứ Mệnh</h3>
-							<p>Even the all-powerful Pointing has no control about the
-								blind texts it is an almost unorthographic.</p>
-						</div>
-					</div>
-
-				</div>
-				<div class="col-md-6 col-lg-4 element-animate mb-4">
-					<div class="media block-6 d-block text-center">
-						<div class="icon mb-3">
-							<span class="ion-ios-bolt-outline"></span>
-						</div>
-						<div class="media-body">
-							<h3 class="heading">Giá Trị Cốt Lõi</h3>
-							<p>Even the all-powerful Pointing has no control about the
-								blind texts it is an almost unorthographic.</p>
-						</div>
-					</div>
-
-				</div>
-
+			<!-- content header -->
+			<div class="col-md-8 text-center" layout:fragment="content-header">
+				<h1 class="heading mb-4">DỊCH VỤ</h1>
+				<!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
+						adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
+						quam minima expedita atque corrupti reiciendis.</p> -->
 			</div>
+			<!-- /.content header -->
+
+			<div class="container" layout:fragment="container">
+				<div class="row">
+					<div class="col-md-6 col-lg-4 element-animate mb-4">
+						<div class="media block-6 d-block text-center">
+							<div class="icon mb-3">
+								<span class="ion-ios-bell-outline"></span>
+							</div>
+							<div class="media-body">
+								<h3 class="heading">Tầm Nhìn</h3>
+								<p>Even the all-powerful Pointing has no control about the
+									blind texts it is an almost unorthographic.</p>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-6 col-lg-4 element-animate mb-4">
+						<div class="media block-6 d-block text-center">
+							<div class="icon mb-3">
+								<span class="ion-ios-heart-outline"></span>
+							</div>
+							<div class="media-body">
+								<h3 class="heading">Sứ Mệnh</h3>
+								<p>Even the all-powerful Pointing has no control about the
+									blind texts it is an almost unorthographic.</p>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-6 col-lg-4 element-animate mb-4">
+						<div class="media block-6 d-block text-center">
+							<div class="icon mb-3">
+								<span class="ion-ios-bolt-outline"></span>
+							</div>
+							<div class="media-body">
+								<h3 class="heading">Giá Trị Cốt Lõi</h3>
+								<p>Even the all-powerful Pointing has no control about the
+									blind texts it is an almost unorthographic.</p>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="col-md-6 col-lg-4 element-animate mb-4">
+						<div class="media block-6 d-block text-center">
+							<div class="icon mb-3">
+								<span class="ion-ios-bell-outline"></span>
+							</div>
+							<div class="media-body">
+								<h3 class="heading">Tầm Nhìn</h3>
+								<p>Even the all-powerful Pointing has no control about the
+									blind texts it is an almost unorthographic.</p>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-6 col-lg-4 element-animate mb-4">
+						<div class="media block-6 d-block text-center">
+							<div class="icon mb-3">
+								<span class="ion-ios-heart-outline"></span>
+							</div>
+							<div class="media-body">
+								<h3 class="heading">Sứ Mệnh</h3>
+								<p>Even the all-powerful Pointing has no control about the
+									blind texts it is an almost unorthographic.</p>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-6 col-lg-4 element-animate mb-4">
+						<div class="media block-6 d-block text-center">
+							<div class="icon mb-3">
+								<span class="ion-ios-bolt-outline"></span>
+							</div>
+							<div class="media-body">
+								<h3 class="heading">Giá Trị Cốt Lõi</h3>
+								<p>Even the all-powerful Pointing has no control about the
+									blind texts it is an almost unorthographic.</p>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<div layout:fragment="option-content-after">
+
 		</div>
-	</section>
-	<!-- END section -->
 
-	<div th:replace="fragments/footer::footer"></div>
-	<!-- END footer -->
 
-	<!-- loader -->
-	<div th:replace="fragments/loader::loader"></div>
+	</div>
+	<!-- ./wrapper -->
 
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/main.js"></script>
+	<!-- script option -->
+	<th:block layout:fragment="script"></th:block>
+	<!-- /. script option -->
 </body>
 
 </html>

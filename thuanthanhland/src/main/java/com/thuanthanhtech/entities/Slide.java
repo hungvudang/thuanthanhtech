@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -21,20 +22,21 @@ public class Slide {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotBlank(message = "Tên không được để trống")
-	@Column(name = "name")
-	private String name;
 	
 	@NotBlank(message = "Tiêu đề không được để trống")
 	@Column(name = "title")
 	private String title;
 	
+	@Column(name = "description")
+	private String description;
+	
+	
 	@Column(name = "image", columnDefinition = "VARCHAR(255) NOT NULL")
 	private String image;
 	
-	@Column(name = "sort", columnDefinition = "INT NOT NULL UNIQUE")
-	@NotNull(message = "Thứ tự hiển thị không được để trống")
-	@Min(value = 0, message = "Thứ tự hiển thị không không hợp lệ")
+	@Column(name = "sort", nullable = false ,unique = true)
+	@NotNull(message = "Số thứ tự không hợp lệ")
+	@Min(value = 0, message = "Số thứ tự không hợp lệ")
 	private Integer sort;
 	
 	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")
@@ -47,18 +49,6 @@ public class Slide {
 		super();
 	}
 
-	public Slide(Integer id, String name, String title, String image, Integer sort, Integer pub,
-			LocalDateTime created_at, LocalDateTime updated_at) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.title = title;
-		this.image = image;
-		this.sort = sort;
-		this.pub = pub;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-	}
 
 	public Integer getId() {
 		return id;
@@ -68,13 +58,14 @@ public class Slide {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDescription(String description) {
+		this.description = description;
 	}
+
 
 	public String getTitle() {
 		return title;
@@ -129,7 +120,7 @@ public class Slide {
 	public void prePersist() {
 		this.created_at = LocalDateTime.now();
 	}
-	
+	@PreUpdate
 	public void preUpdate() {
 		this.updated_at = LocalDateTime.now();
 	}
