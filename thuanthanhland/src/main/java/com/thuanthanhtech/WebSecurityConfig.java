@@ -44,13 +44,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		web.httpFirewall(defaultHttpFirewall());
 	}
 
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN").and().formLogin()
 				.loginPage("/login").usernameParameter("username").passwordParameter("password")
-				.defaultSuccessUrl("/admin/home").and().exceptionHandling().accessDeniedPage("/403").and().logout()
-				.logoutUrl("/logout").clearAuthentication(true).permitAll();
+				.defaultSuccessUrl("/admin/home").and().exceptionHandling().accessDeniedPage("/errors/403");
 
 	}
+	
 
 }

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/public-pages/public-layout}">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Dự án</title>
+    <style>
+        .section {
+            padding: 2em 0 !important;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="wrapper bg-light">
+
+        <div layout:fragment="option-content-before">
+            <section class="home-slider inner-page owl-carousel">
+                <div class="slider-item"
+                    th:style="'background-image: url('+ ${#request.contextPath} + '/public-static/images/slider-3.jpg' + ');'">
+
+                    <div class="container">
+                        <div class="row slider-text align-items-center justify-content-center">
+                            <div class="col-md-8 text-center col-sm-12 element-animate">
+                                <h1>Vinpearl Phú Quốc</h1>
+                                <p class="mb-4 sub-text">Corporis tempora inventore, aliquam ratione. Eum vero sapiente
+                                    tempora eveniet perspiciatis libero.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="slider-item"
+                    th:style="'background-image: url(' + ${#request.contextPath} + '/public-static/images/slider-1.jpg' + ');'">
+
+                    <div class="container">
+                        <div class="row slider-text align-items-center justify-content-center">
+                            <div class="col-md-8 text-center col-sm-12 element-animate">
+                                <h1>vinpearl Phú Quốc</h1>
+                                <p class="mb-4 sub-text">Corporis tempora inventore, aliquam ratione. Eum vero sapiente
+                                    tempora eveniet perspiciatis libero.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <!-- END slider -->
+        </div>
+
+        <section class="section">
+
+            <!-- content header -->
+            <div class="col-md-8 text-center" layout:fragment="content-header">
+            </div>
+            <!-- /.content header -->
+
+            <div class="container" layout:fragment="container">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="font-weight-bold text-uppercase" th:utext="${targetNews.title}"></h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-md-4">
+                                <div class="card h-100">
+                                    <img src="/public-static/images/img_1.jpg"
+                                        th:src="@{${BASE_PATH_NEWS_RESOURCE} + '/' + ${targetNews.id} + '/'+${targetNews.thumbnail}}"
+                                        th:alt="${targetNews.name}" class="card-img-top img-fluid"
+                                        style="object-fit: cover;" width="200" height="200">
+                                    <div class="card-body">
+                                        <p th:utext="${targetNews.description}"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="card h-100">
+                                    <div class="card-img-top" style="object-fit: cover;">
+                                        <div class="home-slider inner-page owl-carousel">
+                                            <th:block th:if="${targetNews.images}"
+                                                th:each="image : ${targetNews.images}">
+                                                <div class="slider-item"
+                                                    th:style="'background-image: url('+ ${BASE_PATH_NEWS_RESOURCE} + '/' + ${targetNews.id} + '/' + ${DIR_IMAGE_DETAILS} + '/' +${image.name} + ');'">
+                                                </div>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center mt-4">
+                            <div class="container">
+                                <p th:utext="${targetNews.content}"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+    </div>
+    </section>
+
+    <div layout:fragment="option-content-after">
+        <div class="container">
+            <section class="border-t pb-0">
+                <div class="container">
+                    <div class="row justify-content-center mb-3 element-animate">
+                        <div class="col-md-8 text-center">
+                            <h2 class=" heading mb-4">CÁC DỰ ÁN KHÁC</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4 element-animate">
+                            <a href="project-single.html" class="link-thumbnail"> <span class="ion-plus icon"></span>
+                                <img th:src="${#request.contextPath} + '/public-static/images/img_1.jpg'"
+                                    alt="thuanthanhland.com" class="img-fluid">
+                            </a>
+                            <h3 class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Vinhomes Golden
+                                River</h3>
+                        </div>
+                        <div class="col-md-4 element-animate">
+                            <a href="project-single.html" class="link-thumbnail"> <span class="ion-plus icon"></span>
+                                <img th:src="${#request.contextPath} + '/public-static/images/img_2.jpg'"
+                                    alt="thuanthanhland.com" class="img-fluid">
+                            </a>
+                            <h3 class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Tràng An Complex
+                            </h3>
+                        </div>
+                        <div class="col-md-4 element-animate">
+                            <a href="project-single.html" class="link-thumbnail"> <span class="ion-plus icon"></span>
+                                <img th:src="${#request.contextPath} + '/public-static/images/img_3.jpg'"
+                                    alt="thuanthanhland.com" class="img-fluid">
+                            </a>
+                            <h3 class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Gamuda Gardens
+                            </h3>
+                        </div>
+                        <div class="col-md-4 element-animate">
+                            <a href="project-single.html" class="link-thumbnail"> <span class="ion-plus icon"></span>
+                                <img th:src="${#request.contextPath} + '/public-static/images/img_4.jpg'"
+                                    alt="thuanthanhland.com" class="img-fluid">
+                            </a>
+                            <h3 class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Permier Village
+                                Phú
+                                Quốc</h3>
+                        </div>
+                        <div class="col-md-4 element-animate">
+                            <a href="project-single.html" class="link-thumbnail">
+                                <span class="ion-plus icon"></span> <img
+                                    th:src="${#request.contextPath} + '/public-static/images/img_5.jpg'"
+                                    alt="thuanthanhland.com" class="img-fluid">
+                            </a>
+                            <h3 class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Him Lam Chợ Lớn
+                            </h3>
+                        </div>
+                        <div class="col-md-4 element-animate">
+                            <a href="project-single.html" class="link-thumbnail">
+                                <span class="ion-plus icon"></span> <img
+                                    th:src="${#request.contextPath} + '/public-static/images/img_6.jpg'"
+                                    alt="thuanthanhland.com" class="img-fluid">
+                            </a>
+                            <h3 class="lead font-weight-bold text text-center text-secondary mt-2 mb-4">Mon City Mỹ Đình
+                            </h3>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- script option -->
+    <th:block layout:fragment="script"></th:block>
+    <!-- /. script option -->
+</body>
+
+</html>

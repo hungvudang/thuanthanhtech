@@ -69,3 +69,24 @@
 
     }
 </script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var $breadcrumbs = /*[[${breadcrumbs}]]*/'breadcrumbs';
+    /*]]>*/
+
+    if ($breadcrumbs) {
+        $('.breadcrumb').append(`
+                <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
+            `)
+        for (var i = $breadcrumbs.length - 2; i >= 1; i--) {
+            $('.breadcrumb').append(`
+                <li class="breadcrumb-item"><a href="#">${$breadcrumbs[i]}</a></li>
+            `)
+        }
+
+        $('.breadcrumb').append(`
+                <li class="breadcrumb-item active" aria-current="page">${$breadcrumbs[0]}</li>
+            `)
+    }
+</script>

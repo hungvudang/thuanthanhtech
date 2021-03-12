@@ -18,7 +18,7 @@ public class LogoutController {
         if (auth != null){
         	System.out.println(auth.getName());
            new SecurityContextLogoutHandler().logout(res, resp, auth);  
-        }  
+        }
          return "redirect:/login?logout";  
 	}
 }

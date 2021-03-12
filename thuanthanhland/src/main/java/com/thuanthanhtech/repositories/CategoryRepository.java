@@ -21,10 +21,6 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	Optional<Category> findBySlug(String slug);
 
 	
-	@Query("SELECT c FROM Category c WHERE c.parentId = :parentId ORDER BY c.sort DESC")
-	List<Category> findByParentIdDesc(@Param("parentId") Integer parentId);
-	
-	@Query("SELECT c FROM Category c WHERE c.parentId = :parentId ORDER BY c.sort ASC")
-	List<Category> findByParentIdAsc(@Param("parentId") Integer parentId);
-
+	@Query("SELECT c FROM Category c WHERE c.id = :parentId")
+	Optional<Category> findByParentId(@Param("parentId") Integer parentId);
 }

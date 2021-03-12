@@ -41,17 +41,19 @@
 									<div class="container">
 										<div class="row">
 											<div class="text text-left element-animate">
-												<h3 th:utext="${news.title}" class="mb-2">Vinpearl Phú
+												<h3 th:utext="${targetNews.title}" class="mb-2">Vinpearl Phú
 													Quốc</h3>
-												<th:block th:if="${news.updatedAt}">
-													<span th:utext="${#temporals.format(news.updatedAt, 'dd/MM/yyyy')}"
+												<th:block th:if="${targetNews.updatedAt}">
+													<span
+														th:utext="${#temporals.format(targetNews.updatedAt, 'dd/MM/yyyy')}"
 														class="post-meta">June 8, 2018</span>
 												</th:block>
-												<th:block th:unless="${news.updatedAt}">
-													<span th:utext="${#temporals.format(news.createdAt, 'dd/MM/yyyy')}"
+												<th:block th:unless="${targetNews.updatedAt}">
+													<span
+														th:utext="${#temporals.format(targetNews.createdAt, 'dd/MM/yyyy')}"
 														class="post-meta">June 8, 2018</span>
 												</th:block>
-												<p th:utext="${news.description}" class="mb-3">Lorem ipsum
+												<p th:utext="${targetNews.description}" class="mb-3">Lorem ipsum
 													dolor sit amet, consectetur adipisicing elit. Corporis
 													tempora inventore, aliquam ratione. Eum vero sapiente
 													tempora eveniet perspiciatis libero, omnis quae facilis!
@@ -60,11 +62,11 @@
 											</div>
 
 											<img class="img-fluid element-animate" width="100%" height="100%"
-												th:src="@{${BASE_PATH_NEWS_RESOURCE} + '/' + ${news.id} + '/' + ${news.thumbnail}}"
-												th:alt="${news.name}">
+												th:src="@{${BASE_PATH_NEWS_RESOURCE} + '/' + ${targetNews.id} + '/' + ${targetNews.thumbnail}}"
+												th:alt="${targetNews.name}">
 
 											<div class="text text-left element-animate">
-												<div th:utext="${news.content}" class="mt-3">
+												<div th:utext="${targetNews.content}" class="mt-3">
 													Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 													Corporis tempora inventore, aliquam ratione. Eum vero
 													sapiente tempora eveniet perspiciatis libero, omnis quae
