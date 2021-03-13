@@ -280,7 +280,7 @@ public class NewsAdminController {
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String handlerException() {
-		return "admin-pages/500";
+		return "/errors/500";
 	}
 
 	// Kiểm tra file upload lên có đúng định dạng không

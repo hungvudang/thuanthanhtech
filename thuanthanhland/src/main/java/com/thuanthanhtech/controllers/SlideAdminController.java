@@ -251,7 +251,7 @@ public class SlideAdminController {
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String handlerException(HttpServletRequest req, Exception ex) {
 
-		return "admin-pages/500";
+		return "/errors/500";
 	}
 
 	/**

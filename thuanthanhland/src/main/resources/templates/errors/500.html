@@ -7,34 +7,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="stylesheet" th:href="${#request.contextPath} + '/css/errors/500.css'">
+
 </head>
 
 <body>
-    <div class="full-screen">
-        <div class='container'>
-            <span class="error-num">5</span>
-            <div class='eye'></div>
-            <div class='eye'></div>
-
-            <p class="sub-text">Oh eyeballs! Something went wrong. We're <span class="italic">looking</span> to see what
-                happened.</p>
-            <a th:href="@{/}">Go back</a>
-        </div>
+    <div id="error">
+        <div id="box"></div>
+        <h3>ERROR 500</h3>
+        <p>Things are a little <span>unstable</span> here</p>
+        <p>I suggest come back later</p>
     </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="/public-static/js/jquery-3.2.1.min.js"
-        th:src="${#request.contextPath} + '/public-static/js/jquery-3.2.1.min.js'"></script>
-
-    <script src="/public-static/js/popper.min.js"
-        th:src="${#request.contextPath} + '/public-static/js/popper.min.js'"></script>
-
-    <script src="/public-static/js/bootstrap.min.js"
-        th:src="${#request.contextPath} + '/public-static/js/bootstrap.min.js'"></script>
-
-    <script src="/public-static/js/500-error.js"
-        th:src="${#request.contextPath} + '/public-static/js/500-error.js'"></script>
 </body>
 
 </html>

@@ -118,6 +118,6 @@ public class ContactClientController {
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String handlerException() {
-		return "public-pages/error-pages/500";
+		return "/errors/500";
 	}
 }
