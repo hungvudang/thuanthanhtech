@@ -2,9 +2,12 @@ package com.thuanthanhtech.entities;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -63,6 +67,12 @@ public class News {
 
 	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")
 	private Integer pub;
+	
+	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "features")
+	@MapKeyColumn(name = "feature_key")
+	@Column(name = "feature_value", columnDefinition = "TEXT")
+	private Map<String, String> features;
 
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
@@ -170,6 +180,16 @@ public class News {
 				img.setNews(this);
 			});
 		}
+	}
+	
+	
+	public Map<String, String> getFeatures() {
+		return features;
+	}
+
+
+	public void setFeatures(Map<String, String> features) {
+		this.features = features;
 	}
 
 

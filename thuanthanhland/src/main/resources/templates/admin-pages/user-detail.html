@@ -94,9 +94,9 @@
 
 													<fieldset class="form-group">
 														<div class="row">
-															<label class="col-form-label col-sm-2 pt-0">Vai
+															<label class="col-form-label col-sm-5 pt-0">Vai
 																trò</label>
-															<div class="col-sm-10">
+															<div class="col-sm-7">
 																<div class="form-check">
 																	<input th:field="*{role}" class="form-check-input"
 																		type="radio" name="gridRadiosAdmin"
@@ -130,8 +130,8 @@
 
 													<div>
 														<img th:src="@{*{avatar}}" alt="avatar-media"
-															class="img-thumbnail mb-3" id="avatar-image"
-															style="max-height: 200px;">
+															class="img-thumbnail w-100 mb-3" id="avatar-image"
+															style="max-height: 200px; object-fit: cover;">
 													</div>
 
 													<input name="user_avatar" type="file" class="form-control"

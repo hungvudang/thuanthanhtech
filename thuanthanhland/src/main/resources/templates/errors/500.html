@@ -1,23 +1,53 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>500 | Thuận Thành Land</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <link rel="stylesheet" th:href="${#request.contextPath} + '/css/errors/500.css'">
+	<title>500 | Thuận Thành Land</title>
+
+	<!-- stylesheets -->
+	<link th:replace="/public-pages/fragments/stylesheets" />
+	<!-- /.stylesheets -->
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:900" rel="stylesheet">
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" th:href="${#request.contextPath} + '/css/errors/error.css'" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
 
 </head>
 
 <body>
-    <div id="error">
-        <div id="box"></div>
-        <h3>ERROR 500</h3>
-        <p>Things are a little <span>unstable</span> here</p>
-        <p>I suggest come back later</p>
-    </div>
-</body>
+	<div class="warper bg-light">
+		<div class="page-wrap" id="error">
+			<div class="error">
+				<div class="error-content">
+					<h3>Sorry, something went wrong!</h3>
+					<h1><span>5</span><span>0</span><span>0</span></h1>
+				</div>
+				<h2>We're fixing it.</h2>
+			</div>
+		</div>
+
+		<div th:replace="/public-pages/fragments/footer::footer"></div>
+		<!-- END footer -->
+	</div>
+
+	<!-- scripts -->
+	<script th:replace="/public-pages/fragments/scripts"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>

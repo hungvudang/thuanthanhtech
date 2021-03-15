@@ -40,7 +40,7 @@
 
     if ($images != null && $images.length > 0) {
         $.each($images, function (index, img) {
-            $('#images-container').append(`
+            $('#imageContainer').append(`
                 <div id="image${index}" class="form-group">
                     <label for="formControlInputImages${index}">Ảnh ${index + 1}</label>
                     <div class="container">
@@ -63,7 +63,7 @@
                             </div>
 
                             <div class="col-1 align-self-start">
-                                <i id="${index}" onclick="removeImage(event, ${img.id})" class="fas fa-times text text-danger"
+                                <i id="${index}" onclick="removeImage(event, ${img.id})" class="fas fa-trash text text-danger"
                                     style="cursor: pointer;"></i>
                             </div>
 
@@ -71,7 +71,7 @@
                     </div>
                 </div> 
             `)
-            $('#old-images-container').append(`
+            $('#oldImageContainer').append(`
                 <div hidden id="image${index}" >
                     <input hidden type="text" id="images${index}.id" name="images[${index}].id" value="${img.id}"/>
                     <input hidden type="text" id="images${index}.name" name="images[${index}].name" value="${img.name}"/>
@@ -83,12 +83,12 @@
 </script>
 
 
-<!-- Thêm hình ảnh mô tả trong news-create -->
+<!-- Thêm hình ảnh mô tả trong -->
 <script>
-    var i = $('#images-container').children().length;
+    var i = $('#imageContainer').children().length;
 
-    $('#btn-add-image').click(function () {
-        $('#images-container').append(`
+    $('#btnAddImage').click(function () {
+        $('#imageContainer').append(`
             <div id="image${i}" class="form-group">
                 <label for="formControlInputImages${i}">Ảnh ${i + 1}</label>
                 <div class="container">
@@ -110,7 +110,7 @@
                         </div>
 
                         <div class="col-1 align-self-start">
-                            <i id="${i}" onclick="removeImage(event)" class="fas fa-times text text-danger"
+                            <i id="${i}" onclick="removeImage(event)" class="fas fa-trash text text-danger"
                                 style="cursor: pointer;"></i>
                         </div>
 
@@ -204,4 +204,66 @@
     $('#btn-submit-custom').click(function () {
         $('#btn-submit-default').click();
     })
+</script>
+
+<!-- thêm đặc trưng -->
+<script th:inline="javascript">
+    var i = $('#featureContainer').children().length;
+
+    $('#btnAddFeature').on('click', function () {
+        $('#featureContainer').append(`
+            <div id="featureInput${i}" class="row flex-nowrap">
+                <div class="col-11">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-6">
+                            <div class="form-group">
+                                <label
+                                    for="formControlInputKeyFeature${i}">Key ${i + 1}</label>
+                                <textarea
+                                    id="formControlInputKeyFeature${i}"
+                                    rows="1"
+                                    class="form-control" placeholder="Tên"
+                                    onchange="renameInputValueFeature(event, ${i})" ></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-6">
+                            <div class="form-group">
+                                <label
+                                    for="formControlInputValueFeature${i}">Value ${i + 1}</label>
+                                <textarea
+                                    id="formControlInputValueFeature${i}"
+                                    rows="1"
+                                    class="form-control" placeholder="Giá trị"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-1 align-self-center">
+                    <i class="fas fa-trash text text-danger"
+                        style="cursor: pointer;" onclick="removeFeatureInput(${i})"></i>
+                </div>
+
+            </div>
+        `)
+
+        i++;
+    })
+
+    function removeFeatureInput(index) {
+        $(`#featureInput${index}`).remove();
+        if (i - 1 == index) i--;
+
+        if ($('#featureContainer').children().length == 0) i = 0;
+    }
+
+    function renameInputValueFeature(event, index) {
+        var keyName = event.target.value;
+        if (keyName != '') {
+            $(`#formControlInputValueFeature${index}`).attr('name', `features[${keyName}]`);
+        } else {
+            $(`#formControlInputValueFeature${index}`).attr('name', '');
+        }
+    }
+
 </script>
