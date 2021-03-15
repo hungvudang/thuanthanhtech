@@ -64,7 +64,7 @@ public class SlideAdminController {
 		}
 
 		m.addAttribute("active_slide", true);
-		return "admin-pages/create-slide";
+		return "admin-pages/slide-create";
 	}
 
 	@PostMapping("/save")

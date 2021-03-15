@@ -66,7 +66,7 @@ public class UserAdminController {
 
 		m.addAttribute("active_user", true);
 
-		return "admin-pages/create-user";
+		return "admin-pages/user-create";
 	}
 
 	@PostMapping("/save")

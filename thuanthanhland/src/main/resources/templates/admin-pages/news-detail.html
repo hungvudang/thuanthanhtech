@@ -228,6 +228,50 @@
 														<div class="card-body">
 
 															<div id="featureContainer" class="container">
+																<th:block
+																	th:each="featureKey, iter : ${news.features.keySet()}">
+																	<div th:id="featureInput + ${iter.index}"
+																		class="row flex-nowrap">
+																		<div class="col-11">
+																			<div class="row">
+																				<div class="col-md-5 col-sm-6">
+																					<div class="form-group">
+																						<label
+																							th:for="formControlInputKeyFeature + ${iter.index}">Key
+																							<span
+																								th:utext="${iter.index}"></span></label>
+																						<textarea
+																							th:id="formControlInputKeyFeature + ${iter.index}"
+																							rows="1"
+																							class="form-control"
+																							placeholder="Tên"
+																							th:onchange="renameInputValueFeature(event, ${iter.index})"></textarea>
+																					</div>
+																				</div>
+																				<div class="col-md-7 col-sm-6">
+																					<div class="form-group">
+																						<label
+																							th:for="formControlInputValueFeature + ${iter.index}">Value
+																							<span
+																								th:utext="${iter.index}"></span></label>
+																						<textarea
+																							th:id="formControlInputValueFeature + ${iter.index}"
+																							rows="1"
+																							class="form-control"
+																							placeholder="Giá trị"></textarea>
+																					</div>
+																				</div>
+																			</div>
+
+																		</div>
+																		<div class="col-1 align-self-center">
+																			<i class="btn-remove fas fa-trash"
+																				style="cursor: pointer;"
+																				th:onclick="removeFeatureInput(${iter.index})"></i>
+																		</div>
+
+																	</div>
+																</th:block>
 															</div>
 															<button id="btnAddFeature" type="button"
 																class="float-right btn btn-sm btn-primary"><i
