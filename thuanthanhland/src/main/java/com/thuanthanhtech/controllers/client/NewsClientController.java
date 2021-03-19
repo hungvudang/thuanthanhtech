@@ -2,7 +2,6 @@ package com.thuanthanhtech.controllers.client;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.thuanthanhtech.entities.Category;
-import com.thuanthanhtech.entities.Helper;
 import com.thuanthanhtech.entities.News;
 import com.thuanthanhtech.entities.NewsHelper;
 import com.thuanthanhtech.repositories.CategoryRepository;
@@ -74,12 +72,7 @@ public class NewsClientController {
 			m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
 			m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
 
-			// breadcrumb
-			List<String> targetBreadCrumbs = new ArrayList<String>();
-			targetBreadCrumbs.add(targetCate.getName());
-			Helper.getBreadcrumb(targetCate, cRepository, targetBreadCrumbs);
-
-			m.addAttribute("breadcrumbs", targetBreadCrumbs);
+			
 			switch (cateSlug) {
 			case "bai-viet":
 				return "public-pages/blog";
@@ -134,12 +127,6 @@ public class NewsClientController {
 			m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
 			m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
 
-			// breadcrumb
-			List<String> targetBreadCrumbs = new ArrayList<String>();
-			targetBreadCrumbs.add(cate.getName());
-			Helper.getBreadcrumb(cate, cRepository, targetBreadCrumbs);
-
-			m.addAttribute("breadcrumbs", targetBreadCrumbs);
 
 			switch (cateSlug) {
 			case "bai-viet":

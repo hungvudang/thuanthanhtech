@@ -18,37 +18,22 @@
     <div class="wrapper bg-light">
 
         <div layout:fragment="option-content-before">
-            <section class="home-slider inner-page owl-carousel">
-                <div class="slider-item"
-                    th:style="'background-image: url('+ ${#request.contextPath} + '/public-static/images/slider-3.jpg' + ');'">
+            <!-- <section th:if="${targetNews.images}" class="home-slider inner-page owl-carousel">
+                <div class="slider-item" th:each="image, iter : ${targetNews.images}"
+                    th:style="'background-image: url('+ ${BASE_PATH_NEWS_RESOURCE} + '/' + ${targetNews.id} + '/' + ${DIR_IMAGE_DETAILS} + '/' + ${image.name} + ');'">
 
                     <div class="container">
                         <div class="row slider-text align-items-center justify-content-center">
                             <div class="col-md-8 text-center col-sm-12 element-animate">
-                                <h1>Vinpearl Phú Quốc</h1>
-                                <p class="mb-4 sub-text">Corporis tempora inventore, aliquam ratione. Eum vero sapiente
-                                    tempora eveniet perspiciatis libero.</p>
+                                <h1>[(${targetNews.title})]</h1>
+                                <p class="mb-4 sub-text">[(${targetNews.description})]</p>
                             </div>
                         </div>
                     </div>
 
                 </div>
 
-                <div class="slider-item"
-                    th:style="'background-image: url(' + ${#request.contextPath} + '/public-static/images/slider-1.jpg' + ');'">
-
-                    <div class="container">
-                        <div class="row slider-text align-items-center justify-content-center">
-                            <div class="col-md-8 text-center col-sm-12 element-animate">
-                                <h1>vinpearl Phú Quốc</h1>
-                                <p class="mb-4 sub-text">Corporis tempora inventore, aliquam ratione. Eum vero sapiente
-                                    tempora eveniet perspiciatis libero.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </section>
+            </section> -->
             <!-- END slider -->
         </div>
 
@@ -120,6 +105,26 @@
                         <div class="row justify-content-center mt-4">
                             <div class="container">
                                 <p th:utext="${targetNews.content}"></p>
+
+                                <th:block th:if="${targetNews.features}">
+                                    <div class="row">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr th:each="featureKey : ${targetNews.features.keySet()}">
+                                                    <td class="text-left text-nowrap font-weight-bold"
+                                                        th:utext="${featureKey}">
+                                                    </td>
+                                                    <td class="text-left">
+                                                        [(${targetNews.features['__${featureKey}__']})]
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </th:block>
+
+
                             </div>
                         </div>
 

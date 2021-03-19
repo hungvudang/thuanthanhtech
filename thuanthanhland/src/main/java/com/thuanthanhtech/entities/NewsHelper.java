@@ -81,6 +81,8 @@ public class NewsHelper {
 			nNews.setPub(news.getPub());
 			nNews.setHot(news.getHot());
 			
+			nNews.setFeatures(news.getFeatures());
+			
 			String oldNameThumbnail = nNews.getThumbnail(); 
 			
 			String targetUploadDir = BASE_PATH_NEWS_RESOURCE + Helper.FILE_SEPARTOR + targetNewsId;

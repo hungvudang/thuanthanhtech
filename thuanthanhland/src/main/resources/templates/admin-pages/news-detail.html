@@ -239,13 +239,14 @@
 																						<label
 																							th:for="formControlInputKeyFeature + ${iter.index}">Key
 																							<span
-																								th:utext="${iter.index}"></span></label>
+																								th:utext="${iter.index  + 1}"></span></label>
 																						<textarea
 																							th:id="formControlInputKeyFeature + ${iter.index}"
 																							rows="1"
 																							class="form-control"
+																							th:utext="${featureKey}"
 																							placeholder="Tên"
-																							th:onchange="renameInputValueFeature(event, ${iter.index})"></textarea>
+																							th:onchange="'renameInputValueFeature(event, ' +${iter.index} + ')'"></textarea>
 																					</div>
 																				</div>
 																				<div class="col-md-7 col-sm-6">
@@ -253,9 +254,10 @@
 																						<label
 																							th:for="formControlInputValueFeature + ${iter.index}">Value
 																							<span
-																								th:utext="${iter.index}"></span></label>
+																								th:utext="${iter.index + 1}"></span></label>
 																						<textarea
 																							th:id="formControlInputValueFeature + ${iter.index}"
+																							th:field="*{features[__${featureKey}__]}"
 																							rows="1"
 																							class="form-control"
 																							placeholder="Giá trị"></textarea>
@@ -267,7 +269,7 @@
 																		<div class="col-1 align-self-center">
 																			<i class="btn-remove fas fa-trash"
 																				style="cursor: pointer;"
-																				th:onclick="removeFeatureInput(${iter.index})"></i>
+																				th:onclick="'removeFeatureInput('+${iter.index}+')'"></i>
 																		</div>
 
 																	</div>
