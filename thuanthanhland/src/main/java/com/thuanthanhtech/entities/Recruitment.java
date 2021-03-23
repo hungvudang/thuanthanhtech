@@ -1,5 +1,6 @@
 package com.thuanthanhtech.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -11,6 +12,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "recruitments")
@@ -37,10 +41,11 @@ public class Recruitment {
 	private String slug;
 	
 	@Column(name = "description", columnDefinition = "LONGTEXT")
-	@NotBlank(message = "Mô tả không hợp lệ")
 	private String description;
 	
-	private LocalDateTime deadline;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(message = "Hạn nộp hồ sơ không hợp lệ")
+	private LocalDate deadline;
 	
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
@@ -114,11 +119,12 @@ public class Recruitment {
 		this.description = description;
 	}
 
-	public LocalDateTime getDeadline() {
+
+	public LocalDate getDeadline() {
 		return deadline;
 	}
 
-	public void setDeadline(LocalDateTime deadline) {
+	public void setDeadline(LocalDate deadline) {
 		this.deadline = deadline;
 	}
 
