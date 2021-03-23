@@ -140,11 +140,11 @@ public class Category {
 	}
 
 	public void setNewses(List<News> newses) {
-		this.newses = newses;
 		newses.parallelStream().forEach((news)->{
 			news.setCategory(this);
 		});
 		
+		this.newses = newses;
 	}
 	
 	@PrePersist

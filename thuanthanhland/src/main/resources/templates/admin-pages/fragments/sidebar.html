@@ -37,33 +37,6 @@
                 </li>
                 <!-- End Dashboard -->
 
-                <!-- Du An -->
-                <!-- <li class="nav-item has-treeview">
-                    <a href="#" th:class="${active_project}? 'nav-link active':'nav-link'">
-                        <i class="nav-icon far fa-building"></i>
-                        <p>
-                            Dự án
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a th:href="@{/admin/project}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Tất cả dự án</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a th:href="@{/admin/project/create}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm dự án</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> -->
-                <!-- /. Du An -->
-
                 <!-- Danh muc -->
                 <li class="nav-item has-treeview">
                     <a href="#" th:class="${active_category}? 'nav-link active':'nav-link'">
@@ -89,6 +62,33 @@
                     </ul>
                 </li>
                 <!-- /.danh muc -->
+
+                <!-- Du An -->
+                <li class="nav-item has-treeview">
+                    <a href="#" th:class="${active_project}? 'nav-link active':'nav-link'">
+                        <i class="nav-icon far fa-building"></i>
+                        <p>
+                            Dự án
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/admin/project}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất cả dự án</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a th:href="@{/admin/project/create}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm dự án</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /. Du An -->
 
                 <!-- Tin tuc -->
                 <li class="nav-item has-treeview">

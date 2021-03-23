@@ -1,0 +1,235 @@
+<!-- hiển thị hình ảnh mô tả trong project-detail -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var $images = /*[[${project.images}]]*/'image';
+    var $pathUploadImagesDir = /*[[${BASE_PATH_PROJECT_RESOURCE} + '/' + ${project.id}+ '/' + ${DIR_IMAGE_DETAILS}]]*/'pathUploadImagesDir';
+
+    if ($images != null && $images.length > 0) {
+        $.each($images, function (index, img) {
+            $('#imageContainer').append(`
+                <div id="image${index}" class="form-group">
+                    <label for="formControlInputImages${index}">Ảnh ${index + 1}</label>
+                    <div class="container">
+                        <div class="row d-flex flex-nowrap">
+                            <div class="col-11">
+                                <div class="row no-gutters">
+                                    <div class="col-lg-4 col-md-12 col-sm-12 align-self-stretch">
+                                        <img class="img-thumbnail w-100"
+                                            id="project-image-preview-${index}"
+                                            src='${$pathUploadImagesDir}/${img.name}'
+                                            alt="no-thumbnail" style="max-height: 100px; object-fit: cover;">
+                                    </div>
+                                    <div class="col-lg-8 align-self-center">
+                                        <input id="formControlInputImages${index}" name="project_images[]"
+                                            class=" form-control form-control-sm" type="file" 
+                                            accept="image/png, image/jpeg"
+                                            onchange="previewImage(event, 'project-image-preview-${index}')" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-1 align-self-start">
+                                <i id="${index}" onclick="removeImage(event, ${img.id})" class="btn-remove fas fa-trash"
+                                    style="cursor: pointer;"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> 
+            `)
+            $('#oldImageContainer').append(`
+                <div hidden id="image${index}" >
+                    <input hidden type="text" id="images${index}.id" name="images[${index}].id" value="${img.id}"/>
+                    <input hidden type="text" id="images${index}.name" name="images[${index}].name" value="${img.name}"/>
+                </div>
+            `)
+        })
+    }
+    /*]]>*/
+</script>
+
+
+<!-- Thêm hình ảnh mô tả trong -->
+<script>
+    var i = $('#imageContainer').children().length;
+
+    $('#btnAddImage').click(function () {
+        $('#imageContainer').append(`
+            <div id="image${i}" class="form-group">
+                <label for="formControlInputImages${i}">Ảnh ${i + 1}</label>
+                <div class="container">
+                    <div class="row d-flex flex-nowrap">
+                        <div class="col-11">
+                            <div class="row no-gutters">
+                                <div class="col-lg-4 col-md-12 col-sm-12 align-self-stretch">
+                                    <img class="img-thumbnail w-100"
+                                        id="project-image-preview-${i}"
+                                        src="/admin-static/images/no-thumbnail-medium.png"
+                                        alt="no-thumbnail" style="max-height: 100px; object-fit: cover;">
+                                </div>
+                                <div class="col-lg-8 align-self-center">
+                                    <input id="formControlInputImages${i}" name="project_images[]"
+                                    class=" form-control form-control-sm" type="file" accept="image/png, image/jpeg"
+                                    onchange="previewImage(event, 'project-image-preview-${i}')" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-1 align-self-start">
+                            <i id="${i}" onclick="removeImage(event)" class="btn-remove fas fa-trash"
+                                style="cursor: pointer;"></i>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        `)
+        i++;
+    })
+
+    function removeImage(event, imageId) {
+        var btnId = event.target.id;
+
+        // ajax delete image
+        if (imageId) {
+            if (confirm("Bạn chắc chắn muốn xóa ?")) {
+
+                $.ajax({
+                    url: '/api/images/' + imageId,
+                    type: 'DELETE',
+                    success: function (response) {
+                        $(`#image${btnId}`).remove();
+
+                        $(`#oldImageContainer > #image${btnId}`).remove();
+
+                        if (btnId == i - 1) {
+                            i--;
+                        }
+                        if ($('#imageContainer').children().length == 0) {
+                            i = 0;
+                        }
+
+                        vt.success(response, {
+                            title: "Thành Công",
+                            position: "top-right",
+                            duration: 4000,
+                            closable: true,
+                            focusable: false,
+                            callback: undefined
+                        });
+
+
+                    },
+
+                    error: function (response) {
+                        vt.error(response, {
+                            title: "Thất Bại",
+                            position: "top-right",
+                            duration: 4000,
+                            closable: true,
+                            focusable: false,
+                            callback: undefined
+                        });
+                    }
+                })
+            }
+        } else {
+
+            $(`#image${btnId}`).remove();
+
+            if (btnId == i - 1) {
+                i--;
+            }
+            if ($('#imageContainer').children().length == 0) {
+                i = 0;
+            }
+
+        }
+    }
+</script>
+
+<!-- preview image -->
+<script>
+    function readURL(input, targetImgElementId) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $(`#${targetImgElementId}`).attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+
+    function previewImage(event, targetImgElementId) {
+        readURL(event.target, targetImgElementId);
+    }
+</script>
+
+<script>
+    $('#btn-submit-custom').click(function () {
+        $('#btn-submit-default').click();
+    })
+</script>
+
+<!-- thêm đặc trưng -->
+<script th:inline="javascript">
+    var j = $('#featureContainer').children().length;
+
+    $('#btnAddFeature').on('click', function () {
+        $('#featureContainer').append(`
+            <div id="featureInput${j}" class="row flex-nowrap">
+                <div class="col-11">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-6">
+                            <div class="form-group">
+                                <label
+                                    for="formControlInputKeyFeature${j}">Key ${j + 1}</label>
+                                <textarea
+                                    id="formControlInputKeyFeature${j}"
+                                    rows="1"
+                                    class="form-control" placeholder="Tên"
+                                    onchange="renameInputValueFeature(event, ${j})" ></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-6">
+                            <div class="form-group">
+                                <label
+                                    for="formControlInputValueFeature${j}">Value ${j + 1}</label>
+                                <textarea
+                                    id="formControlInputValueFeature${j}"
+                                    rows="1"
+                                    class="form-control" placeholder="Giá trị"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-1 align-self-center">
+                    <i class="btn-remove fas fa-trash"
+                        style="cursor: pointer;" onclick="removeFeatureInput(${j})"></i>
+                </div>
+
+            </div>
+        `)
+
+        j++;
+    })
+
+    function removeFeatureInput(index) {
+        $(`#featureInput${index}`).remove();
+        if (j - 1 == index) j--;
+
+        if ($('#featureContainer').children().length == 0) j = 0;
+    }
+
+    function renameInputValueFeature(event, index) {
+        var keyName = event.target.value;
+        if (keyName != '') {
+            $(`#formControlInputValueFeature${index}`).attr('name', `features[${keyName}]`);
+        } else {
+            $(`#formControlInputValueFeature${index}`).attr('name', '');
+        }
+    }
+
+</script>

@@ -37,9 +37,18 @@
             </div>
             <!-- /.content header -->
 
-            <div class="container" layout:fragment="container">
+            <!-- wrap-content -->
+            <div class="wrap-content" layout:fragment="wrap-content">
+                <!-- breadcrumbs -->
+                <div class="container">
+                    <div th:replace="/public-pages/fragments/breadcrumbs"></div>
+                </div>
+                <!-- /.breadcrumbs -->
+
+                <div class="container" layout:fragment="content"></div>
 
             </div>
+            <!-- /.wrap-content -->
         </section>
 
         <!-- option content -->

@@ -48,8 +48,7 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Tên dự án</th>
-                                            <th>Tiêu đề</th>
+                                            <th class="text-center">Tiêu đề</th>
                                             <th>Dự án nổi bật</th>
                                             <th>Hiển thị</th>
                                             <th>Sửa đổi lần cuối</th>
@@ -59,8 +58,22 @@
                                     <tbody>
                                         <tr th:each="p : ${projects}">
                                             <td th:utext="${p.id}" th:fileld="${p.id}" scope="row"></td>
-                                            <td th:utext="${p.name}" th:fileld="${p.name}"></td>
-                                            <td th:utext="${p.title}" th:fileld="${p.title}"></td>
+                                            <!-- <td th:utext="${p.name}" th:fileld="${p.name}"></td> -->
+                                            <td>
+                                                <div class="container">
+                                                    <div class="row justify-content-center align-items-center"
+                                                        style="max-width: 300px; max-height: 200px;">
+                                                        <div class="col-md-6 col-sm-12" style="height: 100%;">
+                                                            <img class="img-thumbnail"
+                                                                th:src="@{${BASE_PATH_PROJECT_RESOURCE} +'/'+ ${p.id} + '/' + ${p.thumbnail}}"
+                                                                th:alt="${p.name}" width="100" height="100">
+                                                        </div>
+                                                        <div style="height: 100%;" class="col-md-6"
+                                                            th:utext="${p.title}"></div>
+                                                    </div>
+                                                </div>
+
+                                            </td>
 
                                             <div>
                                                 <th:block th:if="${p.hot==1}">

@@ -53,9 +53,9 @@
 													<!-- Title Input -->
 
 													<div class="form-group">
-														<label for="exampleFormControlInput3">Tiêu đề (<span
-																style="color: red;">*</span>)
-														</label> <input th:field="*{title}" type="text"
+														<label for="exampleFormControlInput3">Tiêu đề <span
+																style="color: red;">*</span></label> <input
+															th:field="*{title}" type="text"
 															th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid': 'form-control' "
 															id="exampleFormControlInput3" placeholder="Tiêu đề">
 														<div th:errors="*{title}" th:if="${#fields.hasErrors('title')}"
@@ -93,8 +93,8 @@
 
 													<div class="form-group">
 														<label for="exampleFormControlInput4">Thứ tự hiển
-															thị (<span style="color: red;">*</span>)
-														</label> <input th:field="*{sort}" type="text"
+															thị <span style="color: red;">*</span></label> <input
+															th:field="*{sort}" type="text"
 															th:class="${#fields.hasErrors('sort')} ? 'form-control is-invalid' : 'form-control'"
 															id="exampleFormControlInput4" placeholder="Thứ tự hiển thị"
 															onkeypress="InputNumber(event)">
@@ -126,9 +126,8 @@
 											<!-- Upload image of slide -->
 											<div class="col-7">
 												<div class="form-group">
-													<label for="uploadThumbnail">Hình ảnh (<span
-															style="color: red;">*</span>)
-													</label>
+													<label for="uploadThumbnail">Hình ảnh <span
+															style="color: red;">*</span></label>
 
 													<div>
 														<img th:src="@{*{image}}" alt="image-media"

@@ -13,122 +13,117 @@
   <div class="wrapper bg-light">
 
     <div layout:fragment="option-content-before">
-
     </div>
 
 
+    <!-- content header -->
+    <div class="col-md-8 text-center" layout:fragment="content-header">
+      <!-- <h1 class="heading mb-4">VỀ CHÚNG TÔI</h1> -->
+      <!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
+      adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
+      quam minima expedita atque corrupti reiciendis.</p> -->
+    </div>
+    <!-- /.content header -->
 
-    <section class="section element-animate">
-
-      <!-- content header -->
-      <div class="col-md-8 text-center" layout:fragment="content-header">
-        <!-- <h1 class="heading mb-4">VỀ CHÚNG TÔI</h1> -->
-        <!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
-    adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
-    quam minima expedita atque corrupti reiciendis.</p> -->
-      </div>
-      <!-- /.content header -->
-
-      <div class="container" layout:fragment="container">
-        <div class="row">
-          <div class="col-md-6 col-lg-4">
-            <div class="media block-6 d-block text-center">
-              <div class="icon mb-3"><span class="ion-ios-bell-outline"></span></div>
-              <div class="media-body">
-                <h3 class="heading">Tầm Nhìn</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                  unorthographic.
-                </p>
-              </div>
+    <div class="container" layout:fragment="content">
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <div class="media block-6 d-block text-center">
+            <div class="icon mb-3"><span class="ion-ios-bell-outline"></span></div>
+            <div class="media-body">
+              <h3 class="heading">Tầm Nhìn</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
+                unorthographic.
+              </p>
             </div>
-
           </div>
-          <div class="col-md-6 col-lg-4 ">
-            <div class="media block-6 d-block text-center">
-              <div class="icon mb-3"><span class="ion-ios-heart-outline"></span></div>
-              <div class="media-body">
-                <h3 class="heading">Sứ Mệnh</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                  unorthographic.</p>
-              </div>
+
+        </div>
+        <div class="col-md-6 col-lg-4 ">
+          <div class="media block-6 d-block text-center">
+            <div class="icon mb-3"><span class="ion-ios-heart-outline"></span></div>
+            <div class="media-body">
+              <h3 class="heading">Sứ Mệnh</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
+                unorthographic.</p>
             </div>
-
           </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="media block-6 d-block text-center">
-              <div class="icon mb-3"><span class="ion-ios-bolt-outline"></span></div>
-              <div class="media-body">
-                <h3 class="heading">Giá Trị Cốt Lõi</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                  unorthographic.</p>
-              </div>
+
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="media block-6 d-block text-center">
+            <div class="icon mb-3"><span class="ion-ios-bolt-outline"></span></div>
+            <div class="media-body">
+              <h3 class="heading">Giá Trị Cốt Lõi</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
+                unorthographic.</p>
             </div>
-
           </div>
+
         </div>
       </div>
-  </div>
-  </section>
+    </div>
 
-  <div layout:fragment="option-content-after">
-    <section class="section bg-light">
-      <div class="container">
-        <div class="row justify-content-center mb-5 element-animate">
-          <div class="col-md-8 text-center">
-            <h2 class="heading mb-4">Meet The Team</h2>
-            <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde
-              impedit,
-              necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
-          </div>
-        </div>
-        <div class="row element-animate block-11">
-          <div class="nonloop-block-11 owl-carousel">
-            <div>
-              <div class="media d-block media-custom text-center">
-                <a href="adoption-single.html"><img
-                    th:src="${#request.contextPath} + '/public-static/images/person_1.jpg'" alt="Image Placeholder"
-                    class="img-fluid"></a>
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Mellisa Howard</h3>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <a href="adoption-single.html"><img
-                    th:src="${#request.contextPath} + '/public-static/images/person_2.jpg'" alt="Image Placeholder"
-                    class="img-fluid"></a>
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Mike Richardson</h3>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <a href="adoption-single.html"><img
-                    th:src="${#request.contextPath} + '/public-static/images/person_3.jpg'" alt="Image Placeholder"
-                    class="img-fluid"></a>
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Charles White</h3>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <a href="adoption-single.html"><img
-                    th:src="${#request.contextPath} + '/public-static/images/person_4.jpg'" alt="Image Placeholder"
-                    class="img-fluid"></a>
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Laura Smith</h3>
-                </div>
-              </div>
+
+    <div layout:fragment="option-content-after">
+      <section class="section bg-light">
+        <div class="container">
+          <div class="row justify-content-center mb-3 element-animate">
+            <div class="col-md-8 text-center">
+              <h2 class="heading mb-3">Meet The Team</h2>
+              <!-- <p class="mb-3 lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde
+                impedit,
+                necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>  -->
             </div>
           </div>
-          <!-- END slider -->
+          <div class="row element-animate block-11">
+            <div class="nonloop-block-11 owl-carousel">
+              <div>
+                <div class="media d-block media-custom text-center">
+                  <a href="adoption-single.html"><img
+                      th:src="${#request.contextPath} + '/public-static/images/person_1.jpg'" alt="Image Placeholder"
+                      class="img-fluid"></a>
+                  <div class="media-body">
+                    <h3 class="mt-0 text-black">Mellisa Howard</h3>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="media d-block media-custom text-center">
+                  <a href="adoption-single.html"><img
+                      th:src="${#request.contextPath} + '/public-static/images/person_2.jpg'" alt="Image Placeholder"
+                      class="img-fluid"></a>
+                  <div class="media-body">
+                    <h3 class="mt-0 text-black">Mike Richardson</h3>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="media d-block media-custom text-center">
+                  <a href="adoption-single.html"><img
+                      th:src="${#request.contextPath} + '/public-static/images/person_3.jpg'" alt="Image Placeholder"
+                      class="img-fluid"></a>
+                  <div class="media-body">
+                    <h3 class="mt-0 text-black">Charles White</h3>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="media d-block media-custom text-center">
+                  <a href="adoption-single.html"><img
+                      th:src="${#request.contextPath} + '/public-static/images/person_4.jpg'" alt="Image Placeholder"
+                      class="img-fluid"></a>
+                  <div class="media-body">
+                    <h3 class="mt-0 text-black">Laura Smith</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END slider -->
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
 
 
   </div>

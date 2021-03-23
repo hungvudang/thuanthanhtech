@@ -8,8 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -21,7 +19,6 @@ import com.thuanthanhtech.repositories.NewsRepository;
 public class NewsHelper {
 
 	public final static String BASE_PATH_NEWS_RESOURCE = "/public/upload/news";
-	public final static String DIR_IMAGE_DETAILS = "/images";
 
 	@Transactional(rollbackOn = { SQLException.class, IOException.class, NullPointerException.class })
 	public static boolean insertNewsEntity(News news, MultipartFile multipartNewsThumbnail,
@@ -30,7 +27,6 @@ public class NewsHelper {
 		int targetNewsId = nRepository.save(news).getId();
 
 		String targetUploadDir = BASE_PATH_NEWS_RESOURCE + Helper.FILE_SEPARTOR + targetNewsId;
-		String uploadImagesDir = targetUploadDir + Helper.FILE_SEPARTOR + DIR_IMAGE_DETAILS;
 
 		try {
 
@@ -41,21 +37,10 @@ public class NewsHelper {
 
 			}
 
-			if (multipartNewsImages != null) {
-				
-				for (MultipartFile multipartImage : multipartNewsImages) {
-					if (multipartImage != null && !multipartImage.isEmpty()) {
-						String fImageName = multipartImage.getOriginalFilename();
-						saveImage(multipartImage, uploadImagesDir, fImageName);
-
-					}
-				}
-			}
 
 		} catch (IOException e) {
 			System.err.println(NewsHelper.class.getSimpleName() + ": " + e.getMessage());
 			news.setThumbnail(Helper.NO_IMAGE_MEDIUM_PNG);
-			news.setImages(null);
 			deleteNewsResourceDir(targetUploadDir);
 			return false;
 		}
@@ -81,12 +66,9 @@ public class NewsHelper {
 			nNews.setPub(news.getPub());
 			nNews.setHot(news.getHot());
 			
-			nNews.setFeatures(news.getFeatures());
-			
 			String oldNameThumbnail = nNews.getThumbnail(); 
 			
 			String targetUploadDir = BASE_PATH_NEWS_RESOURCE + Helper.FILE_SEPARTOR + targetNewsId;
-			String uploadImagesDir = targetUploadDir + Helper.FILE_SEPARTOR + DIR_IMAGE_DETAILS;
 			
 			try {
 				
@@ -101,27 +83,6 @@ public class NewsHelper {
 					nNews.setThumbnail(news.getThumbnail());
 				}
 
-				if (multipartNewsImages != null) {
-					List<Image> newImages = new ArrayList<Image>();
-					
-					for (MultipartFile multipartImage : multipartNewsImages) {
-						if (multipartImage != null && !multipartImage.isEmpty()) {
-							String fImageName = multipartImage.getOriginalFilename();
-							saveImage(multipartImage, uploadImagesDir, fImageName);
-							Image img = new Image();
-							img.setName(fImageName);
-							img.setNews(nNews);
-							
-							newImages.add(img);
-						}
-					}
-					
-					// Cập nhật thêm hình ảnh mô tả
-					if (!newImages.isEmpty()) {
-						nNews.setImages(newImages);
-					}
-				}
-				
 				nRepository.save(nNews);
 				
 				

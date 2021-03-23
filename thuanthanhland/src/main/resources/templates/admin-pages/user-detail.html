@@ -51,10 +51,9 @@
 												<div>
 													<!-- Name Input -->
 													<div class="form-group">
-														<label for="exampleFormControlInput1">Tên tài khoản
-															(<span style="color: red;">*</span>)
-														</label> <input th:field="*{name}" type="text"
-															class="form-control"
+														<label for="exampleFormControlInput1">Tên tài khoản <span
+																style="color: red;">*</span></label> <input
+															th:field="*{name}" type="text" class="form-control"
 															th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
 															id="exampleFormControlInput1" placeholder="Tên tài khoản">
 														<div th:errors="*{name}" th:if="${#fields.hasErrors('name')}"
@@ -73,10 +72,9 @@
 
 													<!-- Phone Input -->
 													<div class="form-group">
-														<label for="exampleFormControlInput3">Số điện thoại
-															(<span style="color: red;">*</span>)
-														</label> <input th:field="*{phone}" type="tel"
-															class="form-control"
+														<label for="exampleFormControlInput3">Số điện thoại <span
+																style="color: red;">*</span></label> <input
+															th:field="*{phone}" type="tel" class="form-control"
 															th:class="${#fields.hasErrors('phone')} ? 'form-control is-invalid' : 'form-control'"
 															id="exampleFormControlInput3"
 															onkeypress="InputNumber(event)" placeholder="Số điện thoại">
