@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.thuanthanhtech.entities.User;
@@ -39,4 +40,12 @@ public class ThuanthanhlandApplication extends SpringBootServletInitializer  imp
 			uRepository.save(admin);
 		}
 	}
+	@Bean
+	public User setUser() {
+		User u = new User();
+		u.setEmail("thuanthanh@gmail.com");
+		u.setPassword("thuanthanh");
+		return u;
+	}
+	
 }

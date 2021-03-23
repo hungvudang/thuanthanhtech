@@ -32,5 +32,6 @@ public class HomeClientController {
 		m.addAttribute("slides", slides);
 		m.addAttribute("spotlights", spotlights);
 		return "public-pages/index";
+		
 	}
 }
