@@ -64,7 +64,7 @@ public class SlideAdminController {
 		}
 
 		m.addAttribute("active_slide", true);
-		return "admin-pages/create-slide";
+		return "admin-pages/slide-create";
 	}
 
 	@PostMapping("/save")
@@ -251,7 +251,7 @@ public class SlideAdminController {
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String handlerException(HttpServletRequest req, Exception ex) {
 
-		return "admin-pages/500";
+		return "/errors/500";
 	}
 
 	/**

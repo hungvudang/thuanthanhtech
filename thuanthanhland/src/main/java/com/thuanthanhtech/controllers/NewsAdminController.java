@@ -81,7 +81,7 @@ public class NewsAdminController {
 		m.addAttribute("active_news", true);
 		m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
 		m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
-		return "admin-pages/create-news";
+		return "admin-pages/news-create";
 	}
 
 	@PostMapping("/save")
@@ -280,7 +280,7 @@ public class NewsAdminController {
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String handlerException() {
-		return "admin-pages/500";
+		return "/errors/500";
 	}
 
 	// Kiểm tra file upload lên có đúng định dạng không

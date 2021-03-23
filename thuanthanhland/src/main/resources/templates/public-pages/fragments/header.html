@@ -1,10 +1,12 @@
-<header class="fixed-top bg-dark" th:fragment="header">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand pb-2" th:href="@{/}">Thuận Thành Land</a>
+<header class="bg-dark" th:fragment="header">
+    <nav class="navbar navbar-expand-md navbar-dark">
+        <a class="navbar-brand pb-2 ml-3" th:href="@{/}">
+            <img th:src="@{${#request.contextPath} + '/images/logo.png'}" height="64" alt="Thuận Thành Land">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <style>
                     /* Full-width input fields */
@@ -142,33 +144,6 @@
                     <button type="submit">Đăng ký</button>
                 </form>
 
-                <!-- <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="https://bootstrapthemes.co" id="navbarDropdownMenuLink"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown link
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item dropdown-toggle" href="#">Submenu</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Submenu action</a></li>
-                                <li><a class="dropdown-item" href="#">Another submenu action</a></li>
-
-
-                                <li><a class="dropdown-item dropdown-toggle" href="#">Subsubmenu</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Subsubmenu action aa</a></li>
-                                        <li><a class="dropdown-item" href="#">Another subsubmenu action</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li> -->
             </ul>
         </div>
     </nav>

@@ -1,142 +1,201 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{/public-pages/public-layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/public-pages/public-layout}">
 
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-  <title>Về chúng tôi</title>
-
+    <title>Về chúng tôi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .slidecontainer {
+            width: 100%;
+        }
+        
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+        
+        .slider:hover {
+            opacity: 1;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #010701;
+            cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
-  <div class="wrapper bg-light">
+    <div class="wrapper bg-light">
 
-    <div layout:fragment="option-content-before">
+        <div layout:fragment="option-content-before">
 
+        </div>
+
+
+
+        <section class="section element-animate">
+
+            <!-- content header -->
+            <div class="col-md-8 text-center" layout:fragment="content-header">
+                <!-- <h1 class="heading mb-4">VỀ CHÚNG TÔI</h1> -->
+                <!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
+    adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
+    quam minima expedita atque corrupti reiciendis.</p> -->
+            </div>
+            <!-- /.content header -->
+
+            <div class="container" layout:fragment="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="media block-6 d-block text-center">
+                            <div class="icon mb-3"><span class="ion-ios-bell-outline"></span></div>
+                            <div class="media-body">
+                                <h3 class="heading">Tầm Nhìn</h3>
+                                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-lg-4 ">
+                        <div class="media block-6 d-block text-center">
+                            <div class="icon mb-3"><span class="ion-ios-heart-outline"></span></div>
+                            <div class="media-body">
+                                <h3 class="heading">Sứ Mệnh</h3>
+                                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="media block-6 d-block text-center">
+                            <div class="icon mb-3"><span class="ion-ios-bolt-outline"></span></div>
+                            <div class="media-body">
+                                <h3 class="heading">Giá Trị Cốt Lõi</h3>
+                                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+    </section>
+
+    <div layout:fragment="option-content-after">
+        <section class="section bg-light">
+            <div class="container">
+                <div class="row justify-content-center mb-5 element-animate">
+                    <div class="col-md-8 text-center">
+                        <h2 class="heading mb-4">Lịch sử thành tựu</h2>
+                        <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
+                        <div class="slidecontainer">
+                            <h3>Thành tựu qua các năm:</h3>
+                            <input type="range" min="1" max="100" value="50" class="slidecontainer">
+                            <br>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="https://vinhomes.vn/sites/default/files/styles/images_555_x_354/public/2021-03/2019.png?itok=zoPOiEXZ" alt="#" class="img-thumbnail">
+                            </div>
+                            <div class="col-md-8 text-center" style="text-align: justify;">
+                                <p>Minh bạch và hiệu quả là những mục tiêu quan trọng hàng đầu mà mô hình quản trị doanh nghiệp của Vinhomes hướng tới. Hội đồng Quản trị Vinhomes ý thức sâu sắc rằng chỉ có xây dựng và vận hành được hệ thống quản trị doanh
+                                    nghiệp đảm bảo các tiêu chí đó mới mang lại cho cổ đông của Vinhomes những giá trị và sự phát triển bền vững. Là một đơn vị thành viên quan trọng của Tập đoàn Vingroup, Vinhomes được kế thừa các giá trị cốt lõi và nguyên
+                                    tắc quản trị doanh nghiệp của công ty mẹ. Vinhomes được tổ chức theo cấu trúc phù hợp với các thông lệ quốc tế tốt nhất. Trong đó, vai trò sở hữu, quản trị và điều hành được tách bạch. Các hoạt động của Công ty được
+                                    tổ chức theo các khối chức năng, phụ trách các lĩnh vực trong chuỗi giá trị.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-8 text-center">
+                        <h2 class="heading mb-4">Sơ đồ tổ chức</h2>
+                        <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
+                    </div>
+                    <div class="col-md-8 text-center">
+                        <h2 class="heading mb-4">Khu đô thị</h2>
+                        <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.705125649799!2d105.82507521488296!3d21.004454086011492!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac80cf285849%3A0xcc2800b0f036e3af!2zMTA1IFRhbSBLaMawxqFuZywgS2jGsMahbmcgVGjGsOG7o25nLCDEkOG7kW5nIMSQYSwgSMOgIE7hu5lpLCBWaWV0bmFt!5e0!3m2!1sen!2s!4v1616475180172!5m2!1sen!2s"
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <div class="col-md-8 text-center">
+                        <h2 class="heading mb-4">Quản lý bất động</h2>
+                        <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row element-animate block-11">
+                    <h2>Thành phố thông minh</h2>
+                    <div class="nonloop-block-11 owl-carousel">
+                        <div>
+                            <div class="media d-block media-custom text-center">
+                                <a href="adoption-single.html"><img th:src="${#request.contextPath} + '/public-static/images/person_1.jpg'" alt="Image Placeholder" class="img-fluid"></a>
+                                <div class="media-body">
+                                    <h3 class="mt-0 text-black">Mellisa Howard</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="media d-block media-custom text-center">
+                                <a href="adoption-single.html"><img th:src="${#request.contextPath} + '/public-static/images/person_2.jpg'" alt="Image Placeholder" class="img-fluid"></a>
+                                <div class="media-body">
+                                    <h3 class="mt-0 text-black">Mike Richardson</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="media d-block media-custom text-center">
+                                <a href="adoption-single.html"><img th:src="${#request.contextPath} + '/public-static/images/person_3.jpg'" alt="Image Placeholder" class="img-fluid"></a>
+                                <div class="media-body">
+                                    <h3 class="mt-0 text-black">Charles White</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="media d-block media-custom text-center">
+                                <a href="adoption-single.html"><img th:src="${#request.contextPath} + '/public-static/images/person_4.jpg'" alt="Image Placeholder" class="img-fluid"></a>
+                                <div class="media-body">
+                                    <h3 class="mt-0 text-black">Laura Smith</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END slider -->
+                </div>
+            </div>
+    </div>
+    </section>
     </div>
 
 
+    </div>
+    <!-- ./wrapper -->
 
-    <section class="section element-animate">
-
-      <!-- content header -->
-      <div class="col-md-8 text-center" layout:fragment="content-header">
-        <!-- <h1 class="heading mb-4">VỀ CHÚNG TÔI</h1> -->
-        <!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
-    adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
-    quam minima expedita atque corrupti reiciendis.</p> -->
-      </div>
-      <!-- /.content header -->
-
-      <div class="container" layout:fragment="container">
-        <div class="row">
-          <div class="col-md-6 col-lg-4">
-            <div class="media block-6 d-block text-center">
-              <div class="icon mb-3"><span class="ion-ios-bell-outline"></span></div>
-              <div class="media-body">
-                <h3 class="heading">Tầm Nhìn</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                  unorthographic.
-                </p>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-md-6 col-lg-4 ">
-            <div class="media block-6 d-block text-center">
-              <div class="icon mb-3"><span class="ion-ios-heart-outline"></span></div>
-              <div class="media-body">
-                <h3 class="heading">Sứ Mệnh</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                  unorthographic.</p>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="media block-6 d-block text-center">
-              <div class="icon mb-3"><span class="ion-ios-bolt-outline"></span></div>
-              <div class="media-body">
-                <h3 class="heading">Giá Trị Cốt Lõi</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                  unorthographic.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-  </div>
-  </section>
-
-  <div layout:fragment="option-content-after">
-    <section class="section bg-light">
-      <div class="container">
-        <div class="row justify-content-center mb-5 element-animate">
-          <div class="col-md-8 text-center">
-            <h2 class="heading mb-4">Meet The Team</h2>
-            <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde
-              impedit,
-              necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
-          </div>
-        </div>
-        <div class="row element-animate block-11">
-          <div class="nonloop-block-11 owl-carousel">
-            <div>
-              <div class="media d-block media-custom text-center">
-                <a href="adoption-single.html"><img
-                    th:src="${#request.contextPath} + '/public-static/images/person_1.jpg'" alt="Image Placeholder"
-                    class="img-fluid"></a>
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Mellisa Howard</h3>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <a href="adoption-single.html"><img
-                    th:src="${#request.contextPath} + '/public-static/images/person_2.jpg'" alt="Image Placeholder"
-                    class="img-fluid"></a>
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Mike Richardson</h3>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <a href="adoption-single.html"><img
-                    th:src="${#request.contextPath} + '/public-static/images/person_3.jpg'" alt="Image Placeholder"
-                    class="img-fluid"></a>
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Charles White</h3>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="media d-block media-custom text-center">
-                <a href="adoption-single.html"><img
-                    th:src="${#request.contextPath} + '/public-static/images/person_4.jpg'" alt="Image Placeholder"
-                    class="img-fluid"></a>
-                <div class="media-body">
-                  <h3 class="mt-0 text-black">Laura Smith</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- END slider -->
-        </div>
-      </div>
-    </section>
-  </div>
-
-
-  </div>
-  <!-- ./wrapper -->
-
-  <!-- script option -->
-  <th:block layout:fragment="script"></th:block>
-  <!-- /. script option -->
+    <!-- script option -->
+    <th:block layout:fragment="script"></th:block>
+    <!-- /. script option -->
 </body>
 
 </html>

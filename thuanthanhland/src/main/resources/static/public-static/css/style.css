@@ -6723,7 +6723,6 @@ button.close {
 
 .carousel-caption {
   position: absolute;
-  right: 15%;
   bottom: 20px;
   left: 15%;
   z-index: 10;
@@ -9956,7 +9955,7 @@ textarea.form-control {
 
 /* Header */
 header {
-  position: absolute;
+  /* position: absolute; */
   top: 30px;
   left: 0;
   width: 100%;
@@ -10275,10 +10274,10 @@ header .navbar .cta-btn a:hover {
 }
 
 .home-slider.home-slider .slider-item .slider-text h1 {
-  font-size: 50px;
+  font-size: 4em;
   color: #fff;
   line-height: 1.2;
-  font-weight: 300 !important;
+  font-weight: 400 !important;
   text-transform: uppercase;
   margin-bottom: 30px;
 }
@@ -10403,7 +10402,7 @@ header .navbar .cta-btn a:hover {
 }
 
 .section {
-  padding: 7em 0;
+  padding: 3em 0;
 }
 
 .section-subscribe {
@@ -10624,7 +10623,7 @@ header .navbar .cta-btn a:hover {
 }
 
 .site-footer {
-  padding: 5em 0;
+  padding: 1.5em 0;
   background: #262626;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.5);
