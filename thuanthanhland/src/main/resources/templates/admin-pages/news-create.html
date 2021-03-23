@@ -51,8 +51,8 @@
 												<div>
 													<!-- Name Input -->
 													<div class="form-group">
-														<label for="formControlInputName">Tên bài viết (<span
-																style="color: red;">*</span>)</label>
+														<label for="formControlInputName">Tên bài viết <span
+																style="color: red;">*</span></label>
 														<input th:field="*{name}" type="text" class="form-control"
 															th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
 															id="formControlInputName" placeholder="Tên bài viết">
@@ -73,8 +73,8 @@
 													<!-- Title Input -->
 
 													<div class="form-group">
-														<label for="exampleFormControlInput3">Tiêu đề (<span
-																style="color: red;">*</span>)</label> <input
+														<label for="exampleFormControlInput3">Tiêu đề <span
+																style="color: red;">*</span></label> <input
 															th:field="*{title}" type="text" class="form-control"
 															th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'"
 															id="exampleFormControlInput3" placeholder="Tiêu đề">
@@ -95,8 +95,8 @@
 
 													<!-- Description Input -->
 													<div class="form-group">
-														<label for="inputDescription">Mô tả (<span
-																style="color: red;">*</span>)</label> <br>
+														<label for="inputDescription">Mô tả <span
+																style="color: red;">*</span></label> <br>
 														<textarea class="form-control"
 															th:class="${#fields.hasErrors('description')} ? 'form-control is-invalid' : 'form-control'"
 															id="inputDescription" th:field="*{description}" rows="2"
@@ -196,26 +196,6 @@
 														</div>
 													</div>
 												</fieldset>
-
-												<!-- Input ImageDetails -->
-												<div class="form-group">
-													<label for="formControlInputImageDetails">Thêm ảnh mô tả</label>
-													<div id="formControlInputImageDetails" class="card border-info">
-														<div class="card-body">
-
-															<div id="images-container" class="container">
-																<!-- Image Container -->
-															</div>
-															<div id="old-images-container" hidden>
-
-															</div>
-															<button id="btn-add-image" type="button"
-																class="float-right btn btn-sm btn-outline-primary"><i
-																	class="fas fa-plus"></i>
-																Thêm ảnh</button>
-														</div>
-													</div>
-												</div>
 											</div>
 
 										</div>

@@ -51,10 +51,9 @@
 												<div>
 													<!-- Name Input -->
 													<div class="form-group">
-														<label for="exampleFormControlInput1">Tên tài khoản
-															(<span style="color: red;">*</span>)
-														</label> <input th:field="*{name}" type="text"
-															class="form-control"
+														<label for="exampleFormControlInput1">Tên tài khoản <span
+																style="color: red;">*</span></label> <input
+															th:field="*{name}" type="text" class="form-control"
 															th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
 															id="exampleFormControlInput1" placeholder="Tên tài khoản">
 														<div th:errors="*{name}" th:if="${#fields.hasErrors('name')}"
@@ -63,8 +62,8 @@
 													<!-- Email Input -->
 
 													<div class="form-group">
-														<label for="exampleFormControlInput2">Email (<span
-																style="color: red;">*</span>)</label> <input
+														<label for="exampleFormControlInput2">Email <span
+																style="color: red;">*</span></label> <input
 															th:field="*{email}" type="text" class="form-control"
 															th:class="${#fields.hasErrors('email')} ? 'form-control is-invalid' : 'form-control'"
 															id="exampleFormControlInput2" placeholder="Email">
@@ -74,8 +73,8 @@
 
 													<!-- Password Input -->
 													<div class="form-group">
-														<label for="exampleFormControlInput5">Mật khẩu (<span
-																style="color: red;">*</span>)</label> <input
+														<label for="exampleFormControlInput5">Mật khẩu <span
+																style="color: red;">*</span></label> <input
 															th:field="*{password}" type="password" class="form-control"
 															th:class="${#fields.hasErrors('password')} ? 'form-control is-invalid' : 'form-control'"
 															id="exampleFormControlInput5" placeholder="Mật khẩu"
@@ -87,8 +86,8 @@
 
 													<!-- Password Confirm Input -->
 													<div class="form-group">
-														<label for="exampleFormControlInput6">Nhập lại mật khẩu (<span
-																style="color: red;">*</span>)</label> <input
+														<label for="exampleFormControlInput6">Nhập lại mật khẩu <span
+																style="color: red;">*</span></label> <input
 															type="password" class="form-control"
 															id="exampleFormControlInput6"
 															placeholder="Nhập lại mật khẩu"
@@ -98,8 +97,8 @@
 
 													<!-- Phone Input -->
 													<div class="form-group">
-														<label for="exampleFormControlInput3">Số điện thoại (<span
-																style="color: red;">*</span>)</label>
+														<label for="exampleFormControlInput3">Số điện thoại <span
+																style="color: red;">*</span></label>
 														<input th:field="*{phone}" type="tel" class="form-control"
 															th:class="${#fields.hasErrors('phone')} ? 'form-control is-invalid' : 'form-control'"
 															id="exampleFormControlInput3"
@@ -119,9 +118,9 @@
 													<!-- Admin Input -->
 													<fieldset class="form-group">
 														<div class="row">
-															<label class="col-form-label col-sm-4 pt-0"> Vai
+															<label class="col-form-label col-sm-5 pt-0"> Vai
 																trò </label>
-															<div class="col-sm-8">
+															<div class="col-sm-7">
 																<div class="form-check">
 																	<input th:field="*{role}" class="form-check-input"
 																		type="radio" name="gridRadiosAdmin"
@@ -159,8 +158,8 @@
 
 													<div>
 														<img th:src="@{*{avatar}}" alt="avatar-media"
-															class="img-thumbnail mb-3" id="avatar-image"
-															style="max-height: 200px;">
+															class="img-thumbnail w-100 mb-3" id="avatar-image"
+															style="max-height: 200px; object-fit: cover;">
 													</div>
 
 													<input name="user_avatar" type="file" class="form-control"

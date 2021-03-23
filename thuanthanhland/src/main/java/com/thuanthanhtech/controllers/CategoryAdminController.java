@@ -82,7 +82,7 @@ public class CategoryAdminController {
 
 		m.addAttribute("rootCate", root);
 		m.addAttribute("active_category", true);
-		return "admin-pages/create-category";
+		return "admin-pages/category-create";
 	}
 
 	@PostMapping("/save")
@@ -248,7 +248,7 @@ public class CategoryAdminController {
 			SQLIntegrityConstraintViolationException.class })
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String handlerException() {
-		return "admin-pages/500";
+		return "/errors/500";
 	}
 
 }

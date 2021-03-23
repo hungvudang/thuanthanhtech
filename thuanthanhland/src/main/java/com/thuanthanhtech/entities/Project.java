@@ -1,17 +1,27 @@
 package com.thuanthanhtech.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="projects")
@@ -40,14 +50,28 @@ public class Project {
 	@NotBlank(message = "Mô tả không được để trống")
 	private String description;
 	
-	@Column(name="image", columnDefinition = "NVARCHAR(255)", nullable = false)
-	private String image;
+	@Column(name="thumbnail", columnDefinition = "NVARCHAR(255)", nullable = false)
+	private String thumbnail;
 	
 	@Column(name="public", columnDefinition="TINYINT(4) DEFAULT 1")
 	private Integer pub;
 	
 	@Column(name="hot", columnDefinition="TINYINT(4) DEFAULT 0")
 	private Integer hot;
+	
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Image.class)
+	@JsonIgnore
+	private List<Image> images;
+	
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = CommentProject.class)
+	@JsonIgnore
+	private List<CommentProject> comments;
+	
+	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "features")
+	@MapKeyColumn(name = "feature_key")
+	@Column(name = "feature_value", columnDefinition = "TEXT")
+	private Map<String, String> features;
 	
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
@@ -57,8 +81,6 @@ public class Project {
 		return id;
 	}
 	
-	
-
 	public Project() {
 		super();
 	}
@@ -103,11 +125,50 @@ public class Project {
 		this.description = description;
 	}
 	
-	public String getImage() {
-		return image;
+	public String getThumbnail() {
+		return thumbnail;
 	}
-	public void setImage(String image) {
-		this.image = image;
+
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+	
+	public List<Image> getImages() {
+		return images;
+	}
+
+
+	public void setImages(List<Image> images) {
+		if (images != null) {
+			images.parallelStream().forEach((img)->{
+				img.setProject(this);
+			});
+		}
+		this.images = images;
+	}
+	
+	public List<CommentProject> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentProject> comments) {
+		if (comments != null) {
+			comments.parallelStream().forEach((cmt)->{
+				cmt.setProject(this);
+			});
+		}
+		
+		this.comments = comments;
+	}
+
+	public Map<String, String> getFeatures() {
+		return features;
+	}
+
+
+	public void setFeatures(Map<String, String> features) {
+		this.features = features;
 	}
 	
 	public LocalDateTime getCreated_at() {

@@ -29,7 +29,7 @@
 			</div>
 			<!-- /.content header -->
 
-			<div class="container" layout:fragment="container">
+			<div class="container" layout:fragment="content">
 				<div class="row">
 					<div class="col-lg-8">
 						<div class="card">
@@ -60,10 +60,12 @@
 													Voluptatibus minima autem, esse eius natus labore.</p>
 												<p>
 											</div>
+											<p class="text-center">
+												<img class="img-fluid element-animate w-100"
+													th:src="@{${BASE_PATH_NEWS_RESOURCE} + '/' + ${targetNews.id} + '/' + ${targetNews.thumbnail}}"
+													th:alt="${targetNews.name}" style="object-fit: cover;">
+											</p>
 
-											<img class="img-fluid element-animate" width="100%" height="100%"
-												th:src="@{${BASE_PATH_NEWS_RESOURCE} + '/' + ${targetNews.id} + '/' + ${targetNews.thumbnail}}"
-												th:alt="${targetNews.name}">
 
 											<div class="text text-left element-animate">
 												<div th:utext="${targetNews.content}" class="mt-3">

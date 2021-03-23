@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.thuanthanhtech.entities.Category;
-import com.thuanthanhtech.entities.Helper;
 import com.thuanthanhtech.entities.News;
 import com.thuanthanhtech.entities.NewsHelper;
 import com.thuanthanhtech.repositories.CategoryRepository;
@@ -42,11 +41,16 @@ public class NewsClientController {
 
 	@Autowired
 	private NewsPagingAndSortRepository nPagingAndSortRepository;
+	
+	@GetMapping
+	public String news() {
+		return "redirect:/tin-tuc/bai-viet";
+	}
 
 	@GetMapping("/{cate-slug}")
-	public String nextPage(@PathVariable("cate-slug") String cateSlug,
+	public String nextPage(@PathVariable(name =  "cate-slug") String cateSlug,
 			@RequestParam(name = "pageNumber", required = false) Integer pageNumber, Model m) {
-
+		
 		if (pageNumber == null) {
 			return "redirect:/tin-tuc/" + cateSlug + "?pageNumber=1";
 		}
@@ -72,20 +76,15 @@ public class NewsClientController {
 
 			m.addAttribute("cateSlug", cateSlug);
 			m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
-			m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
 
-			// breadcrumb
-			List<String> targetBreadCrumbs = new ArrayList<String>();
-			targetBreadCrumbs.add(targetCate.getName());
-			Helper.getBreadcrumb(targetCate, cRepository, targetBreadCrumbs);
+			List<String> breadcrumbs = new ArrayList<String>();
+			breadcrumbs.add("Tin tức");
+			breadcrumbs.add(targetCate.getName());
+			m.addAttribute("breadcrumbs", breadcrumbs);
 
-			m.addAttribute("breadcrumbs", targetBreadCrumbs);
 			switch (cateSlug) {
 			case "bai-viet":
 				return "public-pages/blog";
-
-			case "du-an":
-				return "public-pages/project";
 			}
 		}
 		return "redirect:/tin-tuc/bai-viet";
@@ -127,30 +126,24 @@ public class NewsClientController {
 			});
 
 			m.addAttribute("targetNews", targetNews);
-			
+
 			m.addAttribute("cateSlug", cateSlug);
 			m.addAttribute("topNewses", topNewses);
 
 			m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
-			m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
-
-			// breadcrumb
-			List<String> targetBreadCrumbs = new ArrayList<String>();
-			targetBreadCrumbs.add(cate.getName());
-			Helper.getBreadcrumb(cate, cRepository, targetBreadCrumbs);
-
-			m.addAttribute("breadcrumbs", targetBreadCrumbs);
+			
+			List<String> breadcrumbs = new ArrayList<String>();
+			breadcrumbs.add("Tin tức");
+			breadcrumbs.add(cate.getName());
+			m.addAttribute("breadcrumbs", breadcrumbs);
 
 			switch (cateSlug) {
 			case "bai-viet":
 				return "public-pages/blog-detail";
-
-			case "du-an":
-				return "public-pages/project-detail";
 			}
 		}
 
-		return "redirect:/tin-tuc/bai-viet";
+		return "redirect:/tin-tuc";
 	}
 
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })

@@ -18,20 +18,16 @@
     <div class="wrapper bg-light">
 
         <!-- Navbar -->
-        <div th:replace="/public-pages/fragments/header::header"></div>
+        <section th:replace="/public-pages/fragments/header::header"></section>
         <!-- /.navbar -->
 
         <!-- option content -->
-        <div layout:fragment="option-content-before"></div>
+        <section layout:fragment="option-content-before"></section>
         <!-- /. option content -->
 
         <section class="section element-animate">
             <!-- content header -->
             <div class="row justify-content-center mb-5 element-animate">
-                <!-- breadcrumb -->
-                <div th:replace="/public-pages/fragments/breadcrumb"></div>
-                <!-- /.breadcrumb -->
-
                 <div class="col-md-8 text-center" layout:fragment="content-header">
                     <h1 class="heading mb-4">CONTENT HEADER</h1>
                     <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
@@ -41,18 +37,25 @@
             </div>
             <!-- /.content header -->
 
-            <div class="container" layout:fragment="container">
+            <!-- wrap-content -->
+            <div class="wrap-content" layout:fragment="wrap-content">
+                <!-- breadcrumbs -->
+                <div class="container">
+                    <div th:replace="/public-pages/fragments/breadcrumbs"></div>
+                </div>
+                <!-- /.breadcrumbs -->
+
+                <div class="container" layout:fragment="content"></div>
 
             </div>
+            <!-- /.wrap-content -->
         </section>
-
 
         <!-- option content -->
 
-        <div layout:fragment="option-content-after"></div>
+        <section layout:fragment="option-content-after"></section>
 
         <!-- /. option content -->
-
 
         <div th:replace="/public-pages/fragments/footer::footer"></div>
         <!-- END footer -->

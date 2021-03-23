@@ -15,22 +15,23 @@ import com.thuanthanhtech.repositories.SpotlightRepository;
 
 @Controller
 public class HomeClientController {
-	
+
 	@Autowired
 	private SlideRepository sRepository;
-	
+
 	@Autowired
 	private SpotlightRepository spotRepository;
-	
-	@GetMapping({"/trang-chu", "/"})
+
+	@GetMapping({ "/trang-chu", "/" })
 	public String home(Model m) {
 		
 		List<Slide> slides = sRepository.findByPub(1, Sort.by(Sort.Direction.ASC, "sort"));
-		
+
 		List<Spotlight> spotlights = spotRepository.findByPub(1, Sort.by(Sort.Direction.ASC, "sort"));
-		
+
 		m.addAttribute("slides", slides);
 		m.addAttribute("spotlights", spotlights);
 		return "public-pages/index";
+		
 	}
 }

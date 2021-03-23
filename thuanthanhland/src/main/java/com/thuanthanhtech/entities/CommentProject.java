@@ -14,20 +14,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
 
 @Entity
-@Table(name = "images")
-public class Image {
-	
+@Table(name = "comments_project")
+public class CommentProject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@Column(name = "name", nullable = false)
-	private String name;
+	@Column(name = "content", nullable = false, columnDefinition = "LONGTEXT")
+	@NotBlank(message = "Nội dung không hợp lệ")
+	private String content;
+	
+	@Column(name = "parent_id", columnDefinition = "INT DEFAULT -1", nullable = false)
+	private Integer parentId = -1; // default -1
+	
+	@ManyToOne(targetEntity = User.class, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	private User user;
 	
 	@ManyToOne(targetEntity = Project.class, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id", referencedColumnName = "id" )
+	@JoinColumn(name = "project_id", referencedColumnName = "id")
 	private Project project;
 	
 	@Column(name = "created_at")
@@ -36,7 +45,7 @@ public class Image {
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
 
-	public Image() {
+	public CommentProject() {
 		super();
 	}
 
@@ -47,13 +56,29 @@ public class Image {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	public String getName() {
-		return name;
+
+	public String getContent() {
+		return content;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Integer getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Project getProject() {
@@ -62,6 +87,7 @@ public class Image {
 
 	public void setProject(Project project) {
 		this.project = project;
+		
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -91,6 +117,4 @@ public class Image {
 	}
 	
 	
-	
-
 }

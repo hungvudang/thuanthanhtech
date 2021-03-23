@@ -22,11 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.thuanthanhtech.entities.Category;
 import com.thuanthanhtech.entities.Contact;
 import com.thuanthanhtech.entities.ContactHelper;
-import com.thuanthanhtech.entities.Helper;
-import com.thuanthanhtech.repositories.CategoryRepository;
 import com.thuanthanhtech.repositories.ContactRepository;
 
 @Controller
@@ -39,22 +36,15 @@ public class ContactClientController {
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
-	@Autowired
-	private CategoryRepository cRepository;
-
 	@GetMapping
 	public String contact(Model m) {
 		Contact contact = new Contact();
 		contact.setStatus(0);
 		
-		List<String> targetBreadcrumbs = new ArrayList<String>();
-		targetBreadcrumbs.add("Liên hệ");
+		List<String> breadcrumbs = new ArrayList<String>();
+		breadcrumbs.add("Liên hệ");
+		m.addAttribute("breadcrumbs", breadcrumbs);
 		
-		Category cate = cRepository.findBySlug("lien-he").get();
-		
-		Helper.getBreadcrumb(cate, cRepository, targetBreadcrumbs);
-		
-		m.addAttribute("breadcrumbs", targetBreadcrumbs);
 		m.addAttribute("contact", contact);
 		return "public-pages/contact";
 	}
@@ -118,6 +108,6 @@ public class ContactClientController {
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	public String handlerException() {
-		return "public-pages/error-pages/500";
+		return "/errors/500";
 	}
 }

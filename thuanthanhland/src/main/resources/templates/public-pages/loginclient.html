@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/public-pages/public-layout}">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Đăng nhập</title>
+
+</head>
+
+<body>
+    <div class="wrapper bg-light">
+
+
+        <section class="section">
+
+            <!-- content header -->
+            <div class="col-md-8 text-center" layout:fragment="content-header">
+                <!-- <h1 class="heading mb-4">LIÊN HỆ</h1> -->
+                <!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
+						adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
+						quam minima expedita atque corrupti reiciendis.</p> -->
+            </div>
+            <!-- /.content header -->
+
+            <div class="container" layout:fragment="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <form th:action="@{/checkLogin}" th:object="${User}" th:method="post">
+                                    <div class="container">
+                                        <h1>Đăng nhập</h1>
+                                        <p>Vui lòng điền vào form để đăng nhập tài khoản</p>
+                                        <hr>
+
+                                        <label for="email"><b>Email</b></label>
+                                        <input type="text" placeholder="Nhập vào Email" name="email" id="email" required>
+
+                                        <label for="psw"><b>Mật khẩu</b></label>
+                                        <input type="password" placeholder="Nhập vào Password" name="password" id="psw" required>
+
+
+                                        <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+                                        <button type="submit" class="registerbtn">Đăng nhập</button>
+                                    </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-5">
+                    <div class="col-md-10">
+                        <div class="card">
+                            <div class="card-body">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.0547237798855!2d105.80231051437575!3d20.990443386019177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135acbfb81c4d15%3A0x7358bc6b15c5b06a!2zOSDEkMaw4budbmcgTmd1eeG7hW4gWGnhu4NuLCBUaGFuaCBYdcOibiBOYW0sIFRoYW5oIFh1w6JuLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1614236345402!5m2!1svi!2s"
+                                    width="100%;" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- script option -->
+    <th:block layout:fragment="script"></th:block>
+    <!-- /. script option -->
+</body>
+
+</html>

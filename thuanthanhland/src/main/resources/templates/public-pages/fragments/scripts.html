@@ -17,9 +17,6 @@
 
 <script src="/public-static/js/main.js" th:src="${#request.contextPath} + '/public-static/js/main.js'"></script>
 
-<!-- Multi dropdown navbar -->
-<!-- <script th:src="${#request.contextPath} + '/js/multi-dropdown-navbar/bootstrap-4-navbar.js'"></script> -->
-<!-- <script th:src="${#request.contextPath} + '/js/multi-dropdown-navbar/bootstrap-4-navbar.min.js'"></script> -->
 <script th:inline="javascript">
     $.get(url = "/api/category",
         success = function (root) {
@@ -27,13 +24,13 @@
                 if (cate.childs.length == 0) {
                     $('.navbar-nav').append(`
                         <li class="nav-item">
-                            <a class="nav-link" href="/${cate.self.slug}">${cate.self.name}</a>
+                            <a class="nav-link font-weight-bold text-white" href="/${cate.self.slug}">${cate.self.name}</a>
                         </li>
                     `)
                 } else {
                     $('.navbar-nav').append(`
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="/${cate.self.slug}" id="navbarDropdownMenuLink"
+                            <a class="nav-link dropdown-toggle font-weight-bold text-white" href="/${cate.self.slug}" id="navbarDropdownMenuLink"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${cate.self.name}</a>
                             <ul id="dropdown-menu-${cate.id}" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             </ul>
@@ -53,11 +50,11 @@
         $.each(childs, function (index, cate) {
             if (cate.childs.length == 0) {
                 $(`#dropdown-menu-${$rootCate.id}`).append(`
-                <li><a class="dropdown-item" href="/${$rootCateSlug}/${cate.self.slug}">${cate.self.name}</a></li> 
+                <li><a class="dropdown-item font-weight-bold" href="/${$rootCateSlug}/${cate.self.slug}">${cate.self.name}</a></li> 
             `)
             } else {
                 $(`#dropdown-menu-${$rootCate.id}`).append(`
-                    <li><a class="dropdown-item dropdown-toggle" href="/${$rootCateSlug}/${cate.self.slug}" >${cate.self.name}</a>
+                    <li><a class="dropdown-item dropdown-toggle font-weight-bold" href="/${$rootCateSlug}/${cate.self.slug}" >${cate.self.name}</a>
                         <ul id="dropdown-menu-${cate.id}" class="dropdown-menu">
                             
                         </ul>
@@ -66,27 +63,5 @@
                 recursive(cate, $rootCateSlug);
             }
         })
-
-    }
-</script>
-
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    var $breadcrumbs = /*[[${breadcrumbs}]]*/'breadcrumbs';
-    /*]]>*/
-
-    if ($breadcrumbs) {
-        $('.breadcrumb').append(`
-                <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a></li>
-            `)
-        for (var i = $breadcrumbs.length - 2; i >= 1; i--) {
-            $('.breadcrumb').append(`
-                <li class="breadcrumb-item"><a href="#">${$breadcrumbs[i]}</a></li>
-            `)
-        }
-
-        $('.breadcrumb').append(`
-                <li class="breadcrumb-item active" aria-current="page">${$breadcrumbs[0]}</li>
-            `)
     }
 </script>

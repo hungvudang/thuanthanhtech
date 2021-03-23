@@ -1,0 +1,12 @@
+<div th:if="${breadcrumbs}" class="row">
+    <nav class="w-100" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a href="#"><i class="fa fa-home"></i></a></li>
+            <th:block th:each="bc, iter : ${breadcrumbs}">
+                <li th:if="${iter.last}" class="breadcrumb-item active" aria-current="page">[(${bc})]</li>
+                <li th:unless="${iter.last}" class="breadcrumb-item"> <a href="#">[(${bc})]</a></li>
+            </th:block>
+            <!-- <li class="breadcrumb-item active" aria-current="page">Liên hệ</li> -->
+        </ol>
+    </nav>
+</div>

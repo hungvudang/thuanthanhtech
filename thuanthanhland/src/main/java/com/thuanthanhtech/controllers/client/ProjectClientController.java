@@ -1,6 +1,8 @@
 package com.thuanthanhtech.controllers.client;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,29 +13,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.thuanthanhtech.entities.Project;
+import com.thuanthanhtech.entities.ProjectHelper;
 import com.thuanthanhtech.repositories.ProjectPagingAndSortRepository;
 
 @Controller
 @RequestMapping("/du-an")
 public class ProjectClientController {
-	
+
 	@Autowired
 	private ProjectPagingAndSortRepository pRepository;
-	
+
 	@GetMapping
-	public String project(Model m) {
-		return "redirect:/du-an/page/1";
-	}
-	
-	@GetMapping("/page/{index}")
-	public String nextPage(@PathVariable("index") Integer index, Model m) {
-		Pageable pageable = PageRequest.of(index - 1, 8);
+	public String project(@RequestParam(name = "pageNumber", required = false) Integer pageNumber, Model m) {
+		if (pageNumber == null) {
+			return "redirect:/du-an?pageNumber=1";
+		}
+		
+		Pageable pageable = PageRequest.of(pageNumber - 1, 8);
 		Page<Project> page = pRepository.findByPub(1, pageable);
 		
 		List<Project> projects = page.getContent();
-		int currentPage = index;
+		int currentPage = pageNumber;
 		int totalPages = page.getTotalPages();
 		int numOfElements = page.getNumberOfElements();
 		
@@ -42,12 +45,37 @@ public class ProjectClientController {
 		m.addAttribute("totalPages", totalPages);
 		m.addAttribute("numOfElements", numOfElements);
 		
-		return "public-pages/project";
-	}
-	
-	@GetMapping("/detail/{slug}")
-	public String projectDetail(@PathVariable("slug") String slug) {
+		m.addAttribute("BASE_PATH_PROJECT_RESOURCE", ProjectHelper.BASE_PATH_PROJECT_RESOURCE);
+		m.addAttribute("DIR_IMAGE_DETAILS", ProjectHelper.DIR_IMAGE_DETAILS);
 		
-		return "public-pages/project-single";
+		List<String> breadcrumbs = new ArrayList<String>();
+		breadcrumbs.add("Dự án");
+		m.addAttribute("breadcrumbs", breadcrumbs);
+		
+		return "public-pages/project";
+		
+		
+	}
+
+	@GetMapping("/{slug}")
+	public String projectDetail(@PathVariable("slug") String slug, Model m) {
+		
+		Optional<Project> opProject = pRepository.findBySlug(slug);
+		if (opProject.isPresent()) {
+			
+			Project project = opProject.get();
+			
+			m.addAttribute("project", project);
+			m.addAttribute("BASE_PATH_PROJECT_RESOURCE", ProjectHelper.BASE_PATH_PROJECT_RESOURCE);
+			m.addAttribute("DIR_IMAGE_DETAILS", ProjectHelper.DIR_IMAGE_DETAILS);
+			
+			List<String> breadcrumbs = new ArrayList<String>();
+			breadcrumbs.add("Dự án");
+			m.addAttribute("breadcrumbs", breadcrumbs);
+			
+			return "public-pages/project-detail";
+		}
+		return "redirect:/du-an";
+		
 	}
 }
