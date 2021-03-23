@@ -28,7 +28,7 @@ public class CommentProject {
 	@NotBlank(message = "Nội dung không hợp lệ")
 	private String content;
 	
-	@Column(name = "parent_id")
+	@Column(name = "parent_id", columnDefinition = "INT DEFAULT -1", nullable = false)
 	private Integer parentId = -1; // default -1
 	
 	@ManyToOne(targetEntity = User.class, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

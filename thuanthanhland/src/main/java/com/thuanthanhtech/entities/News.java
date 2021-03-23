@@ -50,10 +50,10 @@ public class News {
 	private Category category;
 
 	@Column(name = "hot", columnDefinition = "TINYINT(4) DEFAULT 0")
-	private Integer hot;
+	private Integer hot = 0;
 
 	@Column(name = "public", columnDefinition = "TINYINT(4) DEFAULT 1")
-	private Integer pub;
+	private Integer pub = 1;
 
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
