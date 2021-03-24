@@ -25,6 +25,7 @@ public class Recruitment {
 	private Integer id;
 	
 	@NotBlank(message = "Tiêu đề không hợp lệ")
+	@Column(nullable = false, unique = true)
 	private String title;
 	
 	@NotBlank(message = "Vị trí tuyển dụng không hợp lệ")
