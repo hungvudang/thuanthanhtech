@@ -14,7 +14,7 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<a th:href="@{/home}">Thuận Thành Land</a>
+			<a th:href="@{/}">Thuận Thành Land</a>
 		</div>
 		<!-- /.login-logo -->
 		<div class="card">
@@ -26,7 +26,7 @@
 					<p th:if="${param.logout}" class="text text-center text-success">Đăng
 						xuất tài khoản thành công</p>
 				</div>
-				<form th:action="@{/login}" method="post">
+				<form th:action="@{/admin/j_spring_security_login}" method="post">
 					<div class="input-group mb-3">
 						<input name="username" type="email" class="form-control" placeholder="Nhập địa chỉ email">
 						<div class="input-group-append">
@@ -50,6 +50,7 @@
 								</label>
 							</div>
 						</div>
+
 						<!-- /.col -->
 						<div class="col-6">
 							<button type="submit" class="btn btn-primary btn-block">Đăng
@@ -57,6 +58,7 @@
 						</div>
 						<!-- /.col -->
 					</div>
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 				</form>
 
 				<!-- <div class="social-auth-links text-center mb-3">

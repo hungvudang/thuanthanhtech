@@ -1,16 +1,142 @@
-<header class="fixed-top bg-dark" th:fragment="header">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand pb-2 ml-3" th:href="@{/}">
-            <img th:src="@{${#request.contextPath} + '/images/logo.png'}" height="64" alt="Thuận Thành Land">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-
+<th:block th:fragment="header">
+    <header class="fixed-top bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <a class="navbar-brand mr-md-5 order-md-1" th:href="@{/}">
+                <img th:src="@{${#request.contextPath} + '/images/logo.png'}" height="64" alt="Thuận Thành Land">
+            </a>
+            <ul id="navbar-control" class="navbar-nav order-md-4 mx-3 flex-row">
+                <!-- <li class="nav-item mx-1"><a class="nav-link font-weight-bold text-white p-2" href="#"><i
+                            class="fa fa-search fa-2x"></i></a></li> -->
+                <li title="Đăng nhập" class="nav-item mx-1">
+                    <a role="button" class="nav-link font-weight-bold text-white p-2" href="#modalLogin"
+                        data-toggle="modal" data-target="#modalLogin">
+                        <i class="fa fa-user-circle fa-2x"></i>
+                    </a>
+                </li>
             </ul>
+
+            <button class="navbar-toggler order-md-2" type="button" data-toggle="collapse"
+                data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse order-md-3" id="navbarNavDropdown">
+                <ul id="navbar-container" class="navbar-nav">
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <h5 class="font-weight-bold">Thuận Thành Land</h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex flex-column text-center">
+                        <h3>Đăng nhập</h3>
+                        <form th:action="@{/public/j_spring_security_login}" th:method="post" autocomplete="off">
+                            <div class="form-group">
+                                <input type="email" class="form-control form-control-sm" name="username" id="email1"
+                                    placeholder="Email *" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control form-control-sm" name="password"
+                                    id="password1" placeholder="Mật khẩu *" autocomplete="new-password" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg btn-block mb-2">Đăng
+                                nhập</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <div class="signup-section">Bạn chưa có tài khoản? <a href="#modalRegister" class="text-primary"
+                            data-toggle="modal" data-dismiss="modal" data-target="#modalRegister">
+                            Tạo tài
+                            khoản mới</a>.
+                    </div>
+                </div>
+            </div>
         </div>
-    </nav>
-</header>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <h5 class="font-weight-bold">Thuận Thành Land</h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex flex-column">
+                        <h3 class="text-center">Tạo tài khoản mới</h3>
+                        <form autocomplete="off">
+                            <div class="form-group">
+                                <label class="font-weight-bold" for="inputControlForName">Họ và tên <span
+                                        style="color: red;">*</span></label>
+                                <input type="text" class="form-control form-control-sm" id="inputControlForName"
+                                    placeholder="Họ và tên">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-weight-bold" for="inputControlForEmail">Email <span
+                                        style="color: red;">*</span></label>
+                                <input type="email" class="form-control form-control-sm" id="inputControlForEmail"
+                                    placeholder="Email">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-weight-bold" for="inputControlForPassword">Mật khẩu <span
+                                        style="color: red;">*</span></label>
+                                <input type="password" class="form-control form-control-sm" id="inputControlForPassword"
+                                    placeholder="Mật khẩu" autocomplete="new-password">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-weight-bold" for="inputControlForConfirmPasssword">Nhập lại mật khẩu
+                                    <span style="color: red;">*</span></label>
+                                <input type="password" class="form-control form-control-sm"
+                                    id="inputControlForConfirmPasssword" placeholder="Nhập lại mật khẩu"
+                                    autocomplete="new-password">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-weight-bold" for="inputControlForPhone">Số điện thoại</label>
+                                <input type="text" class="form-control form-control-sm" id="inputControlForPhone"
+                                    placeholder="Số điện thoại">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-weight-bold" for="inputControlForAddress">Địa chỉ</label>
+                                <input type="text" class="form-control form-control-sm" id="inputControlForAddress"
+                                    placeholder="Địa chỉ">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg btn-block mb-2">Đăng ký</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <div class="signup-section">Bạn đã có tài khoản? <a href="#modalLogin" class="text-primary"
+                            data-toggle="modal" data-dismiss="modal" data-target="#modalLogin"> Đăng nhập</a>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

@@ -245,13 +245,18 @@
                 <!-- logout -->
                 <li class="nav-item has-treeview">
 
-                    <a th:href="@{/logout}" th:class="${active_logout}? 'nav-link active':'nav-link'">
+                    <a id="btnLogout" th:href="@{/public/j_spring_security_logout}"
+                        th:class="${active_logout}? 'nav-link active':'nav-link'">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>
                             Đăng xuất
                             <!-- <i class="right fas fa-angle-left"></i> -->
                         </p>
                     </a>
+                    <form th:action="@{/admin/j_spring_security_logout}" th:method="POST" hidden>
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button id="btnSubmitLogout" type="submit"></button>
+                    </form>
                 </li>
                 <!-- /.logout -->
             </ul>

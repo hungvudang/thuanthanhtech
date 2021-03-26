@@ -25,9 +25,10 @@ public class RecruitmentClientController {
 	public String recruitment(Model m) {
 		List<String> breadcrumbs = new ArrayList<String>();
 		breadcrumbs.add("Tuyển dụng");
+		breadcrumbs.add("Chính sách nhân sự");
 		m.addAttribute("breadcrumbs", breadcrumbs);
 		
-		return "public-pages/recruitment";
+		return "public-pages/recruitment-hr-policies";
 	}
 	
 	@GetMapping("/chinh-sach-nhan-su")
@@ -36,7 +37,7 @@ public class RecruitmentClientController {
 		breadcrumbs.add("Tuyển dụng");
 		breadcrumbs.add("Chính sách nhân sự");
 		m.addAttribute("breadcrumbs", breadcrumbs);
-		
+		m.addAttribute("active_hr_policies", true);
 		return "public-pages/recruitment-hr-policies";
 	}
 	
@@ -51,6 +52,7 @@ public class RecruitmentClientController {
 		
 		List<Recruitment> recruitments = rRepository.findByPub(1);
 		m.addAttribute("recruitments", recruitments);
+		m.addAttribute("active_career_opportunities", true);
 		
 		return "public-pages/recruitment-career-opportunities";
 	}
@@ -62,7 +64,7 @@ public class RecruitmentClientController {
 		breadcrumbs.add("Tuyển dụng");
 		breadcrumbs.add("Quy định hồ sơ ứng tuyển");
 		m.addAttribute("breadcrumbs", breadcrumbs);
-		
+		m.addAttribute("active_specified_candidate_profile", true);
 		return "public-pages/recruitment-specified-candidate-profile";
 	}
 	

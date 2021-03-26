@@ -22,13 +22,13 @@
         success = function (root) {
             $.each(root.childs, function (index, cate) {
                 if (cate.childs.length == 0) {
-                    $('.navbar-nav').append(`
+                    $('#navbar-container').append(`
                         <li class="nav-item">
                             <a class="nav-link font-weight-bold text-white" href="/${cate.self.slug}">${cate.self.name}</a>
                         </li>
                     `)
                 } else {
-                    $('.navbar-nav').append(`
+                    $('#navbar-container').append(`
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle font-weight-bold text-white" href="/${cate.self.slug}" id="navbarDropdownMenuLink"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${cate.self.name}</a>

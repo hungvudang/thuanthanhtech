@@ -45,7 +45,7 @@
 							<div class="card-body">
 								<div class="col-auto">
 									<form th:action="@{/admin/user/save}" th:method="post" th:object="${user}"
-										enctype="multipart/form-data">
+										enctype="multipart/form-data" autocomplete="off">
 										<div class="row">
 											<div class="col-7">
 												<div>
@@ -74,11 +74,19 @@
 													<!-- Password Input -->
 													<div class="form-group">
 														<label for="exampleFormControlInput5">Mật khẩu <span
-																style="color: red;">*</span></label> <input
-															th:field="*{password}" type="password" class="form-control"
-															th:class="${#fields.hasErrors('password')} ? 'form-control is-invalid' : 'form-control'"
-															id="exampleFormControlInput5" placeholder="Mật khẩu"
-															onkeyup="passwordConfirm()">
+																style="color: red;">*</span></label>
+														<div id="show_hide_password" class="input-group">
+															<input th:field="*{password}" type="password"
+																class="form-control"
+																th:class="${#fields.hasErrors('password')} ? 'form-control is-invalid' : 'form-control'"
+																id="exampleFormControlInput5" placeholder="Mật khẩu"
+																onkeyup="passwordConfirm()" autocomplete="new-password">
+															<div class="input-group-append">
+																<a class="input-group-text" href=""><i
+																		class="fa fa-eye-slash"
+																		aria-hidden="true"></i></a>
+															</div>
+														</div>
 														<div th:errors="*{password}"
 															th:if="${#fields.hasErrors('password')}"
 															class="invalid-feedback">Password Error</div>
@@ -87,12 +95,19 @@
 													<!-- Password Confirm Input -->
 													<div class="form-group">
 														<label for="exampleFormControlInput6">Nhập lại mật khẩu <span
-																style="color: red;">*</span></label> <input
-															type="password" class="form-control"
-															id="exampleFormControlInput6"
-															placeholder="Nhập lại mật khẩu"
-															onkeyup="passwordConfirm()"><span id="messageConfirm"
-															class="text text-danger badge"></span>
+																style="color: red;">*</span></label>
+														<div id="show_hide_password" class="input-group">
+															<input type="password" class="form-control"
+																id="exampleFormControlInput6"
+																placeholder="Nhập lại mật khẩu"
+																onkeyup="passwordConfirm()" autocomplete="new-password">
+															<!-- <div class="input-group-append">
+																<a class="input-group-text" href=""><i
+																		class="fa fa-eye-slash"
+																		aria-hidden="true"></i></a>
+															</div> -->
+														</div>
+														<span id="messageConfirm" class="text text-danger badge"></span>
 													</div>
 
 													<!-- Phone Input -->
@@ -246,6 +261,24 @@
 					evt.preventDefault();
 				}
 			}
+		</script>
+
+		<!-- show and hide password toggle -->
+		<script>
+			$(function () {
+				$("#show_hide_password a").on('click', function (event) {
+					event.preventDefault();
+					if ($('#show_hide_password input').attr('type') == 'text') {
+						$('#show_hide_password input').attr('type', 'password');
+						$('#show_hide_password i').addClass("fa-eye-slash");
+						$('#show_hide_password i').removeClass("fa-eye");
+					} else {
+						$('#show_hide_password input').attr('type', 'text');
+						$('#show_hide_password i').removeClass("fa-eye-slash");
+						$('#show_hide_password i').addClass("fa-eye");
+					}
+				})
+			})
 		</script>
 	</th:block>
 	<!-- /. script option -->

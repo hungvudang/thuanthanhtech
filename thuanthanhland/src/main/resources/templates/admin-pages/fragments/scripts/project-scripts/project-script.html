@@ -2,7 +2,8 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     var $images = /*[[${project.images}]]*/'image';
-    var $pathUploadImagesDir = /*[[${BASE_PATH_PROJECT_RESOURCE} + '/' + ${project.id}+ '/' + ${DIR_IMAGE_DETAILS}]]*/'pathUploadImagesDir';
+    var $pathUploadImagesDir = /*[[${BASE_PATH_PROJECT_RESOURCE} + '/' + ${project.id}
+     + ${DIR_IMAGE_DETAILS}]]*/'pathUploadImagesDir';
 
     if ($images != null && $images.length > 0) {
         $.each($images, function (index, img) {
@@ -94,9 +95,15 @@
         if (imageId) {
             if (confirm("Bạn chắc chắn muốn xóa ?")) {
 
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+
                 $.ajax({
                     url: '/api/images/' + imageId,
                     type: 'DELETE',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
                     success: function (response) {
                         $(`#image${btnId}`).remove();
 
