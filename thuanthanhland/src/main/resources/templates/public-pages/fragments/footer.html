@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <h3><a th:href="@{/logout}">Thuận Thành Land</a></h3>
+                <h3><a th:href="@{/trang-chu}">Thuận Thành Land</a></h3>
 
                 <div class="mb-3">
                     <img class="img-fluid" th:src="@{ ${#request.contextPath} + '\images\logo.png'}"
@@ -39,10 +39,10 @@
             <div class="col-md-3">
                 <h3>Liên Kết Nhanh</h3>
                 <ul class="list-unstyled footer-link">
-                    <li><a href="#">Về chúng tôi</a></li>
+                    <li><a th:href="@{/ve-chung-toi}">Về chúng tôi</a></li>
                     <li><a href="#">Điều khoản sử dụng</a></li>
                     <li><a href="#">Disclaimers</a></li>
-                    <li><a href="#">Liên hệ</a></li>
+                    <li><a th:href="@{/lien-he}">Liên hệ</a></li>
                 </ul>
             </div>
             <div class="col-md-3">

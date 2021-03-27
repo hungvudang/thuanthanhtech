@@ -85,8 +85,8 @@
                                             <div class="form-group">
                                                 <label for="inputDescription">Mô tả <span
                                                         style="color: red;">*</span></label>
-                                                <textarea class="form-control"
-                                                    th:class="${#fields.hasErrors('description')} ? 'form-control is-invalid' : 'form-control'"
+                                                <textarea class="textarea form-control"
+                                                    th:class="${#fields.hasErrors('description')} ? 'textarea form-control is-invalid' : 'textarea form-control'"
                                                     id="inputDescription" th:field="*{description}" rows="2"
                                                     style="width: 100%;" placeholder="Mô tả"></textarea>
                                                 <div th:errors="*{description}"
