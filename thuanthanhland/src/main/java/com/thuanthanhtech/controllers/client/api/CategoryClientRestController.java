@@ -1,4 +1,4 @@
-package com.thuanthanhtech.controllers.client;
+package com.thuanthanhtech.controllers.client.api;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import com.thuanthanhtech.repositories.CategoryRepository;
 @RestController
 @RequestMapping("/api/category")
 @CrossOrigin("*")
-public class CategoryClientController {
+public class CategoryClientRestController {
 	
 	@Autowired
 	private CategoryRepository cRepository;

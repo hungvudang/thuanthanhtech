@@ -1,4 +1,4 @@
-package com.thuanthanhtech.controllers.client;
+package com.thuanthanhtech.controllers.client.api;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import com.thuanthanhtech.repositories.SlideRepository;
 @RestController
 @RequestMapping("/api/slide")
 @CrossOrigin("*")
-public class SlideClientController {
+public class SlideClientRestController {
 
 	@Autowired
 	private SlideRepository sRepository;

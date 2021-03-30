@@ -63,9 +63,9 @@ public class Project {
 	@JsonIgnore
 	private List<Image> images;
 	
-	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = CommentProject.class)
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = ProjectComment.class)
 	@JsonIgnore
-	private List<CommentProject> comments;
+	private List<ProjectComment> comments;
 	
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "features")
@@ -148,11 +148,11 @@ public class Project {
 		this.images = images;
 	}
 	
-	public List<CommentProject> getComments() {
+	public List<ProjectComment> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<CommentProject> comments) {
+	public void setComments(List<ProjectComment> comments) {
 		if (comments != null) {
 			comments.parallelStream().forEach((cmt)->{
 				cmt.setProject(this);

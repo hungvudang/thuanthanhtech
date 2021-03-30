@@ -9,9 +9,11 @@ import java.nio.file.StandardCopyOption;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.thuanthanhtech.WebMvcConfig;
+
 public class UserHelper {
 	
-	public static final String ROOT_PATH_AVATAR_MEDIUM = "/public/upload/user";
+	public static final String ROOT_PATH_AVATAR_MEDIUM = WebMvcConfig.ROOT_PATH_PUBLIC_BASE + "/upload/user";
 	
 	
 	public static void saveAvatarImage(MultipartFile multipartFile, String uploadDir, String fAvatarImageName) throws IOException {

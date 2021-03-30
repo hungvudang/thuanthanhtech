@@ -10,7 +10,7 @@ public class LoginClientController {
 
 	@GetMapping
 	public String logginForm() {
-		return "/public-pages/dang-nhap";
+		return "/public-pages/client-login";
 	}
 
 }

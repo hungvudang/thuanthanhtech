@@ -37,9 +37,7 @@ public class CommonErrorController implements ErrorController{
 	public String accessDenied(HttpServletRequest request, HttpServletResponse response) {
 		
 //		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		
 //		if (auth != null) {
-//			
 //			new SecurityContextLogoutHandler().logout(request, response, auth);
 //		}
 		return "/errors/403";

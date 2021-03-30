@@ -1,18 +1,37 @@
 <th:block th:fragment="header">
-    <header class="fixed-top bg-dark">
+    <header class="bg-dark">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <a class="navbar-brand mr-md-5 order-md-1" th:href="@{/}">
                 <img th:src="@{${#request.contextPath} + '/images/logo.png'}" height="64" alt="Thuận Thành Land">
             </a>
             <ul id="navbar-control" class="navbar-nav order-md-4 mx-3 flex-row">
-                <!-- <li class="nav-item mx-1"><a class="nav-link font-weight-bold text-white p-2" href="#"><i
-                            class="fa fa-search fa-2x"></i></a></li> -->
-                <li title="Đăng nhập" class="nav-item mx-1">
-                    <a role="button" class="nav-link font-weight-bold text-white p-2" href="#modalLogin"
-                        data-toggle="modal" data-target="#modalLogin">
-                        <i class="fa fa-user-circle fa-2x"></i>
-                    </a>
-                </li>
+                <th:block sec:authorize="isAuthenticated()">
+                    <li class="nav-item mx-1 d-none d-md-block">
+                        <a role="button" class="nav-link font-weight-bold text-white p-2 d-flex"
+                            href="javascript:void(0)">
+                            <i class="fa fa-user-circle fa-2x"></i><span class="text-white ml-3"
+                                th:utext="${#authentication.getPrincipal().getUser().getName()}"></span>
+                        </a>
+                    </li>
+                    <li title="Đăng xuất" class="nav-item mx-1">
+                        <a id="btnFakeClientLogout" role="button"
+                            class="nav-link font-weight-bold text-white p-2 d-flex" href="javascript:void(0)">
+                            <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>
+                        </a>
+                        <form th:action="@{/j_spring_security_logout}" th:method="post" hidden>
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <button id="btnRealClientLogout" type="submit"></button>
+                        </form>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="isAnonymous()">
+                    <li title="Đăng nhập" class="nav-item mx-1">
+                        <a role="button" class="nav-link font-weight-bold text-white p-2 d-flex" href="#modalLogin"
+                            data-toggle="modal" data-target="#modalLogin">
+                            <i class="fa fa-user-circle fa-2x"></i>
+                        </a>
+                    </li>
+                </th:block>
             </ul>
 
             <button class="navbar-toggler order-md-2" type="button" data-toggle="collapse"
@@ -43,7 +62,7 @@
                 <div class="modal-body">
                     <div class="d-flex flex-column text-center">
                         <h3>Đăng nhập</h3>
-                        <form th:action="@{/public/j_spring_security_login}" th:method="post" autocomplete="off">
+                        <form th:action="@{/j_spring_security_login}" th:method="post" autocomplete="off">
                             <div class="form-group">
                                 <input type="email" class="form-control form-control-sm" name="username" id="email1"
                                     placeholder="Email *" required>

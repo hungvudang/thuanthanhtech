@@ -99,11 +99,13 @@
                 var header = $("meta[name='_csrf_header']").attr("content");
 
                 $.ajax({
-                    url: '/api/images/' + imageId,
+                    url: '/admin/api/images/' + imageId,
                     type: 'DELETE',
+
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader(header, token);
                     },
+
                     success: function (response) {
                         $(`#image${btnId}`).remove();
 

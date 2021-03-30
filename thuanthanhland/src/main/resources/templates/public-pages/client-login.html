@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/public-pages/public-layout}">
+
+<head>
+	<meta charset="UTF-8">
+
+	<title>Đăng nhập</title>
+
+</head>
+
+<body>
+	<div class="wrapper bg-light">
+
+		<div layout:fragment="option-content-before">
+		</div>
+
+		<section class="section">
+
+			<!-- content header -->
+			<div class="col-md-8 text-center" layout:fragment="content-header">
+			</div>
+			<!-- /.content header -->
+
+			<section class="wrap-content section" layout:fragment="wrap-content">
+
+				<div class="container mt-5 mb-5">
+					<div class="card">
+						<div class="card-header"></div>
+						<div class="card-body">
+							<div class="row justify-content-center">
+								<div class="col-md-6 align-self-center">
+									<a class="text-center text display-4" th:href="@{/}">Thuận Thành Land</a>
+								</div>
+								<div class="col-md-6">
+									<div class="card h-100">
+										<h4 class="card-header card-title text-center bg-white">Đăng nhập
+										</h4>
+										<div class="card-body">
+											<div class="text-center">
+												<p th:if="${param.error}" class="text text-center text-danger">Sai
+													thông tin đăng nhập. Vui lòng thử lại</p>
+												<p th:if="${param.logout}" class="text text-center text-success">Đăng
+													xuất tài khoản thành công</p>
+											</div>
+											<form th:action="@{/j_spring_security_login}" th:method="post"
+												autocomplete="off">
+												<div class="form-group">
+													<label class="font-weight-bold"
+														for="inputControlForEmail">Email</label>
+													<input type="email" class="form-control" name="username"
+														id="inputControlForEmail" placeholder="Email" required>
+												</div>
+												<div class="form-group">
+													<label class="font-weight-bold" for="inputControlForPassword">Mật
+														khẩu</label>
+													<input type="password" class="form-control" name="password"
+														id="password1" placeholder="Mật khẩu"
+														autocomplete="new-password" required>
+												</div>
+
+												<button type="submit" class="btn btn-primary btn-lg btn-block mb-2">Đăng
+													nhập</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer"></div>
+					</div>
+
+				</div>
+			</section>
+
+
+		</section>
+
+
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- script option -->
+	<th:block layout:fragment="script"></th:block>
+	<!-- /. script option -->
+</body>
+
+</html>

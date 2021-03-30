@@ -68,7 +68,7 @@ public class RecruitmentClientController {
 		return "public-pages/recruitment-specified-candidate-profile";
 	}
 	
-	@GetMapping("/{slug}")
+	@GetMapping("/co-hoi-nghe-nghiep/{slug}")
 	public String detail(@PathVariable("slug") String slug, Model m) {
 		Optional<Recruitment> opRecruiment = rRepository.findBySlug(slug);
 		if (opRecruiment.isPresent()) {
