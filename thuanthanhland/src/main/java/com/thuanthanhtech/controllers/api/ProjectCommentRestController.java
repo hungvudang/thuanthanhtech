@@ -5,10 +5,13 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,21 +43,37 @@ public class ProjectCommentRestController {
 		return ResponseEntity.ok(projectComments);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getProjectCommentById(@PathVariable("id") Integer id){
+		Optional<ProjectComment> opPComment = pCmtRepository.findById(id);
+		if (!opPComment.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bình luận không tồn tại hoặc đã bị xóa");
+		} else {
+			ProjectComment pComment = opPComment.get();
+			return ResponseEntity.ok(pComment);
+		}
+	}
+	
 	@PutMapping("/{id}")
 	@ResponseBody
-	public ResponseEntity<?> updateProjectComment(@PathVariable("id") Integer id, @RequestBody ProjectComment pComment){
-		Optional<ProjectComment> opPComment = pCmtRepository.findById(id);
-		if (opPComment.isPresent()) {
-			ProjectComment nPComment = new ProjectComment();
-			nPComment.setProject(pComment.getProject());
-			nPComment.setParentId(pComment.getParentId());
-			nPComment.setUser(pComment.getUser());
-			nPComment.setContent(pComment.getContent());
-			
-			nPComment =  pCmtRepository.saveAndFlush(nPComment);
-			return ResponseEntity.ok(nPComment);
+	public ResponseEntity<?> updateProjectComment(@PathVariable("id") Integer id, @Valid @RequestBody ProjectComment pComment, BindingResult br){
+		
+		if (br.hasErrors()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(br.getFieldError("content").getDefaultMessage());
 		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cập nhật bình luận thất bại");
+			Optional<ProjectComment> opPComment = pCmtRepository.findById(id);
+			if (opPComment.isPresent()) {
+				ProjectComment nPComment = new ProjectComment();
+				nPComment.setProject(pComment.getProject());
+				nPComment.setParentId(pComment.getParentId());
+				nPComment.setUser(pComment.getUser());
+				nPComment.setContent(pComment.getContent());
+				
+				nPComment =  pCmtRepository.saveAndFlush(nPComment);
+				return ResponseEntity.ok(nPComment);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cập nhật bình luận thất bại");
+			}
 		}
 	}
 	

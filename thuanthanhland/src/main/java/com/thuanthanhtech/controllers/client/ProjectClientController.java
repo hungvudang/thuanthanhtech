@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.thuanthanhtech.entities.Project;
+import com.thuanthanhtech.entities.ProjectComment;
 import com.thuanthanhtech.entities.ProjectHelper;
 import com.thuanthanhtech.repositories.ProjectPagingAndSortRepository;
 
@@ -24,8 +25,14 @@ import com.thuanthanhtech.repositories.ProjectPagingAndSortRepository;
 public class ProjectClientController {
 
 	@Autowired
-	private ProjectPagingAndSortRepository pRepository;
-
+	private ProjectPagingAndSortRepository pPagingAndSortRepository;
+	
+	@Autowired
+	private CategoryClientController cateClientController;
+	
+	@Autowired
+	private ProjectCommentClientController pCmtClientController;
+	
 	@GetMapping
 	public String project(@RequestParam(name = "pageNumber", required = false) Integer pageNumber, Model m) {
 		if (pageNumber == null) {
@@ -33,7 +40,7 @@ public class ProjectClientController {
 		}
 		
 		Pageable pageable = PageRequest.of(pageNumber - 1, 8);
-		Page<Project> page = pRepository.findByPub(1, pageable);
+		Page<Project> page = pPagingAndSortRepository.findByPub(1, pageable);
 		
 		List<Project> projects = page.getContent();
 		int currentPage = pageNumber;
@@ -52,6 +59,8 @@ public class ProjectClientController {
 		breadcrumbs.add("Dự án");
 		m.addAttribute("breadcrumbs", breadcrumbs);
 		
+		cateClientController.categories(m);
+		
 		return "public-pages/project";
 		
 		
@@ -60,7 +69,7 @@ public class ProjectClientController {
 	@GetMapping("/{slug}")
 	public String projectDetail(@PathVariable("slug") String slug, Model m) {
 		
-		Optional<Project> opProject = pRepository.findBySlug(slug);
+		Optional<Project> opProject = pPagingAndSortRepository.findBySlug(slug);
 		if (opProject.isPresent()) {
 			
 			Project project = opProject.get();
@@ -68,10 +77,16 @@ public class ProjectClientController {
 			m.addAttribute("project", project);
 			m.addAttribute("BASE_PATH_PROJECT_RESOURCE", ProjectHelper.BASE_PATH_PROJECT_RESOURCE);
 			m.addAttribute("DIR_IMAGE_DETAILS", ProjectHelper.DIR_IMAGE_DETAILS);
+			m.addAttribute("pCommentGlobal", new ProjectComment());
+			m.addAttribute("pComment", new ProjectComment());
 			
 			List<String> breadcrumbs = new ArrayList<String>();
 			breadcrumbs.add("Dự án");
 			m.addAttribute("breadcrumbs", breadcrumbs);
+			
+			pCmtClientController.projectComments(m, project);
+			
+			cateClientController.categories(m);
 			
 			return "public-pages/project-detail";
 		}

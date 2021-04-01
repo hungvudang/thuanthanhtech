@@ -36,6 +36,9 @@ public class ContactClientController {
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
+	@Autowired
+	private CategoryClientController cateClientController;
+	
 	@GetMapping
 	public String contact(Model m) {
 		Contact contact = new Contact();
@@ -46,6 +49,9 @@ public class ContactClientController {
 		m.addAttribute("breadcrumbs", breadcrumbs);
 		
 		m.addAttribute("contact", contact);
+		
+		cateClientController.categories(m);
+		
 		return "public-pages/contact";
 	}
 

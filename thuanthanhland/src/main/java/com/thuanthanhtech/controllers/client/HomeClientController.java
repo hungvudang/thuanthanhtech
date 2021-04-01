@@ -21,14 +21,20 @@ public class HomeClientController {
 
 	@Autowired
 	private SpotlightRepository spotRepository;
+	
+	@Autowired
+	private CategoryClientController cateClientController;
+
 
 	@GetMapping({ "/trang-chu", "/" })
 	public String home(Model m) {
-		
+
 		List<Slide> slides = sRepository.findByPub(1, Sort.by(Sort.Direction.ASC, "sort"));
 
 		List<Spotlight> spotlights = spotRepository.findByPub(1, Sort.by(Sort.Direction.ASC, "sort"));
-
+		
+		cateClientController.categories(m);
+		
 		m.addAttribute("slides", slides);
 		m.addAttribute("spotlights", spotlights);
 		return "public-pages/index";

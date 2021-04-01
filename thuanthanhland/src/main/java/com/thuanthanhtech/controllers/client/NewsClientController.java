@@ -42,6 +42,9 @@ public class NewsClientController {
 	@Autowired
 	private NewsPagingAndSortRepository nPagingAndSortRepository;
 	
+	@Autowired
+	private CategoryClientController cateClientController;
+	
 	@GetMapping
 	public String news() {
 		return "redirect:/tin-tuc/bai-viet";
@@ -81,6 +84,8 @@ public class NewsClientController {
 			breadcrumbs.add("Tin tức");
 			breadcrumbs.add(targetCate.getName());
 			m.addAttribute("breadcrumbs", breadcrumbs);
+			
+			cateClientController.categories(m);
 
 			switch (cateSlug) {
 			case "bai-viet":
@@ -136,6 +141,8 @@ public class NewsClientController {
 			breadcrumbs.add("Tin tức");
 			breadcrumbs.add(cate.getName());
 			m.addAttribute("breadcrumbs", breadcrumbs);
+			
+			cateClientController.categories(m);
 
 			switch (cateSlug) {
 			case "bai-viet":

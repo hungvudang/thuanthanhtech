@@ -21,12 +21,17 @@ public class RecruitmentClientController {
 	@Autowired
 	private RecruitmentRepository rRepository;
 	
+	@Autowired
+	private CategoryClientController cateClientController;
+	
 	@GetMapping
 	public String recruitment(Model m) {
 		List<String> breadcrumbs = new ArrayList<String>();
 		breadcrumbs.add("Tuyển dụng");
 		breadcrumbs.add("Chính sách nhân sự");
 		m.addAttribute("breadcrumbs", breadcrumbs);
+		
+		cateClientController.categories(m);
 		
 		return "public-pages/recruitment-hr-policies";
 	}
@@ -38,6 +43,9 @@ public class RecruitmentClientController {
 		breadcrumbs.add("Chính sách nhân sự");
 		m.addAttribute("breadcrumbs", breadcrumbs);
 		m.addAttribute("active_hr_policies", true);
+		
+		cateClientController.categories(m);
+		
 		return "public-pages/recruitment-hr-policies";
 	}
 	
@@ -54,6 +62,8 @@ public class RecruitmentClientController {
 		m.addAttribute("recruitments", recruitments);
 		m.addAttribute("active_career_opportunities", true);
 		
+		cateClientController.categories(m);
+		
 		return "public-pages/recruitment-career-opportunities";
 	}
 	
@@ -65,6 +75,9 @@ public class RecruitmentClientController {
 		breadcrumbs.add("Quy định hồ sơ ứng tuyển");
 		m.addAttribute("breadcrumbs", breadcrumbs);
 		m.addAttribute("active_specified_candidate_profile", true);
+		
+		cateClientController.categories(m);
+		
 		return "public-pages/recruitment-specified-candidate-profile";
 	}
 	
@@ -80,6 +93,8 @@ public class RecruitmentClientController {
 			breadcrumbs.add("Cơ hội nghề nghiệp");
 			breadcrumbs.add(recruitment.getPosition());
 			m.addAttribute("breadcrumbs", breadcrumbs);
+			
+			cateClientController.categories(m);
 			
 			return "public-pages/recruitment-career-detail";
 		}
