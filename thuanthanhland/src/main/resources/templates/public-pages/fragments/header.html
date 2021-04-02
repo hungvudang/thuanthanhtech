@@ -8,143 +8,42 @@
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <style>
-                    /* Full-width input fields */
-                    
-                    input[type=text],
-                    input[type=password] {
-                        width: 100%;
-                        padding: 12px 20px;
-                        margin: 8px 0;
-                        display: inline-block;
-                        border: 1px solid #ccc;
-                        box-sizing: border-box;
-                    }
-                    /* Set a style for all buttons */
-                    
-                    button {
-                        background-color: #343a40;
-                        color: white;
-                        padding: 14px 20px;
-                        margin: 8px 0;
-                        border: none;
-                        cursor: pointer;
-                        width: 100%;
-                    }
-                    
-                    button:hover {
-                        opacity: 0.8;
-                    }
-                    /* Extra styles for the cancel button */
-                    
-                    .cancelbtn {
-                        width: auto;
-                        padding: 10px 18px;
-                        background-color: #f44336;
-                    }
-                    /* Center the image and position the close button */
-                    
-                    .container {
-                        padding: 16px;
-                    }
-                    
-                    span.psw {
-                        float: right;
-                        padding-top: 16px;
-                    }
-                    /* The Modal (background) */
-                    
-                    .modal {
-                        display: none;
-                        /* Hidden by default */
-                        position: fixed;
-                        /* Stay in place */
-                        z-index: 1;
-                        /* Sit on top */
-                        left: 0;
-                        top: 0;
-                        width: 100%;
-                        /* Full width */
-                        height: 100%;
-                        /* Full height */
-                        overflow: auto;
-                        /* Enable scroll if needed */
-                        background-color: rgb(0, 0, 0);
-                        /* Fallback color */
-                        background-color: rgba(0, 0, 0, 0.4);
-                        /* Black w/ opacity */
-                        padding-top: 60px;
-                    }
-                    /* Modal Content/Box */
-                    
-                    .modal-content {
-                        background-color: #fefefe;
-                        margin: 5% auto 15% auto;
-                        /* 5% from the top, 15% from the bottom and centered */
-                        border: 1px solid #888;
-                        width: 80%;
-                        /* Could be more or less, depending on screen size */
-                    }
-                    /* The Close Button (x) */
-                    
-                    .close {
-                        position: absolute;
-                        right: 25px;
-                        top: 0;
-                        color: #000;
-                        font-size: 35px;
-                        font-weight: bold;
-                    }
-                    
-                    .close:hover,
-                    .close:focus {
-                        color: red;
-                        cursor: pointer;
-                    }
-                    /* Add Zoom Animation */
-                    
-                    .animate {
-                        -webkit-animation: animatezoom 0.6s;
-                        animation: animatezoom 0.6s
-                    }
-                    
-                    @-webkit-keyframes animatezoom {
-                        from {
-                            -webkit-transform: scale(0)
-                        }
-                        to {
-                            -webkit-transform: scale(1)
-                        }
-                    }
-                    
-                    @keyframes animatezoom {
-                        from {
-                            transform: scale(0)
-                        }
-                        to {
-                            transform: scale(1)
-                        }
-                    }
-                    /* Change styles for span and cancel button on extra small screens */
-                    
-                    @media screen and (max-width: 300px) {
-                        span.psw {
-                            display: block;
-                            float: none;
-                        }
-                        .cancelbtn {
-                            width: 100%;
-                        }
-                    }
-                </style>
-                <form method="GET" action="/loginclient">
-                    <button type="submit">Đăng nhập</button>
-                </form>
-                <form method="GET" action="/register">
-                    <button type="submit">Đăng ký</button>
-                </form>
+                <li class="nav-item" style="position: relative;">
+                    <a class="nav-link font-weight-bold text-white" href="/loginclient"><i class="fa fa-user-circle fa-2x"></i></a>
+                    <!-- <div class="container bg-dark text-light d-none" id="id01" style="width: 400px; height: 400px; position: absolute; top: 120%; z-index: 10;">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <small id="emailHelp" class="form-text text-muted">Chúng tôi sẽ không chia sẻ email của bạn cho bất kỳ ai.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Mật khẩu</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                            <div style="text-align: center;">
+                                <p>Khách hàng mới? <a class="text-primary" href="/register">Tạo tài khoản.</a><br>Quên mật khẩu? <a class="text-primary">Khôi phục mật khẩu.</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div> -->
+                </li>
+
+
+
 
             </ul>
+
+
+
+
+
+        </div>
         </div>
     </nav>
 </header>

@@ -13,4 +13,8 @@ public class AboutClientController {
 	public String about(Model m) {
 		return "/public-pages/about";
 	}
+	@GetMapping("/yearslider")
+	public String yearslider(Model m) {
+		return "";
+	}
 }

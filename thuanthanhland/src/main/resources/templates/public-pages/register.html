@@ -28,32 +28,39 @@
                     <div class="col-md-10 mb-3">
                         <div class="card">
                             <div class="card-body">
-                                <form th:action="@{/register/save}" th:object="${user}" th:method="post">
+                                <form th:action="@{/register/save}" th:object="${user}" th:method="post" autocomplete="off">
                                     <div class="container">
-                                        <h1>Đăng ký</h1>
+                                        <h3>Đăng ký</h3>
                                         <p>Vui lòng điền vào form để đăng ký tài khoản</p>
-                                        <hr>
-                                        <label for="name"><b>Họ và tên</b></label>
-                                        <input th:field="*{name}" th:utext="${user.name}" type="text" placeholder="Nhập vào họ tên" id="name" required>
 
-                                        <label for="email"><b>Email</b></label>
-                                        <input th:field="*{email}" th:utext="${user.email}" type="text" placeholder="Nhập vào Email" id="email" required>
+                                        <div class="form-group">
+                                            <label for="inputControlForName">Họ tên</label>
+                                            <input class="form-control" type="text" placeholder="Họ tên" id="inputControlForName" required>
+                                        </div>
 
-                                        <label for="address"><b>Địa chỉ</b></label>
-                                        <input th:field="*{address}" th:utext="${user.address}" type="text" placeholder="Nhập vào Địa chỉ" id="address" required>
+                                        <div class="form-group">
+                                            <label for="inputControlForEmail">Email</label>
+                                            <input class="form-control" type="email" placeholder="Email" id="inputControlForEmail" required>
+                                        </div>
 
-                                        <label for="psw"><b>Mật khẩu</b></label>
-                                        <input th:field="*{password}" th:utext="${user.password}" type="password" placeholder="Nhập vào Password" id="password" required>
+                                        <div class="form-group">
+                                            <label for="inputControlForAddress">Địa chỉ</label>
+                                            <input class="form-control" type="text" placeholder="Địa chỉ" id="inputControlForAddress" required>
+                                        </div>
 
-                                        <hr>
+                                        <div class="form-group">
+                                            <label for="inputControlForPassword">Mật khẩu</label>
+                                            <input class="form-control" type="password" placeholder="Mật khẩu" id="inputControlForPassword" autocomplete="new-password" required>
+                                        </div>
 
                                         <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-                                        <button type="submit" class="registerbtn">Đăng ký</button>
+
+                                        <button type="submit" class="btn btn-primary mb-3">Đăng ký</button>
+
+                                        <p> Bạn đã có tài khoản? <a href="/loginclient">Đăng nhập</a></p>
+
                                     </div>
 
-                                    <div class="container signin">
-                                        <p>Bạn đã có tài khoản? <a href="#">Đăng nhập</a>.</p>
-                                    </div>
                                 </form>
                             </div>
                         </div>

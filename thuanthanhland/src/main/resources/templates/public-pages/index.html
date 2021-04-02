@@ -1,72 +1,65 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/public-pages/public-layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/public-pages/public-layout}">
 
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-	<title>Trang chủ</title>
+    <title>Trang chủ</title>
 
 </head>
 
 <body>
-	<div class="wrapper bg-light">
+    <div class="wrapper bg-light">
 
-		<div layout:fragment="option-content-before">
-			<div th:replace="/public-pages/fragments/slider::home-slider"></div>
-		</div>
+        <div layout:fragment="option-content-before">
+            <div th:replace="/public-pages/fragments/slider::home-slider"></div>
+        </div>
 
 
 
-		<section class="section element-animate">
+        <section class="section element-animate">
 
-			<!-- content header -->
-			<div class="col-md-8 text-center" layout:fragment="content-header">
-				<h1 th:unless="${spotlights.isEmpty()}" th:utext="${spotlights[0].name}"
-					class="heading text-uppercase mb-4">VINHOMES</h1>
-				<!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
+            <!-- content header -->
+            <div class="col-md-8 text-center" layout:fragment="content-header">
+                <h1 th:unless="${spotlights.isEmpty()}" th:utext="${spotlights[0].name}" class="heading text-uppercase mb-4">VINHOMES</h1>
+                <!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
 						adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
 						quam minima expedita atque corrupti reiciendis.</p> -->
-			</div>
-			<!-- /.content header -->
+            </div>
+            <!-- /.content header -->
 
-			<div class="container" layout:fragment="container">
+            <div class="wrap-content" layout:fragment="wrap-content">
 
-				<th:block th:each="spot, iter : ${spotlights}">
-					<div class="container">
-						<div class="row align-items-center mb-3">
-							<div th:class="${iter.even} ? 'col-md-5 pl-md-5 mb-3 order-md-2' : 'col-md-5 pr-md-5 mb-3'">
-								<div class="block-41">
-									<div class="block-41-subheading d-flex">
+                <th:block th:each="spot, iter : ${spotlights}">
+                    <div class="container">
+                        <div class="row align-items-center mb-3">
+                            <div th:class="${iter.even} ? 'col-md-5 pl-md-5 mb-3 order-md-2' : 'col-md-5 pr-md-5 mb-3'">
+                                <div class="block-41">
+                                    <div class="block-41-subheading d-flex">
 
-										<div th:if="${iter.index} &lt; 9" class="block-41-number"
-											th:utext="'0' + (${iter.index} + 1)">01</div>
-										<div th:unless="${iter.index} &lt; 9" class="block-41-number"
-											th:utext="${iter.index} + 1">10</div>
+                                        <div th:if="${iter.index} &lt; 9" class="block-41-number" th:utext="'0' + (${iter.index} + 1)">01</div>
+                                        <div th:unless="${iter.index} &lt; 9" class="block-41-number" th:utext="${iter.index} + 1">10</div>
 
-										<div class="block-41-line align-self-center mx-2"></div>
-										<div class="block-41-subheading-2" th:utext="${spot.name}">Vinhomes</div>
-									</div>
-									<h2 class="block-41-heading mb-5" th:utext="${spot.title}">Sản phẩm chất lượng cao
-									</h2>
-									<div class="block-41-text">
-										<p th:utext="${spot.description}">Thiết kế sang trọng, tinh tế và hài hòa với
-											kiến trúc xung
-											quanh, mang đến sự tiện nghi tối ưu, hiện đại và các điều kiện
-											sống tốt nhất cho mỗi gia đình.</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-7">
-								<img th:src="@{${spot.image}}" th:alt="${spot.title}" class="img-fluid">
-							</div>
-						</div>
-					</div>
+                                        <div class="block-41-line align-self-center mx-2"></div>
+                                        <div class="block-41-subheading-2" th:utext="${spot.name}">Vinhomes</div>
+                                    </div>
+                                    <h2 class="block-41-heading mb-5" th:utext="${spot.title}">Sản phẩm chất lượng cao
+                                    </h2>
+                                    <div class="block-41-text">
+                                        <p th:utext="${spot.description}">Thiết kế sang trọng, tinh tế và hài hòa với kiến trúc xung quanh, mang đến sự tiện nghi tối ưu, hiện đại và các điều kiện sống tốt nhất cho mỗi gia đình.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <img th:src="@{${spot.image}}" th:alt="${spot.title}" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
 
-				</th:block>
+                </th:block>
 
 
-				<!-- <div class="container">
+                <!-- <div class="container">
 					<div class="row align-items-center mb-3">
 						<div class="col-md-5 pr-md-5 mb-3">
 							<div class="block-41">
@@ -119,133 +112,119 @@
 				</div>
 				-->
 
-			</div>
-	</div>
-	</section>
+            </div>
+    </div>
+    </section>
 
-	<div layout:fragment="option-content-after">
+    <div layout:fragment="option-content-after">
 
-		<section class="section bg-light block-11">
-			<div class="container">
-				<div class="row justify-content-center mb-5">
-					<div class="col-md-8 text-center">
-						<h1 class="heading mb-4">Đánh Giá</h1>
-						<p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
-							quam minima expedita atque corrupti reiciendis.</p>
-					</div>
-				</div>
-				<div class="nonloop-block-11 owl-carousel">
-					<div class="item">
-						<div class="block-33">
-							<div class="vcard d-flex mb-3">
-								<div class="image align-self-center">
-									<img th:src="${#request.contextPath} + '/public-static/images/person_3.jpg'"
-										alt="Person here">
-								</div>
-								<div class="name-text align-self-center">
-									<h2 class="heading">John Smith</h2>
-									<span class="meta">Free-Template.co Client</span>
-								</div>
-							</div>
-							<div class="text">
-								<blockquote>
-									<p>&rdquo; Lorem ipsum dolor sit amet consectetur
-										adipisicing elit. Fuga aliquid. Atque dolore esse veritatis
-										iusto eaque perferendis non dolorem fugiat voluptatibus vitae
-										error ad itaque inventore accusantium tempore dolores sunt.
-										&ldquo;</p>
-								</blockquote>
-							</div>
-						</div>
-					</div>
+        <section class="section bg-light block-11">
+            <div class="container">
+                <div class="row justify-content-center mb-5">
+                    <div class="col-md-8 text-center">
+                        <h1 class="heading mb-4">Đánh Giá</h1>
+                        <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit quam minima expedita atque corrupti reiciendis.</p>
+                    </div>
+                </div>
+                <div class="nonloop-block-11 owl-carousel">
+                    <div class="item">
+                        <div class="block-33">
+                            <div class="vcard d-flex mb-3">
+                                <div class="image align-self-center">
+                                    <img th:src="${#request.contextPath} + '/public-static/images/person_3.jpg'" alt="Person here">
+                                </div>
+                                <div class="name-text align-self-center">
+                                    <h2 class="heading">John Smith</h2>
+                                    <span class="meta">Free-Template.co Client</span>
+                                </div>
+                            </div>
+                            <div class="text">
+                                <blockquote>
+                                    <p>&rdquo; Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga aliquid. Atque dolore esse veritatis iusto eaque perferendis non dolorem fugiat voluptatibus vitae error ad itaque inventore accusantium tempore
+                                        dolores sunt. &ldquo;
+                                    </p>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="item">
-						<div class="block-33">
-							<div class="vcard d-flex mb-3">
-								<div class="image align-self-center">
-									<img th:src="${#request.contextPath} + '/public-static/images/person_2.jpg'"
-										alt="Person here">
-								</div>
-								<div class="name-text align-self-center">
-									<h2 class="heading">Joshua Darren</h2>
-									<span class="meta">Free-Template.co Client</span>
-								</div>
-							</div>
-							<div class="text">
-								<blockquote>
-									<p>&rdquo; Lorem ipsum dolor sit amet consectetur
-										adipisicing elit. Fuga aliquid. Atque dolore esse veritatis
-										iusto eaque perferendis non dolorem fugiat voluptatibus vitae
-										error ad itaque inventore accusantium tempore dolores sunt.
-										&ldquo;</p>
-								</blockquote>
-							</div>
-						</div>
-					</div>
+                    <div class="item">
+                        <div class="block-33">
+                            <div class="vcard d-flex mb-3">
+                                <div class="image align-self-center">
+                                    <img th:src="${#request.contextPath} + '/public-static/images/person_2.jpg'" alt="Person here">
+                                </div>
+                                <div class="name-text align-self-center">
+                                    <h2 class="heading">Joshua Darren</h2>
+                                    <span class="meta">Free-Template.co Client</span>
+                                </div>
+                            </div>
+                            <div class="text">
+                                <blockquote>
+                                    <p>&rdquo; Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga aliquid. Atque dolore esse veritatis iusto eaque perferendis non dolorem fugiat voluptatibus vitae error ad itaque inventore accusantium tempore
+                                        dolores sunt. &ldquo;
+                                    </p>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="item">
-						<div class="block-33">
-							<div class="vcard d-flex mb-3">
-								<div class="image align-self-center">
-									<img th:src="${#request.contextPath} + '/public-static/images/person_3.jpg'"
-										alt="Person here">
-								</div>
-								<div class="name-text align-self-center">
-									<h2 class="heading">John Smith</h2>
-									<span class="meta">Free-Template.co Client</span>
-								</div>
-							</div>
-							<div class="text">
-								<blockquote>
-									<p>&rdquo; Lorem ipsum dolor sit amet consectetur
-										adipisicing elit. Fuga aliquid. Atque dolore esse veritatis
-										iusto eaque perferendis non dolorem fugiat voluptatibus vitae
-										error ad itaque inventore accusantium tempore dolores sunt.
-										&ldquo;</p>
-								</blockquote>
-							</div>
-						</div>
-					</div>
+                    <div class="item">
+                        <div class="block-33">
+                            <div class="vcard d-flex mb-3">
+                                <div class="image align-self-center">
+                                    <img th:src="${#request.contextPath} + '/public-static/images/person_3.jpg'" alt="Person here">
+                                </div>
+                                <div class="name-text align-self-center">
+                                    <h2 class="heading">John Smith</h2>
+                                    <span class="meta">Free-Template.co Client</span>
+                                </div>
+                            </div>
+                            <div class="text">
+                                <blockquote>
+                                    <p>&rdquo; Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga aliquid. Atque dolore esse veritatis iusto eaque perferendis non dolorem fugiat voluptatibus vitae error ad itaque inventore accusantium tempore
+                                        dolores sunt. &ldquo;
+                                    </p>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="item">
-						<div class="block-33">
-							<div class="vcard d-flex mb-3">
-								<div class="image align-self-center">
-									<img th:src="${#request.contextPath} + '/public-static/images/person_3.jpg'"
-										alt="Person here">
-								</div>
-								<div class="name-text align-self-center">
-									<h2 class="heading">John Smith</h2>
-									<span class="meta">Free-Template.co Client</span>
-								</div>
-							</div>
-							<div class="text">
-								<blockquote>
-									<p>&rdquo; Lorem ipsum dolor sit amet consectetur
-										adipisicing elit. Fuga aliquid. Atque dolore esse veritatis
-										iusto eaque perferendis non dolorem fugiat voluptatibus vitae
-										error ad itaque inventore accusantium tempore dolores sunt.
-										&ldquo;</p>
-								</blockquote>
-							</div>
-						</div>
-					</div>
+                    <div class="item">
+                        <div class="block-33">
+                            <div class="vcard d-flex mb-3">
+                                <div class="image align-self-center">
+                                    <img th:src="${#request.contextPath} + '/public-static/images/person_3.jpg'" alt="Person here">
+                                </div>
+                                <div class="name-text align-self-center">
+                                    <h2 class="heading">John Smith</h2>
+                                    <span class="meta">Free-Template.co Client</span>
+                                </div>
+                            </div>
+                            <div class="text">
+                                <blockquote>
+                                    <p>&rdquo; Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga aliquid. Atque dolore esse veritatis iusto eaque perferendis non dolorem fugiat voluptatibus vitae error ad itaque inventore accusantium tempore
+                                        dolores sunt. &ldquo;
+                                    </p>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
 
-				</div>
-			</div>
-			<!-- END .block-4 -->
-		</section>
-	</div>
+                </div>
+            </div>
+            <!-- END .block-4 -->
+        </section>
+    </div>
 
 
-	</div>
-	<!-- ./wrapper -->
+    </div>
+    <!-- ./wrapper -->
 
-	<!-- script option -->
-	<th:block layout:fragment="script">
-	</th:block>
-	<!-- /. script option -->
+    <!-- script option -->
+    <th:block layout:fragment="script">
+    </th:block>
+    <!-- /. script option -->
 </body>
 
 </html>

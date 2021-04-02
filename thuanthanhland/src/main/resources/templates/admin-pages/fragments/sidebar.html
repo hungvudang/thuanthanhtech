@@ -2,8 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4" th:fragment="sidebar">
     <!-- Brand Logo -->
     <a th:href="@{/home}" class="brand-link">
-        <img th:src="${#request.contextPath} + '/images/logo.png'" alt="ThuanThanhTech Logo" class="brand-image"
-            style="opacity: .8">
+        <img th:src="${#request.contextPath} + '/images/logo.png'" alt="ThuanThanhTech Logo" class="brand-image" style="opacity: .8">
         <span class="brand-text text-md font-weight-light">ThuanThanhLand</span>
     </a>
     <!-- Sidebar -->
@@ -11,8 +10,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img th:src="${#request.contextPath} + '/admin-static/dist/img/user2-160x160.jpg'"
-                    class="img-circle elevation-2" alt="User Image">
+                <img th:src="${#request.contextPath} + '/admin-static/dist/img/user2-160x160.jpg'" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block"><span sec:authentication="name">Alexander Pierce</span></a>
@@ -215,6 +213,60 @@
                     </ul>
                 </li>
                 <!-- /.spotlight -->
+
+                <!--about us-->
+                <li class="nav-item has-treeview">
+                    <a href="#" th:class="${active_aboutus}? 'nav-link active':'nav-link'">
+                        <i class="fas fa-address-card"></i>
+                        <p>
+                            Về chúng tôi
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/admin/aboutus}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất cả các bài giới thiệu về Thuân Thành land</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a th:href="@{/admin/aboutus/create}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm bài giới thiệu</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!--/about us-->
+
+                <!--year slider-->
+                <li class="nav-item has-treeview">
+                    <a href="#" th:class="${active_yearslider}? 'nav-link active':'nav-link'">
+                        <i class="fa fa-calendar-alt"></i>
+                        <p>
+                            Year slider
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/admin/year-slider}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất cả các year slider </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a th:href="@{/admin/year-slider/create}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm year slider</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!--/year slider-->
 
                 <!-- logout -->
                 <li class="nav-item has-treeview">
