@@ -2,6 +2,8 @@ package com.thuanthanhtech.controllers.client;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -38,6 +40,10 @@ public class ContactClientController {
 	public String contact(Model m) {
 		Contact contact = new Contact();
 		contact.setStatus(0);
+		
+		List<String> breadcrumbs = new ArrayList<String>();
+		breadcrumbs.add("Liên hệ");
+		m.addAttribute("breadcrumbs", breadcrumbs);
 		
 		m.addAttribute("contact", contact);
 		return "public-pages/contact";

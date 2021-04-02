@@ -2,6 +2,7 @@ package com.thuanthanhtech.controllers.client;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -40,11 +41,16 @@ public class NewsClientController {
 
 	@Autowired
 	private NewsPagingAndSortRepository nPagingAndSortRepository;
+	
+	@GetMapping
+	public String news() {
+		return "redirect:/tin-tuc/bai-viet";
+	}
 
 	@GetMapping("/{cate-slug}")
-	public String nextPage(@PathVariable("cate-slug") String cateSlug,
+	public String nextPage(@PathVariable(name =  "cate-slug") String cateSlug,
 			@RequestParam(name = "pageNumber", required = false) Integer pageNumber, Model m) {
-
+		
 		if (pageNumber == null) {
 			return "redirect:/tin-tuc/" + cateSlug + "?pageNumber=1";
 		}
@@ -70,15 +76,15 @@ public class NewsClientController {
 
 			m.addAttribute("cateSlug", cateSlug);
 			m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
-			m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
 
-			
+			List<String> breadcrumbs = new ArrayList<String>();
+			breadcrumbs.add("Tin tức");
+			breadcrumbs.add(targetCate.getName());
+			m.addAttribute("breadcrumbs", breadcrumbs);
+
 			switch (cateSlug) {
 			case "bai-viet":
 				return "public-pages/blog";
-
-			case "du-an":
-				return "public-pages/project";
 			}
 		}
 		return "redirect:/tin-tuc/bai-viet";
@@ -120,24 +126,24 @@ public class NewsClientController {
 			});
 
 			m.addAttribute("targetNews", targetNews);
-			
+
 			m.addAttribute("cateSlug", cateSlug);
 			m.addAttribute("topNewses", topNewses);
 
 			m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
-			m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
-
+			
+			List<String> breadcrumbs = new ArrayList<String>();
+			breadcrumbs.add("Tin tức");
+			breadcrumbs.add(cate.getName());
+			m.addAttribute("breadcrumbs", breadcrumbs);
 
 			switch (cateSlug) {
 			case "bai-viet":
 				return "public-pages/blog-detail";
-
-			case "du-an":
-				return "public-pages/project-detail";
 			}
 		}
 
-		return "redirect:/tin-tuc/bai-viet";
+		return "redirect:/tin-tuc";
 	}
 
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })

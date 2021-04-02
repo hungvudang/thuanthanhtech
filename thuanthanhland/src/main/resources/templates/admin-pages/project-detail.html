@@ -51,8 +51,8 @@
                                                 <div>
                                                     <!-- Name Input -->
                                                     <div class="form-group">
-                                                        <label for="formControlInputName">Tên dự án (<span
-                                                                style="color: red;">*</span>)</label>
+                                                        <label for="formControlInputName">Tên dự án <span
+                                                                style="color: red;">*</span></label>
                                                         <input th:field="*{name}" type="text" class="form-control"
                                                             th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
                                                             id="formControlInputName" placeholder="Tên dự án">
@@ -73,8 +73,8 @@
                                                     <!-- Title Input -->
 
                                                     <div class="form-group">
-                                                        <label for="exampleFormControlInput3">Tiêu đề (<span
-                                                                style="color: red;">*</span>)</label> <input
+                                                        <label for="exampleFormControlInput3">Tiêu đề <span
+                                                                style="color: red;">*</span></label> <input
                                                             th:field="*{title}" type="text" class="form-control"
                                                             th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'"
                                                             id="exampleFormControlInput3" placeholder="Tiêu đề">
@@ -84,8 +84,8 @@
 
                                                     <!-- Description Input -->
                                                     <div class="form-group">
-                                                        <label for="inputDescription">Mô tả (<span
-                                                                style="color: red;">*</span>)</label> <br>
+                                                        <label for="inputDescription">Mô tả <span
+                                                                style="color: red;">*</span></label> <br>
                                                         <textarea class="form-control"
                                                             th:class="${#fields.hasErrors('description')} ? 'form-control is-invalid' : 'form-control'"
                                                             id="inputDescription" th:field="*{description}" rows="2"
@@ -114,28 +114,28 @@
                                                 <!-- /. button submit -->
                                             </div>
                                             <div class="col-5">
-
-
                                                 <!-- Upload thumbnail image of project -->
                                                 <div class="form-group">
-                                                    <label for="uploadThumbnail">Thumbnail (<span
-                                                            style="color: red;">*</span>)</label>
+                                                    <label for="uploadThumbnail">Thumbnail</label>
 
                                                     <div>
-                                                        <img th:src="@{*{image}}" alt="thumbnail-media"
-                                                            class="img-thumbnail mb-3" id="thumbnail-image"
-                                                            style="max-height: 200px;">
+                                                        <img th:src="@{${BASE_PATH_PROJECT_RESOURCE} +'/'+ *{id} + '/' + *{thumbnail}}"
+                                                            alt="thumbnail-media" class="img-thumbnail mb-2 w-100"
+                                                            id="thumbnail-image-preview"
+                                                            style="max-height: 250px; object-fit: cover;">
                                                     </div>
 
-                                                    <input name="project_thumbnail" type="file"
-                                                        class="form-control-file"
-                                                        th:class="${#fields.hasErrors('image')} ? 'form-control-file is-invalid' : 'form-control-file'"
-                                                        id="uploadThumbnail" accept="image/png, image/jpeg" />
-                                                    <div th:errors="*{image}" th:if="${#fields.hasErrors('image')}"
+                                                    <input type="file" class="form-control" name="project_thumbnail"
+                                                        th:class="${#fields.hasErrors('thumbnail')} ? 'form-control is-invalid' : 'form-control'"
+                                                        id="uploadThumbnail" accept="image/png, image/jpeg"
+                                                        onchange="previewImage(event, 'thumbnail-image-preview')" />
+                                                    <div th:errors="*{thumbnail}"
+                                                        th:if="${#fields.hasErrors('thumbnail')}"
                                                         class="invalid-feedback">Thumbnail Error</div>
-                                                </div>
 
-                                                <input hidden th:field="*{image}" type="text">
+                                                </div>
+                                                <input hidden th:field="*{thumbnail}" type="text">
+                                                <!-- /.thumbnail image upload -->
 
                                                 <!-- Public Input -->
 
@@ -166,8 +166,8 @@
 
                                                 <fieldset class="form-group">
                                                     <div class="row">
-                                                        <label class="col-form-label col-sm-5 pt-0">Dự án nổi bật
-                                                        </label>
+                                                        <label class="col-form-label col-sm-5 pt-0">Tin
+                                                            nổi bật</label>
                                                         <div class="col-sm-7">
                                                             <div class="form-check">
                                                                 <input th:field="*{hot}" class="form-check-input"
@@ -186,6 +186,90 @@
                                                         </div>
                                                     </div>
                                                 </fieldset>
+
+                                                <!-- Input ImageDetails -->
+                                                <div class="form-group">
+                                                    <label for="formControlInputImageDetails">Ảnh mô tả</label>
+                                                    <div id="formControlInputImageDetails" class="card border-info">
+                                                        <div class="card-body">
+
+                                                            <div id="imageContainer" class="container">
+                                                                <!-- Image Container -->
+                                                            </div>
+                                                            <div id="oldImageContainer" hidden>
+
+                                                            </div>
+                                                            <button id="btnAddImage" type="button"
+                                                                class="float-right btn btn-sm btn-primary"><i
+                                                                    class="fas fa-plus"></i>
+                                                                Thêm</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Input ImageDetails -->
+
+                                                <!-- Input Feature -->
+                                                <div class="form-group">
+                                                    <label for="formControlInputFeature">Đặc trưng</label>
+                                                    <div id="formControlInputFeature" class="card border-info">
+                                                        <div class="card-body">
+
+                                                            <div id="featureContainer" class="container">
+                                                                <th:block
+                                                                    th:each="featureKey, iter : ${project.features.keySet()}">
+                                                                    <div th:id="featureInput + ${iter.index}"
+                                                                        class="row flex-nowrap">
+                                                                        <div class="col-11">
+                                                                            <div class="row">
+                                                                                <div class="col-md-5 col-sm-6">
+                                                                                    <div class="form-group">
+                                                                                        <label
+                                                                                            th:for="formControlInputKeyFeature + ${iter.index}">Key
+                                                                                            <span
+                                                                                                th:utext="${iter.index  + 1}"></span></label>
+                                                                                        <textarea
+                                                                                            th:id="formControlInputKeyFeature + ${iter.index}"
+                                                                                            rows="1"
+                                                                                            class="form-control"
+                                                                                            th:utext="${featureKey}"
+                                                                                            placeholder="Tên"
+                                                                                            th:onchange="'renameInputValueFeature(event, ' +${iter.index} + ')'"></textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-7 col-sm-6">
+                                                                                    <div class="form-group">
+                                                                                        <label
+                                                                                            th:for="formControlInputValueFeature + ${iter.index}">Value
+                                                                                            <span
+                                                                                                th:utext="${iter.index + 1}"></span></label>
+                                                                                        <textarea
+                                                                                            th:id="formControlInputValueFeature + ${iter.index}"
+                                                                                            th:field="*{features[__${featureKey}__]}"
+                                                                                            rows="1"
+                                                                                            class="form-control"
+                                                                                            placeholder="Giá trị"></textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-1 align-self-center">
+                                                                            <i class="btn-remove fas fa-trash"
+                                                                                style="cursor: pointer;"
+                                                                                th:onclick="'removeFeatureInput('+${iter.index}+')'"></i>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </th:block>
+                                                            </div>
+                                                            <button id="btnAddFeature" type="button"
+                                                                class="float-right btn btn-sm btn-primary"><i
+                                                                    class="fas fa-plus"></i>
+                                                                Thêm</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Input Feature -->
                                             </div>
 
                                         </div>
@@ -222,28 +306,7 @@
 
     <!-- script option -->
     <th:block layout:fragment="script">
-        <script>
-            $('#btn-submit-custom').click(function () {
-                $('#btn-submit-default').click();
-            })
-        </script>
-
-        <!-- preview thumbnail -->
-        <script>
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        $('#thumbnail-image').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(input.files[0]); // convert to base64 string
-                }
-            }
-            $("#uploadThumbnail").change(function () {
-                readURL(this);
-            });
-        </script>
+        <script th:replace="/admin-pages/fragments/scripts/project-scripts/project-script"></script>
     </th:block>
     <!-- /. script option -->
 </body>

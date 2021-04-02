@@ -49,8 +49,8 @@
                                                 <div>
                                                     <!-- Name Input -->
                                                     <div class="form-group">
-                                                        <label for="formControlInputName">Tên bài viết (<span
-																style="color: red;">*</span>)</label>
+                                                        <label for="formControlInputName">Tên bài viết <span
+																style="color: red;">*</span></label>
                                                         <input th:field="*{name}" type="text" class="form-control" th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'" id="formControlInputName" placeholder="Tên bài viết">
                                                         <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}" class="invalid-feedback">Name Error</div>
                                                     </div>
@@ -65,8 +65,8 @@
                                                     <!-- Title Input -->
 
                                                     <div class="form-group">
-                                                        <label for="exampleFormControlInput3">Tiêu đề (<span
-																style="color: red;">*</span>)</label> <input th:field="*{title}" type="text" class="form-control" th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'"
+                                                        <label for="exampleFormControlInput3">Tiêu đề <span
+																style="color: red;">*</span></label> <input th:field="*{title}" type="text" class="form-control" th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'"
                                                             id="exampleFormControlInput3" placeholder="Tiêu đề">
                                                         <div th:errors="*{title}" th:if="${#fields.hasErrors('title')}" class="invalid-feedback">Title Error</div>
                                                     </div>
@@ -82,8 +82,8 @@
 
                                                     <!-- Description Input -->
                                                     <div class="form-group">
-                                                        <label for="inputDescription">Mô tả (<span
-																style="color: red;">*</span>)</label> <br>
+                                                        <label for="inputDescription">Mô tả <span
+																style="color: red;">*</span></label> <br>
                                                         <textarea class="form-control" th:class="${#fields.hasErrors('description')} ? 'form-control is-invalid' : 'form-control'" id="inputDescription" th:field="*{description}" rows="2" style="width: 100%;" placeholder="Mô tả"></textarea>
                                                         <div th:errors="*{description}" th:if="${#fields.hasErrors('description')}" class="invalid-feedback">Description Error</div>
                                                     </div>
@@ -153,43 +153,6 @@
                                                         </div>
                                                     </div>
                                                 </fieldset>
-
-                                                <!-- Input ImageDetails -->
-                                                <div class="form-group">
-                                                    <label for="formControlInputImageDetails">Ảnh mô tả</label>
-                                                    <div id="formControlInputImageDetails" class="card border-info">
-                                                        <div class="card-body">
-
-                                                            <div id="imageContainer" class="container">
-                                                                <!-- Image Container -->
-                                                            </div>
-                                                            <div id="oldImageContainer" hidden>
-
-                                                            </div>
-                                                            <button id="btnAddImage" type="button" class="float-right btn btn-sm btn-primary"><i
-																	class="fas fa-plus"></i>
-																Thêm</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Input ImageDetails -->
-
-                                                <!-- Input Feature -->
-                                                <div class="form-group">
-                                                    <label for="formControlInputFeature">Đặc trưng</label>
-                                                    <div id="formControlInputFeature" class="card border-info">
-                                                        <div class="card-body">
-
-                                                            <div id="featureContainer" class="container">
-
-                                                            </div>
-                                                            <button id="btnAddFeature" type="button" class="float-right btn btn-sm btn-primary"><i
-																	class="fas fa-plus"></i>
-																Thêm</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Input Feature -->
                                             </div>
 
                                         </div>

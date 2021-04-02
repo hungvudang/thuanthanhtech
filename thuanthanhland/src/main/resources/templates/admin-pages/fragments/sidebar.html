@@ -35,33 +35,6 @@
                 </li>
                 <!-- End Dashboard -->
 
-                <!-- Du An -->
-                <!-- <li class="nav-item has-treeview">
-                    <a href="#" th:class="${active_project}? 'nav-link active':'nav-link'">
-                        <i class="nav-icon far fa-building"></i>
-                        <p>
-                            Dự án
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a th:href="@{/admin/project}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Tất cả dự án</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a th:href="@{/admin/project/create}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm dự án</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> -->
-                <!-- /. Du An -->
-
                 <!-- Danh muc -->
                 <li class="nav-item has-treeview">
                     <a href="#" th:class="${active_category}? 'nav-link active':'nav-link'">
@@ -81,12 +54,39 @@
                         <li class="nav-item">
                             <a th:href="@{/admin/category/create}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm danh mục</p>
+                                <p>Thêm mới</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <!-- /.danh muc -->
+
+                <!-- Du An -->
+                <li class="nav-item has-treeview">
+                    <a href="#" th:class="${active_project}? 'nav-link active':'nav-link'">
+                        <i class="nav-icon far fa-building"></i>
+                        <p>
+                            Dự án
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/admin/project}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất cả dự án</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a th:href="@{/admin/project/create}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm mới</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /. Du An -->
 
                 <!-- Tin tuc -->
                 <li class="nav-item has-treeview">
@@ -107,7 +107,7 @@
                         <li class="nav-item">
                             <a th:href="@{/admin/news/create}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm tin tức</p>
+                                <p>Thêm mới</p>
                             </a>
                         </li>
                     </ul>
@@ -134,12 +134,38 @@
                         <li class="nav-item">
                             <a th:href="@{/admin/user/create}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm tài khoản</p>
+                                <p>Thêm mới</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <!-- /.người dùng -->
+
+                <!--Tuyển dụng -->
+                <li class="nav-item has-treeview">
+                    <a href="#" th:class="${active_recruitment}? 'nav-link active':'nav-link'">
+                        <i class="nav-icon fa fa-briefcase"></i>
+                        <p>
+                            Tuyển dụng
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/admin/recruitment}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tất cả tin tuyển dụng</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:href="@{/admin/recruitment/create}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Thêm mới</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- /. Tuyển dụng -->
 
                 <!-- liên hệ -->
                 <li class="nav-item has-treeview">
@@ -181,7 +207,7 @@
                         <li class="nav-item">
                             <a th:href="@{/admin/slide/create}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm slide</p>
+                                <p>Thêm mới</p>
                             </a>
                         </li>
                     </ul>
@@ -207,7 +233,7 @@
                         <li class="nav-item">
                             <a th:href="@{/admin/spotlight/create}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Thêm spotlight</p>
+                                <p>Thêm mới</p>
                             </a>
                         </li>
                     </ul>

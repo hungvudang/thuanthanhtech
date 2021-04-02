@@ -48,9 +48,9 @@
 									th:method="post">
 									<div>
 										<div class="form-group">
-											<label for="formControlInputName">Tên danh mục (<span
-													style="color: red;">*</span>)
-											</label> <input th:field="*{name}" type="text" class="form-control"
+											<label for="formControlInputName">Tên danh mục <span
+													style="color: red;">*</span></label> <input th:field="*{name}"
+												type="text" class="form-control"
 												th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
 												id="formControlInputName" placeholder="Tên danh mục">
 											<div th:errors="*{name}" th:if="${#fields.hasErrors('name')}"
@@ -67,9 +67,9 @@
 										</div>
 
 										<div class="form-group">
-											<label for="exampleFormControlInput4">Thứ tự hiển thị
-												(<span style="color: red;">*</span>)
-											</label> <input th:field="*{sort}" type="text" class="form-control"
+											<label for="exampleFormControlInput4">Thứ tự hiển thị <span
+													style="color: red;">*</span></label> <input th:field="*{sort}"
+												type="text" class="form-control"
 												th:class="${#fields.hasErrors('sort')} ? 'form-control is-invalid' : 'form-control'"
 												id="exampleFormControlInput4" onkeypress="InputNumber(event)"
 												placeholder="Thứ tự hiển thị">

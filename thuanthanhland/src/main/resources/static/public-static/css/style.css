@@ -10402,7 +10402,8 @@ header .navbar .cta-btn a:hover {
 }
 
 .section {
-  padding: 3em 0;
+  /* padding: 5em 0 2em 0; */
+  margin: 5em 0 2em 0;
 }
 
 .section-subscribe {
@@ -10623,10 +10624,10 @@ header .navbar .cta-btn a:hover {
 }
 
 .site-footer {
-  padding: 1.5em 0;
+  padding: 4em 0 1em 0;
   background: #262626;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .site-footer p:last-child {
@@ -10870,7 +10871,6 @@ header .navbar .cta-btn a:hover {
 .block-11 .owl-nav {
   position: relative;
   position: absolute;
-  bottom: -40px;
   left: 50%;
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);

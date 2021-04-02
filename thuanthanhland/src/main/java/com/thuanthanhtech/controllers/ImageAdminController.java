@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.thuanthanhtech.entities.Helper;
 import com.thuanthanhtech.entities.Image;
 import com.thuanthanhtech.entities.NewsHelper;
+import com.thuanthanhtech.entities.ProjectHelper;
 import com.thuanthanhtech.repositories.ImageRepository;
 
 @RestController
@@ -35,10 +36,10 @@ public class ImageAdminController {
 			iRepository.deleteById(id);
 			
 			String fImageName = opImage.get().getName();
-			int news_id = opImage.get().getNews().getId();
+			int project_id = opImage.get().getProject().getId();
 			
-			String uploadImageDir = NewsHelper.BASE_PATH_NEWS_RESOURCE + Helper.FILE_SEPARTOR + news_id
-					+ Helper.FILE_SEPARTOR + NewsHelper.DIR_IMAGE_DETAILS;
+			String uploadImageDir = ProjectHelper.BASE_PATH_PROJECT_RESOURCE + Helper.FILE_SEPARTOR + project_id
+					+ Helper.FILE_SEPARTOR + ProjectHelper.DIR_IMAGE_DETAILS;
 
 			NewsHelper.deleteNewsResourceDir(uploadImageDir + Helper.FILE_SEPARTOR + fImageName);
 			return ResponseEntity.ok().body("Đã xóa hình ảnh mô tả thành công");

@@ -50,9 +50,9 @@
                                         <!-- input spotlight -->
                                         <div class="col-7">
                                             <div class="form-group">
-                                                <label for="formControlInputName">Tên(<span
-                                                        style="color: red;">*</span>)
-                                                </label> <input th:field="*{name}" type="text" class="form-control"
+                                                <label for="formControlInputName">Tên <span
+                                                        style="color: red;">*</span></label> <input th:field="*{name}"
+                                                    type="text" class="form-control"
                                                     th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'"
                                                     id="formControlInputName" placeholder="Tên">
                                                 <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}"
@@ -60,9 +60,9 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="formControlInputTitle">Tiêu đề(<span
-                                                        style="color: red;">*</span>)
-                                                </label> <input th:field="*{title}" type="text" class="form-control"
+                                                <label for="formControlInputTitle">Tiêu đề <span
+                                                        style="color: red;">*</span></label> <input th:field="*{title}"
+                                                    type="text" class="form-control"
                                                     th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'"
                                                     id="formControlInputTitle" placeholder="Tiêu đề">
                                                 <div th:errors="*{title}" th:if="${#fields.hasErrors('title')}"
@@ -71,9 +71,9 @@
 
                                             <!-- Lựa chọn thứ tự hiển thị danh mục -->
                                             <div class="form-group">
-                                                <label for="exampleFormControlInput4">Thứ tự hiển thị (<span
-                                                        style="color: red;">*</span>)
-                                                </label> <input th:field="*{sort}" type="text" class="form-control"
+                                                <label for="exampleFormControlInput4">Thứ tự hiển thị <span
+                                                        style="color: red;">*</span></label> <input th:field="*{sort}"
+                                                    type="text" class="form-control"
                                                     th:class="${#fields.hasErrors('sort')} ? 'form-control is-invalid' : 'form-control'"
                                                     id="exampleFormControlInput4" onkeypress="InputNumber(event);"
                                                     placeholder="Thứ tự hiển thị">
@@ -83,8 +83,8 @@
 
                                             <!-- Description Input -->
                                             <div class="form-group">
-                                                <label for="inputDescription">Mô tả (<span
-                                                        style="color: red;">*</span>)</label>
+                                                <label for="inputDescription">Mô tả <span
+                                                        style="color: red;">*</span></label>
                                                 <textarea class="form-control"
                                                     th:class="${#fields.hasErrors('description')} ? 'form-control is-invalid' : 'form-control'"
                                                     id="inputDescription" th:field="*{description}" rows="2"
@@ -109,7 +109,8 @@
                                         <div class="col-5">
                                             <!-- upload image -->
                                             <div class="form-group">
-                                                <label for="uploadThumbnail">Hình ảnh</label>
+                                                <label for="uploadThumbnail">Hình ảnh <span
+                                                        style="color: red;">*</span></label>
 
                                                 <div>
                                                     <img th:src="@{*{image}}" alt="thumbnail-media"

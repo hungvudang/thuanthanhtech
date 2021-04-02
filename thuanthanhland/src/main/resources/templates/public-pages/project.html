@@ -22,21 +22,21 @@
 			</div>
 			<!-- /.content header -->
 
-			<div class="container" layout:fragment="container">
-				<div class="row align-items-stretch mb-5">
+			<div class="container" layout:fragment="content">
 
-					<th:block th:each="p : ${targetNewses}">
+				<div class="row align-items-stretch mb-5">
+					<th:block th:each="p : ${projects}">
 						<div class="col-lg-3 col-md-4 col-xl-3 element-animate mb-2">
 							<div class="card">
-								<a th:href="@{'/tin-tuc/' + ${cateSlug} + '/' + ${p.slug}}" class="link-thumbnail"><span
+								<a th:href="@{'/du-an/' + ${p.slug}}" class="link-thumbnail"><span
 										class="ion-plus icon"></span>
 									<img src="/public-static/images/img_1.jpg"
-										th:src="@{${BASE_PATH_NEWS_RESOURCE} + '/' + ${p.id} + '/' + ${p.thumbnail}}"
+										th:src="@{${BASE_PATH_PROJECT_RESOURCE} + '/' + ${p.id} + '/' + ${p.thumbnail}}"
 										th:alt="${p.name}" class="card-img-top" style="object-fit: cover;" width="200"
 										height="200">
 								</a>
 								<div class="card-body">
-									<a th:href="@{'/tin-tuc/' + ${cateSlug} + '/' + ${p.slug}}">
+									<a th:href="@{'/du-an/' + ${p.slug}}">
 										<h5 class="lead font-weight-bold text text-center text-sm text-secondary"
 											th:utext="${p.name}">Vinhomes
 											Golden River</h5>
@@ -49,7 +49,7 @@
 				</div>
 
 				<!-- phân trang -->
-				<div th:replace="/public-pages/fragments/paging::news-paging"></div>
+				<div th:replace="/public-pages/fragments/paging::project-paging"></div>
 
 			</div>
 

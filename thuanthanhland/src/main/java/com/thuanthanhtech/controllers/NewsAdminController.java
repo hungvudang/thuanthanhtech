@@ -2,7 +2,6 @@ package com.thuanthanhtech.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +28,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.thuanthanhtech.entities.Category;
 import com.thuanthanhtech.entities.CategoryHelper;
 import com.thuanthanhtech.entities.Helper;
-import com.thuanthanhtech.entities.Image;
 import com.thuanthanhtech.entities.Item;
 import com.thuanthanhtech.entities.News;
 import com.thuanthanhtech.entities.NewsHelper;
@@ -52,7 +50,6 @@ public class NewsAdminController {
 		m.addAttribute("newses", newses);
 		m.addAttribute("active_news", true);
 		m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
-		m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
 		return "admin-pages/news";
 	}
 
@@ -80,7 +77,6 @@ public class NewsAdminController {
 		m.addAttribute("rootCate", root);
 		m.addAttribute("active_news", true);
 		m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
-		m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
 		return "admin-pages/news-create";
 	}
 
@@ -90,7 +86,7 @@ public class NewsAdminController {
 			@RequestParam(name = "news_images[]", required = false) MultipartFile[] multipartNewsImages,
 			RedirectAttributes ra) throws IOException {
 
-		if (br.hasErrors()) {
+		if (br.hasErrors() || multipartNewsThumbnail.isEmpty()) {
 
 			if (multipartNewsThumbnail.isEmpty()) {
 				FieldError imageError = new FieldError("news", "thumbnail", "Hình ảnh không được để trống");
@@ -122,34 +118,6 @@ public class NewsAdminController {
 
 			String fThumbnailImageName = StringUtils.cleanPath(multipartNewsThumbnail.getOriginalFilename());
 			news.setThumbnail(fThumbnailImageName);
-		}
-		// ============================================================================================
-
-		// Lưu ảnh mô tả nếu có
-		// ============================================================================================
-		if (multipartNewsImages != null) {
-			List<Image> images = new ArrayList<Image>();
-			for (MultipartFile multipartImage : multipartNewsImages) {
-				if (multipartImage != null && !multipartImage.isEmpty()) {
-
-					if (!validTypeOfNewsImage(multipartImage, "thumbnail", br)) {
-
-						String fImageName = StringUtils.cleanPath(multipartImage.getOriginalFilename());
-						Image img = new Image();
-						img.setName(fImageName);
-						images.add(img);
-
-					} else {
-						ra.addFlashAttribute("news", news);
-						ra.addFlashAttribute("error", "Tạo bài viết mới thất bại");
-						return "redirect:/admin/news/create";
-					}
-				}
-			}
-
-			if (!images.isEmpty()) {
-				news.setImages(images);
-			}
 		}
 		// ============================================================================================
 
@@ -189,7 +157,6 @@ public class NewsAdminController {
 
 		m.addAttribute("active_news", true);
 		m.addAttribute("BASE_PATH_NEWS_RESOURCE", NewsHelper.BASE_PATH_NEWS_RESOURCE);
-		m.addAttribute("DIR_IMAGE_DETAILS", NewsHelper.DIR_IMAGE_DETAILS);
 		return "admin-pages/news-detail";
 
 	}
@@ -227,25 +194,6 @@ public class NewsAdminController {
 
 			String fThumbnailImageName = StringUtils.cleanPath(multipartNewsThumbnail.getOriginalFilename());
 			news.setThumbnail(fThumbnailImageName);
-		}
-		// ============================================================================================
-
-		// Cập nhật Images Detail
-		// ============================================================================================
-		if (multipartNewsImages != null) {
-			for (MultipartFile multipartImage : multipartNewsImages) {
-				if (multipartImage != null && !multipartImage.isEmpty()) {
-
-					if (validTypeOfNewsImage(multipartImage, "images", br)) {
-
-						ra.addFlashAttribute("news", news);
-						ra.addFlashAttribute("error",
-								"Cập nhật bài viết thất bại. Hình ảnh mô tả không đúng định dạng");
-						return "redirect:/admin/news/detail/" + id;
-
-					}
-				}
-			}
 		}
 		// ============================================================================================
 

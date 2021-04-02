@@ -6,6 +6,42 @@
 
     <title>Về chúng tôi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .slidecontainer {
+            width: 100%;
+        }
+        
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+        
+        .slider:hover {
+            opacity: 1;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #010701;
+            cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -19,7 +55,7 @@
             </div>
             <!-- /.content header -->
 
-            <div class="container" layout:fragment="option-content-before">
+            <div class="container" layout:fragment="content">
                 <div class="row">
                     <div class="col-md-6 col-lg-4">
                         <div class="media block-6 d-block text-center">
@@ -49,153 +85,150 @@
 
                     </div>
                 </div>
-            </div>
+
+
+                <div class="half d-lg-flex d-block">
+                    <div class="image" style="background-image: url('https://vinhomes.vn/sites/default/files/styles/images_555_x_354/public/2021-03/2019.png?itok=zoPOiEXZ')"></div>
+                    <div class="text text-center element-animate">
+                        <h3 class="mb-4">Tầm nhìn</h3>
+                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis tempora inventore, aliquam ratione. Eum vero sapiente tempora eveniet perspiciatis libero, omnis quae facilis! Voluptatibus minima autem, esse eius natus labore.</p>
+                        <p><a href="#" class="btn btn-primary btn-sm px-3 py-2">Learn More</a></p>
+                    </div>
+                </div>
+
+                <div class="half d-lg-flex d-block">
+                    <div class="image order-2" style="background-image: url('https://vinhomes.vn/sites/default/files/styles/images_555_x_354/public/2021-03/2019.png?itok=zoPOiEXZ')"></div>
+                    <div class="text text-center element-animate">
+                        <h3 class="mb-4">Giá trị cốt lõi</h3>
+                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis tempora inventore, aliquam ratione. Eum vero sapiente tempora eveniet perspiciatis libero, omnis quae facilis! Voluptatibus minima autem, esse eius natus labore.</p>
+
+                        <p><a href="#" class="btn btn-primary btn-sm px-3 py-2">Learn More</a></p>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <!--Lịch sử công ty-->
+                <div class="container">
+                    <h2>Lịch sử công ty</h2>
+                    <style>
+                        .slidecontainer {
+                            width: 100%;
+                        }
+                        
+                        .slider {
+                            -webkit-appearance: none;
+                            width: 100%;
+                            height: 15px;
+                            border-radius: 5px;
+                            background: #d3d3d3;
+                            outline: none;
+                            opacity: 0.7;
+                            -webkit-transition: .2s;
+                            transition: opacity .2s;
+                        }
+                        
+                        .slider:hover {
+                            opacity: 1;
+                        }
+                        
+                        .slider::-webkit-slider-thumb {
+                            -webkit-appearance: none;
+                            appearance: none;
+                            width: 25px;
+                            height: 25px;
+                            border-radius: 50%;
+                            background: #4CAF50;
+                            cursor: pointer;
+                        }
+                        
+                        .slider::-moz-range-thumb {
+                            width: 25px;
+                            height: 25px;
+                            border-radius: 50%;
+                            background: #4CAF50;
+                            cursor: pointer;
+                        }
+                    </style>
+                    <div class="slidecontainer">
+                        <input type="range" min="2015" max="2021" value="1" step="2" class="slider" id="myRange">
+                        <p><span id="demo"></span></p>
+
+                        <div class="slider-content container" id="demo2015">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2018/11/2-9.png" alt="#" class="img-thumbnail">
+                                </div>
+                                <div class="col-md-8">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis tempora inventore, aliquam ratione. Eum vero sapiente tempora eveniet perspiciatis libero, omnis quae facilis! Voluptatibus minima autem, esse eius natus labore.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slider-content container d-none" id="demo2017">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="https://halotravel.vn/wp-content/uploads/2020/03/congthucchinhanh.jpg" alt="#" class="img-thumbnail">
+                                </div>
+                                <div class="col-md-8">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis tempora inventore, aliquam ratione. Eum vero sapiente tempora eveniet perspiciatis libero, omnis quae facilis! Voluptatibus minima autem, esse eius natus labore.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slider-content container d-none" id="demo2019">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2018/11/2-9.png" alt="#" class="img-thumbnail">
+                                </div>
+                                <div class="col-md-8">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis tempora inventore, aliquam ratione. Eum vero sapiente tempora eveniet perspiciatis libero, omnis quae facilis! Voluptatibus minima autem, esse eius natus labore.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slider-content container d-none" id="demo2021">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="https://halotravel.vn/wp-content/uploads/2020/03/congthucchinhanh.jpg" alt="#" class="img-thumbnail">
+                                </div>
+                                <div class="col-md-8">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis tempora inventore, aliquam ratione. Eum vero sapiente tempora eveniet perspiciatis libero, omnis quae facilis! Voluptatibus minima autem, esse eius natus labore.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        var slider = document.getElementById("myRange");
+                        var output = document.getElementById("demo");
+                        output.innerHTML = slider.value;
+
+                        slider.oninput = function() {
+                            output.innerHTML = this.value;
+                            var stone = $(this).val();
+                            $('.slider-content').each(function(index, element) {
+                                if (!$(element).hasClass('d-none')) {
+                                    $(element).addClass('d-none');
+                                }
+                            })
+
+                            $(`#demo${stone}`).removeClass('d-none');
+                        }
+                    </script>
+
+                </div>
         </section>
-    </div>
-
-    <!--giá trị nội dung cốt lõi-->
-    <section class="section element-animate">
-        <div class="" layout:fragment="container">
-            <div class="half d-lg-flex d-block">
-                <div class="image" style="background-image: url('https://vinhomes.vn/sites/default/files/styles/images_555_x_354/public/2021-03/2019.png?itok=zoPOiEXZ')"></div>
-                <div class="text text-center element-animate">
-                    <h3 class="mb-4">Tầm nhìn</h3>
-                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis tempora inventore, aliquam ratione. Eum vero sapiente tempora eveniet perspiciatis libero, omnis quae facilis! Voluptatibus minima autem, esse eius natus labore.</p>
-                    <p><a href="#" class="btn btn-primary btn-sm px-3 py-2">Learn More</a></p>
-                </div>
-            </div>
-
-            <div class="half d-lg-flex d-block">
-                <div class="image order-2" style="background-image: url('https://vinhomes.vn/sites/default/files/styles/images_555_x_354/public/2021-03/2019.png?itok=zoPOiEXZ')"></div>
-                <div class="text text-center element-animate">
-                    <h3 class="mb-4">Giá trị cốt lõi</h3>
-                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis tempora inventore, aliquam ratione. Eum vero sapiente tempora eveniet perspiciatis libero, omnis quae facilis! Voluptatibus minima autem, esse eius natus labore.</p>
-
-                    <p><a href="#" class="btn btn-primary btn-sm px-3 py-2">Learn More</a></p>
-                </div>
-            </div>
-            <br>
-            <br>
-            <!--Lịch sử công ty-->
-            <div class="container">
-                <h2>Lịch sử công ty</h2>
-                <style>
-                    .slidecontainer {
-                        width: 100%;
-                    }
-                    
-                    .slider {
-                        -webkit-appearance: none;
-                        width: 100%;
-                        height: 15px;
-                        border-radius: 5px;
-                        background: #d3d3d3;
-                        outline: none;
-                        opacity: 0.7;
-                        -webkit-transition: .2s;
-                        transition: opacity .2s;
-                    }
-                    
-                    .slider:hover {
-                        opacity: 1;
-                    }
-                    
-                    .slider::-webkit-slider-thumb {
-                        -webkit-appearance: none;
-                        appearance: none;
-                        width: 25px;
-                        height: 25px;
-                        border-radius: 50%;
-                        background: #4CAF50;
-                        cursor: pointer;
-                    }
-                    
-                    .slider::-moz-range-thumb {
-                        width: 25px;
-                        height: 25px;
-                        border-radius: 50%;
-                        background: #4CAF50;
-                        cursor: pointer;
-                    }
-                </style>
-                <div class="slidecontainer">
-                    <input type="range" min="2015" max="2021" value="1" step="2" class="slider" id="myRange">
-                    <p><span id="demo"></span></p>
-
-                    <div class="slider-content container" id="demo2015">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2018/11/2-9.png" alt="#" class="img-thumbnail">
-                            </div>
-                            <div class="col-md-8">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis tempora inventore, aliquam ratione. Eum vero sapiente tempora eveniet perspiciatis libero, omnis quae facilis! Voluptatibus minima autem, esse eius natus labore.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="slider-content container d-none" id="demo2017">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="https://halotravel.vn/wp-content/uploads/2020/03/congthucchinhanh.jpg" alt="#" class="img-thumbnail">
-                            </div>
-                            <div class="col-md-8">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis tempora inventore, aliquam ratione. Eum vero sapiente tempora eveniet perspiciatis libero, omnis quae facilis! Voluptatibus minima autem, esse eius natus labore.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="slider-content container d-none" id="demo2019">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2018/11/2-9.png" alt="#" class="img-thumbnail">
-                            </div>
-                            <div class="col-md-8">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis tempora inventore, aliquam ratione. Eum vero sapiente tempora eveniet perspiciatis libero, omnis quae facilis! Voluptatibus minima autem, esse eius natus labore.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="slider-content container d-none" id="demo2021">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="https://halotravel.vn/wp-content/uploads/2020/03/congthucchinhanh.jpg" alt="#" class="img-thumbnail">
-                            </div>
-                            <div class="col-md-8">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis tempora inventore, aliquam ratione. Eum vero sapiente tempora eveniet perspiciatis libero, omnis quae facilis! Voluptatibus minima autem, esse eius natus labore.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <script>
-                    var slider = document.getElementById("myRange");
-                    var output = document.getElementById("demo");
-                    output.innerHTML = slider.value;
-
-                    slider.oninput = function() {
-                        output.innerHTML = this.value;
-                        var stone = $(this).val();
-                        $('.slider-content').each(function(index, element) {
-                            if (!$(element).hasClass('d-none')) {
-                                $(element).addClass('d-none');
-                            }
-                        })
-
-                        $(`#demo${stone}`).removeClass('d-none');
-                    }
-                </script>
-            </div>
-            <!--/ Lịch sử công ty-->
         </div>
-    </section>
+
+    </div>
     <!--/giá trị nội dung cốt lõi-->
 
 

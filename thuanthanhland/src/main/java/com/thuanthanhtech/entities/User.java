@@ -1,12 +1,16 @@
 package com.thuanthanhtech.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -15,6 +19,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.thuanthanhtech.entities.UserValidator.saveValidation;
 import com.thuanthanhtech.entities.UserValidator.updateValidation;
 
@@ -53,6 +58,10 @@ public class User {
 
 	@Column(name = "avatar")
 	private String avatar;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity = CommentProject.class)
+	@JsonIgnore
+	private List<CommentProject> comments;
 
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
@@ -153,6 +162,23 @@ public class User {
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+	
+	
+
+	public List<CommentProject> getComments() {
+		return comments;
+	}
+
+
+
+	public void setComments(List<CommentProject> comments) {
+		if (comments != null) {
+			comments.parallelStream().forEach((cmt)->{
+				cmt.setUser(this);
+			});
+		}
+		this.comments = comments;
 	}
 
 	public LocalDateTime getCreated_at() {
