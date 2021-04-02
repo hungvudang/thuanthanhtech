@@ -17,7 +17,6 @@ public class LoginClientController {
 	public String logginForm(Model m) {
 		
 		cateClientController.categories(m);
-		
 		return "/public-pages/client-login";
 	}
 

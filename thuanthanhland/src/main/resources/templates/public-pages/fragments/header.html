@@ -40,7 +40,7 @@
             </button>
 
             <div class="collapse navbar-collapse order-md-3" id="navbarNavDropdown">
-                <ul id="navbar-container" class="navbar-nav">
+                <ul class="navbar-nav">
                     <th:block th:each="cate : ${rootCate.childs}">
 
                         <th:block th:if="${#lists.isEmpty(cate.childs)}">
@@ -56,25 +56,26 @@
                                     th:href=" @{'/' + ${cate.self.slug}}" id="navbarDropdownMenuLink"
                                     data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">[(${cate.self.name})]</a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <th:block th:fragment="submenu">
-                                        <th:block th:each="cateChild : ${cate.childs}">
-                                            <th:block th:if="${#lists.isEmpty(cateChild.childs)}">
-                                                <li><a class="dropdown-item font-weight-bold"
-                                                        th:href="@{'/' + ${cate.self.slug} + '/' + ${cateChild.self.slug}}">[(${cateChild.self.name})]</a>
-                                                </li>
-                                            </th:block>
-                                            <!--  -->
-                                            <th:block th:unless="${#lists.isEmpty(cateChild.childs)}">
-                                                <th:block th:each="cateChild : cate"></th:block>
-                                                <li><a class="dropdown-item dropdown-toggle font-weight-bold"
-                                                        hth:href="@{'/' + ${cate.self.slug} + '/' + ${cateChild.self.slug}}">[(${cateChild.self.name})]</a>ref="/${$rootCateSlug}/${cate.self.slug}">${cate.self.name}</a>
-                                                    <ul class="dropdown-menu">
-                                                        <th:block th:replace="::submenu" th:with="cate = ${cateChild}">
-                                                        </th:block>
-                                                    </ul>
-                                                </li>
-                                            </th:block>
+
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
+                                    th:with="rootCateSlug=${cate.self.slug}">
+                                    <th:block th:each="cateChild : ${cate.childs}">
+                                        <th:block th:if="${#lists.isEmpty(cateChild.childs)}">
+                                            <li>
+                                                <a class="dropdown-item font-weight-bold"
+                                                    th:href="@{'/' + ${cate.self.slug} + '/' + ${cateChild.self.slug}}">[(${cateChild.self.name})]</a>
+                                            </li>
+                                        </th:block>
+                                        <!--  -->
+                                        <th:block th:unless="${#lists.isEmpty(cateChild.childs)}">
+                                            <li><a class="dropdown-item dropdown-toggle font-weight-bold"
+                                                    th:href="@{'/' + ${cate.self.slug} + '/' + ${cateChild.self.slug}}">[(${cateChild.self.name})]</a>
+                                                <ul class="dropdown-menu">
+                                                    <th:block
+                                                        th:replace="::submenu(cate=${cateChild}, rootCateSlug=${rootCateSlug})">
+                                                    </th:block>
+                                                </ul>
+                                            </li>
                                         </th:block>
                                     </th:block>
                                 </ul>
@@ -197,4 +198,26 @@
             </div>
         </div>
     </div>
+</th:block>
+
+<!-- Fragment submenu category -->
+<th:block th:fragment="submenu(cate, rootCateSlug)">
+    <th:block th:each="cateChild : ${cate.childs}">
+        <th:block th:if="${#lists.isEmpty(cateChild.childs)}">
+            <li>
+                <a class="dropdown-item font-weight-bold"
+                    th:href="@{'/' + ${rootCateSlug} + '/' + ${cateChild.self.slug}}">[(${cateChild.self.name})]</a>
+            </li>
+        </th:block>
+        <!--  -->
+        <th:block th:unless="${#lists.isEmpty(cateChild.childs)}">
+            <li><a class="dropdown-item dropdown-toggle font-weight-bold"
+                    th:href="@{'/' + ${rootCateSlug} + '/' + ${cateChild.self.slug}}">[(${cateChild.self.name})]</a>
+                <ul class="dropdown-menu">
+                    <th:block th:replace="::submenu(cate=${cateChild}, rootCateSlug=${rootCateSlug})">
+                    </th:block>
+                </ul>
+            </li>
+        </th:block>
+    </th:block>
 </th:block>

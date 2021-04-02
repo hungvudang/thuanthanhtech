@@ -45,13 +45,6 @@ public class ProjectCommentClientController {
 	@Autowired
 	private ProjectCommentRepository pCmtRepository;
 	
-	public void projectComments(Model m, Project project) {
-		List<ProjectComment> projectComments = project.getComments();
-		Item<ProjectComment> root = new Item<ProjectComment>();
-		ProjectCommentHelper.getProjectCommentTree(projectComments, root);
-		m.addAttribute("rootComment", root);
-	}
-
 	@PostMapping
 	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	public void createProjectComment(@RequestParam(name = "email", required = false) String email,
@@ -95,6 +88,13 @@ public class ProjectCommentClientController {
 				}
 			}
 		}
+	}
+	
+	public void projectComments(Model m, Project project) {
+		List<ProjectComment> projectComments = project.getComments();
+		Item<ProjectComment> root = new Item<ProjectComment>();
+		ProjectCommentHelper.getProjectCommentTree(projectComments, root);
+		m.addAttribute("rootComment", root);
 	}
 
 	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })

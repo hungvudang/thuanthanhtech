@@ -31,6 +31,7 @@ public class RecruitmentClientController {
 		breadcrumbs.add("Chính sách nhân sự");
 		m.addAttribute("breadcrumbs", breadcrumbs);
 		
+		// menu header
 		cateClientController.categories(m);
 		
 		return "public-pages/recruitment-hr-policies";
