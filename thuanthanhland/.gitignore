@@ -34,6 +34,5 @@ build/
 
 
 ### Spring Boot Application ###
-/src/main/resources/application.properties
 target/
 /src/test/
