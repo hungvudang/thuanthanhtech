@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.thuanthanhtech.controllers.client.helper.CategoryClientHelper;
+import com.thuanthanhtech.controllers.client.utils.Filterable;
 import com.thuanthanhtech.entities.Project;
 import com.thuanthanhtech.entities.ProjectComment;
 import com.thuanthanhtech.entities.ProjectHelper;
@@ -22,13 +24,13 @@ import com.thuanthanhtech.repositories.ProjectPagingAndSortRepository;
 
 @Controller
 @RequestMapping("/du-an")
-public class ProjectClientController {
+public class ProjectClientController implements Filterable{
 
 	@Autowired
 	private ProjectPagingAndSortRepository pPagingAndSortRepository;
 	
 	@Autowired
-	private CategoryClientController cateClientController;
+	private CategoryClientHelper cateClientHelper;
 	
 	@Autowired
 	private ProjectCommentClientController pCmtClientController;
@@ -59,7 +61,7 @@ public class ProjectClientController {
 		breadcrumbs.add("Dự án");
 		m.addAttribute("breadcrumbs", breadcrumbs);
 		
-		cateClientController.categories(m);
+		cateClientHelper.categories(m);
 		
 		return "public-pages/project";
 		
@@ -86,7 +88,7 @@ public class ProjectClientController {
 			
 			pCmtClientController.projectComments(m, project);
 			
-			cateClientController.categories(m);
+			cateClientHelper.categories(m);
 			
 			return "public-pages/project-detail";
 		}

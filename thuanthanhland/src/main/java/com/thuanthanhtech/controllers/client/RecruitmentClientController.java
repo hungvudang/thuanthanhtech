@@ -11,18 +11,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.thuanthanhtech.controllers.client.helper.CategoryClientHelper;
+import com.thuanthanhtech.controllers.client.utils.Filterable;
 import com.thuanthanhtech.entities.Recruitment;
 import com.thuanthanhtech.repositories.RecruitmentRepository;
 
 @Controller
 @RequestMapping("/tuyen-dung")
-public class RecruitmentClientController {
+public class RecruitmentClientController implements Filterable{
 	
 	@Autowired
 	private RecruitmentRepository rRepository;
 	
 	@Autowired
-	private CategoryClientController cateClientController;
+	private CategoryClientHelper cateClientHelper;
 	
 	@GetMapping
 	public String recruitment(Model m) {
@@ -32,7 +34,7 @@ public class RecruitmentClientController {
 		m.addAttribute("breadcrumbs", breadcrumbs);
 		
 		// menu header
-		cateClientController.categories(m);
+		cateClientHelper.categories(m);
 		
 		return "public-pages/recruitment-hr-policies";
 	}
@@ -45,7 +47,7 @@ public class RecruitmentClientController {
 		m.addAttribute("breadcrumbs", breadcrumbs);
 		m.addAttribute("active_hr_policies", true);
 		
-		cateClientController.categories(m);
+		cateClientHelper.categories(m);
 		
 		return "public-pages/recruitment-hr-policies";
 	}
@@ -63,7 +65,7 @@ public class RecruitmentClientController {
 		m.addAttribute("recruitments", recruitments);
 		m.addAttribute("active_career_opportunities", true);
 		
-		cateClientController.categories(m);
+		cateClientHelper.categories(m);
 		
 		return "public-pages/recruitment-career-opportunities";
 	}
@@ -77,7 +79,7 @@ public class RecruitmentClientController {
 		m.addAttribute("breadcrumbs", breadcrumbs);
 		m.addAttribute("active_specified_candidate_profile", true);
 		
-		cateClientController.categories(m);
+		cateClientHelper.categories(m);
 		
 		return "public-pages/recruitment-specified-candidate-profile";
 	}
@@ -95,7 +97,7 @@ public class RecruitmentClientController {
 			breadcrumbs.add(recruitment.getPosition());
 			m.addAttribute("breadcrumbs", breadcrumbs);
 			
-			cateClientController.categories(m);
+			cateClientHelper.categories(m);
 			
 			return "public-pages/recruitment-career-detail";
 		}

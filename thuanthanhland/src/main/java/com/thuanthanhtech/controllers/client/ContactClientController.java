@@ -22,13 +22,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.thuanthanhtech.controllers.client.helper.CategoryClientHelper;
+import com.thuanthanhtech.controllers.client.utils.Filterable;
 import com.thuanthanhtech.entities.Contact;
 import com.thuanthanhtech.entities.ContactHelper;
 import com.thuanthanhtech.repositories.ContactRepository;
 
 @Controller
 @RequestMapping("/lien-he")
-public class ContactClientController {
+public class ContactClientController implements Filterable{
 
 	@Autowired
 	private ContactRepository ctRepository;
@@ -37,7 +39,7 @@ public class ContactClientController {
 	private JavaMailSender javaMailSender;
 	
 	@Autowired
-	private CategoryClientController cateClientController;
+	private CategoryClientHelper cateClientHelper;
 	
 	@GetMapping
 	public String contact(Model m) {
@@ -50,7 +52,7 @@ public class ContactClientController {
 		
 		m.addAttribute("contact", contact);
 		
-		cateClientController.categories(m);
+		cateClientHelper.categories(m);
 		
 		return "public-pages/contact";
 	}
