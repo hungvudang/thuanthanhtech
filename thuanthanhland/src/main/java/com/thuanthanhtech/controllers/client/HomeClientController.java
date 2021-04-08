@@ -47,5 +47,6 @@ public class HomeClientController implements Filterable{
 		m.addAttribute("slides", slides);
 		m.addAttribute("spotlights", spotlights);
 		return "public-pages/index";
+		
 	}
 }

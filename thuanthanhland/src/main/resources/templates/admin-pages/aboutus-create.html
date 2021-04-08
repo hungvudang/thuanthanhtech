@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>Tin tức</title>
+    <title>Về chúng tôi</title>
 
 
 </head>
@@ -19,12 +19,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Tin tức</h1>
+                            <h1>Về chúng tôi</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item">Trang chủ</li>
-                                <li class="breadcrumb-item active">Tin tức</li>
+                                <li class="breadcrumb-item active">Về chúng tôi</li>
                             </ol>
                         </div>
                     </div>
@@ -43,50 +43,18 @@
                             </div>
                             <div class="card-body">
                                 <div class="col">
-                                    <form th:action="@{/admin/news/save}" th:method="post" th:object="${news}" enctype="multipart/form-data">
+                                    <form th:action="@{/admin/aboutus/save}" th:method="post" th:object="${aboutus}" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-7">
                                                 <div>
-                                                    <!-- Name Input -->
+                                                    <!--Title Input-->
                                                     <div class="form-group">
-                                                        <label for="formControlInputName">Tên bài viết <span
-																style="color: red;">*</span></label>
-                                                        <input th:field="*{name}" type="text" class="form-control" th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'" id="formControlInputName" placeholder="Tên bài viết">
-                                                        <div th:errors="*{name}" th:if="${#fields.hasErrors('name')}" class="invalid-feedback">Name Error</div>
+                                                        <label for="exampleFormControlInput3">Tiêu đề (<span
+																style="color: red;">*</span>)</label>
+                                                        <input th:field="*{title}" type="text" class="form-control" th:class="${fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'" id="exampleFormControlInput3" placeholder="Tiêu đề">
+                                                        <div class="invalid-feedback">Title Error</div>
                                                     </div>
-
-                                                    <!-- Slug Input -->
-                                                    <div class="form-group">
-                                                        <label for="formControlInputSlug">Slug</label>
-                                                        <input th:field="*{slug}" type="text" class="form-control" th:class="${#fields.hasErrors('slug')} ? 'form-control is-invalid' : 'form-control'" id="formControlInputSlug" placeholder="" readonly>
-                                                        <div th:errors="*{slug}" th:if="${#fields.hasErrors('slug')}" class="invalid-feedback">Slug Error</div>
-                                                    </div>
-
-                                                    <!-- Title Input -->
-
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlInput3">Tiêu đề <span
-																style="color: red;">*</span></label> <input th:field="*{title}" type="text" class="form-control" th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'"
-                                                            id="exampleFormControlInput3" placeholder="Tiêu đề">
-                                                        <div th:errors="*{title}" th:if="${#fields.hasErrors('title')}" class="invalid-feedback">Title Error</div>
-                                                    </div>
-
-                                                    <!-- Select Category -->
-
-                                                    <div class="form-group">
-                                                        <label for="formControlInputCategory">Danh mục</label>
-                                                        <select id="formControlInputCategory" class="form-control custom-select" th:field="*{category.id}">
-
-														</select>
-                                                    </div>
-
-                                                    <!-- Description Input -->
-                                                    <div class="form-group">
-                                                        <label for="inputDescription">Mô tả <span
-																style="color: red;">*</span></label> <br>
-                                                        <textarea class="form-control" th:class="${#fields.hasErrors('description')} ? 'form-control is-invalid' : 'form-control'" id="inputDescription" th:field="*{description}" rows="2" style="width: 100%;" placeholder="Mô tả"></textarea>
-                                                        <div th:errors="*{description}" th:if="${#fields.hasErrors('description')}" class="invalid-feedback">Description Error</div>
-                                                    </div>
+                                                    <!--/Title Input-->
 
                                                     <!-- Content Input -->
                                                     <div class="form-group">
@@ -112,7 +80,7 @@
                                                         <img th:src="@{*{thumbnail}}" alt="thumbnail-media" class="img-thumbnail mb-2 w-100" id="thumbnail-image-preview" style="max-height: 250px; object-fit: cover;">
                                                     </div>
 
-                                                    <input type="file" class="form-control" name="news_thumbnail" th:class="${#fields.hasErrors('thumbnail')} ? 'form-control is-invalid' : 'form-control'" id="uploadThumbnail" accept="image/png, image/jpeg" onchange="previewImage(event, 'thumbnail-image-preview')"
+                                                    <input type="file" class="form-control" name="aboutus_thumbnail" th:class="${#fields.hasErrors('thumbnail')} ? 'form-control is-invalid' : 'form-control'" id="uploadThumbnail" accept="image/png, image/jpeg" onchange="previewImage(event, 'thumbnail-image-preview')"
                                                     />
                                                     <div th:errors="*{thumbnail}" th:if="${#fields.hasErrors('thumbnail')}" class="invalid-feedback">Thumbnail Error</div>
 
@@ -137,22 +105,22 @@
                                                     </div>
                                                 </fieldset>
 
-                                                <!-- Hot Input -->
+                                                <!-- Input Feature -->
+                                                <div class="form-group">
+                                                    <label for="formControlInputFeature">Đặc trưng</label>
+                                                    <div id="formControlInputFeature" class="card border-info">
+                                                        <div class="card-body">
 
-                                                <fieldset class="form-group">
-                                                    <div class="row">
-                                                        <label class="col-form-label col-sm-5 pt-0">Tin
-															nổi bật</label>
-                                                        <div class="col-sm-7">
-                                                            <div class="form-check">
-                                                                <input th:field="*{hot}" class="form-check-input" type="radio" name="gridRadiosHot" id="gridRadiosHot1" value="0"> <label class="form-check-label lead text-sm" for="gridRadiosHot1"> Không </label>
+                                                            <div id="featureContainer" class="container">
+
                                                             </div>
-                                                            <div class="form-check">
-                                                                <input th:field="*{hot}" class="form-check-input" type="radio" name="gridRadiosHot" id="gridRadiosHot2" value="1"> <label class="form-check-label lead text-sm" for="gridRadiosHot2"> Có </label>
-                                                            </div>
+                                                            <button id="btnAddFeature" type="button" class="float-right btn btn-sm btn-primary"><i
+																	class="fas fa-plus"></i>
+																Thêm</button>
                                                         </div>
                                                     </div>
-                                                </fieldset>
+                                                </div>
+                                                <!-- Input Feature -->
                                             </div>
 
                                         </div>
@@ -164,7 +132,7 @@
                                         <div class="col">
                                             <!-- Button Submit -->
                                             <div>
-                                                <a class="btn btn-primary float-right" th:href="@{/admin/news}">Hủy
+                                                <a class="btn btn-primary float-right" th:href="@{/admin/aboutus}">Hủy
 													bỏ</a>
                                                 <button id="btn-submit-custom" type="submit" class="float-right btn btn-success mr-2">Tạo</button>
                                             </div>
@@ -187,7 +155,28 @@
 
     <!-- script option -->
     <th:block layout:fragment="script">
-        <script th:replace="/admin-pages/fragments/scripts/news-scripts/news-script"></script>
+        <!-- <script th:replace="/admin-pages/fragments/scripts/news-scripts/news-script"></script> -->
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#thumbnail-image-preview').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                }
+            }
+            $("#uploadThumbnail").change(function() {
+                readURL(this);
+            });
+        </script>
+
+        <script>
+            $('#btn-submit-custom').click(function() {
+                $('#btn-submit-default').click();
+            })
+        </script>
     </th:block>
     <!-- /. script option -->
 </body>

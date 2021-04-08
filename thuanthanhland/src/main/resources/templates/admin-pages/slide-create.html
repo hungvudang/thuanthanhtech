@@ -1,215 +1,215 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/admin-pages/admin-layout}">
+    layout:decorate="~{/admin-pages/admin-layout}">
 
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-	<title>Slide</title>
+    <title>Slide</title>
 
 
 </head>
 
 <body class="hold-transition sidebar-mini">
-	<div class="wrapper">
+    <div class="wrapper">
 
-		<!-- Content Wrapper. Contains page content -->
-		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			<div class="content-header" layout:fragment="content-header">
-				<div class="container-fluid">
-					<div class="row mb-2">
-						<div class="col-sm-6">
-							<h1>Slide</h1>
-						</div>
-						<div class="col-sm-6">
-							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item">Trang chủ</li>
-								<li class="breadcrumb-item active">Slide</li>
-							</ol>
-						</div>
-					</div>
-				</div>
-				<!-- /.container-fluid -->
-			</div>
-			<!-- /.content-header -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header" layout:fragment="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Slide</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item">Trang chủ</li>
+                                <li class="breadcrumb-item active">Slide</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
 
-			<!-- Main content -->
-			<div class="content" layout:fragment="content">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="card card-info" style="width: 100%;">
-							<div class="card-header">
-								<h2 class="card-title font-weight-bold">Tạo slide mới</h2>
-							</div>
-							<div class="card-body">
-								<div class="col">
-									<form th:action="@{/admin/slide/save}" th:method="post" th:object="${slide}"
-										enctype="multipart/form-data">
-										<div class="row">
-											<div class="col-5">
-												<div>
+            <!-- Main content -->
+            <div class="content" layout:fragment="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="card card-info" style="width: 100%;">
+                            <div class="card-header">
+                                <h2 class="card-title font-weight-bold">Tạo slide mới</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <form th:action="@{/admin/slide/save}" th:method="post" th:object="${slide}"
+                                        enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div>
 
-													<!-- Title Input -->
+                                                    <!-- Title Input -->
 
-													<div class="form-group">
-														<label for="exampleFormControlInput3">Tiêu đề <span
-																style="color: red;">*</span></label> <input
-															th:field="*{title}" type="text"
-															th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid': 'form-control' "
-															id="exampleFormControlInput3" placeholder="Tiêu đề">
-														<div th:errors="*{title}" th:if="${#fields.hasErrors('title')}"
-															class="invalid-feedback">>Title Error</div>
-													</div>
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlInput3">Tiêu đề <span
+                                                                style="color: red;">*</span></label> <input
+                                                            th:field="*{title}" type="text"
+                                                            th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid': 'form-control' "
+                                                            id="exampleFormControlInput3" placeholder="Tiêu đề">
+                                                        <div th:errors="*{title}" th:if="${#fields.hasErrors('title')}"
+                                                            class="invalid-feedback">>Title Error</div>
+                                                    </div>
 
-													<!-- Public Input -->
+                                                    <!-- Public Input -->
 
-													<fieldset class="form-group">
-														<div class="row">
-															<label class="col-form-label col-sm-2 pt-0">Hiển
-																thị</label>
-															<div class="col-sm-10">
-																<div class="form-check">
-																	<input th:field="*{pub}" class="form-check-input"
-																		type="radio" name="gridRadiosPublic"
-																		id="gridRadios1" value="1"> <label
-																		class="form-check-label lead text-sm"
-																		for="gridRadios1">
-																		Hiện thị </label>
-																</div>
-																<div class="form-check">
-																	<input th:field="*{pub}" class="form-check-input"
-																		type="radio" name="gridRadiosPublic"
-																		id="gridRadios2" value="0"> <label
-																		class="form-check-label lead text-sm"
-																		for="gridRadios2">
-																		Ẩn </label>
-																</div>
-															</div>
-														</div>
-													</fieldset>
+                                                    <fieldset class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-form-label col-sm-2 pt-0">Hiển
+                                                                thị</label>
+                                                            <div class="col-sm-10">
+                                                                <div class="form-check">
+                                                                    <input th:field="*{pub}" class="form-check-input"
+                                                                        type="radio" name="gridRadiosPublic"
+                                                                        id="gridRadios1" value="1"> <label
+                                                                        class="form-check-label lead text-sm"
+                                                                        for="gridRadios1">
+                                                                        Hiện thị </label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input th:field="*{pub}" class="form-check-input"
+                                                                        type="radio" name="gridRadiosPublic"
+                                                                        id="gridRadios2" value="0"> <label
+                                                                        class="form-check-label lead text-sm"
+                                                                        for="gridRadios2">
+                                                                        Ẩn </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
 
-													<!-- Sort Input -->
+                                                    <!-- Sort Input -->
 
-													<div class="form-group">
-														<label for="exampleFormControlInput4">Thứ tự hiển
-															thị <span style="color: red;">*</span></label> <input
-															th:field="*{sort}" type="text"
-															th:class="${#fields.hasErrors('sort')} ? 'form-control is-invalid' : 'form-control'"
-															id="exampleFormControlInput4" placeholder="Thứ tự hiển thị"
-															onkeypress="InputNumber(event)">
-														<div th:errors="*{sort}" th:if="${#fields.hasErrors('sort')}"
-															class="invalid-feedback">Sort Error</div>
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlInput4">Thứ tự hiển
+                                                            thị <span style="color: red;">*</span></label> <input
+                                                            th:field="*{sort}" type="text"
+                                                            th:class="${#fields.hasErrors('sort')} ? 'form-control is-invalid' : 'form-control'"
+                                                            id="exampleFormControlInput4" placeholder="Thứ tự hiển thị"
+                                                            onkeypress="InputNumber(event)">
+                                                        <div th:errors="*{sort}" th:if="${#fields.hasErrors('sort')}"
+                                                            class="invalid-feedback">Sort Error</div>
 
-													</div>
+                                                    </div>
 
-													<!-- Description Input -->
-													<div class="form-group">
-														<label for="inputContent">Mô tả</label> <br>
-														<textarea class="textarea form-control" id="inputContent"
-															th:field="*{description}" rows="2" style="width: 100%;"
-															placeholder="Mô tả"></textarea>
-													</div>
+                                                    <!-- Description Input -->
+                                                    <div class="form-group">
+                                                        <label for="inputContent">Mô tả</label> <br>
+                                                        <textarea class="textarea form-control" id="inputContent"
+                                                            th:field="*{description}" rows="2" style="width: 100%;"
+                                                            placeholder="Mô tả"></textarea>
+                                                    </div>
 
-												</div>
+                                                </div>
 
-												<!-- Button Submit -->
-												<div>
-													<!-- <a class="btn btn-primary float-right" th:href="@{/admin/slide}">Hủy
+                                                <!-- Button Submit -->
+                                                <div>
+                                                    <!-- <a class="btn btn-primary float-right" th:href="@{/admin/slide}">Hủy
 															bỏ</a> -->
-													<button type="submit"
-														class="btn-submit-default float-right btn btn-success mr-2"
-														hidden="true">Tạo</button>
-												</div>
-												<!-- /. button submit -->
-											</div>
-											<!-- Upload image of slide -->
-											<div class="col-7">
-												<div class="form-group">
-													<label for="uploadThumbnail">Hình ảnh <span
-															style="color: red;">*</span></label>
+                                                    <button type="submit"
+                                                        class="btn-submit-default float-right btn btn-success mr-2"
+                                                        hidden="true">Tạo</button>
+                                                </div>
+                                                <!-- /. button submit -->
+                                            </div>
+                                            <!-- Upload image of slide -->
+                                            <div class="col-7">
+                                                <div class="form-group">
+                                                    <label for="uploadThumbnail">Hình ảnh <span
+                                                            style="color: red;">*</span></label>
 
-													<div>
-														<img th:src="@{*{image}}" alt="image-media"
-															class="img-fluid mb-3 w-100" id="slide-image"
-															style="max-height: 350px; object-fit: cover;">
-													</div>
+                                                    <div>
+                                                        <img th:src="@{*{image}}" alt="image-media"
+                                                            class="img-fluid mb-3 w-100" id="slide-image"
+                                                            style="max-height: 350px; object-fit: cover;">
+                                                    </div>
 
-													<input name="slide_image" type="file"
-														th:class="${#fields.hasErrors('image')} ? 'form-control is-invalid' : 'form-control'"
-														id="uploadImage" accept="image/png, image/jpeg" />
-													<div th:errors="*{image}" th:if="${#fields.hasErrors('image')}"
-														class="invalid-feedback">Image Error</div>
-												</div>
-												<input hidden th:field="*{image}" type="text">
-											</div>
-											<!-- /.image upload -->
-										</div>
+                                                    <input name="slide_image" type="file"
+                                                        th:class="${#fields.hasErrors('image')} ? 'form-control is-invalid' : 'form-control'"
+                                                        id="uploadImage" accept="image/png, image/jpeg" />
+                                                    <div th:errors="*{image}" th:if="${#fields.hasErrors('image')}"
+                                                        class="invalid-feedback">Image Error</div>
+                                                </div>
+                                                <input hidden th:field="*{image}" type="text">
+                                            </div>
+                                            <!-- /.image upload -->
+                                        </div>
 
-									</form>
-								</div>
-							</div>
-							<div class="card-footer" style="background-color: white;">
-								<div class="row">
-									<div class="col">
-										<!-- Button Submit -->
-										<div>
-											<a class="btn btn-primary float-right" th:href="@{/admin/slide}">Hủy
-												bỏ</a>
-											<button type="submit"
-												class="btn-submit-custom float-right btn btn-success mr-2">Tạo</button>
-										</div>
-										<!-- /. button submit -->
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /.container-fluid -->
-			</div>
-			<!-- /.content -->
-		</div>
-		<!-- /.content-wrapper -->
-	</div>
-	<!-- ./wrapper -->
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card-footer" style="background-color: white;">
+                                <div class="row">
+                                    <div class="col">
+                                        <!-- Button Submit -->
+                                        <div>
+                                            <a class="btn btn-primary float-right" th:href="@{/admin/slide}">Hủy
+                                                bỏ</a>
+                                            <button type="submit"
+                                                class="btn-submit-custom float-right btn btn-success mr-2">Tạo</button>
+                                        </div>
+                                        <!-- /. button submit -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+    <!-- ./wrapper -->
 
-	<!-- script option -->
-	<th:block layout:fragment="script">
-		<!-- preview image -->
-		<script>
-			function readURL(input) {
-				if (input.files && input.files[0]) {
-					var reader = new FileReader();
+    <!-- script option -->
+    <th:block layout:fragment="script">
+        <!-- preview image -->
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-					reader.onload = function (e) {
-						$('#slide-image').attr('src', e.target.result);
-					}
-					reader.readAsDataURL(input.files[0]); // convert to base64 string
-				}
-			}
-			$("#uploadImage").change(function () {
-				readURL(this);
-			});
-		</script>
+                    reader.onload = function (e) {
+                        $('#slide-image').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                }
+            }
+            $("#uploadImage").change(function () {
+                readURL(this);
+            });
+        </script>
 
-		<script>
-			$('.btn-submit-custom').click(function () {
-				$('.btn-submit-default').click();
-			})
-		</script>
+        <script>
+            $('.btn-submit-custom').click(function () {
+                $('.btn-submit-default').click();
+            })
+        </script>
 
-		<!--Event chỉ nhập số-->
-		<script>
-			function InputNumber(evt) {
-				var ch = String.fromCharCode(evt.which);
-				if (!(/[0-9]/.test(ch))) {
-					evt.preventDefault();
-				}
-			}
-		</script>
-	</th:block>
-	<!-- /. script option -->
+        <!--Event chỉ nhập số-->
+        <script>
+            function InputNumber(evt) {
+                var ch = String.fromCharCode(evt.which);
+                if (!(/[0-9]/.test(ch))) {
+                    evt.preventDefault();
+                }
+            }
+        </script>
+    </th:block>
+    <!-- /. script option -->
 </body>
 
 </html>

@@ -55,9 +55,7 @@ public class WebSecurityConfig {
 		public void configure(WebSecurity web) throws Exception {
 			web.httpFirewall(defaultHttpFirewall());
 		}
-		
-		
-		
+
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			//@formatter:off
@@ -88,26 +86,28 @@ public class WebSecurityConfig {
 		}
 	}
 
-//	@Configuration
-//	@Order(2)
-//	public static class UserWebSecurityConfig extends WebSecurityConfigurerAdapter {
-//
-//		@Autowired
-//		private UserDetailsService userDetailsService;
-//
-//		@Override
-//		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//			auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//		}
-//
-//		@Override
-//		public void configure(WebSecurity web) throws Exception {
-//			super.configure(web);
-//			web.httpFirewall(defaultHttpFirewall());
-//		}
-//
-//		@Override
-//		protected void configure(HttpSecurity http) throws Exception {
+	// @Configuration
+	// @Order(2)
+	// public static class UserWebSecurityConfig extends
+	// WebSecurityConfigurerAdapter {
+	//
+	// @Autowired
+	// private UserDetailsService userDetailsService;
+	//
+	// @Override
+	// protected void configure(AuthenticationManagerBuilder auth) throws Exception
+	// {
+	// auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+	// }
+	//
+	// @Override
+	// public void configure(WebSecurity web) throws Exception {
+	// super.configure(web);
+	// web.httpFirewall(defaultHttpFirewall());
+	// }
+	//
+	// @Override
+	// protected void configure(HttpSecurity http) throws Exception {
 //			//@formatter:off
 //			http
 //				.antMatcher("/du-an/**").authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER")
@@ -132,17 +132,17 @@ public class WebSecurityConfig {
 //					.httpBasic();
 //			
 //			//@formatter:on
-//
-//		}
-//	}
-	
+	//
+	// }
+	// }
+
 	@Configuration
 	@Order(2)
 	public static class NormalWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		@Autowired
 		private UserDetailsService userDetailsService;
-		
+
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 			auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -191,5 +191,5 @@ public class WebSecurityConfig {
 
 		}
 	}
-	
+
 }

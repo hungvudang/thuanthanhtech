@@ -15,7 +15,7 @@ import com.thuanthanhtech.entities.User;
 import com.thuanthanhtech.repositories.UserRepository;
 
 @SpringBootApplication
-public class ThuanthanhlandApplication extends SpringBootServletInitializer  implements CommandLineRunner {
+public class ThuanthanhlandApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
 	private static String ADMIN_EMAIL = "admin@thuanthanh.com";
 	private static String ADMIN_PASSWORD = "admin@admin";
@@ -23,19 +23,20 @@ public class ThuanthanhlandApplication extends SpringBootServletInitializer  imp
 	private UserRepository uRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(ThuanthanhlandApplication.class);
-    }
 
-    public static void main(String[] args) {
-        SpringApplication.run(ThuanthanhlandApplication.class, args);
-    }
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(ThuanthanhlandApplication.class);
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(ThuanthanhlandApplication.class, args);
+	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		User admin = new User(null, "Adminstrator", ADMIN_EMAIL , 1, "Ha Noi", passwordEncoder.encode(ADMIN_PASSWORD), "0918273645", Helper.NO_IMAGE_MEDIUM_PNG, null, null);
+		User admin = new User(null, "Adminstrator", ADMIN_EMAIL, 1, "Ha Noi", passwordEncoder.encode(ADMIN_PASSWORD),
+				"0918273645", Helper.NO_IMAGE_MEDIUM_PNG, null, null);
 		Optional<User> opAdmin = uRepository.findByEmail(admin.getEmail());
 		if (!opAdmin.isPresent()) {
 			uRepository.save(admin);

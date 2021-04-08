@@ -17,20 +17,20 @@ import com.thuanthanhtech.controllers.client.utils.Filterable;
 
 @Controller
 @RequestMapping(value = "/ve-chung-toi")
-public class AboutClientController implements Filterable{
-	
+public class AboutClientController implements Filterable {
+
 	@Autowired
 	private CategoryClientHelper cateClientHelper;
-	
+
 	@GetMapping
 	public String about(Model m, HttpServletRequest request, HttpServletResponse response) {
-		
+
 		List<String> breadcrumbs = new ArrayList<String>();
 		breadcrumbs.add("Về chúng tôi");
 		m.addAttribute("breadcrumbs", breadcrumbs);
-		
+
 		cateClientHelper.categories(m);
-		
+
 		return "/public-pages/about";
 	}
 }
