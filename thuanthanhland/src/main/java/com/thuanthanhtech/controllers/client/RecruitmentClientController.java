@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.thuanthanhtech.controllers.client.helper.CategoryClientHelper;
 import com.thuanthanhtech.controllers.client.utils.Filterable;
+import com.thuanthanhtech.entities.Category;
 import com.thuanthanhtech.entities.Recruitment;
+import com.thuanthanhtech.entities.RecruitmentHelper;
+import com.thuanthanhtech.repositories.CategoryRepository;
 import com.thuanthanhtech.repositories.RecruitmentRepository;
 
 @Controller
@@ -22,6 +25,9 @@ public class RecruitmentClientController implements Filterable{
 	
 	@Autowired
 	private RecruitmentRepository rRepository;
+	
+	@Autowired
+	private CategoryRepository cRepository;
 	
 	@Autowired
 	private CategoryClientHelper cateClientHelper;
@@ -36,6 +42,10 @@ public class RecruitmentClientController implements Filterable{
 		// menu header
 		cateClientHelper.categories(m);
 		
+		//menu recruitment
+		List<Category> childs = RecruitmentHelper.getChilds(cRepository, "tuyen-dung");
+		m.addAttribute("childs", childs);
+		
 		return "public-pages/recruitment-hr-policies";
 	}
 	
@@ -48,6 +58,9 @@ public class RecruitmentClientController implements Filterable{
 		m.addAttribute("active_hr_policies", true);
 		
 		cateClientHelper.categories(m);
+		
+		List<Category> childs = RecruitmentHelper.getChilds(cRepository, "tuyen-dung");
+		m.addAttribute("childs", childs);
 		
 		return "public-pages/recruitment-hr-policies";
 	}
@@ -67,6 +80,9 @@ public class RecruitmentClientController implements Filterable{
 		
 		cateClientHelper.categories(m);
 		
+		List<Category> childs = RecruitmentHelper.getChilds(cRepository, "tuyen-dung");
+		m.addAttribute("childs", childs);
+		
 		return "public-pages/recruitment-career-opportunities";
 	}
 	
@@ -80,6 +96,9 @@ public class RecruitmentClientController implements Filterable{
 		m.addAttribute("active_specified_candidate_profile", true);
 		
 		cateClientHelper.categories(m);
+		
+		List<Category> childs = RecruitmentHelper.getChilds(cRepository, "tuyen-dung");
+		m.addAttribute("childs", childs);
 		
 		return "public-pages/recruitment-specified-candidate-profile";
 	}
@@ -98,6 +117,9 @@ public class RecruitmentClientController implements Filterable{
 			m.addAttribute("breadcrumbs", breadcrumbs);
 			
 			cateClientHelper.categories(m);
+			
+			List<Category> childs = RecruitmentHelper.getChilds(cRepository, "tuyen-dung");
+			m.addAttribute("childs", childs);
 			
 			return "public-pages/recruitment-career-detail";
 		}

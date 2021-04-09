@@ -1,7 +1,12 @@
 package com.thuanthanhtech.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
+
+import com.thuanthanhtech.repositories.CategoryRepository;
 import com.thuanthanhtech.repositories.RecruitmentRepository;
 
 public class RecruitmentHelper {
@@ -23,5 +28,27 @@ public class RecruitmentHelper {
 			return true;
 		}
 		return false;
+	}
+	
+	
+	public static List<Category> getChilds(CategoryRepository cRepository, String recruitmentSlug) {
+		List<Category> childs = new ArrayList<Category>();
+		
+		List<Category> categories = cRepository.findByPub(1, Sort.by(Sort.Direction.ASC, "parentId", "sort"));
+		Item<Category> root = new Item<Category>();
+		Category cate = new Category();
+		cate.setId(0);
+		cate.setName("Danh mục gốc");
+		CategoryHelper.getCategoryTree(categories, root, cate);
+		
+		root.getChilds().stream().filter((item)->{
+			return (item.getSelf().getSlug().equals(recruitmentSlug));
+		}).forEach((item)->{
+			item.getChilds().stream().forEach((it) -> {
+				childs.add(it.getSelf());
+			});
+		});
+		
+		return childs;
 	}
 }

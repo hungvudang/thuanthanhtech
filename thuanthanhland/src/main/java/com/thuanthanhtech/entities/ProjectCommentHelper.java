@@ -7,7 +7,7 @@ public class ProjectCommentHelper {
 
 	public static void getProjectCommentTree(List<ProjectComment> projectComments, Item<ProjectComment> root) {
 		List<Boolean> visited = new ArrayList<Boolean>();
-		projectComments.parallelStream().forEach((pComment)->{
+		projectComments.stream().forEach((pComment)->{
 			visited.add(false);
 		});
 		
