@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/admin-pages/admin-layout}">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Tuyển dụng</title>
+
+
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header" layout:fragment="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Tuyển dụng</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item">Trang chủ</li>
+                                <li class="breadcrumb-item active">Tuyển dụng</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="content" layout:fragment="content">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="card card-info w-100">
+                            <div class="card-header">
+                                <h3 class="card-title">Tất cả tin tuyển dụng</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="datatable1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Vị trí tuyển dụng</th>
+                                            <th>Số lượng</th>
+                                            <th>Hạn nộp hồ sơ</th>
+                                            <th>Nổi bật</th>
+                                            <th>Hiển thị</th>
+                                            <th>Sửa đổi lần cuối</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="r : ${recruitments}">
+                                            <td th:utext="${r.id}" th:fileld="${r.id}" scope="row"> </td>
+
+                                            <td th:utext="${r.position}" th:field="${r.position}"> </td>
+
+                                            <td th:utext="${r.quantity}" th:field="${r.quantity}"> </td>
+
+                                            <!-- Hạn nộp hồ sơ -->
+                                            <td th:utext="${#temporals.format(r.deadline, 'dd/MM/yyyy')}"> </td>
+
+                                            <div>
+                                                <th:block th:if="${r.hot == 1}">
+                                                    <td><span class="badge badge-pill badge-danger">Nổi
+                                                            bật</span></td>
+                                                </th:block>
+
+                                                <th:block th:if="${r.hot == 0}">
+                                                    <td><span class="badge badge-pill badge-dark">Không</span>
+                                                    </td>
+                                                </th:block>
+                                            </div>
+
+                                            <div>
+                                                <th:block th:if="${r.pub == 1}">
+                                                    <td><span class="badge badge-pill badge-success">Hiển
+                                                            thị</span></td>
+                                                </th:block>
+
+                                                <th:block th:if="${r.pub == 0}">
+                                                    <td><span class="badge badge-pill badge-dark">Ẩn</span>
+                                                    </td>
+                                                </th:block>
+                                            </div>
+
+
+
+                                            <!-- Last modified -->
+                                            <div>
+                                                <th:block th:if="${r.updatedAt}">
+                                                    <td th:utext="${#temporals.format(r.updatedAt, 'dd/MM/yyyy')}">
+                                                    </td>
+                                                </th:block>
+
+                                                <th:block th:unless="${r.updatedAt}">
+                                                    <td th:utext="${#temporals.format(r.createdAt, 'dd/MM/yyyy')}">
+                                                    </td>
+                                                </th:block>
+                                            </div>
+                                            <!-- /. Last modified	 -->
+
+                                            <td>
+                                                <div class="row justify-content-center">
+                                                    <div class="col">
+                                                        <a class=" fas fa-edit fa-lg"
+                                                            th:href="@{'/admin/recruitment/detail/' + ${r.id}}"></a>
+                                                        <a onclick="return confirm('Bạn chắc chắn muốn xóa ?')"
+                                                            class="fas fa-trash fa-lg mx-3" style="color: red;"
+                                                            th:href="@{'/admin/recruitment/delete/' + ${r.id}}"></a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- script option -->
+    <th:block layout:fragment="script">
+    </th:block>
+    <!-- /. script option -->
+</body>
+
+</html>

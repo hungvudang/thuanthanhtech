@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/admin-pages/admin-layout}">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Về chúng tôi</title>
+
+
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header" layout:fragment="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Về chúng tôi</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item">Trang chủ</li>
+                                <li class="breadcrumb-item active">Về chúng tôi</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="content" layout:fragment="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h2 class="card-title font-weight-bold">Tạo bài viết mới</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <form th:action="@{/admin/aboutus/save}" th:method="post" th:object="${aboutus}" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div>
+                                                    <!--Title Input-->
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlInput3">Tiêu đề (<span
+																style="color: red;">*</span>)</label>
+                                                        <input th:field="*{title}" type="text" class="form-control" th:class="${fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'" id="exampleFormControlInput3" placeholder="Tiêu đề">
+                                                        <div class="invalid-feedback">Title Error</div>
+                                                    </div>
+                                                    <!--/Title Input-->
+
+                                                    <!-- Content Input -->
+                                                    <div class="form-group">
+                                                        <label for="inputContent">Nội dung</label>
+                                                        <textarea class="textarea form-control" id="inputContent" th:field="*{content}" placeholder="Nội dung"></textarea>
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- Button Submit -->
+                                                <div>
+                                                    <button id="btn-submit-default" type="submit" class="float-right btn btn-success mr-2" hidden>Tạo</button>
+                                                </div>
+                                                <!-- /. button submit -->
+                                            </div>
+                                            <div class="col-5">
+
+                                                <!-- Upload thumbnail image of news -->
+                                                <div class="form-group">
+                                                    <label for="uploadThumbnail">Thumbnail</label>
+
+                                                    <div>
+                                                        <img th:src="@{*{thumbnail}}" alt="thumbnail-media" class="img-thumbnail mb-2 w-100" id="thumbnail-image-preview" style="max-height: 250px; object-fit: cover;">
+                                                    </div>
+
+                                                    <input type="file" class="form-control" name="aboutus_thumbnail" th:class="${#fields.hasErrors('thumbnail')} ? 'form-control is-invalid' : 'form-control'" id="uploadThumbnail" accept="image/png, image/jpeg" onchange="previewImage(event, 'thumbnail-image-preview')"
+                                                    />
+                                                    <div th:errors="*{thumbnail}" th:if="${#fields.hasErrors('thumbnail')}" class="invalid-feedback">Thumbnail Error</div>
+
+                                                </div>
+                                                <input hidden th:field="*{thumbnail}" type="text">
+                                                <!-- /.thumbnail image upload -->
+
+                                                <!-- Public Input -->
+
+                                                <fieldset class="form-group">
+                                                    <div class="row">
+                                                        <label class="col-form-label col-sm-5 pt-0">Hiển
+															thị</label>
+                                                        <div class="col-sm-7">
+                                                            <div class="form-check">
+                                                                <input th:field="*{pub}" class="form-check-input" type="radio" name="gridRadiosPublic" id="gridRadiosPublic1" value="1"> <label class="form-check-label lead text-sm" for="gridRadiosPublic1"> Hiện thị </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input th:field="*{pub}" class="form-check-input" type="radio" name="gridRadiosPublic" id="gridRadiosPublic2" value="0"> <label class="form-check-label lead text-sm" for="gridRadiosPublic2"> Ẩn </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+
+                                                <!-- Input Feature -->
+                                                <div class="form-group">
+                                                    <label for="formControlInputFeature">Đặc trưng</label>
+                                                    <div id="formControlInputFeature" class="card border-info">
+                                                        <div class="card-body">
+
+                                                            <div id="featureContainer" class="container">
+
+                                                            </div>
+                                                            <button id="btnAddFeature" type="button" class="float-right btn btn-sm btn-primary"><i
+																	class="fas fa-plus"></i>
+																Thêm</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Input Feature -->
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="card-footer" style="background-color: white;">
+                                    <div class="row">
+                                        <div class="col">
+                                            <!-- Button Submit -->
+                                            <div>
+                                                <a class="btn btn-primary float-right" th:href="@{/admin/aboutus}">Hủy
+													bỏ</a>
+                                                <button id="btn-submit-custom" type="submit" class="float-right btn btn-success mr-2">Tạo</button>
+                                            </div>
+                                            <!-- /. button submit -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- script option -->
+    <th:block layout:fragment="script">
+        <!-- <script th:replace="/admin-pages/fragments/scripts/news-scripts/news-script"></script> -->
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#thumbnail-image-preview').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                }
+            }
+            $("#uploadThumbnail").change(function() {
+                readURL(this);
+            });
+        </script>
+
+        <script>
+            $('#btn-submit-custom').click(function() {
+                $('#btn-submit-default').click();
+            })
+        </script>
+    </th:block>
+    <!-- /. script option -->
+</body>
+
+</html>

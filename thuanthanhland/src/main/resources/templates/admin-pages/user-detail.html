@@ -45,7 +45,7 @@
 							<div class="card-body">
 								<div class="col">
 									<form th:object="${user}" th:action="@{'/admin/user/update/' + *{id}}"
-										th:method="post" enctype="multipart/form-data">
+										th:method="post" enctype="multipart/form-data" autocomplete="off">
 										<div class="row">
 											<div class="col-7">
 												<div>
@@ -127,8 +127,9 @@
 													<label for="uploadAvatar">Ảnh đại diện</label>
 
 													<div>
-														<img th:src="@{*{avatar}}" alt="avatar-media"
-															class="img-thumbnail w-100 mb-3" id="avatar-image"
+														<img th:src="*{avatar} ? *{avatar} : ${NO_THUMBNAIL_IMAGE}"
+															th:alt="*{name}" class="img-thumbnail w-100 mb-3"
+															id="avatar-image"
 															style="max-height: 200px; object-fit: cover;">
 													</div>
 
@@ -156,11 +157,18 @@
 																class="col-sm-2 text-nowrap">Đổi mật
 																khẩu</label>
 															<div class="col-sm-10">
-																<input name="newPassword" type="password"
-																	class="form-control"
-																	th:class="${#fields.hasErrors('password')} ? 'form-control is-invalid' : 'form-control'"
-																	id="inputChangePassword" placeholder="Mật khẩu"
-																	disabled>
+																<div id="show_hide_password" class="input-group">
+																	<input name="newPassword" type="password"
+																		class="form-control"
+																		th:class="${#fields.hasErrors('password')} ? 'form-control is-invalid' : 'form-control'"
+																		id="inputChangePassword" placeholder="Mật khẩu"
+																		disabled autocomplete="new-password">
+																	<div class="input-group-append">
+																		<a class="input-group-text" href=""><i
+																				class="fa fa-eye-slash"
+																				aria-hidden="true"></i></a>
+																	</div>
+																</div>
 																<div th:errors="*{password}"
 																	th:if="${#fields.hasErrors('password')}"
 																	class="invalid-feedback">Change Password Error</div>
@@ -243,6 +251,24 @@
 					evt.preventDefault();
 				}
 			}
+		</script>
+
+		<!-- show and hide password toggle -->
+		<script>
+			$(function () {
+				$("#show_hide_password a").on('click', function (event) {
+					event.preventDefault();
+					if ($('#show_hide_password input').attr('type') == 'text') {
+						$('#show_hide_password input').attr('type', 'password');
+						$('#show_hide_password i').addClass("fa-eye-slash");
+						$('#show_hide_password i').removeClass("fa-eye");
+					} else {
+						$('#show_hide_password input').attr('type', 'text');
+						$('#show_hide_password i').removeClass("fa-eye-slash");
+						$('#show_hide_password i').addClass("fa-eye");
+					}
+				})
+			})
 		</script>
 	</th:block>
 	<!-- /. script option -->

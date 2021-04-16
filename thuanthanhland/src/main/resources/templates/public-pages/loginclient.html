@@ -28,21 +28,27 @@
                     <div class="col-md-10 mb-3">
                         <div class="card">
                             <div class="card-body">
-                                <form th:action="@{/checkLogin}" th:object="${User}" th:method="post">
+                                <form th:action="@{/checkLogin}" th:object="${user}" th:method="post" autocomplete="off">
                                     <div class="container">
                                         <h1>Đăng nhập</h1>
                                         <p>Vui lòng điền vào form để đăng nhập tài khoản</p>
-                                        <hr>
 
-                                        <label for="email"><b>Email</b></label>
-                                        <input type="text" placeholder="Nhập vào Email" name="email" id="email" required>
+                                        <div class="form-group">
+                                            <label for="inputControlForEmail"><b>Email</b></label>
+                                            <input class="form-control" type="email" placeholder="Email" name="email" id="inputControlForEmail" required>
+                                        </div>
 
-                                        <label for="psw"><b>Mật khẩu</b></label>
-                                        <input type="password" placeholder="Nhập vào Password" name="password" id="psw" required>
+                                        <div class="form-group">
+                                            <label for="inputControlForPassword"><b>Mật khẩu</b></label>
+                                            <input class="form-control" type="password" placeholder="Mật khẩu" name="password" id="inputControlForPassword" required>
+                                        </div>
 
 
                                         <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-                                        <button type="submit" class="registerbtn">Đăng nhập</button>
+
+                                        <button class="btn btn-primary mb-3" type="submit">Đăng nhập</button>
+
+                                        <p>Bạn chưa có tài khoản? <a href="/register">Đăng ký</a></p>
                                     </div>
 
 

@@ -14,11 +14,12 @@ import javax.transaction.Transactional;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.thuanthanhtech.WebMvcConfig;
 import com.thuanthanhtech.repositories.NewsRepository;
 
 public class NewsHelper {
 
-	public final static String BASE_PATH_NEWS_RESOURCE = "/public/upload/news";
+	public final static String BASE_PATH_NEWS_RESOURCE = WebMvcConfig.ROOT_PATH_PUBLIC_BASE +  "/upload/news";
 
 	@Transactional(rollbackOn = { SQLException.class, IOException.class, NullPointerException.class })
 	public static boolean insertNewsEntity(News news, MultipartFile multipartNewsThumbnail,

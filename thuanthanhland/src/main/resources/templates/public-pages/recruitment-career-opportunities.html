@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/public-pages/public-layout}">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Tuyển dụng</title>
+
+</head>
+
+<body>
+    <div class="wrapper bg-light">
+
+        <div layout:fragment="option-content-before">
+
+        </div>
+
+
+
+        <section class="section element-animate">
+
+            <!-- content header -->
+            <div class="col-md-8 text-center" layout:fragment="content-header">
+                <!-- <h1 class="heading mb-4">TUYỂN DỤNG</h1> -->
+                <!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
+                    adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
+                    quam minima expedita atque corrupti reiciendis.</p> -->
+            </div>
+            <!-- /.content header -->
+
+            <div class="container" layout:fragment="content">
+                <div class="row">
+                    <div class="col-md-4 d-none d-md-block">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <!-- menu recruitment -->
+                                <div th:replace="/public-pages/fragments/recruitments/menu"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card h-100">
+                            <h5 class="card-header">THÔNG TIN TUYỂN DỤNG</h5>
+                            <div class="card-body">
+                                <div>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Vị trí tuyển dụng</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Ngày hết hạn</th>
+                                                    <th>Nộp hồ sơ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="r, iter : ${recruitments}">
+                                                    <td>[(${iter.index + 1})]</td>
+                                                    <td>
+                                                        <a th:href="@{'/tuyen-dung/co-hoi-nghe-nghiep/' + ${r.slug}}">
+                                                            [(${r.position})]
+                                                        </a>
+                                                    </td>
+                                                    <td>[(${r.quantity})]</td>
+                                                    <td>[(${#temporals.format(r.deadline, 'dd/MM/yyyy')})]</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div layout:fragment="option-content-after">
+
+        </div>
+
+
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- script option -->
+    <th:block layout:fragment="script"></th:block>
+    <!-- /. script option -->
+</body>
+
+</html>

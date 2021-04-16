@@ -18,8 +18,8 @@ import javax.validation.constraints.NotBlank;
 
 
 @Entity
-@Table(name = "comments_project")
-public class CommentProject {
+@Table(name = "project_comments")
+public class ProjectComment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -27,6 +27,9 @@ public class CommentProject {
 	@Column(name = "content", nullable = false, columnDefinition = "LONGTEXT")
 	@NotBlank(message = "Nội dung không hợp lệ")
 	private String content;
+	
+	@Column(name = "public", columnDefinition = "TINYINT(2) DEFAULT 1")
+	private Integer pub;
 	
 	@Column(name = "parent_id", columnDefinition = "INT DEFAULT -1", nullable = false)
 	private Integer parentId = -1; // default -1
@@ -45,7 +48,7 @@ public class CommentProject {
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
 
-	public CommentProject() {
+	public ProjectComment() {
 		super();
 	}
 
@@ -71,6 +74,14 @@ public class CommentProject {
 
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
+	}
+	
+	public Integer getPub() {
+		return pub;
+	}
+
+	public void setPub(Integer pub) {
+		this.pub = pub;
 	}
 
 	public User getUser() {

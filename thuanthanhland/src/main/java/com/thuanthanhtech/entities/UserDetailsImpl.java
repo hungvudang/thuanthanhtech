@@ -67,4 +67,10 @@ public class UserDetailsImpl implements UserDetails {
 		return true;
 	}
 
+	public User getUser() {
+		return user;
+	}
+	
+	
+
 }

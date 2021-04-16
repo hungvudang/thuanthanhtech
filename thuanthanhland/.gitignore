@@ -34,4 +34,5 @@ build/
 
 
 ### Spring Boot Application ###
-thuanthanhland\src\main\resources\application.properties
+target/
+/src/test/

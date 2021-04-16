@@ -84,10 +84,7 @@ public class UserAdminController {
 
 		}
 
-		ra.addFlashAttribute("success", "Tài khoản mới đã được tạo thành công");
-
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-
 		User savedUser = uRepository.saveAndFlush(user);
 
 		// Upload ảnh đại diện (avatar)
@@ -118,6 +115,8 @@ public class UserAdminController {
 			uRepository.saveAndFlush(updateAvatarUser);
 		}
 		// =======================================================================================
+		ra.addFlashAttribute("success", "Tài khoản mới đã được tạo thành công");
+		
 		return "redirect:/admin/user";
 	}
 
@@ -128,6 +127,9 @@ public class UserAdminController {
 
 			if (opUser.isPresent()) {
 				User user = opUser.get();
+				if (user.getAvatar() == null) {
+					m.addAttribute("NO_THUMBNAIL_IMAGE", Helper.NO_IMAGE_MEDIUM_PNG);
+				}
 				m.addAttribute("user", user);
 
 			} else {

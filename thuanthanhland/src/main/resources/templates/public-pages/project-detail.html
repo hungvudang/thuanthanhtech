@@ -108,21 +108,124 @@
 
                     </div>
                 </div>
+
+                <!-- Bình luận -->
                 <div class="card mt-4">
                     <div class="card-header">
-                        <h5 class="card-text font-weight-bold">Bình luận</h5>
+                        <th:block sec:authorize="isAuthenticated()">
+                            <h5 class="card-text font-weight-bold">Bình luận</h5>
+
+                        </th:block>
+                        <th:block sec:authorize="isAnonymous()">
+                            <h5 class="card-text font-weight-bold">Bạn phải <a th:href="@{/dang-nhap}">đăng nhập</a> để
+                                bình
+                                luận
+                            </h5>
+                        </th:block>
                     </div>
                     <div class="card-body">
 
-                        <div class="media">
+                        <th:block th:each="comment : ${rootComment.childs}">
+                            <div class="media">
+                                <img th:src=" ${comment.self.user.avatar} ? ${comment.self.user.avatar} : 'https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png'"
+                                    class="mr-3" th:alt="${comment.self.user.name}" width="32" height="32">
+                                <div class="media-body container">
+                                    <div class="row align-items-center">
+                                        <h6 class="mt-0 font-weight-bold mr-auto">[(${comment.self.user.name})]</h6>
+                                        <th:block sec:authorize="hasRole('ADMIN')">
+                                            <a class="btn text-secondary btn-sm ml-2" href="javascript:void(0)">Ẩn</a>
+                                            <a class="btn-repply-comment btn text-info btn-sm ml-2"
+                                                href="javascript:void(0)">Trả lời</a>
+                                            <a class="fa fa-times fa-2x btn-sm ml-2" href="javascript:void(0)"></a>
+                                        </th:block>
+
+                                    </div>
+                                    <div class="row">
+                                        <p class="col-10">
+                                            [(${comment.self.content})]
+                                        </p>
+
+                                        <a sec:authorize="hasRole('USER')" href="javascript:void(0)"
+                                            th:class="${#authorization.expression('isAnonymous()')} ? 'btn-repply-comment btn text text-center text-sm col-2 align-self-end d-none' :'btn-repply-comment btn text text-center text-sm col-2 align-self-end' "><i
+                                                class="fa fa-reply"></i></a>
+
+                                    </div>
+
+                                    <th:block sec:authorize="isAuthenticated()">
+                                        <!-- Repply comment box -->
+                                        <div class="d-none col-md-8 card comment-box border-0 mt-3">
+                                            <div class="card-header">
+                                                <h6 class="card-subtitle text-uppercase">Trả lời -
+                                                    [(${comment.self.user.name})]
+                                                </h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <form
+                                                    th:action="@{'/du-an/binh-luan?email=' + ${#authentication.name} + '&projectId=' + ${project.id}}"
+                                                    th:method="post" th:object="${pComment}">
+                                                    <div class="row">
+                                                        <div class="form-group w-100">
+                                                            <label class="font-weight-bold"
+                                                                for="inputControlForCommentBox">Nội
+                                                                dung</label>
+                                                            <textarea class="editor form-control"
+                                                                id="inputControlForCommentBox"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn btn-primary float-right row"
+                                                        type="submit">Gửi</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </th:block>
+                                    <!-- Repply comments -->
+                                    <th:block th:unless="${#lists.isEmpty(comment.childs)}"
+                                        th:each="commentChild : ${comment.childs}">
+                                        <div class="media mt-3">
+                                            <img th:src=" ${commentChild.self.user.avatar} ? ${commentChild.self.user.avatar} : 'https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png'"
+                                                class="mr-3" th:alt="${commentChild.self.user.name}" width="32"
+                                                height="32">
+                                            <div class="media-body">
+                                                <div class="row col">
+                                                    <h6 class="mt-0 font-weight-bold mr-5">
+                                                        [(${commentChild.self.user.name})]
+                                                    </h6>
+                                                    <th:block sec:authorize="hasRole('ADMIN')">
+                                                        <a class="btn text-secondary btn-sm ml-2"
+                                                            href="javascript:void(0)">Ẩn</a>
+                                                        <a class="fa fa-times fa-2x btn-sm ml-2"
+                                                            href="javascript:void(0)"></a>
+                                                    </th:block>
+                                                </div>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <p class="col-11">[(${commentChild.self.content})]</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </th:block>
+                                </div>
+                            </div>
+                        </th:block>
+
+                        <!-- comment 1 -->
+                        <!-- <div class="media">
                             <img src="https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
                                 class="mr-3" alt="..." width="32" height="32">
                             <div class="media-body container">
+                                <div class="row align-items-center">
+                                    <h6 class="mt-0 font-weight-bold mr-auto">Vũ Đăng Hưng</h6>
+                                    <th:block sec:authorize="hasRole('ADMIN')">
+                                        <a class="btn text-secondary btn-sm ml-2" href="javascript:void(0)">Ẩn</a>
+                                        <a class="btn-repply-comment btn text-info btn-sm ml-2"
+                                            href="javascript:void(0)">Trả lời</a>
+                                        <a class="fa fa-times fa-2x btn-sm ml-2" href="javascript:void(0)"></a>
+                                    </th:block>
 
-                                <div class="row col">
-                                    <h6 class="mt-0 font-weight-bold">Vũ Đăng Hưng</h6>
                                 </div>
-                                <div class="row justify-content-center">
+                                <div class="row">
                                     <p class="col-10">Greetings loved ones let's take a journey. Yes, we make angels
                                         cry,
                                         raining down on earth from up above. Standing on the frontline when
@@ -130,37 +233,49 @@
                                         bombs start to fall. Heaven is jealous of our love. Standing on the
                                         frontline</p>
 
-                                    <a href="javascript:void(0)"
-                                        class="btn-repply-comment text text-center text-sm col-2 align-self-end"
-                                        role="link"><i class="fa fa-reply"></i> <span class="d-none d-md-block">Trả
+                                    <a sec:authorize="hasRole('USER')" href="javascript:void(0)"
+                                        th:class="${#authorization.expression('isAnonymous()')} ? 'btn-repply-comment btn text text-center text-sm col-2 align-self-end d-none' :'btn-repply-comment btn text text-center text-sm col-2 align-self-end' "><i
+                                            class="fa fa-reply"></i> <span class="d-none d-md-block">Trả
                                             lời</span></a>
+
                                 </div>
-                                <div class="d-none col-md-8 card comment-box border-0 mt-3">
-                                    <div class="card-header">
-                                        <h6 class="card-subtitle text-uppercase">Leave a Reply</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <form action="#" method="post">
-                                            <div class="row">
-                                                <div class="form-group w-100">
-                                                    <label for="inputControlForCommentBox">Nội
-                                                        dung</label>
-                                                    <textarea class="form-control"
-                                                        id="inputControlForCommentBox"></textarea>
+
+                                <th:block sec:authorize="isAuthenticated()">
+                                    <div class="d-none col-md-8 card comment-box border-0 mt-3">
+                                        <div class="card-header">
+                                            <h6 th:utext="${#authentication.getPrincipal().getUser().getName()}"
+                                                class="card-subtitle text-uppercase">
+                                            </h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <form action="#" method="post">
+                                                <div class="row">
+                                                    <div class="form-group w-100">
+                                                        <label class="font-weight-bold"
+                                                            for="inputControlForCommentBox">Nội
+                                                            dung</label>
+                                                        <textarea class="editor form-control"
+                                                            id="inputControlForCommentBox"></textarea>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <button class="btn btn-primary float-right row" type="submit">Gửi</button>
-                                        </form>
+                                                <button class="btn btn-primary float-right row"
+                                                    type="submit">Gửi</button>
+                                            </form>
+                                        </div>
                                     </div>
+                                </th:block>
 
-
-                                </div>
                                 <div class="media mt-3">
                                     <img src="https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
                                         class="mr-3" alt="..." width="32" height="32">
                                     <div class="media-body">
                                         <div class="row col">
-                                            <h6 class="mt-0 font-weight-bold">Nguyễn Thị Phương</h6>
+                                            <h6 class="mt-0 font-weight-bold mr-5">Nguyễn Thị Phương</h6>
+                                            <th:block sec:authorize="hasRole('ADMIN')">
+                                                <a class="btn text-secondary btn-sm ml-2"
+                                                    href="javascript:void(0)">Ẩn</a>
+                                                <a class="fa fa-times fa-2x btn-sm ml-2" href="javascript:void(0)"></a>
+                                            </th:block>
                                         </div>
                                         <div class="container">
                                             <div class="row">
@@ -180,19 +295,24 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                        </div>
-
-                        <div class="media">
+                        </div> -->
+                        <!-- comment 2 -->
+                        <!-- <div class="media">
                             <img src="https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
                                 class="mr-3" alt="..." width="32" height="32">
                             <div class="media-body container">
+                                <div class="row align-items-center">
+                                    <h6 class="mt-0 font-weight-bold mr-auto">Vũ Đăng Hưng</h6>
+                                    <th:block sec:authorize="hasRole('ADMIN')">
+                                        <a class="btn text-secondary btn-sm ml-2" href="javascript:void(0)">Ẩn</a>
+                                        <a class="btn-repply-comment btn text-info btn-sm ml-2"
+                                            href="javascript:void(0)">Trả lời</a>
+                                        <a class="fa fa-times fa-2x btn-sm ml-2" href="javascript:void(0)"></a>
+                                    </th:block>
 
-                                <div class="row col">
-                                    <h6 class="mt-0 font-weight-bold">Vũ Đăng Hưng</h6>
                                 </div>
-                                <div class="row justify-content-center">
+                                <div class="row">
                                     <p class="col-10">Greetings loved ones let's take a journey. Yes, we make angels
                                         cry,
                                         raining down on earth from up above. Standing on the frontline when
@@ -200,94 +320,99 @@
                                         bombs start to fall. Heaven is jealous of our love. Standing on the
                                         frontline</p>
 
-                                    <a href="javascript:void(0)"
-                                        class="btn-repply-comment text text-center text-sm col-2 align-self-end"
-                                        role="link"><i class="fa fa-reply"></i> <span class="d-none d-md-block">Trả
+                                    <a sec:authorize="hasRole('USER')" href="javascript:void(0)"
+                                        th:class="${#authorization.expression('isAnonymous()')} ? 'btn-repply-comment btn text text-center text-sm col-2 align-self-end d-none' :'btn-repply-comment btn text text-center text-sm col-2 align-self-end' "><i
+                                            class="fa fa-reply"></i> <span class="d-none d-md-block">Trả
                                             lời</span></a>
                                 </div>
-                                <div class="d-none col-md-8 card comment-box border-0 mt-3">
-                                    <div class="card-header">
-                                        <h6 class="card-subtitle text-uppercase">Leave a Reply</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <form action="#" method="post">
-                                            <div class="row">
-                                                <div class="form-group w-100">
-                                                    <label for="inputControlForCommentBox">Nội
-                                                        dung</label>
-                                                    <textarea class="form-control"
-                                                        id="inputControlForCommentBox"></textarea>
+                                <th:block sec:authorize="isAuthenticated()">
+                                    <div class="d-none col-md-8 card comment-box border-0 mt-3">
+                                        <div class="card-header">
+                                            <h6 th:utext="${#authentication.getPrincipal().getUser().getName()}"
+                                                class="card-subtitle text-uppercase">
+                                            </h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <form action="#" method="post">
+                                                <div class="row">
+                                                    <div class="form-group w-100">
+                                                        <label class="font-weight-bold"
+                                                            for="inputControlForCommentBox">Nội
+                                                            dung</label>
+                                                        <textarea class="editor form-control"
+                                                            id="inputControlForCommentBox"></textarea>
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            <button class="btn btn-primary float-right row" type="submit">Gửi</button>
-                                        </form>
+                                                <button class="btn btn-primary float-right row"
+                                                    type="submit">Gửi</button>
+                                            </form>
+                                        </div>
                                     </div>
+                                </th:block>
 
-
-                                </div>
                                 <div class="media mt-3">
                                     <img src="https://www.kindpng.com/picc/m/22-223863_no-avatar-png-circle-transparent-png.png"
                                         class="mr-3" alt="..." width="32" height="32">
                                     <div class="media-body">
                                         <div class="row col">
-                                            <h6 class="mt-0 font-weight-bold">Nguyễn Thị Phương</h6>
+                                            <h6 class="mt-0 font-weight-bold mr-5">Nguyễn Thị Phương</h6>
+                                            <th:block sec:authorize="hasRole('ADMIN')">
+                                                <a class="btn text-secondary btn-sm ml-2"
+                                                    href="javascript:void(0)">Ẩn</a>
+                                                <a class="fa fa-times fa-2x btn-sm ml-2" href="javascript:void(0)"></a>
+                                            </th:block>
+
                                         </div>
                                         <div class="container">
                                             <div class="row">
                                                 <p class="col-11">Greetings loved ones let's take a journey. Yes, we
-                                                    make
-                                                    angels
-                                                    cry,
-                                                    raining down on earth from up above. Standing on the
-                                                    frontline
-                                                    when
+                                                    make angels cry, raining down on earth from up above. Standing on
                                                     the
-                                                    bombs start to fall. Heaven is jealous of our love. Standing
-                                                    on
+                                                    frontline when the bombs start to fall. Heaven is jealous of our
+                                                    love. Standing
+                                                    on the frontline Greetings loved ones let's take a journey. Yes, we
+                                                    make angels cry, raining down on earth from up above. Standing on
                                                     the
-                                                    frontline Greetings loved ones let's take a journey. Yes, we
-                                                    make
-                                                    angels
-                                                    cry,
-                                                    raining down on earth from up above. Standing on the
-                                                    frontline
-                                                    when
-                                                    the
-                                                    bombs start to fall. Heaven is jealous of our love. Standing
-                                                    on
-                                                    the
-                                                    frontline</p>
+                                                    frontline when the bombs start to fall. Heaven is jealous of our
+                                                    love. Standing on the frontline</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
 
                     <div class="container">
-                        <div id="global-comment-box" class="col-md-8 card comment-box border-0 mt-3">
-                            <div class="card-header">
-                                <h6 class="card-subtitle text-uppercase">Leave a Reply</h6>
-                            </div>
-                            <div class="card-body">
-                                <form action="#" method="post">
-                                    <div class="row">
-                                        <div class="form-group w-100">
-                                            <label for="inputControlForCommentBox">Nội
-                                                dung</label>
-                                            <textarea class="form-control" id="inputControlForCommentBox"></textarea>
+                        <th:block sec:authorize="isAuthenticated()">
+                            <div id="global-comment-box" class="col-md-8 card comment-box border-0 mt-3">
+                                <div class="card-header">
+                                    <h6 class="card-subtitle text-uppercase">Thêm bình luận - <span
+                                            th:utext="${#authentication.getPrincipal().getUser().getName()}"></span>
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <form
+                                        th:action="@{'/du-an/binh-luan?email=' + ${#authentication.name} + '&projectId=' + ${project.id}}"
+                                        th:method="post" th:object="${pCommentGlobal}">
+                                        <div class="row">
+                                            <div class="form-group w-100">
+                                                <label class="font-weight-bold" for="inputControlForCommentBox">Nội
+                                                    dung</label>
+                                                <textarea th:field="*{content}" class="editor form-control"
+                                                    id="inputControlForCommentBox1"></textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <button class="btn btn-primary float-right row" type="submit">Gửi</button>
-                                </form>
+                                        <button class="btn btn-primary float-right row" type="submit">Gửi</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
+                        </th:block>
                     </div>
-                    <div class="card-footer"></div>
+                    <div class="card-footer">
+                    </div>
                 </div>
             </div>
         </section>
@@ -372,19 +497,12 @@
 
     <!-- script option -->
     <th:block layout:fragment="script">
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.7.1/tinymce.min.js"
-            integrity="sha512-RnlQJaTEHoOCt5dUTV0Oi0vOBMI9PjCU7m+VHoJ4xmhuUNcwnB5Iox1es+skLril1C3gHTLbeRepHs1RpSCLoQ=="
-            crossorigin="anonymous"></script>
-
-        <script>
-            tinymce.init({
-                selector: 'textarea.editor',
-                menubar: false
-            });
-        </script> -->
-
         <!-- Toggle Comment Box -->
-        <script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var isAuthenticated = /*[[${#authorization.expression('isAuthenticated()')}]]*/'authenticated'
+            /*]]>*/
+
             $(function () {
                 $('.btn-repply-comment').each(function (btnIndex, btnElement) {
                     $(btnElement).on('click', function (event) {
@@ -402,7 +520,6 @@
                             }
                         })
 
-
                         event.defaultPrevented;
 
                         if (toggleGlobal) {
@@ -413,6 +530,7 @@
 
                 })
             })
+
         </script>
         <!-- /.Toggle Comment Box -->
     </th:block>

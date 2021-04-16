@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/public-pages/public-layout}">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Tuyển dụng</title>
+
+</head>
+
+<body>
+    <div class="wrapper bg-light">
+
+        <div layout:fragment="option-content-before">
+
+        </div>
+
+
+
+        <section class="section element-animate">
+
+            <!-- content header -->
+            <div class="col-md-8 text-center" layout:fragment="content-header">
+                <!-- <h1 class="heading mb-4">TUYỂN DỤNG</h1> -->
+                <!-- <p class="mb-5 lead">Lorem ipsum dolor sit amet, consectetur
+                    adipisicing elit. Commodi unde impedit, necessitatibus, soluta sit
+                    quam minima expedita atque corrupti reiciendis.</p> -->
+            </div>
+            <!-- /.content header -->
+
+            <div class="container" layout:fragment="content">
+                <div class="row">
+                    <div class="col-md-4 d-none d-md-block">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <!-- menu recruitment -->
+                                <div th:replace="/public-pages/fragments/recruitments/menu"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card h-100">
+                            <div class="card-header bg-white">
+                                <h4 class="card-title">[(${recruitment.title})]</h4>
+                                <span th:if="${recruitment.updatedAt}" class="card-subtitle mb-2 text-muted">Ngày tạo:
+                                    [(${#temporals.format(recruitment.updatedAt,
+                                    'dd/MM/yyyy')})]</span>
+                                <span th:unless="${recruitment.updatedAt}" class="card-subtitle mb-2 text-muted">Ngày
+                                    tạo: [(${#temporals.format(recruitment.createdAt,
+                                    'dd/MM/yyyy')})]</span>
+                            </div>
+
+
+                            <div class="card-body">
+
+                                <h5 class="card-title">[(${recruitment.position})]</h5>
+                                <p>[(${recruitment.description})]</p>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div layout:fragment="option-content-after">
+
+        </div>
+
+
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- script option -->
+    <th:block layout:fragment="script"></th:block>
+    <!-- /. script option -->
+</body>
+
+</html>

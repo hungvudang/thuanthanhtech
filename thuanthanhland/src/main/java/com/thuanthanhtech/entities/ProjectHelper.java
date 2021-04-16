@@ -16,11 +16,12 @@ import javax.transaction.Transactional;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.thuanthanhtech.WebMvcConfig;
 import com.thuanthanhtech.repositories.ProjectRepository;
 
 public class ProjectHelper {
 
-	public final static String BASE_PATH_PROJECT_RESOURCE = "/public/upload/project";
+	public final static String BASE_PATH_PROJECT_RESOURCE = WebMvcConfig.ROOT_PATH_PUBLIC_BASE +"/upload/project";
 	public final static String DIR_IMAGE_DETAILS = "/images";
 
 	@Transactional(rollbackOn = { SQLException.class, IOException.class, NullPointerException.class })

@@ -1,5 +1,7 @@
-package com.thuanthanhtech.controllers;
+package com.thuanthanhtech.controllers.api;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.thuanthanhtech.entities.Helper;
@@ -19,10 +23,10 @@ import com.thuanthanhtech.entities.ProjectHelper;
 import com.thuanthanhtech.repositories.ImageRepository;
 
 @RestController
-@RequestMapping("/api/images")
+@RequestMapping("/admin/api/images")
 @CrossOrigin("*")
 
-public class ImageAdminController {
+public class ImageAdminRestController {
 
 	@Autowired
 	private ImageRepository iRepository;
@@ -47,5 +51,11 @@ public class ImageAdminController {
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Xóa hình ảnh mô tả thất bại");
 	}
-
+	
+	
+	@ExceptionHandler(value = { Exception.class, IOException.class, SQLException.class })
+	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+	public String handlerException() {
+		return "/errors/500";
+	}
 }

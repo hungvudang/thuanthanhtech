@@ -8,6 +8,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.thuanthanhtech.controllers.client.helper.CategoryClientHelper;
+import com.thuanthanhtech.controllers.client.utils.Filterable;
 import com.thuanthanhtech.entities.Category;
 import com.thuanthanhtech.entities.News;
 import com.thuanthanhtech.entities.NewsHelper;
@@ -32,7 +37,7 @@ import com.thuanthanhtech.repositories.NewsRepository;
 
 @Controller
 @RequestMapping("/tin-tuc")
-public class NewsClientController {
+public class NewsClientController implements Filterable{
 	@Autowired
 	private NewsRepository nRepository;
 
@@ -42,13 +47,17 @@ public class NewsClientController {
 	@Autowired
 	private NewsPagingAndSortRepository nPagingAndSortRepository;
 	
+	@Autowired
+	private CategoryClientHelper cateClientHelper;
+	
+	
 	@GetMapping
-	public String news() {
+	public String news(HttpServletRequest req, HttpServletResponse resp) {
 		return "redirect:/tin-tuc/bai-viet";
 	}
 
 	@GetMapping("/{cate-slug}")
-	public String nextPage(@PathVariable(name =  "cate-slug") String cateSlug,
+	public String nextPage(@PathVariable(name = "cate-slug") String cateSlug,
 			@RequestParam(name = "pageNumber", required = false) Integer pageNumber, Model m) {
 		
 		if (pageNumber == null) {
@@ -62,7 +71,7 @@ public class NewsClientController {
 
 			Category targetCate = opCate.get();
 			Pageable pageable = PageRequest.of(pageNumber - 1, 8);
-			Page<News> page = nPagingAndSortRepository.findByCategoryAndPub(targetCate, 1, pageable);
+			Page<News> page = nPagingAndSortRepository.findByCategoryAndPubOrderByCreatedAtDesc(targetCate, 1, pageable);
 			List<News> targetNewses = page.getContent();
 
 			int currentPage = pageNumber;
@@ -81,6 +90,8 @@ public class NewsClientController {
 			breadcrumbs.add("Tin tức");
 			breadcrumbs.add(targetCate.getName());
 			m.addAttribute("breadcrumbs", breadcrumbs);
+			
+			cateClientHelper.categories(m);
 
 			switch (cateSlug) {
 			case "bai-viet":
@@ -136,6 +147,8 @@ public class NewsClientController {
 			breadcrumbs.add("Tin tức");
 			breadcrumbs.add(cate.getName());
 			m.addAttribute("breadcrumbs", breadcrumbs);
+			
+			cateClientHelper.categories(m);
 
 			switch (cateSlug) {
 			case "bai-viet":

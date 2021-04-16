@@ -16,7 +16,7 @@ public interface NewsPagingAndSortRepository extends PagingAndSortingRepository<
 	
 	Page<News> findByPub(Integer pub, Pageable pageable);
 	
-	Page<News> findByCategoryAndPub(Category category, Integer pub, Pageable pageable);
+	Page<News> findByCategoryAndPubOrderByCreatedAtDesc(Category category, Integer pub, Pageable pageable);
 	
 	List<News> findTop5ByCategoryAndPub(Category category ,Integer pub, Sort sort);
 

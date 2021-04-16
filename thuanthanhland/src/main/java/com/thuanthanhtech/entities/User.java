@@ -59,9 +59,9 @@ public class User {
 	@Column(name = "avatar")
 	private String avatar;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity = CommentProject.class)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity = ProjectComment.class)
 	@JsonIgnore
-	private List<CommentProject> comments;
+	private List<ProjectComment> comments;
 
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
@@ -166,13 +166,13 @@ public class User {
 	
 	
 
-	public List<CommentProject> getComments() {
+	public List<ProjectComment> getComments() {
 		return comments;
 	}
 
 
 
-	public void setComments(List<CommentProject> comments) {
+	public void setComments(List<ProjectComment> comments) {
 		if (comments != null) {
 			comments.parallelStream().forEach((cmt)->{
 				cmt.setUser(this);

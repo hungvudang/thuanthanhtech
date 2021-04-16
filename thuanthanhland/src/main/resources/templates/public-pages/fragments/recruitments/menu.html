@@ -1,11 +1,22 @@
-<div>
-    <div class="mt-2">
-        <a class="btn btn-primary btn-block text text-left" th:href=@{/tuyen-dung/co-hoi-nghe-nghiep}>Cơ hội nghề
-            nghiệp</a> <a class="btn btn-primary btn-block text text-left"
-            th:href=@{/tuyen-dung/quy-dinh-ho-so-ung-tuyen}>Quy định hồ sơ ứng
-            tuyển</a>
+<div class="row">
+    <div class="col-12">
+        <div class="row justify-content-center">
+            <a th:class="${active_hr_policies} ? 'col-12 btn btn-outline-primary mb-2 text-left active' : 'col-12 btn btn-outline-primary mb-2 text-left'"
+                th:href=@{/tuyen-dung/chinh-sach-nhan-su}>Chính
+                sách
+                nhân sự</a>
+            <a th:class="${active_career_opportunities} ? 'col-12 btn btn-outline-primary mb-2 text-left active' : 'col-12 btn btn-outline-primary mb-2 text-left'"
+                th:href=@{/tuyen-dung/co-hoi-nghe-nghiep}>Cơ hội
+                nghề
+                nghiệp</a>
+            <a th:class="${active_specified_candidate_profile} ? 'col-12 btn btn-outline-primary mb-2 text-left active' : 'col-12 btn btn-outline-primary mb-2 text-left'"
+                th:href=@{/tuyen-dung/quy-dinh-ho-so-ung-tuyen}>Quy
+                định hồ
+                sơ ứng
+                tuyển</a>
+        </div>
     </div>
-    <div class="mt-5 text-wrap">
+    <div class="col-12 mt-2">
         <p>
             <strong>HƯỚNG DẪN NỘP HỒ SƠ</strong>
         </p>

@@ -9,9 +9,11 @@ import java.nio.file.StandardCopyOption;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.thuanthanhtech.WebMvcConfig;
+
 public class SlideHelper {
 	
-	public final static String ROOT_PATH_IMAGE_MEDIUM = "/public/upload/slides";
+	public final static String ROOT_PATH_IMAGE_MEDIUM = WebMvcConfig.ROOT_PATH_PUBLIC_BASE + "/upload/slides";
 
 	public static void saveImage(MultipartFile multipartFile, String uploadDir, String fImageName)
 			throws IOException {

@@ -9,9 +9,11 @@ import java.nio.file.StandardCopyOption;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.thuanthanhtech.WebMvcConfig;
+
 public class SpotlightHelper {
 	
-	public final static String ROOT_PATH_THUMBNAIL_MEDIUM = "/public/upload/spotlight";
+	public final static String ROOT_PATH_THUMBNAIL_MEDIUM = WebMvcConfig.ROOT_PATH_PUBLIC_BASE + "/upload/spotlight";
 	
 	public static void saveImage(MultipartFile multipartFile, String uploadDir, String fImageName)
 			throws IOException {

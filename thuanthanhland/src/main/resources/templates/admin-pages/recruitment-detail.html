@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{/admin-pages/admin-layout}">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Tuyển dụng</title>
+
+
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header" layout:fragment="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Tuyển dụng</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item">Trang chủ</li>
+                                <li class="breadcrumb-item active">Tuyển dụng</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="content" layout:fragment="content">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="card card-info w-100">
+                            <div class="card-header">
+                                <h2 class="card-title font-weight-bold">Cập nhật tin tuyển dụng mới</h2>
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{'/admin/recruitment/update/' + *{id}}" th:method="post"
+                                    th:object="${recruitment}">
+                                    <div class="row">
+                                        <!-- Input Recruitment -->
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="formControlInputPosition">Vị trí tuyển dụng <span
+                                                        style="color: red;">*</span></label> <input
+                                                    th:field="*{position}" type="text" class="form-control"
+                                                    th:class="${#fields.hasErrors('position')} ? 'form-control is-invalid' : 'form-control'"
+                                                    id="formControlInputPosition" placeholder="Vị trí tuyển dụng">
+                                                <div th:errors="*{position}" th:if="${#fields.hasErrors('position')}"
+                                                    class="invalid-feedback">>Position Error</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="formControlInputTitle">Tiêu đề <span
+                                                        style="color: red;">*</span></label> <input th:field="*{title}"
+                                                    type="text" class="form-control"
+                                                    th:class="${#fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'"
+                                                    id="formControlInputTitle" placeholder="Tiêu đề">
+                                                <div th:errors="*{title}" th:if="${#fields.hasErrors('title')}"
+                                                    class="invalid-feedback">>Title Error</div>
+                                            </div>
+
+                                            <!-- Slug Input -->
+                                            <div class="form-group">
+                                                <label for="formControlInputSlug">Slug</label>
+                                                <input th:field="*{slug}" type="text" class="form-control"
+                                                    th:class="${#fields.hasErrors('slug')} ? 'form-control is-invalid' : 'form-control'"
+                                                    id="formControlInputSlug" placeholder="" readonly>
+                                                <div th:errors="*{slug}" th:if="${#fields.hasErrors('slug')}"
+                                                    class="invalid-feedback">Slug Error</div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="formControlInputDescription">Mô tả</label> <textarea
+                                                    th:field="*{description}" type="text" class="textarea form-control"
+                                                    th:class="${#fields.hasErrors('description')} ? 'textarea form-control is-invalid' : 'textarea form-control'"
+                                                    id="formControlInputDescription"> </textarea>
+                                                <div th:errors="*{description}"
+                                                    th:if="${#fields.hasErrors('description')}"
+                                                    class="invalid-feedback">>Description Error</div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <div class="form-group">
+                                                <label for="formControlInputDeadline">Hạn nộp hồ sơ <span
+                                                        style="color: red;">*</span></label>
+                                                <input th:field="*{deadline}" type="date" class="form-control"
+                                                    th:class="${#fields.hasErrors('deadline')} ? 'form-control is-invalid' : 'form-control'"
+                                                    id="formControlInputDeadline">
+                                                <div th:errors="*{deadline}" th:if="${#fields.hasErrors('deadline')}"
+                                                    class="invalid-feedback">Deadline Error</div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="formControlInputQuantity">Số lượng <span
+                                                        style="color: red;">*</span></label> <input
+                                                    th:field="*{quantity}" type="text" class="form-control"
+                                                    th:class="${#fields.hasErrors('quantity')} ? 'form-control is-invalid' : 'form-control'"
+                                                    id="formControlInputQuantity" placeholder="Số lượng"
+                                                    onkeypress="InputNumber(event)">
+                                                <div th:errors="*{quantity}" th:if="${#fields.hasErrors('quantity')}"
+                                                    class="invalid-feedback">>Quantity Error</div>
+                                            </div>
+
+                                            <fieldset class="form-group">
+                                                <div class="row">
+                                                    <label class="col-form-label col-sm-5 pt-0">Hiển thị</label>
+                                                    <div class="col-sm-7">
+                                                        <div class="form-check">
+                                                            <input th:field="*{pub}" class="form-check-input"
+                                                                type="radio" name="gridRadiosPublic"
+                                                                id="gridRadiosPublic1" value="1" checked> <label
+                                                                class="form-check-label lead text-sm"
+                                                                for="gridRadiosPublic1"> Hiện thị </label>
+                                                        </div>
+
+                                                        <div class="form-check">
+                                                            <input th:field="*{pub}" class="form-check-input"
+                                                                type="radio" name="gridRadiosPublic"
+                                                                id="gridRadiosPublic2" value="0">
+                                                            <label class="form-check-label lead text-sm"
+                                                                for="gridRadiosPublic2"> Ẩn </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset class="form-group">
+                                                <div class="row">
+                                                    <label class="col-form-label col-sm-5 pt-0">Nổi bật</label>
+                                                    <div class="col-sm-7">
+                                                        <div class="form-check">
+                                                            <input th:field="*{hot}" class="form-check-input"
+                                                                type="radio" name="gridRadiosHot" id="gridRadiosHot1"
+                                                                value="0"> <label class="form-check-label lead text-sm"
+                                                                for="gridRadiosHot1">
+                                                                Không </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input th:field="*{hot}" class="form-check-input"
+                                                                type="radio" name="gridRadiosHot" id="gridRadiosHot2"
+                                                                value="1"> <label class="form-check-label lead text-sm"
+                                                                for="gridRadiosHot2">
+                                                                Có </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <!-- /. Input Recruitment -->
+                                    </div>
+
+
+                                    <!-- button submit -->
+                                    <div>
+                                        <a class="btn btn-primary float-right" th:href="@{/admin/recruitment}">Trở
+                                            về</a>
+                                        <button type="submit" class="float-right btn btn-success mr-2">Lưu</button>
+                                    </div>
+                                    <!-- /. button submit -->
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- script option -->
+    <th:block layout:fragment="script">
+        <!--Event chỉ nhập số-->
+        <script>
+            function InputNumber(evt) {
+                var ch = String.fromCharCode(evt.which);
+                if (!(/[0-9]/.test(ch))) {
+                    evt.preventDefault();
+                }
+            }
+        </script>
+
+
+        <script>
+            $("#formControlInputTitle").stringToSlug({
+                setEvents: 'keyup keydown blur',
+                getPut: '#formControlInputSlug',
+                space: '-',
+                prefix: '',
+                suffix: '',
+                replace: '',
+                AND: 'and',
+                options: {},
+                callback: false
+            });
+        </script>
+
+        <!-- Set default date when create  -->
+        <!-- <script>
+            var today = moment().format('YYYY-MM-DD');
+            $('#formControlInputDeadline').val(today);
+        </script> -->
+
+    </th:block>
+    <!-- /. script option -->
+</body>
+
+</html>
