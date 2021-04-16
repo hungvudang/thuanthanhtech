@@ -1,10 +1,10 @@
 <th:block th:fragment="header">
     <header class="bg-dark">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <a class="navbar-brand mr-md-5 order-md-1" th:href="@{/}">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand mr-lg-5 order-lg-1" th:href="@{/}">
                 <img th:src="@{${#request.contextPath} + '/images/logo.png'}" height="64" alt="Thuận Thành Land">
             </a>
-            <ul class="navbar-nav order-md-4 mx-3 flex-row">
+            <ul class="navbar-nav order-lg-4 mx-3 flex-row">
                 <th:block sec:authorize="isAuthenticated()">
                     <li class="nav-item mx-1 d-none d-md-block">
                         <a role="button" class="nav-link font-weight-bold text-white p-2 d-flex"
@@ -34,12 +34,12 @@
                 </th:block>
             </ul>
 
-            <button class="navbar-toggler order-md-2" type="button" data-toggle="collapse"
+            <button class="navbar-toggler order-lg-2" type="button" data-toggle="collapse"
                 data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse order-md-3" id="navbarNavDropdown">
+            <div class="collapse navbar-collapse order-lg-3" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <th:block th:each="cate : ${rootCate.childs}">
 
