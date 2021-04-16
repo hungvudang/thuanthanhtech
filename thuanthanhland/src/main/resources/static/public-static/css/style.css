@@ -3479,9 +3479,9 @@ input[type="button"].btn-block {
 
 .dropdown-menu {
   position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1000;
+  top: 80%;
+  left: 0%;
+  z-index: 10;
   display: none;
   float: left;
   min-width: 10rem;
@@ -3495,11 +3495,6 @@ input[type="button"].btn-block {
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
-}
-
-.dropdown-menu-right {
-  right: 0;
-  left: auto;
 }
 
 .dropup .dropdown-menu {
@@ -10028,7 +10023,10 @@ header .navbar .dropdown-menu {
   -webkit-box-shadow: 0 2px 30px 0px rgba(0, 0, 0, 0.2);
   box-shadow: 0 2px 30px 0px rgba(0, 0, 0, 0.2);
   min-width: 13em;
-  margin-top: -10px;
+  /* margin-top: -10px; */
+  top: 80%;
+  left: 0%;
+  z-index: 10;
 }
 
 header .navbar .dropdown-menu:before {
